@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Model Bahasa Besar untuk Ekonomi Perilaku</title>
+<style>
+  :root {
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #2c5f7c;
+    --rule: #ccc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
+    background: #fafaf7;
+    margin: 0;
+    padding: 0;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.06);
+  }
+  .article-header {
+    border-bottom: 3px double var(--rule);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+  .article-number {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 32px;
+    line-height: 1.2;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .author {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+  .affiliation {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin: 4px 0 0;
+  }
+  h2 {
+    font-size: 22px;
+    margin: 42px 0 16px;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 18px;
+    margin: 30px 0 12px;
+  }
+  p { margin: 0 0 16px; text-align: justify; hyphens: auto; }
+  p.lead { font-size: 18px; }
+  .abstract {
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 22px 26px;
+    margin: 28px 0 36px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .abstract p:last-child { margin-bottom: 0; }
+  .pullquote {
+    font-size: 21px;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding: 6px 0 6px 22px;
+    margin: 30px 0;
+    font-weight: 600;
+  }
+  .pullquote::before { content: "\201C"; }
+  .pullquote::after { content: "\201D"; }
+  figure {
+    margin: 32px 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  figure img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+  }
+  figcaption {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 10px;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .qr-note {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 14px 18px;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .qr-note .qr-box {
+    width: 48px; height: 48px;
+    background: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0/12px 12px;
+    border: 1px solid #999;
+    flex-shrink: 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  table th {
+    background: #2c5f7c;
+    color: #fff;
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+  }
+  table td {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 12px;
+    vertical-align: top;
+  }
+  table tr:nth-child(even) td {
+    background: #f7f9fa;
+  }
+  .table-note {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: -12px 0 24px;
+  }
+  .refs {
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .refs h2 { font-size: 20px; }
+  .refs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    column-count: 2;
+    column-gap: 36px;
+  }
+  .refs li {
+    margin-bottom: 14px;
+    break-inside: avoid;
+    padding-left: 22px;
+    text-indent: -22px;
+  }
+  .author-bio {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 40px 0 24px;
+    font-size: 15.5px;
+  }
+  .author-bio h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  .end-mark {
+    text-align: center;
+    color: var(--muted);
+    letter-spacing: 6px;
+    margin: 40px 0;
+  }
+  @media (max-width: 640px) {
+    .page { padding: 30px 20px; }
+    .refs ul { column-count: 1; }
+    h1 { font-size: 26px; }
+    table { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ HEADER ============ -->
+  <header class="article-header">
+    <div class="article-number">Aplikasi</div>
+    <h1>Model Bahasa Besar untuk Ekonomi Perilaku</h1>
+    <p class="author">Siting Estee Lu</p>
+    <p class="affiliation">University of Edinburgh</p>
+  </header>
+
+  <div class="qr-note">
+    <div class="qr-box"></div>
+    <div>Pindai kode QR untuk menonton ringkasan video</div>
+  </div>
+
+  <!-- ============ INTRO ============ -->
+  <p class="lead">Kebangkitan model bahasa besar (LLM) menciptakan kemungkinan dan pertanyaan baru bagi ekonomi perilaku. Artikel ini meneliti bagaimana LLM dapat membantu peneliti mempelajari apa yang mungkin dilakukan orang, mengapa mereka melakukannya, dan bagaimana AI sendiri dapat membentuk kembali lingkungan pengambilan keputusan. Artikel ini mengembangkan kerangka konseptual di sekitar tiga peran yang saling terhubung. <em>Pertama</em>, sebagai agen ekonomi sintetis, LLM memungkinkan simulasi perilaku yang dapat diskalakan yang dapat menjadi tolok ukur teori dan pra-uji kebijakan. <em>Kedua</em>, sebagai alat pengukuran, LLM dapat mengubah teks menjadi sinyal perilaku yang lebih kaya, membantu peneliti menyimpulkan motif, persepsi, dan mekanisme kognitif di luar klasifikasi teks standar. <em>Ketiga</em>, sebagai agen interaktif, LLM semakin berpartisipasi dalam sistem pengambilan keputusan, menciptakan lingkar Manusia-AI-AI-Manusia yang membentuk kembali delegasi, kontrol, dan interaksi strategis, yang dapat mengarah pada implikasi ekonomi dan sosial yang lebih luas. Secara keseluruhan, LLM dapat melengkapi metode yang mapan untuk mempelajari perilaku, dan mereka juga menjadi bagian dari lingkungan keputusan yang ingin dijelaskan oleh ekonomi perilaku.</p>
+
+  <!-- ============ INTRODUCTION ============ -->
+  <h2>Pendahuluan</h2>
+
+  <p>Model bahasa besar (LLM) dengan cepat membentuk kembali bagaimana perilaku ekonomi dapat dipelajari, dimodelkan, dan dipengaruhi. Signifikansinya terletak pada bagaimana mereka mengubah objek inti ekonomi perilaku: agen yang kita pelajari, data yang kita amati, dan lingkungan di mana keputusan dibuat.</p>
+
+  <p>Sejumlah literatur yang berkembang memperlakukan LLM sebagai agen sintetis yang dapat ditempatkan ke dalam lingkungan ekonomi dan dipelajari melalui simulasi (Horton et al., 2023; Park et al., 2023; Hanna-Amodio et al., 2025). Peneliti juga mulai menggunakannya sebagai perangkat pengukuran yang memetakan bahasa menjadi variabel yang berguna secara analitis, memperluas pendekatan data-teks sebelumnya (Ludwig et al., 2025; Asirvatham et al., 2026). Lini kerja ketiga mempelajari LLM sebagai bagian dari sistem interaktif, di mana pengambilan keputusan dimediasi melalui pertukaran antara manusia dan agen AI (Plaat et al., 2025).</p>
+
+  <p>Artikel ini berkontribusi pada literatur yang berkembang ini dengan mengorganisasi peran LLM dalam ekonomi perilaku di sekitar tiga fungsi yang saling terhubung ini. <em>Pertama</em>, mereka dapat berfungsi sebagai agen ekonomi sintetis, mendukung pembuatan hipotesis yang dapat diskalakan tentang respons perilaku yang masuk akal. <em>Kedua</em>, mereka dapat berfungsi sebagai alat pengukuran, membantu peneliti menarik kesimpulan dari teks tentang mekanisme laten. <em>Ketiga</em>, mereka menjadi objek studi, semakin membentuk bagaimana manusia membuat keputusan di lingkungan yang dimediasi AI. Untuk mengilustrasikan peran ini, saya menyajikan mikrosimulasi di mana agen LLM menghasilkan respons yang mungkin terhadap intervensi kebijakan. Saya kemudian mendemonstrasikan bagaimana analisis teks berbasis LLM dapat menghasilkan hipotesis tentang konstruk perilaku dari ulasan konsumen. Akhirnya, saya mengkonseptualisasikan rantai keputusan Manusia-AI-AI-Manusia untuk menunjukkan bagaimana sistem agentik memperkenalkan lapisan interdependensi baru ke dalam pengambilan keputusan. Perspektif ini menunjukkan bahwa LLM adalah baik alat yang melengkapi metode yang ada maupun domain penyelidikan baru untuk mempelajari pilihan dan interaksi.</p>
+
+  <!-- ============ SYNTHETIC AGENTS ============ -->
+  <h2>LLM sebagai Agen Ekonomi Sintetis</h2>
+
+  <p>Ekonomi perilaku telah lama mengandalkan eksperimen laboratorium dan lapangan untuk menguji teori dan mempelajari pola pengambilan keputusan. Munculnya LLM memperkenalkan kelas peserta potensial yang baru: agen ekonomi sintetis.</p>
+
+  <p>Karena LLM dilatih melalui estimasi kemungkinan maksimum untuk memperkirakan distribusi kondisional teks yang dihasilkan manusia, output mereka dapat berfungsi sebagai proksi informatif untuk aspek perilaku manusia sambil tetap berbeda dari model kognisi kausal (Brown et al., 2020). Agen-agen ini dapat dipandang sebagai subjek komputasional yang responsnya mencerminkan pola kolektif, dan seringkali stereotip yang mendasarinya, yang tertanam dalam data berskala besar yang dihasilkan manusia, sehingga memungkinkan simulasi perilaku manusia (Horton et al., 2023; Park et al., 2023). Di luar menghasilkan respons perilaku potensial, karya terbaru juga menunjukkan bahwa LLM dapat berguna untuk memeriksa akal sehat ide-ide awal (Hanna-Amodio et al., 2025). Gambar 1 mengilustrasikan bagaimana LLM yang dilengkapi dengan 'persona' dapat digunakan untuk mensimulasikan respons terhadap tugas yang berbeda dan mengeksplorasi pilihan ekonomi dan reaksi kebijakan yang masuk akal.</p>
+
+  <h3>Membandingkan dengan Teori Perilaku</h3>
+
+  <p>Eksperimen dengan agen berbasis LLM menyediakan cara yang dapat diskalakan dan hemat biaya untuk membandingkan teori perilaku dan menyempurnakan prediksi. Eksperimen dengan peserta manusia sering mahal, memakan waktu, dan terbatas dalam skala, sedangkan studi komputasional yang sebanding dapat dijalankan lebih cepat dan dengan biaya lebih rendah. Peneliti dapat menghasilkan sampel sintetis yang besar, memvariasikan lingkungan secara sistematis, dan mengulang pengaturan dengan cara yang sulit dicapai di laboratorium.</p>
+
+  <blockquote class="pullquote">Eksperimen dengan agen berbasis LLM menyediakan cara yang dapat diskalakan dan hemat biaya untuk membandingkan teori perilaku dan menyempurnakan prediksi.</blockquote>
+
+  <p>Meskipun demikian, tujuannya bukan untuk mengklaim bahwa LLM dapat menggantikan peserta manusia; nilainya terletak pada membantu peneliti menghasilkan perkiraan perilaku yang dapat diskalakan. Kegunaan pendekatan ini bergantung pada seberapa dekat perilaku model selaras dengan manusia dalam tugas tertentu. Literatur yang ada melaporkan bahwa respons yang disimulasikan LLM dapat mendekati pola yang diamati dalam survei dan eksperimen (misalnya, Aher et al., 2023; Argyle et al., 2023; Dillion et al., 2023; Cui et al., 2025), menampilkan heuristik seperti aversi kerugian, efek pembingkaian, dan perilaku kepercayaan (misalnya, Suri et al., 2023; Xie et al., 2024; Bini et al., 2026). Dalam pengaturan strategis, agen LLM juga tampak menyimpang dari permainan teori permainan rasional dengan cara yang menyerupai manusia (misalnya, Guo et al., 2024; Hua et al., 2024), tetapi mereka mungkin berbeda dalam tingkat penalaran (misalnya, Lu, 2025; Costarelli et al., 2024). Tingkat keselarasan antara LLM dan perilaku manusia dapat bergantung pada pembingkaian prompt, spesifikasi persona, pengaturan model, data pelatihan, dan sebagainya. Peringatan serupa juga berlaku untuk studi subjek manusia, di mana hasil bergantung pada komposisi sampel, pembingkaian, dan desain eksperimen. Kedua pendekatan karena itu menghadapi kekhawatiran keterwakilan yang muncul dari sumber yang sedikit berbeda. Klaim sentralnya bukanlah bahwa LLM menyediakan pengganti definitif untuk eksperimen subjek manusia tetapi mereka dapat berfungsi sebagai lingkungan pengujian untuk menyelidiki teori perilaku dan menghasilkan hipotesis untuk validasi lebih lanjut.</p>
+
+  <figure>
+    <img src="figure1-lu.jpg" alt="Aplikasi LLM sebagai agen ekonomi sintetis.">
+    <figcaption><strong>Gambar 1:</strong> Aplikasi LLM sebagai agen ekonomi sintetis.</figcaption>
+  </figure>
+
+  <h3>Pra-Uji Kebijakan</h3>
+
+  <p>Salah satu aplikasi adalah pra-uji kebijakan, di mana peneliti dapat mensimulasikan bagaimana individu dengan karakteristik berbeda mungkin merespons intervensi tertentu. Sementara mikrosimulasi tradisional biasanya mengandalkan asumsi parametrik yang tetap, mikrosimulasi berbasis LLM memungkinkan agen yang dikondisikan persona untuk bernalar berdasarkan pola sosial dan ekonomi yang tertanam dalam model.</p>
+
+  <p>Dalam contoh ini, persona LLM dibangun menggunakan data Panel Study of Income Dynamics (PSID) 2023 (yaitu usia, jenis kelamin, status pekerjaan, pendapatan, dll.). Untuk transfer tunai satu kali sebesar $100 yang ditargetkan pada individu dengan pendapatan tahunan di bawah $3.000, persona diminta untuk menghasilkan prediksi konsumsi dasar, penyesuaian perilaku potensial, dan hipotesis kreatif tentang efek tambahan yang belum tertangkap. Setiap persona dapat melaporkan beberapa hipotesis. Prompt juga mengharuskan model untuk membedakan hipotesis eksploratif dari prior yang sudah mapan, dan untuk menentukan informasi input yang memotivasi konjektur tersebut. Mengingat kinerjanya yang kuat pada tolok ukur intensif penalaran, GPT-5.2 dengan intensitas penalaran sedang digunakan untuk tugas ini (OpenAI, 2025).</p>
+
+  <figure>
+    <img src="figure2-lu.jpg" alt="Dampak simulasi transfer tunai $100 untuk persona berpenghasilan rendah yang memenuhi syarat.">
+    <figcaption><strong>Gambar 2:</strong> Dampak simulasi transfer tunai $100 untuk persona berpenghasilan rendah yang memenuhi syarat.</figcaption>
+  </figure>
+
+  <p>Gambar 2 menunjukkan bahwa, secara rata-rata, 79,2% dari transfer $100 diprediksi akan berubah menjadi konsumsi, dengan sisanya ditabung. Model juga mengidentifikasi 13 kategori tematik respons perilaku yang masuk akal terhadap kebijakan tersebut. Kategori yang paling umum adalah efek intra-rumah tangga, yang mencakup berbagi sumber daya dengan anggota rumah tangga, tawar-menawar, mengurangi ketergantungan pada dukungan keluarga, dan kewajiban kepada tanggungan. Mekanisme ini konsisten dengan rumah tangga berpenghasilan rendah, di mana penggabungan pendapatan dan saling ketergantungan adalah hal umum, dan ini menunjukkan bahwa transfer dapat memengaruhi seluruh keluarga daripada hanya penerima, sehingga menurunkan perubahan prediksi dalam konsumsi individu.</p>
+
+  <p>Kerangka ini juga dapat menghasilkan wawasan pada ambang kebijakan. Untuk persona pada batas kelayakan (Tabel 1), model memprediksi tidak ada perubahan konsumsi langsung tetapi menyoroti respons perilaku potensial, termasuk <em>threshold bunching</em>, di mana individu mungkin memiliki insentif untuk mengurangi pendapatan, jam kerja, atau pendapatan yang dilaporkan agar memenuhi syarat untuk transfer (misalnya, Saez, 2010; Kleven, 2016); <em>gesekan administratif</em>, di mana seseorang mungkin menghadapi hambatan prosedural saat mencoba memenuhi syarat (misalnya, Bearson &amp; Sunstein, 2025); <em>pengaturan ulang waktu pendapatan</em>, di mana pendapatan dipindahkan antar periode untuk memengaruhi kelayakan tanpa perubahan nyata dalam penawaran tenaga kerja (Miller et al., 2024); dan <em>penyesuaian kerja terkait kesehatan buruk</em>, baik meningkatkan kemungkinan pengurangan jam kerja atau membatasi kemampuan individu untuk merespons secara strategis terhadap implementasi kebijakan.</p>
+
+  <p>Dengan menanyakan persona LLM sebagai entitas yang bernalar, peneliti dapat mengeksplorasi saluran perilaku mana yang kemungkinan diaktifkan di bawah suatu kebijakan dan memprioritaskan mekanisme untuk analisis lebih lanjut.</p>
+
+  <p><strong>Tabel 1: Mikrosimulasi Kebijakan LLM (GPT-5.2): Hipotesis Kreatif untuk Persona Ambang Tidak Memenuhi Syarat</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Kategori</th>
+        <th>Saluran</th>
+        <th>Penalaran</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Threshold bunching</td>
+        <td>Pendapatan/ pelaporan pendapatan</td>
+        <td>Batas yang ketat dapat memberi insentif untuk (i) mengurangi jam kerja sedikit, (ii) melaporkan pendapatan di bawah standar agar memenuhi syarat, atau (iii) mengklasifikasi ulang pendapatan agar memenuhi kelayakan. Efek konsumsi ambigu, pendapatan lebih rendah dapat mengurangi konsumsi, tetapi memenuhi syarat menambah $100.</td>
+      </tr>
+      <tr>
+        <td>Gesekan administratif</td>
+        <td>Respons pengambilan</td>
+        <td>Proses mengubah pendapatan yang dilaporkan atau mendokumentasikan kelayakan dapat menimbulkan biaya waktu/atensi yang mengurangi upaya untuk memenuhi syarat. Tanpa gelar sarjana dan kesehatan buruk dapat menciptakan inersia tambahan.</td>
+      </tr>
+      <tr>
+        <td>Pengaturan ulang waktu pendapatan sepanjang tahun</td>
+        <td>Pelaporan pendapatan</td>
+        <td>Seseorang mungkin mencoba menggeser waktu pendapatan agar tercatat di bawah $3.000 untuk menjadi memenuhi syarat.</td>
+      </tr>
+      <tr>
+        <td>Penyesuaian kerja terkait kesehatan</td>
+        <td>Penawaran tenaga kerja</td>
+        <td>Kesehatan buruk dapat menyebabkan pengurangan jam kerja yang terputus-putus; berada tepat di $3.000 dapat membuat pengurangan tersebut lebih mungkin dipertahankan. ATAU Kesehatan buruk dapat membatasi kemampuan individu untuk melakukan penyesuaian agar memenuhi kriteria kelayakan.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="table-note"><em>Catatan:</em> Prompt persona: "Pria berusia 41 tahun yang saat ini bekerja dengan pendapatan tahunan $3.000. Pendidikan: Tanpa gelar sarjana. Kesehatan: Kesehatan buruk. Peran: lainnya." Output dihasilkan oleh GPT-5.2 (upaya = sedang). Prompt dijalankan lima kali untuk menangkap variasi respons.</p>
+
+  <p>Latihan ini menggambarkan potensi mikrosimulasi berbasis LLM sebagai alat penghasil hipotesis. Dengan menanyakan persona LLM sebagai entitas yang bernalar, peneliti dapat mengeksplorasi saluran perilaku mana yang kemungkinan diaktifkan di bawah suatu kebijakan dan memprioritaskan mekanisme untuk analisis lebih lanjut. Ini juga dapat diskalakan secara komputasional. Setelah persona dan prompt ditentukan, output terstruktur dapat dihasilkan dengan cepat.</p>
+
+  <h3>Interaksi Multi-Agen: Dari Individu ke Laboratorium Sosial</h3>
+
+  <p>Sementara pengambilan keputusan individu adalah fondasi ekonomi perilaku, memahami interaksi strategis dan dinamika kolektif sama pentingnya. Ekstensi alami adalah menskalakan LLM dari agen tunggal ke populasi yang berinteraksi, mengubah eksperimen tingkat mikro menjadi laboratorium sosial sintetis (Manning &amp; Horton, 2026).</p>
+
+  <p>Ini terhubung langsung ke pemodelan berbasis agen (ABM) (Gao et al., 2024), yang biasanya bergantung pada aturan yang dikodekan secara manual yang membatasi kekayaan perilaku, sedangkan agen LLM dapat menafsirkan konteks dan merespons lingkungan mereka dengan lebih fleksibel. Ketika didasarkan pada data persona nyata, mereka menyediakan kotak pasir praktis untuk mendukung bentuk pemodelan sosial yang lebih organik. Karya terbaru menyoroti bahwa interaksi berulang di antara agen LLM dapat menghasilkan konvensi bersama, koordinasi spontan, dan struktur jaringan yang muncul (Ashery et al., 2025).</p>
+
+  <p>Platform agen AI yang muncul semakin mengilustrasikan potensi ini. Moltbook, platform sosial mirip Reddit di mana agen AI berinteraksi sementara manusia sebagian besar mengamati, telah menarik perhatian karena perilaku yang tampak muncul, termasuk munculnya 'Crustafarianism'—teologi bertema lobster (Moltbook-AI.com, 2026; Koetsier, 2026). Meskipun beberapa 'fenomena budaya' ini mungkin dipengaruhi oleh prompting manusia daripada sepenuhnya otonom, lingkungan semacam itu tetap berharga sebagai tempat uji untuk mempelajari koordinasi, pembentukan norma, dan perilaku pengelompokan. Munculnya aplikasi untuk agen AI, seperti Moltbook.dating (Moltbook Dating, 2026), juga menciptakan peluang lebih lanjut untuk mempelajari perilaku platform dengan cara yang dapat menginformasikan desain pasar.</p>
+
+  <!-- ============ LANGUAGE ANALYSIS ============ -->
+  <h2>Alat Baru untuk Analisis Berbasis Bahasa</h2>
+
+  <p>Ekonomi perilaku selalu terkait erat dengan bahasa: melalui bahasa, preferensi dibenarkan, keyakinan diungkapkan, dan tawar-menawar serta persuasi terjadi. LLM menyediakan cara baru untuk memperlakukan bahasa sebagai objek yang terukur, yang dapat mengungkap niat, tujuan yang mendasarinya, konstruk psikologis, sentimen politik, dan model mental laten (misalnya, Demszky et al., 2023; Debelak et al., 2025; Zhu et al., 2025; Gonzalez-Fernandez et al., 2026; Asirvatham et al., 2026).</p>
+
+  <h3>Teks-sebagai-Data</h3>
+
+  <p>Dalam banyak pengaturan perilaku, konstruk kunci seperti niat dan persepsi hanya sebagian terungkap melalui tindakan yang diamati. Metode elisitasi keyakinan tradisional, termasuk survei dan pelaporan berinsentif, tetap berharga tetapi bergantung pada laporan diri yang eksplisit. Dengan semakin tersedianya data teks dan kemajuan dalam pemodelan bahasa, peneliti dapat menggunakan penjelasan, penalaran, dan komunikasi sebagai sumber bukti tambahan tentang keadaan mental yang mendasarinya.</p>
+
+  <p>Pendekatan teks-sebagai-data ini dapat dipahami melalui pemetaan sederhana:</p>
+
+  <p style="text-align:center; font-weight:600; color:#2c5f7c;">Bahasa → Indikator Kognitif yang Disimpulkan → Keyakinan → Pilihan Strategis</p>
+
+  <p>Indikator kognitif dapat mencakup aversi kerugian, bias masa kini, dan preferensi sosial. Bahasa tidak secara sempurna mengungkap konstruk ini, tetapi ia dapat memberikan sinyal informatif, dan LLM dapat berfungsi sebagai pengkode perilaku terstruktur, membantu peneliti menafsirkan mengapa suatu ucapan dibingkai dengan cara tertentu, motif apa yang mungkin tersirat, dan bias apa yang mungkin tercermin. Ini dapat meningkatkan pemahaman kita tentang jalur di mana keputusan dan perilaku strategis muncul.</p>
+
+  <h3>Studi Ulasan</h3>
+
+  <p>Saya menerapkan saluran pengukuran berbasis bahasa yang sederhana pada ulasan Yelp (Yelp Inc., 2026). Saya membandingkan pengklasifikasi sentimen konvensional (BERT, nlptown) dengan GPT-5.2 untuk menunjukkan bagaimana LLM dapat melengkapi pelabelan valensi standar dengan menghasilkan hipotesis tentang niat, pembingkaian, dan bias kognitif.</p>
+
+  <p>Tabel 2 melaporkan prediksi sentimen dari kedua model. Perbedaan antara prediksi model dan peringkat bintang sebenarnya tidak selalu merupakan kesalahan prediksi. Teks ulasan sering mengandung lebih banyak informasi daripada peringkat bintang, yang dipadatkan menjadi satu kategori; oleh karena itu, prediksi berbasis teks dapat menyimpang secara wajar. Kedua model secara luas setuju pada kasus yang jelas positif dan negatif, tetapi kurang setuju pada label netral. Ini menunjukkan bahwa beberapa ulasan netral mungkin membawa kecenderungan positif atau negatif, dan model dapat berbeda dalam sensitivitas mereka terhadap isyarat tersebut. Misalnya, meskipun BERT mengklasifikasikan Ulasan 1 dan 5 sebagai netral, GPT-5.2 tampaknya memberikan bobot lebih besar pada keluhan berulang tentang waktu tunggu daripada pujian untuk makanan di Ulasan 1; dan di Ulasan 5, GPT-5.2 menetapkan label positif, mencerminkan penekanan yang tampak pada kualitas produk dan niat pengulas untuk kembali. Ini menunjukkan bahwa interpretasi berbasis LLM mungkin lebih sensitif terhadap isyarat arah yang tertanam dalam ulasan campuran.</p>
+
+  <p><strong>Tabel 2: Klasifikasi Sentimen: BERT (nlptown) vs. LLM (GPT-5.2)</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Bintang Aktual</th>
+        <th>Label BERT</th>
+        <th>Skor BERT</th>
+        <th>Label LLM</th>
+        <th>Keyakinan LLM</th>
+        <th>Kutipan Ulasan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>3</td>
+        <td>Netral</td>
+        <td>0,51</td>
+        <td>Negatif</td>
+        <td>0,78</td>
+        <td>"...Makanannya enak, tetapi butuh waktu sangat lama untuk keluar... Kami biasanya memilih restoran atau tempat makan lain pada akhir pekan, agar bisa selesai lebih cepat."</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>5</td>
+        <td>Positif</td>
+        <td>0,58</td>
+        <td>Positif</td>
+        <td>0,98</td>
+        <td>"...tidak ada yang menandingi kelas di Body Cycle... setiap kelas adalah latihan kelas atas..."</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>3</td>
+        <td>Positif</td>
+        <td>0,95</td>
+        <td>Positif</td>
+        <td>0,90</td>
+        <td>"...Staf yang ramah dan penuh perhatian. Tempat yang bagus untuk makan santai tanpa ekspektasi..."</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>Positif</td>
+        <td>0,99</td>
+        <td>Positif</td>
+        <td>0,96</td>
+        <td>"Wow! Lezat, berbeda, enak... masuk dan coba sesuatu yang baru!"</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>4</td>
+        <td>Netral</td>
+        <td>0,44</td>
+        <td>Positif</td>
+        <td>0,88</td>
+        <td>"...Keju curd sangat enak dan sangat mengenyangkan... Ingin melihat lebih banyak opsi menu... Lain kali saya akan mencoba salah satu anggur draft."</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>1</td>
+        <td>Negatif</td>
+        <td>0,63</td>
+        <td>Negatif</td>
+        <td>0,98</td>
+        <td>"Saya pelanggan tetap jangka panjang... diberitahu bahwa mereka terlalu sibuk untuk melakukannya... tempatnya mungkin paling banyak setengah penuh... TIDAK akan pernah kembali!"</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>5</td>
+        <td>Positif</td>
+        <td>0,998</td>
+        <td>Positif</td>
+        <td>0,97</td>
+        <td>"Sangat menyukai tur ini!... Ini adalah cara sempurna untuk menjelajahi New Orleans... Tur ini adalah salah satu bagian favorit saya dari perjalanan saya!"</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>5</td>
+        <td>Positif</td>
+        <td>0,995</td>
+        <td>Positif</td>
+        <td>0,98</td>
+        <td>"Sayap yang luar biasa dan keju biru buatan sendiri... AKAN sangat merekomendasikan untuk mencoba permata tersembunyi ini."</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>3</td>
+        <td>Negatif</td>
+        <td>0,51</td>
+        <td>Negatif</td>
+        <td>0,90</td>
+        <td>"...staf perlu bekerja keras untuk menjaga hutan ini tetap cantik dan tidak seperti tempat sampah. Bahkan Cachuma Lake tampak seperti mereka menaruh sedikit lebih banyak usaha."</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>3</td>
+        <td>Netral</td>
+        <td>0,43</td>
+        <td>Negatif</td>
+        <td>0,86</td>
+        <td>"...Pelayanan mencurigakan, makanan cukup enak... untuk uangnya saya tidak akan kembali."</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="table-note"><em>Catatan:</em> Model BERT: nlptown/bert-base-multilingual-uncased-sentiment, disetel halus pada ~629.000 ulasan produk dalam 6 bahasa (Hugging Face, 2026). Peringkat bintang: 1–2 bintang ≡ Negatif, 3 bintang ≡ Netral, 4–5 bintang ≡ Positif. Skor BERT: probabilitas label yang diprediksi (0,00–1,00). Model LLM: GPT-5.2 (upaya = sedang). Keyakinan LLM: skor keyakinan yang dihasilkan model untuk label sentimen yang ditetapkan (0,00–1,00). Kutipan ulasan dari Yelp (Yelp Inc., 2026).</p>
+
+  <p>Ketika diperluas ke 100 ulasan (Gambar 3), kedua model menghasilkan distribusi sentimen yang mendekati peringkat bintang aktual. Sensitivitas GPT-5.2 terhadap kecenderungan arah ulasan netral kurang menonjol, tetapi ketidaksepakatan model tetap terkonsentrasi di kategori menengah—sekali lagi menunjukkan perbedaan model dalam mengevaluasi ulasan yang lebih ambigu.</p>
+
+  <figure>
+    <img src="figure3-lu.jpg" alt="Analisis sentimen: Aktual vs. BERT vs. GPT-5.2, jumlah dan kesepakatan.">
+    <figcaption><strong>Gambar 3:</strong> Analisis sentimen: Aktual vs. BERT vs. GPT-5.2, jumlah dan kesepakatan.</figcaption>
+  </figure>
+
+  <p>Karena BERT digunakan terutama sebagai model klasifikasi sentimen dan tidak menjelaskan bagaimana label terbentuk, atau mekanisme perilaku apa yang mungkin mendasari ulasan, GPT-5.2, sebagai model bahasa generatif, dapat sebaliknya diminta untuk menghasilkan interpretasi tekstual yang lebih kaya. Karena itu, saya meminta GPT-5.2 untuk mengekstrak tiga konstruk perilaku dan memberikan penjelasan teks bebas: (i) <em>Niat</em>. Berdasarkan Speech Act Theory (Austin, 1962; Searle, 1969), ini menangkap apa yang coba dilakukan pengulas. (ii) <em>Pembingkaian</em>. Berdasarkan Framing Theory (Entman, 1993; Goffman, 1974), ini mengklasifikasikan bagaimana pengalaman dipersepsikan. (iii) <em>Bias Kognitif</em>. Menggunakan teori keputusan perilaku (Kahneman &amp; Tversky, 1979), ini mengidentifikasi heuristik yang mungkin membentuk bagaimana pengulas menafsirkan peristiwa. Saya juga meminta dua ukuran berorientasi hasil: <em>Pengaruh</em>, dampak yang mungkin pada keputusan kunjungan calon pelanggan; dan <em>Retensi</em>, kemungkinan pengulas kembali.</p>
+
+  <p>Seperti diilustrasikan dalam Tabel 3, Ulasan 3 diklasifikasikan sebagai positif oleh kedua model meskipun peringkat 3 bintangnya. GPT-5.2 mengaitkannya dengan isyarat positif yang menonjol, khususnya item prasmanan dan kesan staf. Ulasan 10 diklasifikasikan sebagai netral oleh BERT tetapi negatif oleh GPT-5.2, dengan yang terakhir menekankan kegagalan layanan dan niat eksplisit pengulas untuk tidak kembali. Contoh-contoh ini menunjukkan bahwa, sementara pengklasifikasi standar mengidentifikasi valensi, LLM dapat mendukung kesimpulan tentang konstruk perilaku laten yang mungkin mendorong label sentimen dan efek hilirnya, seperti pergeseran permintaan, kaskade reputasi, dan respons perusahaan.</p>
+
+  <blockquote class="pullquote">Sementara pengklasifikasi standar mengidentifikasi valensi, LLM dapat mendukung kesimpulan tentang konstruk perilaku laten yang mungkin mendorong label sentimen dan efek hilirnya.</blockquote>
+
+  <p><strong>Tabel 3: Klasifikasi Konstruk Perilaku LLM (GPT-5.2)</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Bintang</th>
+        <th>Niat</th>
+        <th>Pembingkaian</th>
+        <th>Bias Kognitif</th>
+        <th>Pengaruh</th>
+        <th>Retensi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>3</td>
+        <td>Memperingatkan &amp; Menasihati (keyakinan = 0,88)</td>
+        <td>Waktu &amp; Efisiensi (0,93)</td>
+        <td>Penalaran Biaya Terbenam (0,74)</td>
+        <td>Tinggi</td>
+        <td>Tidak Mungkin</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>5</td>
+        <td>Merayakan &amp; Menganjurkan (0,95)</td>
+        <td>Waktu &amp; Efisiensi (0,78)</td>
+        <td>Efek Halo (0,72)</td>
+        <td>Tinggi</td>
+        <td>Mungkin</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>3</td>
+        <td>Memperingatkan &amp; Menasihati (0,72)</td>
+        <td>Lainnya: Penetapan ekspektasi (0,74)</td>
+        <td>Heuristik Ketersediaan (0,58)</td>
+        <td>Sedang</td>
+        <td>Mungkin</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>Merayakan &amp; Menganjurkan (0,93)</td>
+        <td>Lainnya: Kebaruan &amp; penemuan (0,78)</td>
+        <td>Efek Halo (0,72)</td>
+        <td>Tinggi</td>
+        <td>Mungkin</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>4</td>
+        <td>Merayakan &amp; Menganjurkan (0,74)</td>
+        <td>Lainnya: Pengalaman produk &amp; variasi menu (0,76)</td>
+        <td>Efek Halo (0,62)</td>
+        <td>Sedang</td>
+        <td>Mungkin</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>1</td>
+        <td>Membalas &amp; Menghukum (0,93)</td>
+        <td>Loyalitas &amp; Sejarah (0,91)</td>
+        <td>Pelanggaran Timbal Balik (0,89)</td>
+        <td>Tinggi</td>
+        <td>Tidak Mungkin</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>5</td>
+        <td>Merayakan &amp; Menganjurkan (0,92)</td>
+        <td>Nilai Uang (0,78)</td>
+        <td>Efek Halo (0,72)</td>
+        <td>Tinggi</td>
+        <td>Mungkin</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>5</td>
+        <td>Merayakan &amp; Menganjurkan (0,96)</td>
+        <td>Lainnya: Fokus produk/kualitas (0,76)</td>
+        <td>Efek Halo (0,71)</td>
+        <td>Tinggi</td>
+        <td>Mungkin</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>3</td>
+        <td>Menuntut Akuntabilitas (0,86)</td>
+        <td>Pemulihan (0,62)</td>
+        <td>Perbandingan Sosial (0,78)</td>
+        <td>Tinggi</td>
+        <td>Tidak Mungkin</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>3</td>
+        <td>Memperingatkan &amp; Menasihati (0,82)</td>
+        <td>Nilai Uang (0,90)</td>
+        <td>Heuristik Ketersediaan (0,63)</td>
+        <td>Tinggi</td>
+        <td>Tidak Mungkin</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="table-note"><em>Catatan:</em> Skor keyakinan (0,00–1,00): 0,90–1,00 = tidak ambigu, 0,70–0,89 = didukung dengan baik, 0,50–0,69 = ambigu, &lt;0,50 = tidak jelas.</p>
+
+  <p>Saluran yang sama dapat diterapkan pada bentuk teks lain yang terjadi secara alami, yang sangat relevan untuk masalah kebijakan yang melibatkan pengungkapan informasi institusional, interpretasi individu, dan penyesuaian perilaku. Dalam pengaturan semacam itu, LLM dapat membantu mengantisipasi respons terhadap pengumuman kebijakan dengan mengidentifikasi kerangka linguistik mana yang kemungkinan mengaktifkan mekanisme perilaku tertentu.</p>
+
+  <!-- ============ HUMAN-AI-AI-HUMAN ============ -->
+  <h2>Interaksi Manusia-AI-AI-Manusia</h2>
+
+  <p>Ketika sistem AI semakin tertanam dalam alur kerja sehari-hari, interaksi manusia-AI bergeser dari pertukaran pertanyaan-respons menjadi sistem berlapis-lapis. Memahami rantai keputusan yang lebih luas karena itu penting untuk menafsirkan bagaimana perilaku berubah ketika keputusan semakin dimediasi oleh sistem AI.</p>
+
+  <h3>Pergeseran Agentik</h3>
+
+  <p>Di luar interaksi prompt-dan-respons yang sederhana, pergeseran yang lebih luas menuju AI agentik sedang berlangsung. Dalam paradigma ini, manusia mengeluarkan tujuan tingkat tinggi, dan sistem AI menjalankan tugas dengan berbagai tingkat otonomi. Alat seperti Claude Code mencontohkan pergeseran ini, di mana sistem menerima tujuan, lalu merencanakan, mengkode, menguji, dan mengulang dengan pengawasan terbatas. Pola serupa muncul di domain lain. OpenClaw, misalnya, adalah kerangka sumber terbuka untuk membangun agen bertenaga LLM yang dapat merencanakan dan menjalankan tugas multi-langkah dengan otonomi yang relatif tinggi (OpenClaw, 2026).</p>
+
+  <p>Pergeseran ini mengubah masalah perilaku. Dalam pengaturan 'manusia vs. algoritma' sebelumnya, individu mengevaluasi kualitas rekomendasi dalam sistem agentik; namun, pengguna sebaliknya menilai apakah AI dapat menafsirkan instruksi, menghormati kendala, dan menjalankan tugas dengan andal atas nama mereka. Persoalannya karena itu bukan lagi apakah sarannya benar, tetapi seberapa banyak otoritas yang harus didelegasikan dan apakah eksekusi yang didelegasikan tetap selaras dengan tujuan pengguna.</p>
+
+  <blockquote class="pullquote">Di luar interaksi prompt-dan-respons yang sederhana, pergeseran yang lebih luas menuju AI agentik sedang berlangsung.</blockquote>
+
+  <p>Ini juga dibangun di atas karya yang ada tentang aversi dan apresiasi AI, di mana kesediaan untuk mengandalkan AI sering diperlakukan sebagai variabel laten yang disimpulkan dari keyakinan atau preferensi yang dinyatakan. Individu dapat menunjukkan aversi ketika AI menimbulkan kekhawatiran tentang hilangnya agensi manusia atau kesalahan berisiko tinggi yang mungkin terjadi, dan apresiasi ketika AI mengurangi beban kognitif, mempercepat tugas, atau menawarkan wawasan baru (misalnya, Jussupow et al., 2024; de Jong et al., 2025; Rosenberger et al., 2025; Feier, 2024). Dalam sistem agentik, sikap ini menjadi lebih langsung dapat diamati melalui pilihan delegasi, termasuk seberapa banyak otonomi yang diberikan pengguna dan di mana mereka mempertahankan pengawasan.</p>
+
+  <figure>
+    <img src="figure4-lu.jpg" alt="Delegasi tugas.">
+    <figcaption><strong>Gambar 4:</strong> Delegasi tugas.</figcaption>
+  </figure>
+
+  <p>Gambar 4 menyajikan profil delegasi tugas berdasarkan pengalaman yang dilaporkan (Petrusenko, 2026). Penyaringan informasi adalah kasus penggunaan yang paling umum, mencakup tugas-tugas yang relatif pasif seperti ringkasan harian dan ringkasan jadwal yang mengurangi kelebihan informasi (Turing College, 2026). Tingkat kedua mencakup penyusunan, produksi kreatif, dan pengkodean, biasanya dengan tinjauan dan persetujuan human-in-the-loop (HITL). Tingkat ketiga melibatkan eksekusi yang lebih otonom, seperti negosiasi kesepakatan dan perdagangan keuangan (Stuyvenberg, 2026; Down, 2026). Ini mengilustrasikan spektrum delegasi yang bergantung pada tugas, di mana pengguna mungkin lebih bersedia mengotomatiskan tugas berisiko rendah daripada eksekusi berisiko tinggi.</p>
+
+  <h3>Rantai Keputusan Manusia-AI-AI-Manusia</h3>
+
+  <p>Karya yang ada sering mempelajari interaksi manusia-AI (misalnya, Jussupow et al., 2024; de Jong et al., 2025) dan interaksi AI-AI (misalnya, Horton et al., 2023; Park et al., 2023) secara terpisah. Namun, dalam praktiknya, interaksi-interaksi ini semakin terhubung, dan memahami rantai keputusan Manusia-AI-AI-Manusia dari ujung ke ujung membantu menjelaskan bagaimana informasi ditransformasikan antar agen dan bagaimana interaksi yang dimediasi AI dapat beragregasi menjadi hasil ekonomi dan sosial yang lebih luas.</p>
+
+  <figure>
+    <img src="figure5-lu.jpg" alt="Konseptualisasi rantai keputusan Manusia-AI-AI-Manusia.">
+    <figcaption><strong>Gambar 5:</strong> Konseptualisasi rantai keputusan Manusia-AI-AI-Manusia.</figcaption>
+  </figure>
+
+  <p>Gambar 5 mengilustrasikan empat lapisan rantai keputusan:</p>
+
+  <p><strong>Manusia → AI:</strong> Ini menangkap seberapa tepat individu memahami tugas dan mengomunikasikan instruksi, seberapa banyak otoritas yang mereka delegasikan, dan bagaimana AI menafsirkan tujuan. Elemen-elemen ini dapat diringkas sebagai sinyal input, x<sub>t</sub>.</p>
+
+  <p><strong>AI ↔ AI:</strong> Ini terhubung ke diskusi sebelumnya tentang agen ekonomi sintetis dan berfokus pada perilaku emergen mereka yang muncul dari berbagi instruksi dan transmisi informasi. Satu agen mengubah input menjadi sinyal perantara, s<sub>t1t</sub>, dan agen berikutnya memproses atau menjalankan tugas untuk menghasilkan s<sub>t2t</sub>. Output setiap agen dibentuk oleh Θ<sub>1</sub>-nya, yang mendefinisikan bobot model, prompt sistem, dan aturan operasi. Melalui interaksi berulang, agen dapat memengaruhi satu sama lain, menghasilkan output yang muncul dari proses iteratif atau titik tetap.</p>
+
+  <p><strong>AI → Manusia:</strong> Output dari interaksi AI, s<sub>t2t</sub>, dikembalikan ke pengguna atau ditransmisikan ke pengguna lain, membentuk pilihan berikutnya. Keadaan manusia yang diperbarui direpresentasikan oleh h<sub>t+1</sub>.</p>
+
+  <p><strong>Manusia → Efek Agregat:</strong> Interaksi Manusia-Manusia semakin melibatkan pesan yang dihasilkan AI, rencana yang disarankan AI, dan tindakan yang dijalankan AI. Ketika interaksi ini terakumulasi, mereka dapat membentuk dinamika populasi dan hasil ekonomi, S<sub>t+1</sub>.</p>
+
+  <p>Kerangka ini mengkonseptualisasikan rantai pengambilan keputusan yang dimediasi AI sebagai sistem transformasi sinyal multi-tahap. Ini juga terhubung langsung ke pergeseran agentik. Ketika manusia memposisikan diri di batas setiap node, mengambil peran pengawasan atas saluran yang dimediasi AI dan memilih tingkat delegasi dan pengawasan yang berbeda, mereka berinteraksi dengan orang lain yang dibentuk oleh saluran serupa, dengan tujuan dan prompt yang berpotensi berbeda. Akibatnya, lokus interaksi bergeser, dalam arti bahwa hasil manusia tidak lagi hanya dipengaruhi oleh pertukaran Manusia-Manusia langsung tetapi juga oleh perilaku emergen yang muncul di antara agen AI, yang dapat memengaruhi jaringan yang lebih luas. Shapira et al. (2026) memberikan contoh masalah ini. Mereka menyebarkan agen LLM otonom di lingkungan langsung dengan memori persisten dan akses ke email dan file. Selama dua minggu, 20 peneliti AI berinteraksi dengan enam agen. Agen otonom ditemukan menunjukkan kegagalan seperti salah mengidentifikasi otoritas, mengikuti instruksi yang salah, dan menyebarkan kesalahan. Meskipun studi ini terutama menangkap bagian Manusia-AI-AI dari rantai, kegagalan agen juga dapat memengaruhi interaksi AI-Manusia dan Manusia-Manusia yang dimediasi hilir. Memahami jalur transmisi ini penting untuk menilai dampak yang lebih luas dan untuk merancang teknologi mitigasi untuk mengurangi kegagalan berjenjang dalam sistem keputusan yang dimediasi AI.</p>
+
+  <p>Lingkar interaksi ini terhubung kembali ke diskusi sebelumnya tentang LLM sebagai agen ekonomi sintetis dan alat pengukuran. Dalam simulasi kebijakan, perilaku biasanya dimodelkan sebagai respons terhadap input yang diberikan. Namun, dalam pengaturan yang dimediasi AI, sinyal kebijakan dapat disaring, diubah, dan ditindaklanjuti oleh sistem AI sebelum memengaruhi hasil. Oleh karena itu, simulasi yang memperlakukan pengambil keputusan sebagai agen yang terisolasi mungkin melewatkan dinamika penting yang muncul dari delegasi dan interaksi multi-agen. Demikian pula, untuk pengukuran, output yang diamati mungkin tidak lagi secara langsung mencerminkan niat manusia yang mendasarinya tetapi sebaliknya bercampur dengan sinyal yang dimediasi AI. Membedakan antara preferensi pengguna dan transformasi sistem menjadi tantangan penting. Kerangka Manusia-AI-AI-Manusia menunjukkan cara untuk menafsirkan perilaku yang diamati ketika sistem AI tertanam dalam proses keputusan. Ini memperluas pertanyaan perilaku klasik ke paradigma baru, di mana pengambilan keputusan dibentuk oleh baik penilaian manusia maupun sistem melalui mana manusia bertindak.</p>
+
+  <!-- ============ CONCLUSION ============ -->
+  <h2>Kesimpulan</h2>
+
+  <p>Artikel ini menawarkan kerangka untuk menempatkan LLM dalam ekonomi perilaku sebagai subjek eksperimental, perangkat pengukuran, dan komponen sistem keputusan yang dimediasi AI. Ini menyoroti bagaimana LLM dapat mendukung eksplorasi mekanisme, memperkaya interpretasi sinyal perilaku, dan membuka pertanyaan baru tentang interaksi antara manusia dan agen AI. Contoh-contoh dalam artikel ini bersifat ilustratif, tetapi mereka menunjukkan bagaimana LLM dapat memperluas baik lingkup metodologis maupun teoretis ekonomi perilaku.</p>
+
+  <p>Namun, tantangan penting tetap ada. Output LLM mungkin mendekati respons yang dinyatakan dan menyarankan mekanisme yang masuk akal, tetapi hasilnya dapat bergantung pada desain prompt, pilihan model, pengaturan pengambilan sampel, dan sejauh mana perilaku yang relevan terwakili dalam data pelatihan. Model yang lebih besar dan lebih mumpuni dapat meningkatkan cakupan dan penalaran, tetapi mereka tidak menghilangkan kekhawatiran tentang keterwakilan. Simulasi berbasis LLM karena itu paling baik dipandang sebagai alat yang dapat diskalakan untuk penemuan mekanisme dan pembuatan hipotesis. Nilainya kemungkinan akan diperkuat ketika dipasangkan dengan validasi eksplisit atau perbandingan terhadap data manusia, terutama ketika menilai dampak sosial dan kebijakan (Hullman et al., 2026).</p>
+
+  <p>Karya di masa depan dapat lebih mengembangkan strategi prompting yang kaya konteks dan protokol evaluasi yang lebih jelas untuk menilai kapan bukti berbasis LLM informatif (Anthis et al., 2025). Secara lebih luas, ekonomi perilaku dapat memperluas teorinya ke pengaturan di mana sistem AI menjadi peserta aktif dalam lingkungan ekonomi. Melakukan hal ini diperlukan untuk memahami bagaimana pilihan, perilaku strategis, dan desain institusional dibentuk kembali ketika pengambilan keputusan semakin dimediasi oleh agen cerdas.</p>
+
+  <!-- ============ ONLINE APPENDIX ============ -->
+  <h2>Lampiran Daring</h2>
+
+  <p>Pesan prompt yang digunakan dalam contoh ilustratif untuk pra-uji kebijakan dan studi ulasan tersedia di GitHub.</p>
+
+  <!-- ============ AUTHOR BIO ============ -->
+  <div class="author-bio">
+    <h3>Tentang Penulis</h3>
+    <p>Siting Estee Lu adalah stipendiary fellow di University of Edinburgh. Penelitiannya mencakup ekonomi perilaku, teori permainan, desain pasar, dan model bahasa besar (LLM) dalam ekonomi. Ia mempelajari bagaimana kognisi dan pembelajaran yang tidak sempurna membentuk pengambilan keputusan dan hasil pasar pencocokan, dan ia juga memeriksa bagaimana LLM berkinerja dalam permainan ekonomi, termasuk beauty contests, lelang, dan permainan cheap talk. Sebelum memasuki dunia akademis, ia bekerja di bidang kebijakan dan industri, sebagai analis fiskal di Scottish Fiscal Commission, dan sebagai analis pasar di Big Data and AI/Cognitive Computing Research di International Data Corporation. Ia memegang BSc Honours in Economics dari National University of Singapore, serta MSc dan PhD in Economics dari University of Edinburgh.</p>
+  </div>
+
+  <!-- ============ REFERENCES ============ -->
+  <div class="refs">
+    <h2>Referensi</h2>
+    <ul>
+      <li>Aher, G. V., Arriaga, R. I., &amp; Kalai, A. T. (2023). Using large language models to simulate multiple humans and replicate human subject studies. <em>Proceedings of the 40th International Conference on Machine Learning, Proceedings of Machine Learning Research, 202</em>, 337–371. https://proceedings.mlr.press/v202/aher23a.html</li>
+      <li>Anthis, J. R., Liu, R., Richardson, S. M., Kozlowski, A. C., Koch, B., Evans, J., Brynjolfsson, E., &amp; Bernstein, M. (2025). LLM social simulations are a promising research method. arXiv. https://doi.org/10.48550/arXiv.2504.02234</li>
+      <li>Argyle, L. P., Busby, E. C., Fulda, N., Gubler, J. R., Rytting, C., &amp; Wingate, D. (2023). Out of one, many: Using language models to simulate human samples. <em>Political Analysis, 31</em>(3), 337–355. https://doi.org/10.1017/pan.2023.2</li>
+      <li>Asirvatham, S., et al. (2026). [Dikutip dalam teks.]</li>
+      <li>Ashery, A., et al. (2025). [Dikutip dalam teks.]</li>
+      <li>Austin, J. L. (1962). <em>How to do things with words</em>. Oxford University Press.</li>
+      <li>Bearson, D., &amp; Sunstein, C. R. (2025). [Dikutip dalam teks.]</li>
+      <li>Bini, S., et al. (2026). [Dikutip dalam teks.]</li>
+      <li>Brown, T. B., et al. (2020). Language models are few-shot learners. <em>Advances in Neural Information Processing Systems, 33</em>, 1877–1901.</li>
+      <li>Costarelli, A., et al. (2024). [Dikutip dalam teks.]</li>
+      <li>Cui, Z., Li, N., &amp; Zhou, H. (2024). Can large language models replace human subjects? A large-scale replication of scenario-based experiments. arXiv. https://arxiv.org/abs/2409.00128</li>
+      <li>Cui, Z., et al. (2025). [Dikutip dalam teks.]</li>
+      <li>de Jong, et al. (2025). [Dikutip dalam teks.]</li>
+      <li>Debelak, R., et al. (2025). [Dikutip dalam teks.]</li>
+      <li>Demszky, D., et al. (2023). Using large language models in psychology. <em>Nature Reviews Psychology, 2</em>, 688–701.</li>
+      <li>Dillion, D., Tandon, N., Gu, Y., &amp; Gray, K. (2023). Can AI language models replace human participants? <em>Trends in Cognitive Sciences, 27</em>(7), 597–600. https://doi.org/10.1016/j.tics.2023.04.008</li>
+      <li>Down, J. (2026). [Dikutip dalam teks.]</li>
+      <li>Entman, R. M. (1993). Framing: Toward clarification of a fractured paradigm. <em>Journal of Communication, 43</em>(4), 51–58.</li>
+      <li>Feier, T. (2024). [Dikutip dalam teks.]</li>
+      <li>Gao, Y., Lee, D., Burtch, G., &amp; Fazelpour, S. (2024). Take caution in using LLMs as human surrogates: Scylla ex machina. arXiv. https://arxiv.org/abs/2410.19599</li>
+      <li>Goffman, E. (1974). <em>Frame analysis: An essay on the organization of experience</em>. Northeastern University Press.</li>
+      <li>Gonzalez-Fernandez, P., Lu, S. E., &amp; Normann, H. (2026). Large language models can predict human strategic decisions. SSRN 6076791. http://doi.org/10.2139/ssrn.6076791</li>
+      <li>Guo, S., Bu, H., Wang, H., Ren, Y., Sui, D., Shang, Y., &amp; Lu, S. (2024). Economics arena for large language models. arXiv. https://doi.org/10.48550/arXiv.2401.01735</li>
+      <li>Hanna-Amodio, A., Cappellini, C., Attar, R., &amp; Finlayson, A. (2025). A new tool for behavioral scientists: Exploring the potential of synthetic participants to accelerate. In A. Samson (Ed.), <em>The Behavioral Economics Guide 2025</em> (pp. 16–25). https://www.behavioraleconomics.com/be-guide/the-behavioral-economics-guide-2025/</li>
+      <li>Horton, J. J., Filippas, A., &amp; Manning, B. S. (2023). Large language models as simulated economic agents: What can we learn from homo silicus? (No. w31122). National Bureau of Economic Research. http://www.nber.org/papers/w31122</li>
+      <li>Hua, W., Liu, O., Li, L., Amayuelas, A., Chen, J., Jiang, L., Jin, M., Fan, L., Sun, F., Wang, W., Wang, X. &amp; Zhang, Y. (2024). Game-theoretic LLM: Agent workflow for negotiation games. arXiv. https://doi.org/10.48550/arXiv.2411.05990</li>
+      <li>Hugging Face. (2026). Nlptown/bert-base-multilingual-uncased-sentiment package. https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment</li>
+      <li>Hullman, J., Broska, D., Sun, H., &amp; Shaw, A. D. (2026). This human study did not involve human subjects: Validating LLM simulations as behavioral evidence. arXiv. https://doi.org/10.48550/arXiv.2602.15785</li>
+      <li>Jussupow, E., Benbasat, I., &amp; Heinzl, A. (2024). An integrative perspective on algorithm aversion and appreciation in decision-making. <em>MIS Quarterly, 48</em>(4), 1575–1590. https://doi.org/10.25300/MISQ/2024/18512</li>
+      <li>Kahneman, D., &amp; Tversky, A. (1979). Prospect theory: An analysis of decision under risk. <em>Econometrica, 47</em>(2), 263–291. https://doi.org/10.2307/1914185</li>
+      <li>Kleven, H. J. (2016). Bunching. <em>Annual Review of Economics, 8</em>(1), 435–464. https://doi.org/10.1146/annurev-economics-080315-015234</li>
+      <li>Koetsier, J. (2026). AI agents created their own religion, Crustafarianism, on an agent-only social network. <em>Forbes</em>. https://www.forbes.com/sites/johnkoetsier/2026/01/30/ai-agents-created-their-own-religion-crustafarianism-on-an-agent-only-social-network/</li>
+      <li>Lu, S. E. (2025). Game-theory behaviour of large language models: The case of Keynesian beauty contests. <em>Economics and Business Review, 11</em>(2), 119–148. https://doi.org/10.18559/ebr.2025.2.2182</li>
+      <li>Ludwig, J., Mullainathan, S., &amp; Rambachan, A. (2025). Large language models: An applied econometric framework (NBER Working Paper No. 33344). National Bureau of Economic Research. http://doi.org/10.3386/w33344</li>
+      <li>Manning, B. S., &amp; Horton, J. J. (2026). General social agents (No. w34937). National Bureau of Economic Research. https://doi.org/10.3386/w34937</li>
+      <li>Miller, H., Pope, T., &amp; Smith, K. (2024). Intertemporal income shifting and the taxation of business owner-managers. <em>Review of Economics and Statistics, 106</em>(1), 184–201. https://doi.org/10.1162/rest_a_01166</li>
+      <li>Moltbook-AI.com. (2026). Moltbook surpasses 1.5 million AI agents milestone. https://moltbook-ai.com/posts/moltbook-1-5-million-agents</li>
+      <li>Moltbook Dating. (2026). A dating space for AI agents. https://www.moltbook.dating/</li>
+      <li>OpenAI. (2025). Introducing GPT-5.2. https://openai.com/index/introducing-gpt-5-2/</li>
+      <li>OpenAI. (2026). OpenClaw. https://openclaw.ai/</li>
+      <li>Park, J. S., O'Brien, J. C., Cai, C. J., Morris, M. R., Liang, P., &amp; Bernstein, M. S. (2023). Generative agents: Interactive simulacra of human behavior. Association for Computing Machinery. https://doi.org/10.1145/3586183.3606763</li>
+      <li>Petrusenko, M. (2026, 30 Januari). OpenClaw: I let this AI control my Mac for 3 weeks. Here's what it taught me about trust. <em>Medium</em>. https://medium.com/@max.petrusenko/openclaw-i-let-this-ai-control-my-mac-for-3-weeks-heres-what-it-taught-me-about-trust-e1642b4c8c9c</li>
+      <li>Plaat, A., van Duijn, M., van Stein, N., Preuss, M., van der Putten, P., Batenburg, K. J. (2025). Agentic large language models: A survey. arXiv. https://doi.org/10.48550/arXiv.2503.23037</li>
+      <li>Rosenberger, J., Kuhlemann, S., Tiefenbeck, V., Kraus, M., &amp; Zschech, P. (2025). The Impact of... [Dikutip dalam teks.]</li>
+      <li>Saez, E. (2010). Do taxpayers bunch at kink points? <em>American Economic Journal: Economic Policy, 2</em>(3), 180–212.</li>
+      <li>Searle, J. R. (1969). <em>Speech acts: An essay in the philosophy of language</em>. Cambridge University Press.</li>
+      <li>Shapira, N., et al. (2026). [Dikutip dalam teks.]</li>
+      <li>Stuyvenberg, A. (2026). [Dikutip dalam teks.]</li>
+      <li>Suri, S., et al. (2023). [Dikutip dalam teks.]</li>
+      <li>Turing College. (2026). [Dikutip dalam teks.]</li>
+      <li>Xie, Y., et al. (2024). [Dikutip dalam teks.]</li>
+      <li>Yelp Inc. (2026). Yelp. https://www.yelp.com/</li>
+      <li>Zhu, L., et al. (2025). [Dikutip dalam teks.]</li>
+    </ul>
+  </div>
+
+  <div class="end-mark">• • •</div>
+
+</div>
+</body>
+</html>

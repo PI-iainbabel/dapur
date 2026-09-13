@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Membangun Wawasan Perilaku untuk Pembangunan Internasional</title>
+<style>
+  :root {
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #2c5f7c;
+    --rule: #ccc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
+    background: #fafaf7;
+    margin: 0;
+    padding: 0;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.06);
+  }
+  .article-header {
+    border-bottom: 3px double var(--rule);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+  .article-number {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .author {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+  .affiliation {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin: 4px 0 0;
+  }
+  h2 {
+    font-size: 22px;
+    margin: 42px 0 16px;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 18px;
+    margin: 30px 0 12px;
+  }
+  p { margin: 0 0 16px; text-align: justify; hyphens: auto; }
+  p.lead { font-size: 18px; }
+  .abstract {
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 22px 26px;
+    margin: 28px 0 36px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .abstract p:last-child { margin-bottom: 0; }
+  .pullquote {
+    font-size: 21px;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding: 6px 0 6px 22px;
+    margin: 30px 0;
+    font-weight: 600;
+  }
+  .pullquote::before { content: "\201C"; }
+  .pullquote::after { content: "\201D"; }
+  figure {
+    margin: 32px 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  figure img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+  }
+  figcaption {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 10px;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .qr-note {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 14px 18px;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .qr-note .qr-box {
+    width: 48px; height: 48px;
+    background: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0/12px 12px;
+    border: 1px solid #999;
+    flex-shrink: 0;
+  }
+  .lenses {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 28px 0;
+  }
+  .lenses h4 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  .lenses ol {
+    padding-left: 22px;
+    margin: 0;
+  }
+  .lenses li {
+    margin-bottom: 8px;
+    font-size: 15.5px;
+  }
+  .matrix {
+    margin: 32px 0;
+    border: 1px solid #ccc;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+  }
+  .matrix table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+  }
+  .matrix th, .matrix td {
+    border: 1px solid #ccc;
+    padding: 14px;
+    vertical-align: top;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .matrix th {
+    background: #2c5f7c;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    font-size: 12.5px;
+  }
+  .matrix td strong {
+    display: block;
+    color: var(--accent);
+    margin-bottom: 6px;
+    font-size: 13.5px;
+  }
+  .matrix td em {
+    color: var(--muted);
+  }
+  .refs {
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .refs h2 { font-size: 20px; }
+  .refs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    column-count: 2;
+    column-gap: 36px;
+  }
+  .refs li {
+    margin-bottom: 14px;
+    break-inside: avoid;
+    padding-left: 22px;
+    text-indent: -22px;
+  }
+  .author-bio {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 40px 0 24px;
+    font-size: 15.5px;
+  }
+  .author-bio h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  .author-bio p { text-align: left; margin-bottom: 12px; }
+  .author-bio p:last-child { margin-bottom: 0; }
+  .end-mark {
+    text-align: center;
+    color: var(--muted);
+    letter-spacing: 6px;
+    margin: 40px 0;
+  }
+  @media (max-width: 640px) {
+    .page { padding: 30px 20px; }
+    .refs ul { column-count: 1; }
+    h1 { font-size: 24px; }
+    .matrix { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ HEADER ============ -->
+  <header class="article-header">
+    <div class="article-number">Aplikasi</div>
+    <h1>Membangun Wawasan Perilaku untuk Pembangunan Internasional</h1>
+    <p class="author">Rasha Attar dan Chiara Cappellini</p>
+    <p class="affiliation">Behavioral Science Group</p>
+    <p class="author" style="margin-top:14px;">Deelan Maru dan David Halpern</p>
+    <p class="affiliation">Behavioral Insights Team</p>
+    <p class="author" style="margin-top:14px;">Zeina Afif</p>
+    <p class="affiliation">World Bank</p>
+  </header>
+
+  <div class="qr-note">
+    <div class="qr-box"></div>
+    <div>Pindai kode QR untuk menonton ringkasan video</div>
+  </div>
+
+  <!-- ============ ABSTRACT ============ -->
+  <div class="abstract">
+    <p>Ilmu perilaku telah menghasilkan keuntungan yang terukur di berbagai domain pembangunan, namun basis bukti untuk pembangunan internasional tetap tipis dan tidak merata. Artikel ini berargumen bahwa masalahnya bukan bahwa alat perilaku tidak bekerja, melainkan bahwa bidang ini secara konsisten mengajukan pertanyaan yang salah, dengan cara yang salah, dan dalam kondisi institusional yang salah. Kami mengidentifikasi tiga kegagalan yang saling memperkuat. <em>Pertama</em>, asumsi perilaku fundamental dibangun di atas sampel yang sempit dan "WEIRD", dan pengaturan pembangunan diperlakukan sebagai tempat uji untuk kerangka kerja yang ada daripada sebagai sumber teori baru. <em>Kedua</em>, metode penelitian tidak cocok dengan realitas pembangunan: mengecualikan populasi kunci, meremehkan volatilitas pengiriman, dan menghasilkan temuan yang terdistorsi oleh masalah pengukuran. <em>Ketiga</em>, kondisi institusional untuk menghasilkan, mengungkap, dan belajar dari bukti perilaku sering tidak ada. Untuk setiap kegagalan, kami mengusulkan agenda penelitian. Global Behavioral Evidence Network for Development (GBEND) telah didirikan untuk mengoordinasikan tindakan di ketiga domain tersebut.</p>
+  </div>
+
+  <!-- ============ INTRO ============ -->
+  <h2>Agenda Penelitian untuk Global Behavioral Evidence Network for Development</h2>
+
+  <p>Didirikan pada konferensi Behavioral Exchange 2025 di Abu Dhabi, Global Behavioral Evidence Network for Development (GBEND) merupakan upaya penting untuk memperluas dan melembagakan wawasan perilaku dalam kebijakan pembangunan global.</p>
+
+  <p>Jaringan ini dipimpin oleh empat anggota ketua: UAE Office of Development Affairs, Behavioral Science Group, Mind, Behavior, and Development Unit (eMBeD) Bank Dunia, dan Behavioral Insights Team. Jaringan ini bertujuan untuk memastikan bahwa bidang ilmu perilaku menghasilkan bukti yang melayani orang-orang di berbagai tingkat pendapatan, nilai, dan konteks, serta layak digunakan ketika diterapkan pada pembangunan.</p>
+
+  <p>Pilar inti dari misi GBEND adalah menyediakan kepemimpinan pemikiran yang ketat. Tulisan ini berargumen bahwa basis bukti perilaku untuk pembangunan internasional tipis karena bidang ini secara konsisten mengajukan pertanyaan yang salah, dengan cara yang salah, dan dalam kondisi institusional yang salah. Tulisan ini menetapkan agenda penelitian untuk mengatasi masing-masing secara bergiliran.</p>
+
+  <blockquote class="pullquote">Bidang ini secara konsisten mengajukan pertanyaan yang salah, dengan cara yang salah, dan dalam kondisi institusional yang salah.</blockquote>
+
+  <!-- ============ CHALLENGE ============ -->
+  <h2>Tantangan</h2>
+
+  <p>Wawasan perilaku telah menghasilkan keuntungan yang terukur di berbagai domain pembangunan. Intervensi yang didasarkan pada perubahan perilaku telah meningkatkan hasil kesehatan, meningkatkan tabungan, menaikkan nilai sekolah, dan meningkatkan pengambilan layanan (OECD, 2017; DellaVigna &amp; Linos, 2022), seringkali dengan biaya rendah dan dalam skala besar. Hasil semacam itu telah menyebabkan peningkatan jumlah program perubahan perilaku dan tim khusus di seluruh pemerintah, lembaga pembangunan, LSM, dan multilateral (Naru, 2024).</p>
+
+  <p>Meskipun ada keberhasilan ini, tantangan substantif tetap ada dalam menerapkan wawasan perilaku pada pembangunan internasional. Beberapa bukti menunjukkan bahwa intervensi perilaku telah menghasilkan hasil yang lebih tidak merata, heterogen, dan sering tidak konklusif (Gvirtz &amp; Sabherwal, 2024). Meta-riset terbaru menunjukkan bahwa banyak temuan di seluruh ilmu sosial dan perilaku kurang baik berpindah di luar konteks di mana mereka awalnya dihasilkan, terutama ketika bukti dibangun di atas sampel berpenghasilan tinggi yang sempit (Busara, 2024). Dalam pengaturan pembangunan internasional, masalah ini diperparah oleh heterogenitas budaya, keragaman bahasa, ketersediaan data, kendala institusional, dan infrastruktur penelitian—yang membuat sulit untuk memisahkan apakah hasil nol atau campuran mencerminkan batas sejati mekanisme perilaku atau kegagalan penerjemahan, desain, dan pengiriman.</p>
+
+  <p>Sejumlah bukti yang berkembang menunjukkan bahwa beberapa mekanisme perilaku memang berpindah antar pengaturan, terutama ketika intervensi sederhana, mengatasi hambatan praktis, dan selaras dengan sistem pengiriman lokal (Hallsworth, 2023; DellaVigna &amp; Linos, 2022). Misalnya, meta-analisis menemukan bahwa intervensi arsitektur pilihan, rata-rata, memiliki efek bermakna pada perilaku, meskipun ukuran efek sangat bervariasi di seluruh populasi dan konteks (Mertens et al., 2022). Meskipun demikian, basis buktinya masih terlalu terbatas untuk menarik kesimpulan luas tentang efektivitas ilmu perilaku dalam pembangunan internasional.</p>
+
+  <p>Artikel ini mendiagnosis tiga kegagalan yang saling memperkuat—dalam asumsi fundamental, metode penelitian, dan kondisi institusional—dan mengusulkan agenda penelitian untuk mengatasinya.</p>
+
+  <!-- ============ RESEARCH QUESTIONS ============ -->
+  <h2>Pertanyaan Penelitian: Bagaimana Kita Dapat Mengoptimalkan Wawasan Perilaku untuk Memajukan Tujuan Pembangunan Internasional?</h2>
+
+  <p>Kami mengidentifikasi tiga pertanyaan penelitian untuk menyusun bagaimana wawasan perilaku dapat lebih baik melayani pembangunan internasional:</p>
+
+  <p><strong>Konseptual:</strong> Mekanisme perilaku mana yang berpindah antar konteks, mana yang bergantung pada norma dan institusi lokal, dan kapan adaptasi atau konsep baru diperlukan?</p>
+
+  <p><strong>Metodologis:</strong> Bagaimana intervensi perilaku dapat diuji dengan cara yang mempertahankan makna, ketelitian, dan relevansi dalam pengaturan pembangunan internasional—dan dengan biaya rendah?</p>
+
+  <p><strong>Institusional:</strong> Kondisi institusional dan politik apa yang optimal agar intervensi perilaku dapat dilaksanakan, dipertahankan, dan diskalakan dalam program pembangunan internasional?</p>
+
+  <!-- ============ SECTION 1 ============ -->
+  <h2>Bagian 1: Asumsi Perilaku Fundamental di Seluruh Konteks</h2>
+
+  <p>Banyak asumsi dan model perilaku inti kita dibangun di atas himpunan pengaturan berpenghasilan tinggi yang sempit (Busara, 2024). Dalam pembangunan internasional, beberapa mekanisme berpindah, tetapi yang lain tidak begitu mudah berlaku.</p>
+
+  <h3>Memahami Bagaimana Konsep Perilaku Berpindah Antar Pengaturan</h3>
+
+  <p>Sementara bidang ini sering mengasumsikan bahwa bias kognitif adalah ciri manusia universal, meta-riset terbaru menunjukkan bahwa mekanisme yang sering digunakan di negara-negara WEIRD, seperti salience, pengingat, atau perbandingan sosial, beroperasi secara berbeda di berbagai pengaturan (Busara, 2024). Untuk melayani pembangunan internasional dengan lebih baik, kita harus mendapatkan pemahaman yang lebih kuat tentang interaksi antara proses perilaku universal dan yang didefinisikan secara budaya, seperti yang diuraikan oleh Michael Hallsworth (2023, hlm. 78).</p>
+
+  <p>Namun, ada beberapa uji lintas negara besar tentang bias inti yang mulai menjawab pertanyaan ini. Replikasi multinasional pola pilihan Prospect Theory di 19 negara, misalnya, menemukan bahwa pola-pola itu dapat dideteksi tetapi sering lebih lemah daripada studi asli (Ruggeri et al., 2020). Dengan demikian, beberapa bias mungkin dapat dideteksi lintas konteks, tetapi kekuatannya, dan karena itu relevansi kebijakannya, dapat bervariasi.</p>
+
+  <p>Uji lintas negara ini mengonfirmasi bahwa pola kognitif dasar secara luas dapat dideteksi tetapi sensitif terhadap konteks. Lini pertanyaan yang lebih berguna secara operasional adalah bertanya kelas intervensi mana yang kokoh dan mana yang memerlukan adaptasi? Bukti dari implementasi multi-negara menunjukkan pembedaan yang berfungsi: intervensi yang mengurangi gesekan (penyederhanaan, pengingat, menghilangkan hambatan prosedural) cenderung berpindah karena mereka menargetkan kendala kognitif universal, sementara intervensi yang memanfaatkan makna yang dibangun secara budaya (pesan norma sosial, pembingkaian otoritas, seruan identitas) menunjukkan variasi antar pengaturan (lihat Hallsworth, 2023). Pembedaan ini, antara universalitas tingkat mekanisme dan variabilitas tingkat makna, memberikan heuristik praktis untuk memprioritaskan intervensi mana yang harus digunakan dengan percaya diri dan mana yang harus diuji sebelum diskalakan.</p>
+
+  <p>Intervensi norma sosial mengasumsikan bahwa mempelajari apa yang dilakukan "kebanyakan orang" akan menggeser perilaku. Tetapi dalam pengaturan di mana norma ditegakkan melalui jaringan kekerabatan dekat atau kelompok dalam tertentu, atau bergantung pada ekspektasi normatif tentang apa yang disetujui orang lain daripada apa yang sebenarnya mereka lakukan (Bicchieri, 2005), perbandingan sosial generik mungkin tidak relevan atau kontraproduktif.</p>
+
+  <h3>Menggunakan Kerangka Perilaku Manusia yang Lebih Luas untuk Membangun Basis Bukti yang Lebih Baik</h3>
+
+  <p>Menguji transferabilitas konsep perilaku yang dikembangkan di konteks WEIRD adalah langkah pertama yang diperlukan, tetapi tidak cukup. Implikasi yang lebih menantang adalah bahwa pengaturan pembangunan harus menjadi bukan hanya tempat uji untuk kerangka kerja yang ada, tetapi juga sumber konsep, kategori, dan standar penjelasan baru yang membentuk kembali bidang itu sendiri.</p>
+
+  <p>Kerangka "World Development Report 2015: Mind, Society, and Behavior" dari Bank Dunia mengidentifikasi tiga lensa pengaruh perilaku:</p>
+
+  <div class="lenses">
+    <h4>Tiga Lensa Pengaruh Perilaku</h4>
+    <ol>
+      <li><strong>Berpikir otomatis:</strong> jalan pintas kognitif, heuristik, dan isyarat kontekstual yang membentuknya.</li>
+      <li><strong>Berpikir sosial:</strong> bagaimana perilaku dibentuk oleh apa yang dilakukan orang lain dan apa yang dipersepsikan orang lain harapkan.</li>
+      <li><strong>Berpikir dengan model mental:</strong> kategori bersama, identitas, narasi, dan pandangan dunia melalui mana orang menafsirkan pengalaman.</li>
+    </ol>
+  </div>
+
+  <p>Bidang ini telah menarik secara tidak proporsional pada lensa pertama. Sebagian besar intervensi yang dievaluasi secara ketat di negara berpenghasilan rendah dan menengah (pengingat, umpan balik, insentif mikro, salience, dan perangkat komitmen) menargetkan pemikiran otomatis (Booth et al., 2022). Untuk membangun basis bukti yang lebih luas yang lebih cocok untuk pembangunan internasional, praktisi harus memperluas praktik mereka di ketiga lensa.</p>
+
+  <h3>Memahami Hubungan antara Kognisi Manusia dan Kelangkaan Material</h3>
+
+  <p>Mani et al. (2013) menunjukkan bahwa skor kognitif petani India lebih rendah selama periode pasokan makanan terbatas (pra-panen) daripada selama periode pasca-panen. Sintesis meta-analitik yang lebih baru mengungkap gambaran yang lebih bernuansa: analisis menemukan hubungan antara kelangkaan finansial dan kinerja kognitif yang lebih rendah tetapi mengaitkan 60% dari efek ini dengan akses pendidikan (de Almeida et al., 2024). Ini menunjukkan bahwa gagasan kelangkaan kognitif masih berakar pada tantangan struktural (akses ke pendidikan, kerugian kumulatif sepanjang perjalanan hidup) daripada saluran kognitif murni.</p>
+
+  <h3>Memperhitungkan Peran Penegakan Sosial</h3>
+
+  <p>Dinamika dan penegakan sosial mengatur perilaku kita dengan cara yang substantif di luar heuristik—dan memahami bagaimana mereka berubah bentuk di seluruh masyarakat adalah kunci. Misalnya, intervensi perilaku sering mengasumsikan bahwa individu dapat secara pribadi mengakumulasi dan menginvestasikan kembali imbal hasil. Di banyak konteks pembangunan, pendapatan tunduk pada klaim informal yang kuat dari keluarga dan komunitas. Di mana pendapatan dapat diamati, kewajiban sosial untuk berbagi dapat beroperasi seperti pajak informal atas imbal hasil, menciptakan insentif untuk menyembunyikan pendapatan bahkan dengan biaya. Di pedesaan Kenya, misalnya, Jakiela dan Ozier (2016) menemukan bahwa perempuan bersedia melepaskan pendapatan untuk menyembunyikan imbal hasil investasi dari kerabat. Ini bukan bias kognitif tetapi norma sosial yang beroperasi melalui penegakan dan keteramatan (Lensa 2).</p>
+
+  <h3>Mempertimbangkan Model Mental Lokal untuk Merancang Intervensi yang Relevan</h3>
+
+  <p>Praktisi pembangunan yang berusaha memengaruhi perilaku harus mendapatkan pemahaman yang lebih dalam tentang titik referensi dan narasi yang tersedia dalam konteks sosial tertentu. Ray dan Genicot (2017) berteori bahwa ketika kesenjangan antara status individu saat ini dan titik referensi yang dapat dicapai terlalu lebar, hasilnya adalah keterlepasan rasional, yang mereka sebut "kegagalan aspirasi." Bukti eksperimental dari Meksiko menunjukkan bahwa menampilkan panutan lokal yang dapat dicapai daripada keberhasilan yang jauh dapat mengaktifkan kembali agensi dan meningkatkan hasil ekonomi lebih efektif daripada insentif finansial saja (Lybbert &amp; Wydick, 2018). Kegagalan aspirasi adalah fenomena Lensa 3: ia beroperasi melalui model mental yang dipegang orang tentang apa yang mungkin bagi seseorang seperti mereka.</p>
+
+  <p>Contoh-contoh ini berbagi struktur yang sama. Masing-masing dimulai dengan fenomena yang dapat ditafsirkan melalui Lensa 1, tetapi pemeriksaan yang lebih dekat mengungkapkan bahwa pendorong perilaku berada di Lensa 2 atau Lensa 3. Salah mengidentifikasi lensa menyebabkan salah mengidentifikasi intervensi.</p>
+
+  <p>Namun ketiga lensa tidak sama-sama dapat ditindaklanjuti. Intervensi Lensa 1 (pengingat, default, dan penyederhanaan) memetakan dengan rapi ke desain RCT dengan lingkaran umpan balik pendek dan hasil yang terukur. Intervensi Lensa 2 dan Lensa 3 memerlukan desain yang dapat menangkap dinamika sosial dan pergeseran model mental dalam jangka waktu yang lebih panjang. Ini bisa berupa studi longitudinal atau penelitian etnografis, yang lebih mahal dan lebih lambat. Ini membantu menjelaskan mengapa bidang ini begitu sering menggunakan Lensa 1 terlepas dari apakah itu diagnosis yang benar. Memilih metode penelitian sebelum mengidentifikasi lensa yang relevan hampir menjamin bias ini akan bertahan.</p>
+
+  <blockquote class="pullquote">Memilih metode penelitian sebelum mengidentifikasi lensa yang relevan hampir menjamin bias ini akan bertahan.</blockquote>
+
+  <!-- ============ SECTION 2 ============ -->
+  <h2>Bagian 2: Alat Penelitian untuk Membangun Wawasan Perilaku untuk Pembangunan Internasional</h2>
+
+  <p>Bahkan ketika mekanisme perilaku berlaku, basis bukti untuk pembangunan internasional dilemahkan oleh metode dan alat yang mendasarinya. Kami mengusulkan tiga prinsip metodologis untuk mengatasi masalah ini.</p>
+
+  <h3>Diagnosis Sebelum Anda Merancang</h3>
+
+  <p>Model dominan dalam kebijakan perilaku—identifikasi bias, rancang nudge korektif, ujilah—mengasumsikan bahwa hambatan perilaku sudah diketahui. Dalam pengaturan berpenghasilan tinggi berkapasitas tinggi, asumsi ini sering masuk akal: infrastruktur institusional bekerja, populasi target dapat dijangkau, dan kendala yang mengikat mungkin secara kognitif. Namun dalam pembangunan internasional, asumsi-asumsi ini sering tidak berlaku. Kendala yang mengikat mungkin struktural, sosial, atau institusional, dan merancang solusi sebelum mengidentifikasinya dapat membuang sumber daya dan menghasilkan hasil nol yang menyesatkan. Titik awal yang lebih berguna adalah pendekatan diagnosis-pertama, seperti yang diformalkan oleh Mind, Behavior, and Development Unit (eMBeD) Bank Dunia, yang memetakan faktor psikologis, sosial, dan struktural yang membentuk keputusan baik untuk populasi target maupun pelaksana sebelum desain intervensi (World Bank, 2015).</p>
+
+  <p>Diagnosis yang baik harus mengungkap faktor-faktor yang paling sering merusak desain intervensi dalam pengaturan pembangunan internasional: apakah sistem pengiriman cukup stabil untuk mendukung implementasi, siapa yang sebenarnya memberikan layanan di lapangan, apakah materi linguistik dan budaya sesuai, populasi mana yang terlewat oleh metode standar, dan tingkat pengujian apa yang layak di bawah kendala anggaran nyata.</p>
+
+  <p>Diagnosis juga berarti merancang metode penelitian yang mencakup populasi yang paling perlu dijangkau kebijakan pembangunan: perempuan pedesaan, orang dengan literasi rendah, yang terputus secara digital, dan populasi bergerak seperti pengungsi, migran, dan pekerja informal. Mereka dikecualikan oleh desain penelitian yang mengasumsikan tempat tinggal perkotaan, literasi, kepemilikan ponsel pintar, dan alamat tetap sebagai kondisi default untuk partisipasi.</p>
+
+  <p>Metode standar juga dapat melewatkan orang-orang yang seharusnya dijangkau oleh kebijakan pembangunan. Karya perilaku sering mengasumsikan bahwa orang dapat membaca dan menanggapi prompt tertulis, namun tingkat literasi tetap sangat rendah di beberapa pengaturan (World Population Review, 2026). Alternatif ada—interactive voice response, nudge berbasis audio, dan alat keputusan visual—tetapi biasanya lebih mahal. Alat yang didukung AI yang muncul dapat mengurangi biaya ini (Human Truths, n.d.).</p>
+
+  <h3>Merancang untuk Ketidakstabilan</h3>
+
+  <p>Di banyak program pembangunan internasional, implementasi dapat dipengaruhi oleh pergantian staf, ketidakhadiran, musiman, dan guncangan eksogen, dalam hal ini desain penelitian yang mengasumsikan pengiriman yang stabil akan menghasilkan hasil yang menyesatkan. Misalnya, dalam uji coba mencuci tangan di Bangladesh, pengamatan terganggu oleh wabah kolera, gelombang panas, penutupan kamp terkait Eid, kekerasan, dan Topan Mocha (BIT, 2023a). Tujuannya bukan untuk mengontrol ketidakstabilan tetapi untuk membangunnya ke dalam desain sejak awal.</p>
+
+  <blockquote class="pullquote">Tujuannya bukan untuk mengontrol ketidakstabilan tetapi untuk membangunnya ke dalam desain sejak awal.</blockquote>
+
+  <p>Ilmu implementasi menawarkan cara yang berguna untuk merancang realitas ini. Daripada mencoba menjaga setiap komponen identik di seluruh lokasi, ia merekomendasikan untuk mempertahankan fungsi inti intervensi (mekanisme yang harus dicapainya) sambil memungkinkan bentuk (bagaimana ia dikirim) untuk beradaptasi dengan kondisi lokal (Hawe et al., 2004). Praktisi ilmu perilaku semakin tertarik pada bagaimana merancang uji coba yang mencerminkan tantangan implementasi (misalnya, List, 2024). Beberapa implikasi praktis: tentukan hal-hal yang tidak dapat dinegosiasikan di muka, tawarkan sejumlah intervensi, rencanakan dan lacak adaptasi yang diizinkan selama pengiriman, dan ukur hasil implementasi seperti kelayakan dan kesetiaan bersama hasil perilaku.</p>
+
+  <p>Desain uji coba adaptif juga dapat mempertahankan ketelitian sambil mengakomodasi ketidakstabilan dunia nyata, yang mereka capai dengan memungkinkan modifikasi yang telah ditentukan dalam implementasi atau pengumpulan data sebagai reaksi terhadap data interim atau keadaan yang berubah. Misalnya, hasil dapat dianalisis pada titik pemeriksaan interim, dan, berdasarkan hasil itu, studi dapat menyesuaikan alokasi atau menjatuhkan lengan perlakuan yang tidak efektif saat uji coba berlangsung (Lauffenburger et al., 2022). Adopsi yang lebih luas dari desain adaptif juga akan mengurangi risiko bahwa hasil nol disalahartikan sebagai kegagalan intervensi ketika penyebab yang mendasarinya adalah gangguan pengukuran.</p>
+
+  <h3>Mengukur Perilaku, Bukan Laporan</h3>
+
+  <p>Teknik evaluasi pintar dapat mengatasi masalah umum bias keinginan sosial. Peserta mungkin melaporkan apa yang mereka pikir diinginkan peneliti daripada apa yang sebenarnya mereka lakukan. Masalah ini ada di mana-mana, tetapi mungkin lebih menonjol dalam program pembangunan di mana administrator intervensi dianggap lebih kuat atau berwibawa. Dalam sanitasi dan kebersihan, misalnya, laporan diri sering melampaui perilaku yang diamati. Satu studi di pedesaan India menemukan bahwa penggunaan jamban yang dilaporkan hampir dua kali lipat tingkat yang dicatat oleh sensor yang tidak mencolok (Sinha et al., 2016). Teknik baru telah digunakan untuk mengatasi masalah ini. Misalnya, BIT mengukur jumlah penekanan pedal sabun yang digunakan di stasiun cuci tangan untuk membandingkan lengan kontrol dan perlakuan (BIT, 2022).</p>
+
+  <p>Pencarian bukti perilaku yang kokoh dalam pembangunan internasional sering dirusak oleh kualitas data yang buruk. Selain itu, volatilitas dalam pengiriman program, yang didorong oleh guncangan, musiman, dan pergantian staf, membuat data yang hilang menjadi tantangan yang meresap. Ketika atrisi tidak acak, bahkan uji coba terkontrol acak (RCT) yang dirancang dengan ketat dapat dikompromikan secara fatal, dengan satu survei menemukan bahwa hampir 25% uji klinis memiliki lebih dari 10% data hasil primer yang hilang (Hewitt et al., 2010). Salah satu responsnya adalah menggunakan desain intention-to-treat dalam RCT, yang dapat memisahkan khasiat intervensi dari efektivitas program (Duflo et al., 2007). Teknologi yang muncul dapat memperluas apa yang dapat diukur dengan biaya lebih rendah tanpa mengorbankan ketelitian.</p>
+
+  <p>Alat kualitatif yang dibantu AI dapat mempercepat transkripsi, terjemahan, pengkodean, dan analisis, membuatnya jauh lebih mudah untuk bekerja di seluruh volume input yang besar. Mereka juga dapat mendukung ko-kreasi dengan cepat mengubah ide peserta menjadi prototipe visual atau tekstual yang dapat diuji dan disempurnakan secara real time. Ini memungkinkan informan untuk berkreasi bersama pesan dan konsep dengan ilmuwan perilaku, dan juga dapat menjembatani perbedaan budaya (BIT, 2023b).</p>
+
+  <p>Alat berbasis suara seperti interactive voice response dapat mengurangi ketergantungan pada metode berbasis teks dan mungkin menawarkan privasi lebih besar untuk topik sensitif (Gibson et al., 2017; Greenleaf et al., 2017). Prompt dan peringkasan yang dibantu AI juga dapat membuat studi diary dan metode kualitatif longitudinal lainnya lebih murah untuk dijalankan dalam skala besar dengan membantu peneliti mengirim prompt adaptif, melacak respons yang masuk, dan mensintesis materi seiring waktu (Moell &amp; Aronsson, 2025).</p>
+
+  <p>Salah satu opsi yang muncul adalah partisipan sintetis: responden yang dihasilkan AI yang dibangun dengan mengondisikan model bahasa pada data demografis nyata. Ini dapat membantu dalam desain tahap awal, terutama di mana rekrutmen konvensional mahal atau di mana partisipasi itu sendiri mungkin tidak aman. Hasil awal menunjukkan bahwa sampel sintetis dapat melacak pola luas dalam sikap dan opini dengan cukup baik, meskipun kinerjanya lebih lemah untuk hasil perilaku, dan efeknya mungkin dilebih-lebihkan (Hanna-Amodio et al., 2025). Karena itu mereka mungkin berguna dalam aplikasi tahap awal yang terbatas—tetapi bukan sebagai pengganti pengujian dunia nyata.</p>
+
+  <p>Alat-alat ini membawa risiko mereka sendiri, bagaimanapun. Sebagian besar sistem AI dilatih pada data yang condong ke negara-negara WEIRD, yang berarti mereka mungkin menyandikan dan memperkuat bias representasional yang sama yang diidentifikasi di Bagian 1. Dalam pengaturan dengan asimetri kekuasaan yang menonjol dan mekanisme akuntabilitas yang terbatas, risiko penyalahgunaan atau salah tafsir meningkat. Praktisi karena itu harus eksplisit tentang apa yang belum boleh digunakan alat AI dalam konteks pembangunan, terutama di mana output dapat memengaruhi keputusan konsekuensial tentang populasi dengan sedikit jalan keluar.</p>
+
+  <!-- ============ SECTION 3 ============ -->
+  <h2>Bagian 3: Peran Institusi dalam Wawasan Perilaku untuk Kebijakan Pembangunan</h2>
+
+  <p>Ilmu perilaku bergantung pada institusi di sekitarnya: siapa yang menetapkan prioritas, siapa yang mengendalikan data dan anggaran, dan apakah ada kapasitas dan legitimasi untuk menguji, belajar, dan menskalakan. Jika ilmu perilaku ingin melayani pembangunan internasional, ia membutuhkan institusi yang dapat menghasilkan bukti, menerjemahkan bukti itu ke dalam pengiriman, dan belajar seiring waktu.</p>
+
+  <h3>Menciptakan Institusi yang Tepat</h3>
+
+  <p>Di mana tim perilaku berada dapat membentuk apa yang dapat mereka capai. Tim yang tertanam di kementerian pengiriman biasanya lebih dekat dengan kendala layanan nyata, tetapi mereka bergantung pada kekuatan kementerian tuan rumah dan apakah mandat mereka bertahan dari pergantian politik (Nanez et al., 2024). Kapasitas juga penting. Karya perilaku yang efektif membutuhkan lebih dari keterampilan eksperimental saja; ia juga membutuhkan pengetahuan tentang pengiriman, data, dan kemampuan pengukuran, serta keterampilan politik dan kemitraan (Hernandez-Agramonte, 2025).</p>
+
+  <p>Pendanaan adalah bagian dari gambaran institusional yang sama. Dalam pembangunan internasional, sebagian besar pendanaan berada di tangan donor bilateral, multilateral, yayasan, dan LSM di luar pemerintah. Hasil yang kuat lebih mungkin ditulis daripada hasil nol (Franco et al., 2014), dan mitra lokal sering melakukan kerja lapangan tanpa kendali atas anggaran atau overhead penuh, yang melemahkan kapasitas penelitian lokal (Crane et al., 2018).</p>
+
+  <blockquote class="pullquote">Ini adalah kondisi struktural yang membentuk bukti apa yang dihasilkan, siapa yang dilayaninya, dan pengetahuan siapa yang dihitung.</blockquote>
+
+  <p>Dinamika pendanaan ini mencerminkan asimetri kekuasaan yang lebih dalam yang mengalir melalui bidang ini. Peneliti Global North biasanya mengendalikan desain studi, anggaran, dan keputusan publikasi, sementara pelaksana lokal dan mitra penelitian menyumbangkan pengetahuan kontekstual, kerja lapangan, dan akses yang memungkinkan studi, seringkali tanpa kepenulisan, pemulihan overhead, atau pengaruh atas bagaimana temuan digunakan. Selain itu, donor membentuk apa yang diuji dengan menetapkan prioritas yang mungkin tidak mencerminkan kendala yang paling mengikat yang dihadapi pemerintah atau komunitas. Dan hubungan antara peneliti dan peserta itu sendiri asimetris, dalam arti bahwa data diekstraksi, temuan dipublikasikan di tempat lain, dan komunitas jarang melihat hasil dalam bentuk yang dapat mereka gunakan. Ini adalah kondisi struktural yang membentuk bukti apa yang dihasilkan, siapa yang dilayaninya, dan pengetahuan siapa yang dihitung.</p>
+
+  <h3>Menyusun Bukti</h3>
+
+  <p>Masalah lebih lanjut adalah infrastruktur bukti. Bahkan ketika studi yang baik ada, mereka sering tidak berkontribusi pada pembelajaran kumulatif, karena sintesis tidak mutakhir, relevan secara lokal, atau tersedia dalam format dan bahasa yang dapat diakses. Sistem "apa yang berhasil" yang ada tetap sangat berpusat pada WEIRD, dan banyak produk bukti terlalu statis atau terlalu sempit untuk mendukung keputusan kebijakan yang hidup (Halpern &amp; Maru, 2024). Yang dibutuhkan sebagai gantinya adalah infrastruktur bukti yang lebih kuat untuk pembangunan internasional dalam bentuk tinjauan bukti hidup, peta kesenjangan bukti, dan produk sintesis yang dirancang untuk pertanyaan kebijakan nyata (lihat, misalnya, Saran et al., 2020; The Global SDG Synthesis Coalition, 2024).</p>
+
+  <p>Temuan dari penelitian perilaku harus dipublikasikan. Pemerintah cenderung tidak mengungkapkan, karena mereka kurang kemampuan teknis, takut reaksi politik, atau terkendala kapasitas. Efek kumulatifnya adalah bias sistematis menuju keheningan, dan dengan demikian studi perilaku yang paling relevan untuk implementasi pemerintah adalah yang paling tidak mungkin masuk ke basis bukti publik. "Apa yang berhasil" clearingshouses dan peta kesenjangan bukti yang dijelaskan di atas hanya dapat mengindeks apa yang terlihat.</p>
+
+  <h3>Menilai Ekonomi Politik Nudging</h3>
+
+  <p>Efektivitas intervensi perilaku dimediasi oleh konteks politik dan lingkungan institusional di mana mereka beroperasi. Nudge yang bekerja dalam sistem kepercayaan tinggi berkapasitas tinggi dapat gagal atau menjadi bumerang ketika negara tidak ada atau diperdebatkan. Selain itu, banyak intervensi mengasumsikan sistem akan beroperasi secara efektif; namun, "mil terakhir" seringkali merupakan yang paling sulit diatasi (Wills Silva, 2025). Beberapa nudge bekerja sebagian karena penegakan dapat dipercaya, tetapi di mana negara terkendala, mekanisme penegakan mungkin tidak bekerja. Di lingkungan dengan kepercayaan rendah pada institusi, pesan dapat ditafsirkan sebagai pengawasan atau campur tangan yang berlebihan.</p>
+
+  <p>Salah satu cara untuk memahami konteks politik adalah melalui lensa Narrow Corridor (Acemoglu &amp; Robinson, 2019), yaitu tata kelola yang efektif berada di koridor di mana negara cukup kuat untuk menyediakan layanan dan menegakkan aturan, tetapi masyarakat cukup kuat untuk mengekang penyalahgunaan. Dalam pembangunan, penting untuk memahami seberapa dekat atau jauh konteks dari koridor ideal ini. Di dalam koridor, kebijakan perilaku top-down dalam skala besar dapat lebih mudah diterjemahkan menjadi dampak yang lebih luas. Sebaliknya, di luar koridor, alat yang sama mungkin lebih lemah atau ditafsirkan secara berbeda, sementara nudge berbasis masyarakat mungkin menjadi lebih penting.</p>
+
+  <p>Ini dapat diteorikan sebagai matriks 2x2, dengan kapasitas negara pada satu sumbu dan legitimasi atau kepercayaan pada sumbu lainnya. Matriks harus dibaca bukan sebagai menunjukkan di mana intervensi perilaku dapat atau tidak dapat bekerja tetapi sebagai menunjukkan saluran perilaku mana yang kemungkinan lebih efektif dalam konteks politik yang berbeda.</p>
+
+  <div class="matrix">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:20%;">Kapasitas / Legitimasi</th>
+          <th style="width:40%;">Legitimasi/kepercayaan Rendah</th>
+          <th style="width:40%;">Legitimasi/kepercayaan Tinggi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Kapasitas Tinggi</strong></td>
+          <td>
+            <strong>Mampu tetapi diperdebatkan:</strong>
+            <em>Pengiriman administratif mungkin berfungsi, tetapi niat negara diperdebatkan. Alat perilaku masih dapat mengubah perilaku, meskipun efeknya mungkin didorong oleh ketakutan, tekanan kepatuhan, atau respons strategis daripada pembelian asli.</em>
+          </td>
+          <td>
+            <strong>Di dalam koridor sempit:</strong>
+            <em>Intervensi perilaku berbasis negara dapat bekerja sebagaimana dimaksud karena pengiriman stabil dan niat tidak diperdebatkan. Default dan pengingat mungkin lebih mudah diterjemahkan menjadi perubahan perilaku nyata.</em>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Kapasitas Rendah</strong></td>
+          <td>
+            <strong>Kapasitas rendah dan legitimasi rendah:</strong>
+            <em>Intervensi berbasis negara mungkin memiliki efek minimal. Pendekatan perilaku masih mungkin, tetapi mungkin perlu mengandalkan pengirim non-negara, perlindungan yang cermat, dan akuntabilitas lokal yang kuat.</em>
+          </td>
+          <td>
+            <strong>Masyarakat kuat / Negara lemah:</strong>
+            <em>Nudge yang dipimpin negara mungkin terbatas di mana sistem tidak dapat diandalkan untuk menindaklanjuti. Tetapi intervensi perilaku masih dapat bekerja ketika dikirim melalui aktor lokal yang dipercaya, memperkuat koordinasi, atau mengaktifkan norma komunitas dan akuntabilitas timbal balik.</em>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <figure>
+    <img src="figure1-gbend.jpg" alt="Matriks 2x2 yang menunjukkan persimpangan kapasitas negara dan legitimasi/kepercayaan pada intervensi perilaku.">
+    <figcaption><strong>Gambar 1:</strong> Matriks 2x2 yang menunjukkan persimpangan kapasitas negara dan legitimasi/kepercayaan pada intervensi perilaku.</figcaption>
+  </figure>
+
+  <!-- ============ CONCLUSION ============ -->
+  <h2>Kesimpulan: Bab Berikutnya dari Wawasan Perilaku untuk Pembangunan Internasional</h2>
+
+  <p>Agenda penelitian ini mencerminkan keahlian kolektif praktisi yang telah menghabiskan bertahun-tahun menanamkan ilmu perilaku dalam pembangunan internasional. Tujuan GBEND adalah untuk memastikan bahwa wawasan perilaku ditanamkan sejak awal, menghasilkan bukti yang sama relevannya bagi mayoritas global sebagaimana ketatnya.</p>
+
+  <p>GBEND menyambut organisasi baru untuk bergabung dengan jaringan. Silakan kirim email ke chiara.cappellini@bsg.ae jika Anda ingin terlibat.</p>
+
+  <!-- ============ AUTHOR BIOS ============ -->
+  <div class="author-bio">
+    <h3>Tentang Para Penulis</h3>
+    <p><strong>Rasha Attar</strong> adalah direktur Behavioral Science Group (BSG), unit ilmu perilaku pusat untuk pemerintah UEA yang berbasis di Office of Development Affairs. Ia memiliki lebih dari 18 tahun pengalaman dalam pelayanan publik, yang terbaru menanamkan ilmu perilaku terapan ke dalam strategi dan desain kebijakan di bidang kesehatan, pendidikan, keberlanjutan, dan pembangunan sosial. Ia adalah co-chair Global Behavioral Evidence Network for Development (GBEND), yang menyatukan para ahli multi-disiplin untuk memperkuat hasil pembangunan dengan memasukkan ilmu perilaku terapan. Rasha memegang gelar di bidang Ekonomi dari American University of Beirut, dan Executive MSc in Behavioural Science dari London School of Economics.</p>
+    <p><strong>Zeina Afif</strong> adalah ilmuwan sosial senior di Mind, Behavior, and Development Unit (eMBeD) Bank Dunia. Dengan lebih dari 15 tahun pengalaman, ia merancang dan melaksanakan intervensi ilmu perilaku untuk mengatasi tantangan global yang kompleks, termasuk pemberdayaan ekonomi perempuan, pengangguran pemuda, dan kohesi sosial. Karyanya berfokus pada pelembagaan wawasan perilaku dalam sistem pemerintah untuk meningkatkan pengiriman layanan publik di Timur Tengah, Afrika, dan Amerika Latin. Zeina adalah visiting senior fellow di London School of Economics dan memegang MBA dari George Washington University dan MSc in Behavioral Science dari LSE.</p>
+    <p><strong>Deelan Maru</strong> adalah penasihat senior di Behavioral Insights Team (BIT) dan anggota Sekretariat GBEND. Deelan adalah penasihat kebijakan untuk David Halpern dan telah menjadi rekan penulis publikasi penting, termasuk Global Evidence Report, yang berfungsi sebagai fondasi untuk agenda penelitian jaringan. Deelan memegang MSc in International Public Policy dari University College London.</p>
+    <p><strong>David Halpern CBE</strong> adalah presiden emeritus Behavioral Insights Team (BIT) dan anggota ketua Global Behavioral Evidence Network for Development (GBEND). Sebagai direktur pendiri "Nudge Unit" Inggris, ia telah menjadi tokoh sentral dalam gerakan global untuk menerapkan ilmu perilaku pada kebijakan publik. David telah menjabat sebagai penasihat kunci untuk banyak unit perilaku di seluruh dunia, mendukung pelembagaan bidang ini di berbagai pemerintah dan organisasi internasional. Sebagai mantan penasihat National What Works, ia pernah memegang posisi akademis di Cambridge dan Harvard dan merupakan profesor tamu di King's College London.</p>
+    <p><strong>Chiara Cappellini</strong> adalah ilmuwan perilaku utama di Behavioral Science Group dalam Office of Development Affairs. Sebagai anggota Sekretariat GBEND, ia memimpin konvensi jaringan dan ekspansi strategis, mendorong banyak inisiatif fondasinya. Pengalaman masa lalunya mencakup pekerjaan yang menjembatani pembangunan sosial dan inovasi melalui pengiriman teknologi yang muncul dengan organisasi internasional utama seperti Meta, UNICEF, dan Google. Ia memegang MSc in International Development and Research Methods dari University of Edinburgh dan BSc in Social Policy dari London School of Economics.</p>
+  </div>
+
+  <!-- ============ REFERENCES ============ -->
+  <div class="refs">
+    <h2>Referensi</h2>
+    <ul>
+      <li>Acemoglu, D., &amp; Robinson, J. A. (2019). <em>The narrow corridor: States, societies, and the fate of liberty</em>. Penguin Press.</li>
+      <li>Bicchieri, C. (2005). <em>The grammar of society: The nature and dynamics of social norms</em>. Cambridge University Press.</li>
+      <li>BIT. (2022). Improving hygiene behaviours within Rohingya settlements in Cox's Bazar. https://www.bi.team/publications/improving-hygiene-behaviours-within-rohingya-settlements-in-coxs-bazar/</li>
+      <li>BIT. (2023a). [Dikutip dalam teks.]</li>
+      <li>BIT. (2023b). AI to BI: Using artificial intelligence in qualitative research. Behavioural Insights Team. https://www.bi.team/blogs/ai-to-bi-using-artificial-intelligence-in-qualitative-research-in-the-middle-east/</li>
+      <li>Booth, S., Cavatassi, R., Curtis, B., Kim, D. S., Langer, L., Mapitsa, C. B., ... &amp; Robertson, J. (2022). Behavioural science interventions within the development and environmental fields in developing countries: An evidence gap map. https://ueaeprints.uea.ac.uk/id/eprint/91067</li>
+      <li>Busara. (2024). <em>A better how: Notes on developmental meta-research</em> (P. Forscher &amp; M. Schmidt, Eds.). https://doi.org/10.62372/ISCI6112</li>
+      <li>Crane, J. T., Andia Biraro, I., Fouad, T. M., Boum, Y., &amp; Bangsberg, D. R. (2018). The 'indirect costs' of underfunding foreign partners in global health research: A case study. <em>Global Public Health, 13</em>(10), 1422–1429. https://doi.org/10.1080/17441692.2017.1372504</li>
+      <li>de Almeida, F., Scott, I. J., Soro, J. C., Fernandes, D., Amaral, A. R., Catarino, M. L., ... &amp; Ferreira, M. B. (2024). Financial scarcity and cognitive performance: A meta-analysis. <em>Journal of Economic Psychology, 101</em>, 102702. https://doi.org/10.1016/j.joep.2024.102702</li>
+      <li>DellaVigna, S., &amp; Linos, E. (2022). RCTs to scale: Comprehensive evidence from two nudge units. <em>Econometrica, 90</em>(1), 81–116. https://doi.org/10.3982/ECTA18709</li>
+      <li>Duflo, E., Glennerster, R., &amp; Kremer, M. (2007). Using randomization in development economics research: A toolkit. <em>Handbook of Development Economics, 4</em>, 3895–3962. https://doi.org/10.1016/S1573-4471(07)04061-2</li>
+      <li>Franco, A., Malhotra, N., &amp; Simonovits, G. (2014). Publication bias in the social sciences: Unlocking the file drawer. <em>Science, 345</em>(6203), 1502–1505. https://doi.org/10.1126/science.1255484</li>
+      <li>Genicot, G., &amp; Ray, D. (2017). Aspirations and inequality. <em>Econometrica, 85</em>(2), 489–519. https://doi.org/10.3982/ECTA13865</li>
+      <li>Gibson, D. G., Farrenkopf, B. A., Pereira, A., Labrique, A. B., &amp; Pariyo, G. W. (2017). The development of an interactive voice response survey for non-communicable disease risk factor estimation: Technical assessment and cognitive testing. <em>Journal of Medical Internet Research, 19</em>(5), e112. https://doi.org/10.2196/jmir.7340</li>
+      <li>The Global SDG Synthesis Coalition. (2024). US$74 million new investments in SDG evidence to be announced. https://www.sdgsynthesiscoalition.org/news/us74-million-new-investments-sdg-evidence-be-announced</li>
+      <li>Greenleaf, A. R., Gibson, D. G., Khattar, C., Labrique, A. B., &amp; Pariyo, G. W. (2017). Building the evidence base for remote data collection in low- and middle-income countries: Comparing reliability and accuracy across survey modalities. <em>Journal of Medical Internet Research, 19</em>(5), e140. https://doi.org/10.2196/jmir.7331</li>
+      <li>Gvirtz, A., &amp; Sabherwal, A. (2024). The limits of doing global, cross-cultural behavioral science research. <em>Proceedings of the National Academy of Sciences, 121</em>(36), e2316690121. https://doi.org/10.1073/pnas.2316690121</li>
+      <li>Hallsworth, M. (2023). <em>A manifesto for applying behavioral science</em>. https://www.bi.team/publications/a-manifesto-for-applying-behavioral-science/</li>
+      <li>Halpern, D., &amp; Maru, D. (2024). A blueprint for better international collaboration on evidence. https://www.bi.team/publications/international-collaboration-evidence/</li>
+      <li>Hanna-Amodio, A., Cappellini, C., Attar, R., &amp; Finlayson, A. (2025). A new tool for behavioral scientists: Exploring the potential of synthetic participants to accelerate how we study attitudes and behaviors. In A. Samson (Ed.), <em>The Behavioral Economics Guide 2025</em> (pp. 16–25). https://www.behavioraleconomics.com/be-guide/the-behavioral-economics-guide-2025/</li>
+      <li>Hawe, P., Shiell, A., &amp; Riley, T. (2004). Complex interventions: How "out of control" can a randomised controlled trial be? <em>BMJ, 328</em>(7455), 1561–1563. https://doi.org/10.1136/bmj.328.7455.1561</li>
+      <li>Hernandez-Agramonte, J. (2025). Turning evidence into routine practice: Lessons from embedded evidence labs. Innovations for Poverty Action. https://poverty-action.org/turning-evidence-routine-practice-lessons-embedded-evidence-labs</li>
+      <li>Henrich, J., Heine, S. J., &amp; Norenzayan, A. (2010). The weirdest people in the world? <em>Behavioral and Brain Sciences, 33</em>(2–3), 61–83. https://pubmed.ncbi.nlm.nih.gov/20550733/</li>
+      <li>Hewitt, C. E., Kumaravel, B., Dumville, J. C., Torgerson, D. J., &amp; Trial Attrition Study Group. (2010). Assessing the impact of attrition in randomized controlled trials. <em>Journal of Clinical Epidemiology, 63</em>(11), 1264–1270. https://doi.org/10.1016/j.jclinepi.2010.01.010</li>
+      <li>Human Truths. (n.d.). Uncover human truths at scale. https://humantruths.ai/</li>
+      <li>Jakiela, P., &amp; Ozier, O. (2016). Does Africa need a rotten kin theorem? Experimental evidence from village economies. <em>The Review of Economic Studies, 83</em>(1), 231–268. https://doi.org/10.1093/restud/rdv033</li>
+      <li>Lauffenburger, J. C., Choudhry, N. K., Russo, M., Glynn, R. J., Ventz, S., &amp; Trippa, L. (2022). Designing and conducting adaptive trials to evaluate interventions in health services and implementation research: Practical considerations. <em>BMJ Medicine, 1</em>(1), e000158. https://doi.org/10.1136/bmjmed-2022-000158</li>
+      <li>List, J. A. (2024). Optimally generate policy-based evidence before scaling. <em>Nature, 626</em>(7999), 491–499. https://doi.org/10.1038/s41586-023-06972-y</li>
+      <li>Lybbert, T. J., &amp; Wydick, B. (2018). Poverty, aspirations, and the economics of hope. <em>Economic Development and Cultural Change, 66</em>(4), 709–753. https://doi.org/10.1086/696968</li>
+      <li>Mani, A., Mullainathan, S., Shafir, E., &amp; Zhao, J. (2013). Poverty impedes cognitive function. <em>Science, 341</em>(6149), 976–980. https://doi.org/10.1126/science.1238041</li>
+      <li>Mertens, S., Herberz, M., Hahnel, U. J., &amp; Brosch, T. (2022). The effectiveness of nudging: A meta-analysis of choice architecture interventions across behavioral domains. <em>Proceedings of the National Academy of Sciences, 119</em>(1), e2107346118. https://doi.org/10.1073/pnas.2107346118</li>
+      <li>Moëll, B., &amp; Sand Aronsson, F. (2025). Journaling with large language models: A novel UX paradigm for AI-driven personal health management. <em>Frontiers in Artificial Intelligence, 8</em>, 1567580. https://doi.org/10.3389/frai.2025.1567580</li>
+      <li>Nañez, P., Decuypere, M., &amp; Hartong, S. (2024). Unpacking the contextualities of behavioural public policy: A case study of the Peruvian Nudge unit MineduLAB. <em>Journal of Social Policy, 55</em>(1), 304–320. https://doi.org/10.1017/S0047279424000187</li>
+      <li>Naru, F. (2024). Behavioral public policy bodies: New developments &amp; lessons. <em>Behavioral Science &amp; Policy, 10</em>(1), 1–17. https://doi.org/10.1177/23794607241285614</li>
+      <li>OECD. (2017). <em>Behavioural insights and public policy: Lessons from around the world</em>. OECD Publishing. https://doi.org/10.1787/9789264270480-en</li>
+      <li>Ruggeri, K., Ali, S., Berge, M. L., Bertoldo, G., Bjørndal, L. D., Cortijos-Bernabeu, A., ... &amp; Folke, T. (2020). Replicating patterns of prospect theory for decision under risk. <em>Nature Human Behaviour, 4</em>(6), 622–633. https://doi.org/10.1038/s41562-020-0886-x</li>
+      <li>Saran, A., White, H., Albright, K., &amp; Adona, J. (2020). Mega-map of systematic reviews and evidence and gap maps on the interventions to improve child well-being in low- and middle-income countries. <em>Campbell Systematic Reviews, 16</em>(4), e1116. https://doi.org/10.1002/cl2.1116</li>
+      <li>Sinha, A., Nagel, C. L., Thomas, E., Schmidt, W. P., Torondel, B., Boisson, S., &amp; Clasen, T. F. (2016). Assessing latrine use in rural India: A cross-sectional study comparing reported use and passive latrine use monitors. <em>The American Journal of Tropical Medicine and Hygiene, 95</em>(3), 720–727. https://doi.org/10.4269/ajtmh.16-0102</li>
+      <li>UNDP. (2015). What is human development? Human Development Reports. https://hdr.undp.org/content/what-human-development</li>
+      <li>Wills Silva, M. (2025). Behavioural science and rigour at the last mile of aid. BIT. https://www.bi.team/comment/behavioural-science-and-rigour-at-the-last-mile-of-aid/</li>
+      <li>World Bank. (2015). <em>World Development Report 2015: Mind, Society, and Behavior</em>. https://www.worldbank.org/en/publication/wdr2015</li>
+      <li>World Population Review. (2026). Literacy Rate by Country 2026. https://worldpopulationreview.com/country-rankings/literacy-rate-by-country</li>
+    </ul>
+  </div>
+
+  <div class="end-mark">• • •</div>
+
+</div>
+</body>
+</html>

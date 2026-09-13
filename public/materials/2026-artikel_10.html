@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Menjembatani Kesenjangan antara Tabungan dan Pendapatan di Masa Pensiun: Eksperimen Lapangan untuk Mendorong Adopsi Fitur Cicilan yang Ramah Pensiunan</title>
+<style>
+  :root {
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #2c5f7c;
+    --rule: #ccc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
+    background: #fafaf7;
+    margin: 0;
+    padding: 0;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.06);
+  }
+  .article-header {
+    border-bottom: 3px double var(--rule);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+  .article-number {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 26px;
+    line-height: 1.25;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .author {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+  .affiliation {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin: 4px 0 0;
+  }
+  h2 {
+    font-size: 22px;
+    margin: 42px 0 16px;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 18px;
+    margin: 30px 0 12px;
+  }
+  p { margin: 0 0 16px; text-align: justify; hyphens: auto; }
+  p.lead { font-size: 18px; }
+  .abstract {
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 22px 26px;
+    margin: 28px 0 36px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .abstract p:last-child { margin-bottom: 0; }
+  .pullquote {
+    font-size: 21px;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding: 6px 0 6px 22px;
+    margin: 30px 0;
+    font-weight: 600;
+  }
+  .pullquote::before { content: "\201C"; }
+  .pullquote::after { content: "\201D"; }
+  figure {
+    margin: 32px 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  figure img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+  }
+  figcaption {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 10px;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .qr-note {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 14px 18px;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .qr-note .qr-box {
+    width: 48px; height: 48px;
+    background: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0/12px 12px;
+    border: 1px solid #999;
+    flex-shrink: 0;
+  }
+  .msg-example {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 18px 24px;
+    margin: 20px 0;
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+  .msg-example strong {
+    display: block;
+    color: var(--accent);
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .msg-example p { margin: 0; text-align: left; }
+  .refs {
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .refs h2 { font-size: 20px; }
+  .refs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    column-count: 2;
+    column-gap: 36px;
+  }
+  .refs li {
+    margin-bottom: 14px;
+    break-inside: avoid;
+    padding-left: 22px;
+    text-indent: -22px;
+  }
+  .author-bio {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 40px 0 24px;
+    font-size: 15.5px;
+  }
+  .author-bio h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  .author-bio p { text-align: left; margin-bottom: 12px; }
+  .author-bio p:last-child { margin-bottom: 0; }
+  .ack {
+    font-size: 15px;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+    margin-top: 30px;
+  }
+  .ack h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 8px;
+  }
+  .end-mark {
+    text-align: center;
+    color: var(--muted);
+    letter-spacing: 6px;
+    margin: 40px 0;
+  }
+  @media (max-width: 640px) {
+    .page { padding: 30px 20px; }
+    .refs ul { column-count: 1; }
+    h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ HEADER ============ -->
+  <header class="article-header">
+    <div class="article-number">Aplikasi</div>
+    <h1>Menjembatani Kesenjangan antara Tabungan dan Pendapatan di Masa Pensiun: Eksperimen Lapangan untuk Mendorong Adopsi Fitur Cicilan yang Ramah Pensiunan</h1>
+    <p class="author">Christelle T. Ngnoumen, Coney H. Lu, dan Sean R. Asbury</p>
+    <p class="affiliation">Voya Financial</p>
+  </header>
+
+  <div class="qr-note">
+    <div class="qr-box"></div>
+    <div>Pindai kode QR untuk menonton ringkasan video</div>
+  </div>
+
+  <!-- ============ ABSTRACT ============ -->
+  <div class="abstract">
+    <p>Pekerja di rencana pensiun kontribusi pasti (defined contribution) Amerika Serikat menghabiskan puluhan tahun berfokus pada akumulasi tabungan pensiun mereka. Saat pensiun mendekat, mereka menghadapi tantangan yang fundamentalnya berbeda: mengubah aset yang terakumulasi menjadi pendapatan yang berkelanjutan. Ilmu perilaku menawarkan alat yang berharga untuk mempermudah pergeseran ini. Penarikan berbasis cicilan adalah mekanisme otomatis yang dapat mengubah portofolio pensiun menjadi pembayaran terjadwal dan berulang serta mengurangi beban kognitif, memitigasi bias perilaku, dan memitigasi risiko. Bab ini memeriksa peran desain dan komunikasi yang diinformasikan perilaku dalam menghubungkan investor yang lebih tua dengan fitur dekumulasi yang ramah pensiunan, seperti penarikan berbasis cicilan, pada platform pensiun digital. Dengan menggunakan bukti dari eksperimen lapangan, bab ini mengevaluasi pesan bertarget yang dirancang untuk meningkatkan kesadaran dan adopsi fitur penarikan berbasis cicilan. Temuan menunjukkan bahwa pembingkaian pesan dapat meningkatkan keterlibatan dengan fitur penarikan berbasis cicilan di antara peserta rencana yang mendekati pensiun.</p>
+  </div>
+
+  <!-- ============ INTRODUCTION ============ -->
+  <h2>Pendahuluan</h2>
+
+  <p>Populasi Amerika Serikat yang menua meningkat pesat dan diproyeksikan mencapai 82 juta pada tahun 2050 (World Bank, 2026). Pergeseran demografis ini telah menyoroti kebutuhan untuk mendukung kohort orang Amerika yang bertumbuh pesat yang mencapai usia 67 setiap tahun dengan kebutuhan perencanaan keuangan mereka. Selama 50 tahun terakhir, sistem pensiun Amerika Serikat telah bergeser dari pensiun manfaat pasti (defined benefit, DB)—yang didanai oleh pemberi kerja dan secara otomatis menjamin aliran pendapatan di masa pensiun—menjadi rencana pensiun kontribusi pasti (defined contribution, DC) seperti 401(k), yang didanai dan dikelola oleh karyawan individu. Saat ini, sekitar setengah pekerja sektor swasta berpartisipasi dalam rencana DC, dan lebih dari 730.000 rencana DC mencakup lebih dari 86 juta penabung aktif (Cerulli Associates, 2025; Employee Benefit Research Institute, 2025; Investment Company Institute, 2025). Transisi ini telah menempatkan tanggung jawab untuk keputusan pensiun kunci, seperti berapa banyak menabung, bagaimana berinvestasi, dan akhirnya kapan dan bagaimana menarik tabungan itu, sepenuhnya pada individu.</p>
+
+  <p>Desain perilaku dan komunikasi yang diinformasikan perilaku dapat memainkan peran kritis dalam menjembatani kesenjangan antara akumulasi dan dekumulasi dengan menghubungkan investor yang lebih tua dengan fitur yang ramah pensiunan seperti penarikan berbasis cicilan pada platform pensiun online. Fitur ini memungkinkan investor untuk menarik jumlah tetap dari investasi pensiun mereka secara berkala. Jumlah penarikan dan jadwal ditentukan oleh investor, dan fitur ini membantu menjadwalkan dan menghasilkan pembayaran berulang sementara saldo yang tersisa dalam investasi terus tumbuh dan menopang tingkat pendapatan seiring waktu melalui imbal hasil investasi tersebut. Sebagai alat dekumulasi terstruktur, penarikan berbasis cicilan dapat membantu mengurangi beban kognitif, bias dalam pengambilan keputusan, dan risiko.</p>
+
+  <blockquote class="pullquote">Desain perilaku dan komunikasi yang diinformasikan perilaku dapat memainkan peran kritis dalam menjembatani kesenjangan antara akumulasi dan dekumulasi.</blockquote>
+
+  <p>Berikut ini memeriksa pentingnya menghubungkan investor yang lebih tua dengan fitur yang ramah pensiunan yang mendukung transisi dari akumulasi ke dekumulasi, dengan perhatian khusus pada penarikan berbasis cicilan yang ditawarkan pada platform pensiun digital. Ini menyajikan temuan dari eksperimen lapangan yang menguji pesan bertarget yang diinformasikan perilaku yang dirancang untuk meningkatkan kesadaran dan adopsi alat-alat ini. Dengan mengevaluasi bagaimana strategi komunikasi bertarget dapat mengurangi hambatan perilaku dan mendorong partisipasi, bab ini menyoroti peran ilmu perilaku dalam memfasilitasi koneksi ke opsi pendapatan pensiun yang berkelanjutan bagi investor baik yang mendekati maupun yang sudah pensiun.</p>
+
+  <!-- ============ ADVANTAGES ============ -->
+  <h2>Mempermudah Transisi dari Kerja ke Pensiun: Keuntungan Fitur Penarikan Berbasis Cicilan untuk Investor yang Lebih Tua</h2>
+
+  <p>Selama beberapa dekade, peserta dalam rencana pensiun DC telah dikondisikan untuk mengakumulasi aset. Pensiun mengganggu pola pikir ini, menuntut pergeseran dari menabung ke membelanjakan. Penarikan berbasis cicilan dapat mempermudah transisi ini dengan menciptakan kembali irama pendapatan yang familiar. Pembayaran teratur seperti gaji memberikan kesinambungan dan struktur pada saat pensiunan mungkin merasa tidak berlabuh karena perubahan identitas profesional dan pemrosesan kognitif.</p>
+
+  <h3>Mengurangi Beban Kognitif</h3>
+
+  <p>Dekumulasi mengharuskan pra-pensiunan dan pensiunan sama-sama membuat penilaian berulang tentang waktu penarikan (yaitu kapan harus menarik uang mereka), jumlah penarikan (yaitu berapa banyak uang yang harus ditarik), kondisi pasar (yaitu bagaimana lingkungan ekonomi saat ini dan masa depan dapat memengaruhi portofolio mereka), implikasi pajak (yaitu bagaimana strategi penarikan yang berbeda memengaruhi beban pajak mereka), dan keberlanjutan jangka panjang (yaitu apakah tabungan mereka akan menopang kebutuhan pengeluaran mereka sepanjang masa pensiun), yang semuanya merupakan tugas yang menuntut memori kerja, penalaran numerik, dan perencanaan yang berorientasi masa depan. Tuntutan ini dapat sangat membebani orang dewasa yang lebih tua, yang sering mengalami penurunan terkait usia dalam kecepatan pemrosesan dan fungsi eksekutif (Karjalainen, 2025; Strough et al., 2021), membuat pengambilan keputusan keuangan lebih berat dan lebih rentan terhadap bias (Keane &amp; Thorp, 2016). Atshan, Angrisani, dan Lee (2025) menemukan bahwa individu di AS mengalami penurunan kekayaan terbesar setelah timbulnya penurunan kognitif dibandingkan dengan individu dari negara lain—perbedaan yang tampaknya sebagian besar didorong oleh struktur pendanaan pensiun DC di AS yang mengharuskan individu membuat keputusan yang lebih kompleks tentang dekumulasi aset pensiun.</p>
+
+  <p>Penarikan berbasis cicilan mengurangi beban kognitif dengan mengotomatiskan keputusan kunci. Setelah jadwal penarikan ditetapkan, peserta tidak lagi diharuskan menilai ulang secara berulang berapa banyak atau kapan harus menarik, sehingga meminimalkan titik keputusan, kelebihan pilihan, dan kelelahan keputusan.</p>
+
+  <h3>Mengurangi Bias dalam Pengambilan Keputusan</h3>
+
+  <p>Penarikan berbasis cicilan juga membatasi pengaruh kecenderungan kognitif dan emosional yang terdokumentasi dengan baik yang menjadi lebih menonjol seiring usia. Banyak pra-pensiunan dan pensiunan memasuki dekumulasi dengan kebiasaan akumulasi yang tertanam dalam, aversi kerugian yang meningkat, dan preferensi kuat untuk status quo. Kecenderungan ini dapat mendistorsi perilaku penarikan dengan membuat mereka enggan menarik aset (Olafsson &amp; Pagel, 2018), memandang penarikan dari tabungan sebagai kerugian (Brown et al., 2013; Shu &amp; Shu, 2018), terlalu reaktif terhadap fluktuasi pasar (Lal et al., 2024; Korniotis &amp; Kumar, 2011), atau mengandalkan peristiwa terkini dengan cara yang mencegah pemikiran jangka panjang.</p>
+
+  <p>Terkait dengan keengganan menarik aset, pengeluaran dari akun kualifikasi seperti 401(k) dan IRA hanya meningkat setelah Required Minimum Distributions (RMD)—jumlah minimum yang harus ditarik individu dari akun pensiun mereka setiap tahun, dimulai ketika mereka mencapai usia 73—dimulai, menunjukkan bahwa pensiunan menghindari penarikan aset kecuali, atau sampai, dipaksa oleh aturan institusional. Meskipun demikian, efek RMD pada perilaku dekumulasi modest (Mortenson et al., 2019). Blanchet dan Finke (2025) menganalisis bagaimana orang Amerika membelanjakan uang mereka di masa pensiun dan menemukan bahwa sementara pensiunan mengonsumsi sekitar 80% dari sumber pendapatan seumur hidup yang dijamin seperti jaminan sosial, pensiun, dan anuitas swasta, mereka hanya mengonsumsi sekitar setengah (50%) dari tabungan investasi dari akun pensiun mereka, yang mengarah pada pengeluaran yang jauh di bawah tabungan total mereka. Ini menunjukkan bahwa mental accounting membuat pra-pensiunan dan pensiunan memperlakukan 'pendapatan' dan 'tabungan' secara berbeda—dan dengan cara yang memengaruhi perilaku dekumulasi.</p>
+
+  <p>Dengan memperkenalkan struktur penarikan yang teratur dan telah ditetapkan sebelumnya, fitur penarikan berbasis cicilan mempromosikan disiplin perilaku yang lebih besar. Bukti empiris menghubungkan fitur-fitur ini dengan penarikan diskresioner yang lebih sedikit, tingkat penarikan yang lebih stabil, dan risiko penipisan aset dini yang lebih rendah (IRALOGIX, 2024; Pang &amp; Warshawsky, 2025). Pra-komitmen membantu investor menghindari perubahan impulsif dan mengurangi kecenderungan untuk membobot kinerja pasar terkini secara berlebihan.</p>
+
+  <h3>Memitigasi Risiko</h3>
+
+  <p>Risiko kunci dalam pensiun adalah sequence-of-returns risk, di mana penurunan pasar di awal pensiun dapat secara permanen mengurangi pendapatan jika penarikan selama penurunan besar atau reaktif (Clare et al., 2025). Penarikan berbasis cicilan dapat memitigasi risiko ini dengan mempromosikan penarikan yang konsisten dan terukur serta mencegah penarikan besar selama penurunan pasar, sehingga mendukung pendapatan yang lebih berkelanjutan sepanjang masa pensiun.</p>
+
+  <h3>Hambatan Adopsi</h3>
+
+  <p>Terlepas dari keuntungan yang diketahui dari fitur penarikan berbasis cicilan, dan meskipun ditawarkan oleh mayoritas (70%) rencana pensiun, adopsi fitur ini tetap rendah (Institutional Retirement Income Council, 2024). Sebagian besar recordkeeper pensiun besar dan peneliti industri melaporkan bahwa hanya sekitar 15–40% peserta pensiun yang memiliki akses ke fitur penarikan dalam rencana seperti cicilan yang menggunakannya, meskipun fitur ini dirancang untuk berfungsi sebagai jalur dekumulasi terstruktur yang memberi pensiunan metode yang dapat diprediksi dan berkelanjutan untuk menghasilkan pendapatan pensiun sambil mempertahankan peluang untuk pertumbuhan yang ditangguhkan pajak atau bebas pajak.</p>
+
+  <blockquote class="pullquote">Hanya sekitar 15–40% peserta pensiun yang memiliki akses ke fitur penarikan dalam rencana seperti cicilan yang menggunakannya.</blockquote>
+
+  <p>Ada beberapa hambatan untuk adopsi fitur penarikan berbasis cicilan, termasuk hambatan kognitif, motivasional, dan lingkungan. Banyak investor dalam rencana pensiun tidak menyadari bahwa mereka memiliki akses ke fitur penarikan berbasis cicilan melalui rencana pensiun mereka. Terlebih lagi, ketika ada kesadaran akan akses ke fitur ini, banyak yang masih tidak sepenuhnya memahami apa itu, bagaimana cara kerjanya, atau nilainya. Kesadaran rendah dan pemahaman rendah adalah dua hambatan kognitif yang terkait untuk adopsi fitur penarikan berbasis cicilan. Penelitian yang melacak persepsi dan perilaku pra-pensiunan dan pensiunan menemukan keakraban rendah dengan fitur pendapatan pensiun, termasuk penarikan berbasis cicilan, kebingungan tentang strategi penarikan, dan preferensi untuk penarikan lump sum bahkan ketika opsi penarikan yang lebih efisien secara pajak dan terstruktur tersedia (LIMRA, 2025; LIMRA &amp; Ipsos, 2025). Menggunakan data dunia nyata, Horan (2024) menemukan bahwa sebagian besar pensiunan yang mengambil distribusi kena pajak menarik lump sum atau tahunan dan jarang menggunakan jadwal penarikan yang lebih sering.</p>
+
+  <p>Penarikan berbasis cicilan sering ditempatkan dengan buruk dalam alur digital, membuat fitur sulit ditemukan; terlebih lagi, arsitektur informasi yang buruk yang menghambat kemudahan ditemukan dan kemampuan untuk bertindak adalah dua hambatan lingkungan tambahan untuk adopsinya.</p>
+
+  <p>Secara bersama-sama, hambatan-hambatan untuk adopsi ini menimbulkan pertanyaan alami: bagaimana pesan yang diinformasikan perilaku dapat meningkatkan keterlibatan dengan fitur penarikan berbasis cicilan?</p>
+
+  <!-- ============ FIELD EXPERIMENT ============ -->
+  <h2>Eksperimen Lapangan: Menguji Pesan yang Diinformasikan Perilaku untuk Meningkatkan Adopsi Fitur Penarikan Berbasis Cicilan</h2>
+
+  <p>Eksperimen lapangan dilakukan dengan peserta rencana pensiun Voya berusia 55 tahun ke atas untuk menguji dan mengidentifikasi pembingkaian pesan perilaku mana yang paling efektif meningkatkan keterlibatan dengan dan adopsi fitur penarikan berbasis cicilan.</p>
+
+  <h3>Desain Eksperimen</h3>
+
+  <p>Secara total, 2.043 peserta berusia 55 tahun ke atas secara acak ditugaskan untuk melihat salah satu dari tiga variasi pesan saat mengunjungi halaman tentang penarikan di situs web rencana pensiun mereka. Untuk memastikan visibilitas dan salience, pesan ditempatkan di bagian atas halaman dan di tempat yang konsisten di seluruh tiga kondisi. Kelompok tambahan 630 peserta dengan karakteristik yang cocok (usia; jenis kelamin; pendapatan) yang mengunjungi halaman yang sama tanpa pesan selama periode yang sama saat eksperimen berlangsung dimasukkan sebagai kontrol untuk analisis (Gambar 1).</p>
+
+  <p>Eksperimen menargetkan individu berusia 55 tahun ke atas dalam rencana dengan fitur penarikan berbasis cicilan online yang mengunjungi halaman untuk menjelajahi opsi penarikan mereka di situs web pensiun untuk memastikan bahwa pesan perilaku yang mereka terima akan tepat waktu dan langsung selaras dengan tindakan mereka. Penelitian sebelumnya menunjukkan bahwa individu dengan usia serupa paling banyak mengunjungi halaman yang sama untuk alasan termasuk menjelajahi opsi mereka saat mempersiapkan keputusan pensiun yang akan datang, mempertimbangkan penarikan lump sum penuh, menjelajahi aturan penarikan bebas penalti, atau memenuhi rasa ingin tahu umum saat menjelajah. Dengan melibatkan peserta pada saat yang tepat ketika mereka mempertimbangkan opsi pensiun mereka, setiap intervensi pesan mengatasi hambatan spesifik untuk adopsi cicilan dan terhubung ke jalur tindakan yang jelas untuk memfasilitasi keterlibatan dengan dan adopsi fitur.</p>
+
+  <p>Variabel independen mencakup pesan yang ditampilkan kepada peserta di atas halaman web. Pesan terdiri dari tiga intervensi pesan yang diinformasikan perilaku yang dirancang untuk mengatasi hambatan kognitif dan motivasional untuk adopsi penarikan berbasis cicilan. Di seluruh tiga kondisi, pesan ditempatkan di bagian atas halaman untuk mempertahankan konsistensi dalam desain eksperimen dan untuk mengurangi hambatan lingkungan untuk adopsi dengan meningkatkan kemudahan ditemukan fitur di halaman dan dalam pengalaman rencana (Gambar 1).</p>
+
+  <p>Hasil diukur pada tingkat peserta dan didefinisikan berdasarkan apakah peserta terpapar pada perlakuan pesan kapan saja selama jendela studi. Dua variabel dependen primer diperiksa. <em>Minat Peserta</em> dinilai berdasarkan proporsi peserta yang melihat setiap variasi pesan dan mengklik tombol call-to-action (CTA) masing-masing untuk mempelajari lebih lanjut atau mendapatkan informasi tambahan tentang penarikan berbasis cicilan. <em>Adopsi</em> fitur penarikan berbasis cicilan dinilai berdasarkan jumlah klik-untuk-mendaftar, atau berdasarkan jumlah peserta yang melihat setiap variasi pesan dan kemudian mendaftar untuk penarikan berbasis cicilan. Variabel dependen sekunder, <em>Keterlibatan Sumber Daya Pendapatan Pensiun</em>, dinilai berdasarkan proporsi peserta yang melihat setiap variasi pesan, mengklik CTA masing-masing, dan kemudian mengklik tautan tambahan untuk mengakses pusat sumber daya dengan informasi tentang cara mengelola pendapatan pensiun dan penarikan secara strategis (misalnya, dengan mempertimbangkan umur panjang, inflasi, pajak, biaya medis, penurunan pasar).</p>
+
+  <figure>
+    <img src="figure1-voya.jpg" alt="Representasi halaman web rencana pensiun online dan penempatan intervensi pesan yang diinformasikan perilaku.">
+    <figcaption><strong>Gambar 1:</strong> Representasi halaman web rencana pensiun online dan penempatan intervensi pesan yang diinformasikan perilaku. Contoh yang ditampilkan menampilkan pesan yang berfokus pada kepemilikan (atas). Pesan pop-up dengan informasi tambahan tentang fitur penarikan berbasis cicilan muncul setelah peserta mengklik tautan "Learn More" (bawah).</figcaption>
+  </figure>
+
+  <h3>Kondisi Eksperimen dan Pesan yang Diinformasikan Perilaku</h3>
+
+  <div class="msg-example">
+    <strong>Pesan yang Berfokus pada Pendidikan</strong>
+    <p>Apakah Anda tahu bahwa rencana Anda menawarkan cicilan? Anda dapat mengubah tabungan Anda menjadi pendapatan teratur di masa pensiun yang disetorkan langsung ke rekening bank Anda. Pelajari lebih lanjut.</p>
+  </div>
+
+  <p>Variasi pesan ini berfokus pada menjelaskan sifat penarikan berbasis cicilan, dan bagaimana cara kerjanya, untuk mendidik peserta pensiun tentang fitur tersebut serta meningkatkan kesadaran akan fakta bahwa rencana mereka menawarkannya. Variasi pesan ini disertakan untuk mengatasi hambatan kognitif untuk adopsi penarikan berbasis cicilan.</p>
+
+  <div class="msg-example">
+    <strong>Pesan yang Berfokus pada Manfaat</strong>
+    <p>Kurangi risiko Anda kehabisan tabungan dengan menyiapkan gaji pensiun teratur dengan tingkat penarikan yang aman. Anda memiliki akses ke fitur cicilan. Pelajari lebih lanjut.</p>
+  </div>
+
+  <p>Variasi pesan ini menyoroti manfaat penarikan berbasis cicilan, termasuk kemampuan mereka untuk membantu peserta mengurangi risiko kehabisan tabungan dengan menyiapkan gaji pensiun teratur pada tingkat penarikan yang aman. Inflasi dan tidak memiliki cukup uang untuk menopang biaya hidup jangka panjang adalah dua faktor teratas yang menyebabkan stres keuangan paling besar bagi peserta pensiun aktif dan pensiun (Cerulli Associates, 2025). Karena itu keduanya disorot dalam pesan yang berfokus pada manfaat. Variasi pesan ini disertakan untuk mengatasi hambatan motivasional untuk adopsi fitur penarikan berbasis cicilan.</p>
+
+  <div class="msg-example">
+    <strong>Pesan yang Berfokus pada Kepemilikan</strong>
+    <p>Anda memiliki manfaat rencana pensiun aktif. Manfaatkan fitur pendapatan pensiun otomatis dari rencana Anda. Pelajari lebih lanjut.</p>
+  </div>
+
+  <p>Variasi pesan ini menerapkan prinsip perilaku endowment untuk memposisikan penarikan berbasis cicilan sebagai manfaat aktif yang sudah dapat diakses peserta tetapi belum mereka gunakan. Penelitian telah menunjukkan bahwa orang menempatkan nilai lebih tinggi pada hal-hal yang mereka rasa sudah mereka miliki (Kahneman et al., 1990). Dengan membingkai fitur penarikan berbasis cicilan sebagai aset yang dimiliki peserta, pesan tersebut bertujuan meningkatkan nilai yang dipersepsikan dan keterlibatan peserta dengannya. Variasi pesan ini disertakan untuk mengatasi hambatan motivasional untuk adopsi fitur penarikan berbasis cicilan (Gambar 2).</p>
+
+  <h3>Peserta</h3>
+
+  <p>Sebanyak 2.673 peserta rencana pensiun berusia 55 tahun ke atas direkrut (671 secara acak ditugaskan ke kondisi Pesan Berbasis Pendidikan; 648 ke kondisi Pesan Berbasis Manfaat; 724 ke kondisi Pesan Berbasis Kepemilikan; dan 630 peserta yang dicocokkan berdasarkan usia, jenis kelamin, dan pendapatan ditugaskan ke kondisi kontrol). Usia peserta berkisar dari 55 hingga di atas 65 tahun (35% berusia 50–59; 31% berusia 60–65; 34% berusia 65 tahun ke atas). Sampel terdiri dari 49% perempuan, 41% laki-laki, dan 10% memiliki identifikasi jenis kelamin yang tidak diketahui. Demografi (misalnya, usia, jenis kelamin, pendapatan) tidak berbeda berdasarkan kondisi. Data perilaku peserta dikumpulkan dari 14 Agustus 2024, hingga 13 November 2024.</p>
+
+  <h3>Hasil</h3>
+
+  <p>Peserta dalam kondisi Pesan Berfokus pada Kepemilikan (p<sub>ownership</sub> = 5,5%, N = 724) menunjukkan tingkat minat yang secara signifikan lebih tinggi pada penarikan berbasis cicilan dibandingkan dengan mereka yang berada dalam kondisi Pesan Berfokus pada Pendidikan (p<sub>education</sub> = 3,3%, N = 671) (Z = 2,03, p = 0,040, h = 0,11) dan dibandingkan dengan mereka yang berada dalam kondisi Pesan Berfokus pada Manfaat (p<sub>benefits</sub> = 2,9%, N = 648) (Z = 2,36, p = 0,018, h = 0,13). Pesan Berfokus pada Pendidikan mendorong minat yang lebih besar pada penarikan berbasis cicilan dibandingkan dengan Pesan Berfokus pada Manfaat, Z = 1,97, p = 0,048, h = 0,02.</p>
+
+  <p>Sekitar 45% peserta dalam kondisi Pesan Berfokus pada Kepemilikan yang mengklik CTA Learn More juga terlibat dengan sumber daya tambahan tentang perencanaan pendapatan pensiun (yaitu Keterlibatan Sumber Daya Pendapatan Pensiun) yang disediakan di modal pop-up. Ini dibandingkan dengan sekitar 59% peserta dalam kondisi Pesan Berfokus pada Pendidikan yang terlibat dengan sumber daya perencanaan pendapatan pensiun, dan sekitar 32% peserta dalam kondisi Pesan Berfokus pada Manfaat yang terlibat dengan sumber daya perencanaan pendapatan pensiun.</p>
+
+  <p>Peserta dalam kondisi Pesan Berfokus pada Kepemilikan secara signifikan lebih mungkin untuk mendaftar penarikan berbasis cicilan dalam sistem digital (p<sub>ownership</sub> = 4,1%, N = 724) dibandingkan dengan mereka yang berada dalam kondisi Pesan Berfokus pada Pendidikan (p<sub>education</sub> = 2,0%, N = 671) (Z = 2,39, p = 0,017, h = 0,12) dan dibandingkan dengan mereka yang berada dalam kondisi Pesan Berfokus pada Manfaat (p<sub>benefits</sub> = 2,0%, N = 648) (Z = 2,27, p = 0,023, h = 0,12). Perbedaan dalam pendaftaran penarikan berbasis cicilan antara kondisi Pesan Berfokus pada Pendidikan dan Pesan Berfokus pada Manfaat tidak signifikan secara statistik. Tingkat pendaftaran penarikan berbasis cicilan di antara kelompok kontrol individu yang dicocokkan adalah 3% (p<sub>ownership</sub> = 3,0%, N = 630). Meskipun tidak signifikan secara statistik, tren marginal diamati melibatkan pendaftaran yang lebih besar untuk penarikan berbasis cicilan di antara peserta dalam kondisi Pesan Berfokus pada Kepemilikan dibandingkan dengan kelompok kontrol peserta yang dicocokkan.</p>
+
+  <blockquote class="pullquote">Peserta dalam kondisi Pesan Berfokus pada Kepemilikan secara signifikan lebih mungkin untuk mendaftar penarikan berbasis cicilan dalam sistem digital.</blockquote>
+
+  <p>Interaksi antara pembingkaian pesan dan jenis kelamin pada keterlibatan dengan sumber daya cicilan signifikan secara statistik, X²(2, N = 41) = 6,72, p = 0,035, w = 0,41. Perempuan lebih mungkin dari yang diharapkan untuk terlibat dengan sumber daya cicilan di bawah pembingkaian Berfokus pada Manfaat, sedangkan laki-laki lebih mungkin untuk terlibat dengan sumber daya cicilan di bawah Pembingkaian Berfokus pada Kepemilikan. Pembingkaian Berfokus pada Pendidikan menghasilkan tingkat keterlibatan yang serupa untuk kedua jenis kelamin.</p>
+
+  <!-- ============ DISCUSSION ============ -->
+  <h2>Diskusi</h2>
+
+  <p>Seiring lanskap pensiun berkembang, fitur penarikan berbasis cicilan menawarkan fleksibilitas, likuiditas, dan potensi pertumbuhan pasar yang berkelanjutan untuk menopang tingkat pendapatan seiring waktu bagi pra-pensiunan dan pensiunan. Pesan yang diinformasikan perilaku pada platform pensiun digital dapat digunakan untuk menghubungkan investor yang lebih tua dengan fitur-fitur ini. Meskipun efek yang diamati kecil, bukti eksperimental menunjukkan bahwa Pesan Berfokus pada Kepemilikan lebih efektif dalam meningkatkan keterlibatan dengan fitur penarikan berbasis cicilan dan adopsi dibandingkan dengan Pesan Berfokus pada Pendidikan dan Berfokus pada Manfaat. Beberapa mekanisme perilaku mungkin menjelaskan hasil ini. Intervensi yang diuji dirancang untuk mengatasi hambatan spesifik untuk adopsi fitur penarikan berbasis cicilan. Ada kemungkinan bahwa Pesan Berfokus pada Kepemilikan yang berakar pada efek endowment lebih efektif dalam mendorong keterlibatan di antara investor yang lebih tua dengan memanfaatkan kecenderungan mereka yang lebih besar terhadap aversi kerugian. Penelitian sebelumnya telah menetapkan bahwa orang menjadi enggan untuk berpisah dengan sesuatu begitu mereka merasa itu milik mereka (Ericson &amp; Fuster, 2014; Kahneman et al., 1990; Knetsch, 1989). Menarik perhatian peserta pada manfaat rencana aktif yang sudah mereka miliki karena berada dalam rencana, tetapi belum mereka gunakan, mungkin memicu kekhawatiran tentang kehilangan fitur rencana yang berharga tersebut.</p>
+
+  <blockquote class="pullquote">Penelitian sebelumnya telah menetapkan bahwa orang menjadi enggan untuk berpisah dengan sesuatu begitu mereka merasa itu milik mereka.</blockquote>
+
+  <p>Ada juga kemungkinan bahwa pembingkaian penarikan berbasis cicilan sebagai 'pendapatan pensiun' membantu meningkatkan keterlibatan dengan fitur tersebut. Hasil ini selaras dengan literatur empiris sebelumnya yang menunjukkan bahwa mental accounting menyebabkan pensiunan memperlakukan 'pendapatan' secara berbeda dari 'tabungan', dan dengan cara yang mendukung dan menghambat perilaku dekumulasi, masing-masing (Blanchett &amp; Finke, 2025). Pensiunan lebih cenderung terlibat dengan fitur penarikan berbasis cicilan ketika mereka menekankan pendapatan daripada tabungan yang ditarik.</p>
+
+  <p>Efek jenis kelamin yang diamati selaras dengan penelitian sebelumnya dalam psikologi dan ekonomi perilaku yang menemukan bahwa perempuan lebih merespons pesan yang menekankan pengurangan risiko dan keamanan, sementara laki-laki lebih merespons pesan yang menekankan kemenangan atau memaksimalkan keuntungan. Terkait, Pesan Berfokus pada Kepemilikan mungkin lebih resonan untuk laki-laki, mengingat sifat efek endowment dan bagaimana ia mengubah keputusan keuangan menjadi peluang untuk mempertahankan kontrol, menghindari kerugian, dan mengoptimalkan hasil (Croson &amp; Gneezy, 2009; Barber &amp; Odean, 2001).</p>
+
+  <p>Intervensi yang diuji dalam penelitian ini meningkatkan adopsi fitur penarikan berbasis cicilan dari 2% menjadi 4%. Meskipun ini merupakan penggandaan yang signifikan secara statistik, masih menyisakan 96% peserta yang tidak mengadopsi fitur tersebut. Meskipun ada hambatan perilaku yang nyata yang mungkin sebagian diatasi oleh intervensi, ada juga kemungkinan bahwa sebagian investor yang lebih tua lebih memilih untuk tidak menggunakan cicilan karena alasan lain yang valid dan rasional. Banyak pensiunan lebih memilih untuk mempertahankan kontrol penuh atas kapan dan berapa banyak mereka menarik untuk memungkinkan mereka menyesuaikan penarikan sebagai respons terhadap pengeluaran tak terduga seperti tagihan medis. Terlebih lagi, pensiunan dengan manfaat Jaminan Sosial yang substansial, pensiun, pendapatan sewa, atau pendapatan pasangan mungkin tidak memerlukan penarikan teratur dari akun pensiun mereka. Karena pengeluaran penting mereka sudah tertutup, mereka mungkin lebih memilih membiarkan aset yang ditangguhkan pajak tidak tersentuh untuk terus berbunga atau untuk melestarikan untuk kebutuhan usia lanjut atau tujuan warisan. Dan akhirnya, beberapa pensiunan secara sengaja menghindari penarikan berbasis cicilan karena mereka mengelola braket pajak mereka dari tahun ke tahun, seperti menunggu sampai RMD dimulai, mengambil penarikan yang lebih besar pada tahun-tahun berpenghasilan rendah, atau menghindari penarikan yang akan mendorong mereka ke braket pajak yang lebih tinggi.</p>
+
+  <!-- ============ BRIDGING ============ -->
+  <h2>Menjembatani Kesenjangan antara Akumulasi dan Dekumulasi</h2>
+
+  <p>Penelitian ini menawarkan beberapa wawasan praktis untuk pemimpin manfaat dan organisasi yang berusaha mendukung investor yang lebih tua dan pra-pensiunan dalam perjalanan mereka baik menuju maupun sepanjang masa pensiun. Pemberi kerja dapat membuat rencana pensiun lebih ramah pensiunan dengan membantu pekerja terlibat dengan fitur yang memungkinkan mereka dengan mudah menghasilkan pendapatan di masa pensiun. Meskipun solusi pendapatan pensiun komprehensif yang secara otomatis menghitung dan menerjemahkan tabungan menjadi aliran pendapatan yang berkelanjutan paling ideal, fitur canggih semacam itu tidak selalu tersedia dalam rencana yang disponsori pemberi kerja. Dalam kasus ini, pemberi kerja masih dapat membuat rencana pensiun mereka lebih ramah pensiunan dengan meningkatkan bagaimana fitur yang ada disajikan dan dikomunikasikan. Menyoroti opsi penarikan berbasis cicilan yang tersedia melalui arsitektur informasi dan komunikasi yang lebih jelas dapat membantu pekerja lebih efektif terlibat dengan alat yang mendukung penghasilan pendapatan di masa pensiun.</p>
+
+  <p>Desain perilaku dan pesan yang diinformasikan perilaku dapat membantu investor yang lebih tua mengakses alat yang tersedia untuk memandu dan mengoptimalkan pengambilan keputusan mereka di masa pensiun, menjembatani kesenjangan kritis antara akumulasi dan dekumulasi. Ketika dikombinasikan dengan arsitektur informasi yang intuitif, materi pendidikan yang sederhana, dan pesan bertarget, pendekatan ini dapat membantu pra-pensiunan tetap pada jalur dengan membantu mereka lebih memahami opsi mereka, mengatasi hambatan literasi keuangan, dan membuat keputusan yang lebih percaya diri.</p>
+
+  <h3>Arsitektur Informasi yang Intuitif</h3>
+
+  <p>Pesan tentang penarikan berbasis cicilan dan fitur ramah pensiunan terkait yang tertanam langsung ke dalam jalur tindakan peserta lebih mungkin memengaruhi perilaku pada saat yang tepat ketika keputusan dibuat. Misalnya, komunikasi atau pesan tentang penarikan berbasis cicilan yang diposisikan pada atau di bagian atas halaman yang dikunjungi peserta untuk menjelajahi sumber daya pensiun mereka, menjelajahi opsi penarikan mereka, dan/atau mengalokasikan investasi mereka akan lebih efektif daripada email atau materi cetak yang beroperasi di luar lingkungan keputusan.</p>
+
+  <h3>Materi Pendidikan yang Sederhana</h3>
+
+  <p>Menyediakan materi pendidikan yang jelas dan mudah dipahami bersama opsi cicilan berbasis penarikan dapat memainkan peran krusial dalam mengatasi literasi keuangan. Penelitian menunjukkan bahwa pensiunan sering berjuang dengan konsep seperti sequencing risk, tingkat penarikan, dan perencanaan umur panjang. Penjelasan bahasa sederhana, contoh visual, dan panduan langkah-demi-langkah yang disesuaikan dengan fitur penarikan berbasis cicilan itu sendiri dapat mengurangi usaha kognitif yang dibutuhkan untuk memahami bagaimana opsi itu bekerja dan bagaimana menggunakannya untuk menghasilkan pendapatan secara berkelanjutan.</p>
+
+  <h3>Penargetan Perilaku dan Personalisasi</h3>
+
+  <p>Penargetan perilaku dan penjangkauan yang dipersonalisasi dapat membantu investor yang lebih tua terlibat dengan fitur yang ramah pensiunan, seperti cicilan berbasis penarikan, pada saat-saat ketika mereka paling reseptif. Banyak individu yang mendekati pensiun mungkin tidak secara aktif mencari informasi tentang penarikan atau strategi pendapatan, bahkan ketika mereka membutuhkannya. Sinyal perilaku—seperti peserta yang berusia 55 tahun ke atas dan baru-baru ini mengunjungi halaman terkait penarikan—dapat digunakan untuk mengirimkan nudge digital atau kampanye email yang tepat waktu dan relevan yang menemui orang tepat di mana mereka berada dalam proses pengambilan keputusan mereka.</p>
+
+  <blockquote class="pullquote">Penargetan perilaku dan penjangkauan yang dipersonalisasi dapat membantu investor yang lebih tua terlibat dengan fitur yang ramah pensiunan, seperti cicilan berbasis penarikan, pada saat-saat ketika mereka paling reseptif.</blockquote>
+
+  <p>Tanggapan diferensial yang diamati terhadap pesan berdasarkan jenis kelamin (misalnya, perempuan merespons lebih banyak Pesan Berfokus pada Manfaat; laki-laki merespons lebih banyak Pesan Berfokus pada Kepemilikan) juga menunjukkan bahwa strategi pesan yang dipersonalisasi bisa jauh lebih efektif daripada pendekatan satu-ukuran-untuk-semua. Rencana yang menawarkan fitur cicilan harus mempertimbangkan menawarkan beberapa titik masuk serta pembingkaian yang berbeda untuk melibatkan serangkaian peserta yang lebih beragam.</p>
+
+  <!-- ============ AUTHOR BIOS ============ -->
+  <div class="author-bio">
+    <h3>Tentang Para Penulis</h3>
+    <p><strong>Christelle Ngnoumen</strong> adalah AVP of Behavioral Science Research di Voya Financial, di mana ia memimpin upaya penelitian dan eksperimen yang berfokus pada membantu orang meningkatkan tabungan dan pemanfaatan manfaat mereka serta mengoptimalkan pengalaman pelanggan. Sebagai ilmuwan perilaku dan pemimpin penelitian, ia memanfaatkan ilmu perilaku untuk merancang pengalaman digital dan komunikasi yang membantu orang membuat keputusan yang lebih baik dan meningkatkan hasil kekayaan dan kesehatan mereka. Sebelum Voya, ia memimpin ilmu perilaku di Headspace, penyedia solusi kesejahteraan dan kesehatan mental terkemuka. Ia juga telah bekerja dengan perusahaan dan lembaga pemerintah pada pengalaman dan layanan digital untuk meningkatkan hasil sosial. Christelle memegang Ph.D. in Experimental Psychology dari Harvard University.</p>
+    <p><strong>Coney Lu</strong> adalah analis data staf yang berspesialisasi dalam eksperimentasi, analitik produk, dan pengambilan keputusan berbasis data di industri fintech. Ia memiliki pengalaman luas merancang dan menganalisis uji A/B skala besar di jutaan pengguna untuk mengoptimalkan keterlibatan produk keuangan, retensi, dan konversi. Karyanya berfokus pada pengembangan KPI, desain metrik yang sadar risiko, dan solusi analitik yang dapat diskalakan. Ia bermitra lintas fungsi dengan tim produk, teknik, dan risiko untuk menerjemahkan data kompleks menjadi wawasan yang dapat ditindaklanjuti untuk layanan keuangan. Minatnya termasuk inferensi kausal, pemodelan perilaku pengguna, dan kerangka eksperimentasi untuk meningkatkan kinerja produk keuangan.</p>
+    <p><strong>Sean Asbury</strong> adalah analis data senior di Voya Financial, di mana ia berfokus pada analitik perilaku dan pensiun untuk membantu meningkatkan hasil peserta, wawasan kesehatan klien, dan pengambilan keputusan berbasis data di seluruh bisnis. Sean membawa ketelitian analitis yang mendalam pada masalah bisnis terapan. Ia merancang dan memelihara analitik skala perusahaan dan dasbor eksekutif yang mengintegrasikan data dari berbagai sumber untuk menginformasikan strategi seputar perilaku menabung, keterlibatan, dan tren aset. Ia memegang Master of Science in Biostatistics dari University of California, Los Angeles, dan memulai kariernya di bidang medis, di mana ia mendukung tim transplantasi ginjal melalui analisis statistik dan penelitian hasil. Ia juga telah bekerja dengan rumah sakit konsultan untuk mengevaluasi kinerja dan merancang pendekatan berbasis data untuk meningkatkan hasil pasien.</p>
+  </div>
+
+  <!-- ============ ACKNOWLEDGMENTS ============ -->
+  <div class="ack">
+    <h3>Ucapan Terima Kasih</h3>
+    <p>Kami ingin berterima kasih kepada Tom Armstrong, Daniella Listro, Taylor Leung, dan Jennifer Chenail atas umpan balik dan dukungan kolaboratif mereka.</p>
+  </div>
+
+  <!-- ============ REFERENCES ============ -->
+  <div class="refs">
+    <h2>Referensi</h2>
+    <ul>
+      <li>Atshan, S., Angrisani, M., &amp; Lee, J. (2025). Cognitive function and household financial decisions at older ages: A cross-country analysis (Wharton Pension Research Council Working Paper no. 2025-05). SSRN. https://dx.doi.org/10.2139/ssrn.5331809</li>
+      <li>Barber, B., &amp; Odean, T. (2001). Boys will be boys: Gender, overconfidence, and common stock investment. <em>Quarterly Journal of Economics, 116</em>(1), 261–292. https://doi.org/10.1162/003355301556400</li>
+      <li>Blanchett, D., &amp; Finke, M. (2025). Retirees spend lifetime income, not savings. <em>Financial Planning Review, 8</em>(3), e70010. https://doi.org/10.1002/cfp2.70010</li>
+      <li>Brown, J. R., Kling, J. R., Mullainathan, S., &amp; Wrobel, M. V. (2013). Framing lifetime income (NBER Working Paper 19063). National Bureau of Economic Research. https://doi.org/10.3386/w19063</li>
+      <li>Cerulli Associates. (2025). <em>U.S. retirement markets: Growth, trends, and opportunities</em>. Cerulli Research Report.</li>
+      <li>Clare, A., Seaton, J., Smith, P. N., &amp; Thomas, S. (2025). Saving to decumulate: A lifetime journey based on the Perfect Contribution Rate. <em>Journal of Retirement, 13</em>(1), 28–45. https://doi.org/10.3905/jor.2025.1.180</li>
+      <li>Croson, R., &amp; Gneezy, U. (2009). Gender differences in preferences. <em>Journal of Economic Literature, 47</em>(2), 448–474. https://doi.org/10.1257/jel.47.2.448</li>
+      <li>Employee Benefit Research Institute. (2025). Retirement plan participation and the current population survey. EBRI Issue Brief.</li>
+      <li>Ericson, K. M. M., &amp; Fuster, A. (2014). The endowment effect. <em>Annual Review of Economics, 6</em>, 555–579. https://doi.org/10.1146/annurev-economics-080213-041320</li>
+      <li>Horan, S. (2024). Optimal withdrawal frequency for sustainable retirement withdrawals. <em>Financial Planning Review, 7</em>(2), e1183. https://doi.org/10.1002/cfp2.1183</li>
+      <li>Institutional Retirement Income Council. (2024). <em>Retirement income reimagined: How systematic withdrawals are reshaping DC plans</em>. IRIC White Paper.</li>
+      <li>Investment Company Institute. (2025). <em>The U.S. retirement market, 2024</em>. ICI Research Report.</li>
+      <li>IRALOGIX. (2024). <em>Installment withdrawals and retirement income outcomes</em>. IRALOGIX Research Brief.</li>
+      <li>Kahneman, D., Knetsch, J. L., &amp; Thaler, R. H. (1990). Experimental tests of the endowment effect and the Coase theorem. <em>Journal of Political Economy, 98</em>(6), 1325–1348. https://doi.org/10.1086/261737</li>
+      <li>Karjalainen, M. (2025). Cognitive decline and financial wealth at older ages. Institute for Fiscal Studies (IFS) Report. https://doi.org/10.1920/re.ifs.2025.0041</li>
+      <li>Keane, M. P., &amp; Thorp, S. (2016). Complex decision making: The roles of cognitive limitations, cognitive decline, and aging. In <em>Handbook of the Economics of Population Aging</em> (Vol. 1, pp. 661–709). North-Holland.</li>
+      <li>Korniotis, G. M., &amp; Kumar, A. (2011). Do older investors make better investment decisions? <em>Review of Economics and Statistics, 93</em>(1), 244–265. https://doi.org/10.1162/REST_a_00053</li>
+      <li>Lal, S., Nguyen, T. X. T., Bawalle, A. A., Khan, M. S. R., &amp; Kadoya, Y. (2024). Unraveling investor behavior: The role of hyperbolic discounting in panic selling behavior on the global COVID-19 financial crisis. <em>Behavioral Sciences, 14</em>(9), 795. https://doi.org/10.3390/bs14090795</li>
+      <li>LIMRA. (2025). <em>Retirement income perceptions and withdrawal behavior</em>. LIMRA Secure Retirement Institute Report.</li>
+      <li>LIMRA, &amp; Ipsos. (2025). <em>Consumer attitudes toward retirement income strategies</em>. Joint Research Report.</li>
+      <li>Mortenson, J. A., Schramm, H. R., &amp; Whitten, A. (2019). The effects of required minimum distribution rules on withdrawals from traditional IRAs. <em>National Tax Journal, 72</em>(3), 507–542. https://doi.org/10.17310/ntj.2019.3.02</li>
+      <li>Olafsson, A., &amp; Pagel, M. (2018). The liquid hand-to-mouth: Evidence from personal finance management software. <em>The Review of Financial Studies, 31</em>(11), 4398–4446. https://doi.org/10.1093/rfs/hhy055</li>
+      <li>Pang, G., &amp; Warshawsky, M. (2025). Evaluating the role of life annuities in retirement income strategies. <em>The Journal of Retirement, 13</em>(2), 20–38. https://doi.org/10.3905/jor.2025.1.185</li>
+      <li>Shu, S. B., &amp; Shu, S. D. (2018). The psychology of decumulation decisions during retirement. <em>Policy Insights from the Behavioral and Brain Sciences, 5</em>(2), 216–223. https://doi.org/10.1177/2372732218790034</li>
+      <li>Strough, J., Karns, T. E., &amp; Schlosnagle, L. (2011). Decision-making heuristics and biases across the life span. <em>Annals of the New York Academy of Sciences, 1235</em>(1), 57–74. https://doi.org/10.1111/j.1749-6632.2011.06208.x</li>
+      <li>World Bank. (2026). Population ages 65 and above (% of total population). World Development Indicators. https://data.worldbank.org</li>
+    </ul>
+  </div>
+
+  <div class="end-mark">• • •</div>
+
+</div>
+</body>
+</html>

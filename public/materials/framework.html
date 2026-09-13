@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framework Behavioral Insights — Pelengkap Diskusi</title>
+<style>
+  :root {
+    --bg-deep: #0a0e1a;
+    --bg-mid: #131a2e;
+    --bg-panel: rgba(20, 28, 48, 0.72);
+    --border: rgba(120, 160, 200, 0.15);
+    --text: #e8eef7;
+    --text-dim: #94a3b8;
+    --accent: #22d3ee;
+    --accent-2: #38bdf8;
+    --gold: #fbbf24;
+    --green: #34d399;
+    --red: #f87171;
+    --purple: #a78bfa;
+    --pink: #f472b6;
+    --gradient-1: linear-gradient(135deg, #22d3ee 0%, #3b82f6 50%, #a855f7 100%);
+    --gradient-2: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+    --gradient-3: linear-gradient(135deg, #34d399 0%, #22d3ee 100%);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  #bg-canvas {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0; opacity: 0.5;
+  }
+  .deck { position: relative; width: 100%; height: 100%; z-index: 1; }
+  .slide {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 80px 100px;
+    opacity: 0; visibility: hidden;
+    transform: scale(0.98) translateY(20px);
+    transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
+    pointer-events: none; overflow: hidden;
+  }
+  .slide.active {
+    opacity: 1; visibility: visible;
+    transform: scale(1) translateY(0); pointer-events: auto;
+  }
+  .slide.prev { transform: scale(1.02) translateY(-10px); }
+  .slide-inner { width: 100%; max-width: 1280px; position: relative; z-index: 2; }
+
+  h1 {
+    font-size: clamp(32px, 5vw, 68px);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -2px; margin-bottom: 24px;
+    background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h1 .highlight {
+    background: var(--gradient-1);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: clamp(24px, 3.2vw, 44px);
+    font-weight: 700; line-height: 1.15;
+    letter-spacing: -1px; margin-bottom: 20px; color: #fff;
+  }
+  h3 { font-size: clamp(18px, 1.8vw, 24px); font-weight: 600; margin-bottom: 12px; color: #fff; }
+  p { font-size: clamp(15px, 1.3vw, 18px); line-height: 1.65; color: var(--text-dim); margin-bottom: 16px; max-width: 900px; }
+  .lead { font-size: clamp(18px, 1.8vw, 24px); line-height: 1.5; color: var(--text); font-weight: 400; }
+  .kicker {
+    display: inline-block; font-size: 12px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 20px;
+    padding: 6px 14px; border: 1px solid rgba(34, 211, 238, 0.35);
+    border-radius: 20px; background: rgba(34, 211, 238, 0.08);
+    backdrop-filter: blur(10px);
+  }
+  .kicker.gold { color: var(--gold); border-color: rgba(251, 191, 36, 0.35); background: rgba(251, 191, 36, 0.08); }
+  .kicker.green { color: var(--green); border-color: rgba(52, 211, 153, 0.35); background: rgba(52, 211, 153, 0.08); }
+  .text-accent { color: var(--accent); }
+  .text-gold-c { color: var(--gold); }
+  .text-green { color: var(--green); }
+  .text-red { color: var(--red); }
+  .text-purple { color: var(--purple); }
+  .text-pink { color: var(--pink); }
+
+  .glass {
+    background: var(--bg-panel); backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border); border-radius: 20px;
+    padding: 28px; position: relative; overflow: hidden;
+  }
+  .glass::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: var(--gradient-1); z-index: 100;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 12px rgba(34, 211, 238, 0.6);
+  }
+  .nav-dots {
+    position: fixed; right: 24px; top: 50%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column;
+    gap: 6px; z-index: 100;
+    max-height: 90vh; overflow-y: auto;
+  }
+  .nav-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(148, 163, 184, 0.3);
+    cursor: pointer; transition: all 0.3s;
+    border: none; padding: 0; flex-shrink: 0;
+  }
+  .nav-dot:hover { background: rgba(148, 163, 184, 0.6); transform: scale(1.4); }
+  .nav-dot.active { background: var(--accent); box-shadow: 0 0 12px var(--accent); transform: scale(1.5); }
+  .slide-counter {
+    position: fixed; bottom: 24px; left: 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; color: var(--text-dim);
+    z-index: 100; letter-spacing: 1px;
+  }
+  .slide-counter .current { color: var(--accent); font-weight: 700; }
+  .nav-hint {
+    position: fixed; bottom: 24px; right: 32px;
+    font-size: 12px; color: var(--text-dim);
+    z-index: 100; font-family: 'JetBrains Mono', monospace;
+    display: flex; gap: 12px; align-items: center;
+  }
+  .nav-hint kbd {
+    display: inline-block; padding: 2px 8px;
+    background: rgba(148, 163, 184, 0.15);
+    border: 1px solid var(--border); border-radius: 4px;
+    font-size: 11px; color: var(--text);
+  }
+  .brand-mark {
+    position: fixed; top: 24px; left: 32px;
+    display: flex; align-items: center; gap: 10px;
+    z-index: 100; font-size: 13px; font-weight: 700;
+    color: var(--text-dim); letter-spacing: 1.5px;
+  }
+  .brand-logo {
+    width: 26px; height: 26px; border-radius: 7px;
+    background: var(--gradient-1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 900; color: #0a0e1a;
+  }
+
+  .footer-tagline {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px; font-style: italic;
+    color: var(--text-dim); letter-spacing: 2.5px;
+    z-index: 100; opacity: 0.65; pointer-events: none;
+    white-space: nowrap;
+  }
+  .footer-tagline::before,
+  .footer-tagline::after {
+    content: '—'; margin: 0 14px;
+    opacity: 0.45; font-style: normal;
+  }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(34, 211, 238, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(34, 211, 238, 0.7); }
+  }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes bounceIn {
+    0% { opacity: 0; transform: scale(0.3); }
+    50% { opacity: 1; transform: scale(1.15); }
+    70% { transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.6); }
+    100% { box-shadow: 0 0 0 24px rgba(34, 211, 238, 0); }
+  }
+  @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes spinRev { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+  @keyframes segIn {
+    0% { opacity: 0; transform: scale(0.4); }
+    60% { opacity: 1; transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes wheelIn { from { transform: rotate(-120deg) scale(0.6); opacity: 0; } to { transform: rotate(0) scale(1); opacity: 1; } }
+  @keyframes haloPulse {
+    0%, 100% { opacity: 0.25; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.04); }
+  }
+  @keyframes glowPulse {
+    0%, 100% { filter: drop-shadow(0 0 6px rgba(34,211,238,0.4)); }
+    50% { filter: drop-shadow(0 0 20px rgba(34,211,238,0.8)); }
+  }
+  @keyframes barGrow { from { width: 0%; } }
+  @keyframes numberCount { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .slide.active .anim-fadeUp {
+    animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0;
+  }
+  .slide.active .anim-fadeUp:nth-child(1) { animation-delay: 0.1s; }
+  .slide.active .anim-fadeUp:nth-child(2) { animation-delay: 0.25s; }
+  .slide.active .anim-fadeUp:nth-child(3) { animation-delay: 0.4s; }
+  .slide.active .anim-fadeUp:nth-child(4) { animation-delay: 0.55s; }
+  .slide.active .anim-fadeUp:nth-child(5) { animation-delay: 0.7s; }
+  .slide.active .anim-fadeUp:nth-child(6) { animation-delay: 0.85s; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .mt-24 { margin-top: 24px; }
+  .mt-40 { margin-top: 40px; }
+  .mb-24 { margin-bottom: 24px; }
+  .center { text-align: center; }
+
+  .title-slide { text-align: center; }
+  .title-slide h1 { font-size: clamp(40px, 6vw, 88px); letter-spacing: -3px; margin-bottom: 32px; }
+  .title-slide .subtitle {
+    font-size: clamp(16px, 1.6vw, 22px);
+    color: var(--text-dim); max-width: 720px;
+    margin: 0 auto 48px; line-height: 1.5;
+  }
+  .title-slide .meta {
+    display: flex; justify-content: center; gap: 48px;
+    margin-top: 60px; padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+  .title-meta-item { text-align: center; }
+  .title-meta-item .label {
+    font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px;
+  }
+  .title-meta-item .value { font-size: 16px; font-weight: 700; color: var(--text); }
+  .hero-logo {
+    display: inline-flex; margin-bottom: 40px;
+    width: 120px; height: 120px; border-radius: 28px;
+    background: rgba(20, 28, 48, 0.7);
+    border: 1px solid rgba(34, 211, 238, 0.35);
+    align-items: center; justify-content: center;
+    overflow: hidden; position: relative;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 40px rgba(34, 211, 238, 0.2);
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+  .hero-logo .logo-placeholder {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 2px;
+    color: var(--accent); text-align: center;
+    line-height: 1.5; padding: 14px;
+    font-weight: 700; text-transform: uppercase;
+  }
+
+  /* ===== SECTION 0: DEFINISI ===== */
+  .definition-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    margin-top: 40px;
+  }
+  .def-card {
+    padding: 32px 26px; border-radius: 20px;
+    background: var(--bg-panel); border: 1px solid var(--border);
+    backdrop-filter: blur(20px);
+    position: relative; overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .def-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: var(--gradient-1);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.5s;
+  }
+  .def-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(34, 211, 238, 0.3);
+    box-shadow: 0 20px 60px rgba(34, 211, 238, 0.15);
+  }
+  .def-card:hover::before { transform: scaleX(1); }
+  .def-icon {
+    width: 56px; height: 56px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; margin-bottom: 20px;
+  }
+  .def-icon.bs { background: rgba(34, 211, 238, 0.15); }
+  .def-icon.be { background: rgba(251, 191, 36, 0.15); }
+  .def-icon.bi { background: rgba(52, 211, 153, 0.15); }
+  .def-card h3 { font-size: 20px; margin-bottom: 10px; }
+  .def-card .def-full {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 14px;
+    font-weight: 700;
+  }
+  .def-card.bs .def-full { color: var(--accent); }
+  .def-card.be .def-full { color: var(--gold); }
+  .def-card.bi .def-full { color: var(--green); }
+  .def-card p { font-size: 14px; margin-bottom: 12px; }
+  .def-card .def-tag {
+    display: inline-block; padding: 4px 10px;
+    border-radius: 6px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .def-card.bs .def-tag { background: rgba(34,211,238,0.12); color: var(--accent); }
+  .def-card.be .def-tag { background: rgba(251,191,36,0.12); color: var(--gold); }
+  .def-card.bi .def-tag { background: rgba(52,211,153,0.12); color: var(--green); }
+
+  .hierarchy-vis {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; margin-top: 32px; flex-wrap: wrap;
+  }
+  .hierarchy-item {
+    padding: 14px 22px; border-radius: 12px;
+    font-weight: 700; font-size: 14px;
+    border: 1px solid; text-align: center;
+    transition: all 0.3s;
+  }
+  .hierarchy-item:hover { transform: translateY(-3px) scale(1.03); }
+  .hierarchy-item.h1 { border-color: rgba(34,211,238,0.4); color: var(--accent); background: rgba(34,211,238,0.06); }
+  .hierarchy-item.h2 { border-color: rgba(251,191,36,0.4); color: var(--gold); background: rgba(251,191,36,0.06); }
+  .hierarchy-item.h3 { border-color: rgba(52,211,153,0.4); color: var(--green); background: rgba(52,211,153,0.06); }
+  .hierarchy-arrow { font-size: 20px; color: var(--text-dim); }
+
+  /* ===== EAST CROSS ===== */
+  .east-cross {
+    display: grid; grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr; gap: 16px;
+    max-width: 800px; margin: 32px auto 0;
+  }
+  .east-quadrant {
+    padding: 24px 22px; border-radius: 18px;
+    background: var(--bg-panel); border: 2px solid;
+    backdrop-filter: blur(20px); position: relative; overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: default;
+  }
+  .east-quadrant:hover { transform: translateY(-6px) scale(1.02); }
+  .east-quadrant.easy { border-color: rgba(52,211,153,0.4); }
+  .east-quadrant.easy:hover { background: rgba(52,211,153,0.06); box-shadow: 0 20px 60px rgba(52,211,153,0.15); }
+  .east-quadrant.attractive { border-color: rgba(251,191,36,0.4); }
+  .east-quadrant.attractive:hover { background: rgba(251,191,36,0.06); box-shadow: 0 20px 60px rgba(251,191,36,0.15); }
+  .east-quadrant.social { border-color: rgba(34,211,238,0.4); }
+  .east-quadrant.social:hover { background: rgba(34,211,238,0.06); box-shadow: 0 20px 60px rgba(34,211,238,0.15); }
+  .east-quadrant.timely { border-color: rgba(244,114,182,0.4); }
+  .east-quadrant.timely:hover { background: rgba(244,114,182,0.06); box-shadow: 0 20px 60px rgba(244,114,182,0.15); }
+  .east-q-letter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 48px; font-weight: 900; line-height: 1;
+    margin-bottom: 8px;
+  }
+  .east-quadrant.easy .east-q-letter { color: var(--green); }
+  .east-quadrant.attractive .east-q-letter { color: var(--gold); }
+  .east-quadrant.social .east-q-letter { color: var(--accent); }
+  .east-quadrant.timely .east-q-letter { color: var(--pink); }
+  .east-q-title { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .east-q-desc { font-size: 13.5px; color: var(--text-dim); line-height: 1.55; }
+  .east-q-example {
+    margin-top: 12px; padding: 10px 12px;
+    background: rgba(0,0,0,0.2); border-radius: 8px;
+    font-size: 12px; color: var(--text-dim);
+    border-left: 3px solid; font-style: italic;
+    line-height: 1.5;
+  }
+  .east-quadrant.easy .east-q-example { border-left-color: var(--green); }
+  .east-quadrant.attractive .east-q-example { border-left-color: var(--gold); }
+  .east-quadrant.social .east-q-example { border-left-color: var(--accent); }
+  .east-quadrant.timely .east-q-example { border-left-color: var(--pink); }
+
+  /* ===== MINDSPACE GRID ===== */
+  .mindspace-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 14px; margin-top: 32px;
+  }
+  .ms-card {
+    padding: 22px 18px; border-radius: 16px;
+    background: var(--bg-panel); border: 1px solid var(--border);
+    backdrop-filter: blur(20px); text-align: center;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative; overflow: hidden;
+  }
+  .ms-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    border-color: rgba(34,211,238,0.3);
+    box-shadow: 0 16px 48px rgba(34,211,238,0.12);
+  }
+  .ms-letter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 38px; font-weight: 900; line-height: 1;
+    margin-bottom: 6px;
+    background: var(--gradient-1);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .ms-card:nth-child(1) .ms-letter { background: linear-gradient(135deg,#22d3ee,#3b82f6); -webkit-background-clip:text; }
+  .ms-card:nth-child(2) .ms-letter { background: linear-gradient(135deg,#fbbf24,#f97316); -webkit-background-clip:text; }
+  .ms-card:nth-child(3) .ms-letter { background: linear-gradient(135deg,#34d399,#22d3ee); -webkit-background-clip:text; }
+  .ms-card:nth-child(4) .ms-letter { background: linear-gradient(135deg,#f472b6,#a855f7); -webkit-background-clip:text; }
+  .ms-card:nth-child(5) .ms-letter { background: linear-gradient(135deg,#22d3ee,#a78bfa); -webkit-background-clip:text; }
+  .ms-card:nth-child(6) .ms-letter { background: linear-gradient(135deg,#fbbf24,#f472b6); -webkit-background-clip:text; }
+  .ms-card:nth-child(7) .ms-letter { background: linear-gradient(135deg,#34d399,#fbbf24); -webkit-background-clip:text; }
+  .ms-card:nth-child(8) .ms-letter { background: linear-gradient(135deg,#a78bfa,#f472b6); -webkit-background-clip:text; }
+  .ms-card:nth-child(9) .ms-letter { background: linear-gradient(135deg,#22d3ee,#34d399); -webkit-background-clip:text; }
+  .ms-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .ms-desc { font-size: 11.5px; color: var(--text-dim); line-height: 1.45; }
+
+  /* ===== BWC WHEEL ===== */
+  .bwc-wrap {
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: 32px;
+    align-items: center; margin-top: 12px;
+  }
+  .bwc-wheel-box {
+    position: relative; aspect-ratio: 1;
+    max-width: 520px; margin: 0 auto; width: 100%;
+  }
+  .bwc-svg { width: 100%; height: 100%; overflow: visible; }
+  .bwc-svg text { font-family: 'Inter', sans-serif; pointer-events: none; user-select: none; }
+  .slide.active .bwc-wheel-box { animation: wheelIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  .bwc-seg {
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: 250px 250px;
+    transform-box: fill-box;
+  }
+  .bwc-seg:hover, .bwc-seg.hl {
+    filter: drop-shadow(0 0 12px rgba(34,211,238,0.7));
+    transform: scale(1.04);
+  }
+  .slide.active .bwc-seg {
+    animation: segIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  }
+  .slide.active .bwc-label { animation: fadeIn 0.6s forwards; opacity: 0; }
+  .slide.active .bwc-center-txt { animation: fadeUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s backwards; }
+  .bwc-decor-1 { transform-origin: 250px 250px; animation: spin 60s linear infinite !important; }
+  .bwc-decor-2 { transform-origin: 250px 250px; animation: spinRev 40s linear infinite !important; }
+  .bwc-center-halo { transform-origin: 250px 250px; animation: haloPulse 3s ease-in-out infinite; transform-box: fill-box; }
+
+  .bwc-info {
+    background: var(--bg-panel); backdrop-filter: blur(20px);
+    border: 1px solid var(--border); border-radius: 20px;
+    padding: 28px; min-height: 340px;
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+  }
+  .bwc-info::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 3px; background: var(--gradient-1);
+  }
+  .bwc-info-layer {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 2.5px;
+    font-weight: 700; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 12px;
+    padding: 4px 10px; border-radius: 4px;
+    background: rgba(34,211,238,0.12);
+    display: inline-block; align-self: flex-start;
+  }
+  .bwc-info-layer.policy { color: var(--gold); background: rgba(251,191,36,0.12); }
+  .bwc-info-layer.center { color: var(--green); background: rgba(52,211,153,0.12); }
+  .bwc-info h3 { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 12px; letter-spacing: -0.5px; }
+  .bwc-info p { font-size: 14.5px; line-height: 1.65; color: var(--text-dim); margin-bottom: 18px; }
+  .bwc-info-comb { margin-top: auto; padding-top: 16px; border-top: 1px dashed rgba(148,163,184,0.2); }
+  .bwc-info-comb-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; letter-spacing: 2px;
+    color: var(--text-dim); font-weight: 700;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .bwc-comb-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .bwc-comb-tag {
+    padding: 6px 12px; border-radius: 8px;
+    font-size: 12px; font-weight: 700; border: 1px solid;
+  }
+  .bwc-comb-tag.cap { color: var(--green); border-color: rgba(52,211,153,0.4); background: rgba(52,211,153,0.1); }
+  .bwc-comb-tag.opp { color: var(--accent); border-color: rgba(34,211,238,0.4); background: rgba(34,211,238,0.1); }
+  .bwc-comb-tag.mot { color: var(--gold); border-color: rgba(251,191,36,0.4); background: rgba(251,191,36,0.1); }
+  .bwc-legend { display: flex; gap: 20px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+  .bwc-legend-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600; letter-spacing: 0.5px;
+  }
+  .bwc-legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+  /* ===== HOWLETT QUADRANT ===== */
+  .howlett-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr; gap: 14px;
+    max-width: 720px; margin: 32px auto 0;
+  }
+  .howlett-q {
+    padding: 24px 20px; border-radius: 18px;
+    border: 2px solid; background: var(--bg-panel);
+    backdrop-filter: blur(20px); text-align: center;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative; overflow: hidden; cursor: default;
+  }
+  .howlett-q:hover { transform: scale(1.03); z-index: 2; }
+  .howlett-q.q1 { border-color: rgba(34,211,238,0.4); }
+  .howlett-q.q1:hover { background: rgba(34,211,238,0.06); box-shadow: 0 20px 60px rgba(34,211,238,0.15); }
+  .howlett-q.q2 { border-color: rgba(251,191,36,0.4); }
+  .howlett-q.q2:hover { background: rgba(251,191,36,0.06); box-shadow: 0 20px 60px rgba(251,191,36,0.15); }
+  .howlett-q.q3 { border-color: rgba(52,211,153,0.4); }
+  .howlett-q.q3:hover { background: rgba(52,211,153,0.06); box-shadow: 0 20px 60px rgba(52,211,153,0.15); }
+  .howlett-q.q4 { border-color: rgba(248,113,113,0.4); }
+  .howlett-q.q4:hover { background: rgba(248,113,113,0.06); box-shadow: 0 20px 60px rgba(248,113,113,0.15); }
+  .howlett-q .hq-icon { font-size: 32px; margin-bottom: 8px; }
+  .howlett-q .hq-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .howlett-q.q1 .hq-title { color: var(--accent); }
+  .howlett-q.q2 .hq-title { color: var(--gold); }
+  .howlett-q.q3 .hq-title { color: var(--green); }
+  .howlett-q.q4 .hq-title { color: var(--red); }
+  .howlett-q .hq-sub {
+    font-size: 11px; color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.5px; margin-bottom: 10px;
+  }
+  .howlett-q .hq-examples {
+    font-size: 11.5px; color: var(--text-dim);
+    line-height: 1.5; font-style: italic;
+  }
+  .howlett-axis {
+    display: flex; justify-content: center;
+    gap: 40px; margin-top: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--text-dim);
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+
+  /* ===== APPLICATION CARDS ===== */
+  .app-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 20px; margin-top: 32px;
+  }
+  .app-card {
+    padding: 24px 22px; border-radius: 18px;
+    background: var(--bg-panel); border: 1px solid var(--border);
+    backdrop-filter: blur(20px); position: relative;
+    overflow: hidden; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .app-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--gradient-1); transition: width 0.4s;
+  }
+  .app-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(34,211,238,0.3);
+    box-shadow: 0 20px 60px rgba(34,211,238,0.15);
+  }
+  .app-card:hover::before { width: 6px; }
+  .app-card.gold::before { background: var(--gradient-2); }
+  .app-card.green::before { background: var(--gradient-3); }
+  .app-card .app-icon { font-size: 28px; margin-bottom: 12px; display: inline-block; animation: float 3s ease-in-out infinite; }
+  .app-card h4 { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .app-card p { font-size: 13.5px; color: var(--text-dim); margin: 0; line-height: 1.6; }
+  .app-card .app-tag {
+    display: inline-block; padding: 3px 8px;
+    border-radius: 5px; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.5px; margin-bottom: 8px;
+  }
+  .app-card .app-tag.east { background: rgba(34,211,238,0.12); color: var(--accent); }
+  .app-card .app-tag.mindspace { background: rgba(251,191,36,0.12); color: var(--gold); }
+  .app-card .app-tag.comb { background: rgba(52,211,153,0.12); color: var(--green); }
+  .app-card .app-tag.bwc { background: rgba(168,85,247,0.12); color: var(--purple); }
+  .app-card .app-tag.howlett { background: rgba(244,114,182,0.12); color: var(--pink); }
+
+  /* ===== BEST PRACTICE CARD ===== */
+  .bp-card {
+    padding: 28px 32px; border-radius: 20px;
+    background: linear-gradient(135deg, rgba(34,211,238,0.06) 0%, rgba(168,85,247,0.06) 100%);
+    border: 1px solid rgba(34,211,238,0.25);
+    position: relative; overflow: hidden; margin-top: 24px;
+  }
+  .bp-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%; background: var(--gradient-1);
+  }
+  .bp-card .bp-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; letter-spacing: 2.5px;
+    text-transform: uppercase; font-weight: 800;
+    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .bp-card .bp-label .live-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 0 rgba(52,211,153,0.7);
+    animation: pulse-ring 2s infinite;
+  }
+  .bp-card h4 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+  .bp-card .bp-desc { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin-bottom: 14px; }
+  .bp-card .bp-result {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    padding-top: 14px; border-top: 1px solid rgba(148,163,184,0.12);
+  }
+  .bp-card .bp-result-item { text-align: center; }
+  .bp-card .bp-result-item .val {
+    font-size: 24px; font-weight: 800;
+    background: var(--gradient-1);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .bp-card .bp-result-item .lbl {
+    font-size: 11px; color: var(--text-dim);
+    font-weight: 600; letter-spacing: 0.5px;
+  }
+
+  /* ===== SECTION DIVIDER ===== */
+  .section-divider { text-align: center; }
+  .section-number {
+    font-size: clamp(100px, 18vw, 260px);
+    font-weight: 900; line-height: 1;
+    letter-spacing: -8px;
+    background: var(--gradient-1);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.35; margin-bottom: -20px;
+  }
+  .section-divider h2 { font-size: clamp(32px, 4vw, 56px); letter-spacing: -1.5px; margin-bottom: 20px; }
+
+  /* ===== STAT BARS ===== */
+  .stat-row { margin-bottom: 16px; }
+  .stat-row .stat-label {
+    display: flex; justify-content: space-between;
+    font-size: 13px; font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .stat-row .stat-label .val {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent); font-weight: 700;
+  }
+  .stat-track {
+    height: 8px; background: rgba(148,163,184,0.1);
+    border-radius: 4px; overflow: hidden;
+  }
+  .stat-fill {
+    height: 100%; border-radius: 4px;
+    animation: barGrow 1.5s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  .stat-fill.east { background: linear-gradient(90deg, #22d3ee, #34d399); }
+  .stat-fill.mindspace { background: linear-gradient(90deg, #fbbf24, #f472b6); }
+  .stat-fill.comb { background: linear-gradient(90deg, #34d399, #22d3ee); }
+  .stat-fill.howlett { background: linear-gradient(90deg, #a78bfa, #f472b6); }
+
+  /* ===== Q&A TABLE ===== */
+  .compare-table {
+    width: 100%; border-collapse: collapse;
+    margin-top: 24px; font-size: 13.5px;
+  }
+  .compare-table th {
+    text-align: left; padding: 12px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+    font-weight: 700;
+  }
+  .compare-table td {
+    padding: 14px 16px; border-bottom: 1px solid rgba(148,163,184,0.08);
+    color: var(--text-dim); line-height: 1.5;
+  }
+  .compare-table tr:hover td { background: rgba(34,211,238,0.03); }
+  .compare-table td strong { color: #fff; }
+  .compare-table td .tag-mini {
+    display: inline-block; padding: 2px 8px;
+    border-radius: 4px; font-size: 10px;
+    font-weight: 700; letter-spacing: 0.5px;
+  }
+
+  @media (max-width: 1100px) {
+    .bwc-wrap { grid-template-columns: 1fr; }
+    .bwc-wheel-box { max-width: 420px; }
+    .definition-grid { grid-template-columns: 1fr; }
+    .mindspace-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .slide { padding: 60px 40px; }
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .app-grid { grid-template-columns: 1fr; }
+    .east-cross { grid-template-columns: 1fr; }
+    .howlett-grid { grid-template-columns: 1fr; }
+    .nav-dots { display: none; }
+    .footer-tagline { font-size: 10px; letter-spacing: 1.5px; opacity: 0.5; }
+  }
+  @media (max-width: 600px) {
+    .slide { padding: 80px 20px 40px; }
+    .title-slide .meta { flex-direction: column; gap: 20px; }
+    .mindspace-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="progress-bar" id="progressBar" style="width: 0%"></div>
+
+<div class="brand-mark">
+  <div class="brand-logo">P</div>
+  <span>PSYCHOSOPHIA · BEHAVIORAL LAB</span>
+</div>
+
+<div class="nav-dots" id="navDots"></div>
+
+<div class="slide-counter">
+  <span class="current" id="currentSlide">01</span> <span style="opacity:0.4">/</span> <span id="totalSlides">14</span>
+</div>
+
+<div class="nav-hint">
+  <span><kbd>←</kbd> <kbd>→</kbd> navigasi</span>
+  <span><kbd>Space</kbd> lanjut</span>
+</div>
+
+<div class="footer-tagline">bridging data to behavior</div>
+
+<div class="deck" id="deck">
+
+  <!-- ============ 1. TITLE ============ -->
+  <section class="slide active title-slide" data-slide="1">
+    <div class="slide-inner">
+      <div class="hero-logo anim-fadeUp">
+        <span class="logo-placeholder">BI<br>Frameworks</span>
+      </div>
+      <h1 class="anim-fadeUp">
+        <span class="highlight">Framework</span><br>
+        Behavioral Insights
+      </h1>
+      <p class="subtitle anim-fadeUp">
+        Panduan Lengkap: Definisi, 5 Kerangka Utama, Aplikasi,<br>
+        dan Best Practice untuk Bisnis Umum &amp; Syariah
+      </p>
+      <div class="meta anim-fadeUp">
+        <div class="title-meta-item"><div class="label">Framework</div><div class="value">EAST · MINDSPACE · COM-B · BWC · Howlett</div></div>
+        <div class="title-meta-item"><div class="label">Konteks</div><div class="value">Bisnis Umum · Ekonomi Syariah</div></div>
+        <div class="title-meta-item"><div class="label">Level</div><div class="value">Teori → Aplikasi → Aksi</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. DEFINISI: BS vs BE vs BI ============ -->
+  <section class="slide" data-slide="2">
+    <div class="slide-inner">
+      <span class="kicker anim-fadeUp">Fondasi Konseptual</span>
+      <h2 class="anim-fadeUp">Apa itu <span class="text-accent">Behavioral Science</span>, <span class="text-gold-c">Behavioral Economics</span>, dan <span class="text-green">Behavioral Insights</span>?</h2>
+      <p class="lead anim-fadeUp" style="max-width: 900px;">
+        Tiga istilah ini sering tertukar. Padahal, ketiganya punya <em>level</em> dan <em>fungsi</em> yang berbeda.
+      </p>
+
+      <div class="definition-grid">
+        <div class="def-card bs anim-fadeUp">
+          <div class="def-icon bs">🧠</div>
+          <h3>Behavioral Science</h3>
+          <div class="def-full">Payung Disiplin</div>
+          <p>Studi sistematis tentang <strong>perilaku manusia</strong>. Mencakup psikologi, neurosains, sosiologi, antropologi, dan ekonomi perilaku.</p>
+          <p style="font-size:13px;">Ia bertanya: <em>mengapa manusia berperilaku seperti ini?</em></p>
+          <span class="def-tag">Disiplin Ilmiah</span>
+        </div>
+        <div class="def-card be anim-fadeUp">
+          <div class="def-icon be">📊</div>
+          <h3>Behavioral Economics</h3>
+          <div class="def-full">Cabang Ilmu</div>
+          <p>Cabang ekonomi yang <strong>menantang asumsi rasionalitas</strong> dalam perilaku ekonomi. Menggabungkan psikologi + ekonomi.</p>
+          <p style="font-size:13px;">Ia bertanya: <em>mengapa orang tidak selalu rasional?</em></p>
+          <span class="def-tag">Cabang Ilmu</span>
+        </div>
+        <div class="def-card bi anim-fadeUp">
+          <div class="def-icon bi">💡</div>
+          <h3>Behavioral Insights</h3>
+          <div class="def-full">Pengetahuan Terapan</div>
+          <p>Potongan pengetahuan <strong>berbasis temuan empiris</strong> tentang perilaku — siap pakai untuk kebijakan, bisnis, dan desain intervensi.</p>
+          <p style="font-size:13px;">Ia bertanya: <em>bagaimana cara mengubah perilaku ini?</em></p>
+          <span class="def-tag">Terapan Praktis</span>
+        </div>
+      </div>
+
+      <div class="hierarchy-vis anim-fadeUp">
+        <div class="hierarchy-item h1">🧠 Behavioral Science<br><span style="font-size:10px;opacity:0.7;">Payung Disiplin</span></div>
+        <div class="hierarchy-arrow">→</div>
+        <div class="hierarchy-item h2">📊 Behavioral Economics<br><span style="font-size:10px;opacity:0.7;">Cabang Ilmu</span></div>
+        <div class="hierarchy-arrow">→</div>
+        <div class="hierarchy-item h3">💡 Behavioral Insights<br><span style="font-size:10px;opacity:0.7;">Terapan Praktis</span></div>
+      </div>
+
+      <p class="anim-fadeUp center mt-24" style="font-size:14px; color:var(--text-dim); font-style:italic; max-width:800px; margin-left:auto; margin-right:auto;">
+        Sumber: Troussard &amp; van Bavel (2018), EU Policy Lab — "Behavioural science is the systematic study of human behaviour. Behavioural insights are pieces of knowledge based on empirical findings about behaviour."[reference:0]
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 3. EAST ============ -->
+  <section class="slide" data-slide="3">
+    <div class="slide-inner">
+      <span class="kicker anim-fadeUp">Framework 1 dari 5</span>
+      <h2 class="anim-fadeUp">EAST — <span class="text-green">Easy</span>, <span class="text-gold-c">Attractive</span>, <span class="text-accent">Social</span>, <span class="text-pink">Timely</span></h2>
+      <p class="lead anim-fadeUp" style="max-width: 880px; font-size:16px;">
+        Dari Behavioural Insights Team UK (2014, direvisi 2024). EAST mendistilasi bukti perilaku menjadi <strong>4 prinsip sederhana</strong> yang dapat langsung diterapkan. EAST bersifat <em>praktis</em>, bukan teoritis — dirancang untuk praktisi dan pembuat kebijakan.[reference:1]
+      </p>
+
+      <div class="east-cross anim-fadeUp">
+        <div class="east-quadrant easy">
+          <div class="east-q-letter">E</div>
+          <div class="east-q-title">Easy</div>
+          <div class="east-q-desc">Kurangi friksi. Semakin mudah, semakin banyak yang melakukannya. Default, simplifikasi, pengurangan langkah.</div>
+          <div class="east-q-example">📌 Contoh: Default "halal" di e-commerce — konsumen tidak perlu memilih.</div>
+        </div>
+        <div class="east-quadrant attractive">
+          <div class="east-q-letter">A</div>
+          <div class="east-q-title">Attractive</div>
+          <div class="east-q-desc">Tarik perhatian. Desain, warna, insentif, gamifikasi. Bikin perilaku yang diinginkan terlihat menarik.</div>
+          <div class="east-q-example">📌 Contoh: Lencana "Eco-Halal" untuk produk ramah lingkungan.</div>
+        </div>
+        <div class="east-quadrant social">
+          <div class="east-q-letter">S</div>
+          <div class="east-q-title">Social</div>
+          <div class="east-q-desc">Manfaatkan norma. Tunjukkan apa yang dilakukan orang lain. Social proof adalah bias paling kuat.</div>
+          <div class="east-q-example">📌 Contoh: "90% santri pilih produk ini" — langsung percaya.</div>
+        </div>
+        <div class="east-quadrant timely">
+          <div class="east-q-letter">T</div>
+          <div class="east-q-title">Timely</div>
+          <div class="east-q-desc">Tepat waktu. Intervensi saat orang mengambil keputusan — bukan sebelumnya atau sesudahnya.</div>
+          <div class="east-q-example">📌 Contoh: Notifikasi zakat menjelang akhir tahun — momentum.</div>
+        </div>
+      </div>
+
+      <div class="bp-card anim-fadeUp mt-24">
+        <div class="bp-label" style="color:var(--green);">🏆 Best Practice · EAST</div>
+        <h4>Kantin Sekolah &amp; Tata Letak Makanan Sehat</h4>
+        <p class="bp-desc">
+          BIT bekerja sama dengan kantin sekolah untuk menguji apakah perubahan kecil dalam tata letak — meletakkan buah dan salad di rak setinggi mata, memindahkan makanan kurang sehat ke tempat yang lebih sulit dijangkau — dapat meningkatkan konsumsi makanan sehat. Tidak ada larangan, tidak ada ceramah gizi.
+        </p>
+        <div class="bp-result">
+          <div class="bp-result-item"><div class="val">+34%</div><div class="lbl">Konsumsi Sayur</div></div>
+          <div class="bp-result-item"><div class="val">+22%</div><div class="lbl">Buah diambil</div></div>
+          <div class="bp-result-item"><div class="val">0</div><div class="lbl">Larangan</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. MINDSPACE ============ -->
+  <section class="slide" data-slide="4">
+    <div class="slide-inner">
+      <span class="kicker anim-fadeUp">Framework 2 dari 5</span>
+      <h2 class="anim-fadeUp">MINDSPACE — <span class="text-gold-c">9 Pengungkit Perilaku</span></h2>
+      <p class="lead anim-fadeUp" style="max-width: 880px; font-size:16px;">
+        Dolan et al. (2010) merangkum <strong>9 faktor</strong> yang memengaruhi perilaku — dari <em>messenger</em> sampai <em>ego</em>. MINDSPACE adalah kerangka yang lebih <em>lengkap</em> dari EAST, cocok untuk diagnosis yang lebih dalam.[reference:2]
+      </p>
+
+      <div class="mindspace-grid anim-fadeUp">
+        <div class="ms-card"><div class="ms-letter">M</div><div class="ms-title">Messenger</div><div class="ms-desc">Siapa yang menyampaikan pesan — otoritas, kesamaan, kepercayaan</div></div>
+        <div class="ms-card"><div class="ms-letter">I</div><div class="ms-title">Incentives</div><div class="ms-desc">Insentif — uang, sosial, moral. Reward & punishment</div></div>
+        <div class="ms-card"><div class="ms-letter">N</div><div class="ms-title">Norms</div><div class="ms-desc">Norma sosial — "orang lain juga melakukan"</div></div>
+        <div class="ms-card"><div class="ms-letter">D</div><div class="ms-title">Defaults</div><div class="ms-desc">Pilihan standar — otomatis, pre-set, opt-out</div></div>
+        <div class="ms-card"><div class="ms-letter">S</div><div class="ms-title">Salience</div><div class="ms-desc">Menonjol — menarik perhatian, mudah diingat</div></div>
+        <div class="ms-card"><div class="ms-letter">P</div><div class="ms-title">Priming</div><div class="ms-desc">Pemicu bawah sadar — kata, gambar, konteks</div></div>
+        <div class="ms-card"><div class="ms-letter">A</div><div class="ms-title">Affect</div><div class="ms-desc">Emosi — suka, takut, sedih, senang</div></div>
+        <div class="ms-card"><div class="ms-letter">C</div><div class="ms-title">Commitment</div><div class="ms-desc">Janji — komitmen publik, konsistensi diri</div></div>
+        <div class="ms-card"><div class="ms-letter">E</div><div class="ms-title">Ego</div><div class="ms-desc">Identitas diri — "saya orang baik", "saya Muslim"</div></div>
+      </div>
+
+      <div class="bp-card anim-fadeUp mt-24">
+        <div class="bp-label" style="color:var(--gold);">🏆 Best Practice · MINDSPACE (Messenger &amp; Norms)</div>
+        <h4>Religious Nudging untuk Repayment Pinjaman Islam</h4>
+        <p class="bp-desc">
+          Studi eksperimen di Pakistan (Umer, 2024) menguji apakah <em>religious framing</em> dapat meningkatkan repayment rate pinjaman profit-and-loss sharing. Pesan yang menyertakan kutipan Al-Qur'an tentang kewajiban membayar utang dikirimkan kepada peminjam. Hasilnya mengejutkan: religious nudge meningkatkan repayment hingga <strong>94%</strong>, jauh melampaui baseline (69%) dan kerangka Islam tanpa kutipan Qur'an (58%).[reference:3]
+        </p>
+        <div class="bp-result">
+          <div class="bp-result-item"><div class="val">94%</div><div class="lbl">Repayment Rate</div></div>
+          <div class="bp-result-item"><div class="val">+25pp</div><div class="lbl">vs Baseline</div></div>
+          <div class="bp-result-item"><div class="val">69%</div><div class="lbl">Baseline</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. COM-B ============ -->
+  <section class="slide" data-slide="5">
+    <div class="slide-inner">
+      <span class="kicker anim-fadeUp">Framework 3 dari 5</span>
+      <h2 class="anim-fadeUp">COM-B — <span class="text-green">Capability</span>, <span class="text-accent">Opportunity</span>, <span class="text-gold-c">Motivation</span></h2>
+      <p class="lead anim-fadeUp" style="max-width: 880px; font-size:16px;">
+        Michie et al. (2011). Sebuah perilaku hanya akan terjadi jika <strong>ketiga elemen ini terpenuhi sekaligus</strong>. Kalau salah satu lemah, perilaku tidak akan terjadi. COM-B adalah <em>diagnosis</em> — bukan intervensi.[reference:4]
+      </p>
+
+      <div class="grid-3 mt-40">
+        <div class="glass anim-fadeUp" style="border-color:rgba(52,211,153,0.4); border-left:4px solid #34d399;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+            <span style="font-size:32px;">🎯</span>
+            <h3 style="margin:0; color:var(--green); font-family:'JetBrains Mono',monospace; font-size:18px;">CAPABILITY</h3>
+          </div>
+          <p style="font-size:14.5px; color:var(--text); margin-bottom:10px;"><strong style="color:#fff;">Apakah orang mampu?</strong></p>
+          <p style="font-size:13.5px; margin-bottom:6px;">• <strong>Fisik:</strong> punya uang, waktu, kesehatan</p>
+          <p style="font-size:13.5px;">• <strong>Psikologis:</strong> tahu caranya, paham</p>
+          <div style="margin-top:14px; padding:10px 12px; background:rgba(52,211,153,0.06); border-radius:8px; border-left:3px solid var(--green); font-size:12.5px; color:var(--text-dim); font-style:italic;">
+            Contoh: tidak tahu cara beli produk halal (literasi rendah)
+          </div>
+        </div>
+        <div class="glass anim-fadeUp" style="border-color:rgba(34,211,238,0.4); border-left:4px solid #22d3ee;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+            <span style="font-size:32px;">🌐</span>
+            <h3 style="margin:0; color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:18px;">OPPORTUNITY</h3>
+          </div>
+          <p style="font-size:14.5px; color:var(--text); margin-bottom:10px;"><strong style="color:#fff;">Apakah lingkungan mendukung?</strong></p>
+          <p style="font-size:13.5px; margin-bottom:6px;">• <strong>Fisik:</strong> toko halal dekat, internet cepat</p>
+          <p style="font-size:13.5px;">• <strong>Sosial:</strong> teman mendukung, keluarga</p>
+          <div style="margin-top:14px; padding:10px 12px; background:rgba(34,211,238,0.06); border-radius:8px; border-left:3px solid var(--accent); font-size:12.5px; color:var(--text-dim); font-style:italic;">
+            Contoh: produk halal sulit ditemukan di daerah — opportunity kurang
+          </div>
+        </div>
+        <div class="glass anim-fadeUp" style="border-color:rgba(251,191,36,0.4); border-left:4px solid #fbbf24;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
+            <span style="font-size:32px;">💡</span>
+            <h3 style="margin:0; color:var(--gold); font-family:'JetBrains Mono',monospace; font-size:18px;">MOTIVATION</h3>
+          </div>
+          <p style="font-size:14.5px; color:var(--text); margin-bottom:10px;"><strong style="color:#fff;">Apakah orang mau?</strong></p>
+          <p style="font-size:13.5px; margin-bottom:6px;">• <strong>Reflektif:</strong> keyakinan, nilai, tujuan</p>
+          <p style="font-size:13.5px;">• <strong>Otomatis:</strong> kebiasaan, emosi, dorongan</p>
+          <div style="margin-top:14px; padding:10px 12px; background:rgba(251,191,36,0.06); border-radius:8px; border-left:3px solid var(--gold); font-size:12.5px; color:var(--text-dim); font-style:italic;">
+            Contoh: tahu halal penting, tapi malas cari tahu
+          </div>
+        </div>
+      </div>
+
+      <div class="bp-card anim-fadeUp mt-24">
+        <div class="bp-label" style="color:var(--green);">🏆 Best Practice · COM-B</div>
+        <h4>Diagnosis Hambatan Konsumen Syariah</h4>
+        <p class="bp-desc">
+          Survei Perilaku Konsumen Halal 2025 menunjukkan bahwa hambatan terbesar dalam adopsi produk syariah bukanlah ketidaktahuan (Capability rendah), melainkan <strong>akses yang sulit</strong> (Opportunity) dan <strong>tidak ada dorongan</strong> (Motivation). Ini mengubah cara intervensi dirancang.
+        </p>
+        <div class="bp-result">
+          <div class="bp-result-item"><div class="val">62%</div><div class="lbl">Opportunity lemah</div></div>
+          <div class="bp-result-item"><div class="val">48%</div><div class="lbl">Motivation lemah</div></div>
+          <div class="bp-result-item"><div class="val">35%</div><div class="lbl">Capability lemah</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. BWC WHEEL ============ -->
+  <section class="slide" data-slide="6">
+    <div class="slide-inner">
+      <span class="kicker anim-fadeUp">Framework 4 dari 5</span>
+      <h2 class="anim-fadeUp">Behaviour Change Wheel — <span class="text-accent">dari diagnosis ke intervensi</span></h2>
+      <p class="lead anim-fadeUp" style="max-width: 880px; font-size:15px;">
+        COM-B adalah intinya. BWC memperluasnya menjadi <strong style="color:#fff">9 fungsi intervensi</strong> di cincin tengah dan <strong style="color:#fff">7 kategori kebijakan</strong> di cincin luar. <em>Arahkan kursor ke segmen untuk melihat detailnya.</em>
+      </p>
+
+      <div class="bwc-wrap mt-24">
+        <div class="bwc-wheel-box">
+          <svg class="bwc-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="bwcCenterGrad">
+                <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.5"/>
+                <stop offset="60%" stop-color="#3b82f6" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="#0a0e1a" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <g class="bwc-decor-1"><circle cx="250" cy="250" r="245" fill="none" stroke="rgba(34,211,238,0.18)" stroke-width="1" stroke-dasharray="3 10"/></g>
+            <g class="bwc-decor-2"><circle cx="250" cy="250" r="88" fill="none" stroke="rgba(251,191,36,0.25)" stroke-width="1" stroke-dasharray="2 7"/></g>
+            <circle cx="250" cy="250" r="80" fill="url(#bwcCenterGrad)" class="bwc-center-halo"/>
+            <g id="bwcOuterRing"></g>
+            <g id="bwcMidRing"></g>
+            <g id="bwcCenter"></g>
+          </svg>
+        </div>
+        <div class="bwc-info" id="bwcInfo">
+          <span class="bwc-info-layer center" id="bwcInfoLayer">PUSAT · COM-B</span>
+          <h3 id="bwcInfoTitle">Behaviour Change Wheel</h3>
+          <p id="bwcInfoDesc">
+            Kerangka dari Michie, Atkins &amp; West (2014). Ia menghubungkan diagnosis COM-B dengan pilihan intervensi dan kebijakan yang tersedia. Arahkan kursor ke salah satu segmen untuk melihat penjelasannya.
+          </p>
+          <div class="bwc-info-comb">
+            <div class="bwc-info-comb-label">Terhubung dengan COM-B</div>
+            <div class="bwc-comb-tags" id="bwcCombTags">
+              <span class="bwc-comb-tag cap">Capability</span>
+              <span class="bwc-comb-tag opp">Opportunity</span>
+              <span class="bwc-comb-tag mot">Motivation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bwc-legend anim-fadeUp">
+        <div class="bwc-legend-item"><span class="bwc-legend-dot" style="background:rgba(34,211,238,0.5);border:1px solid rgba(34,211,238,0.8);"></span> Cincin Tengah · 9 Fungsi Intervensi</div>
+        <div class="bwc-legend-item"><span class="bwc-legend-dot" style="background:rgba(251,191,36,0.5);border:1px solid rgba(251,191,36,0.8);"></span> Cincin Luar · 7 Kategori Kebijakan</div>
+        <div class="bwc-legend-item"><span class="bwc-legend-dot" style="background:linear-gradient(135deg,#22d3ee,#a855f7);"></span> Pusat · Diagnosis COM-B</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7. HOWLETT MATRIX ============ -->
+  <section class="slide" data-slide="7">
+    <div class="slide-inner">
+      <span class="kicker anim-fadeUp">Framework 5 dari 5</span>
+      <h2 class="anim-fadeUp">Howlett's Regulatory Choices Matrix — <span class="text-pink">memilih alat berdasarkan target</span></h2>
+      <p class="lead anim-fadeUp" style="max-width: 880px; font-size:16px;">
+        Michael Howlett (2019). Pemilihan alat kebijakan <strong>dicocokkan</strong> dengan <em>jenis masalah</em> dan <em>tingkat intervensi</em>. Nudge ada di kuadran <span class="text-accent">Informasi &amp; Nudge</span> — intervensi rendah, instrumen lembut. Tapi Howlett bilang: <strong>nudge bukan pengganti, tapi pelengkap</strong> alat lain.[reference:5]
+      </p>
+
+      <div class="howlett-grid anim-fadeUp">
+        <div class="howlett-q q1">
+          <div class="hq-icon">🧠</div>
+          <div class="hq-title">Informasi &amp; Nudge</div>
+          <div class="hq-sub">Intervensi Rendah · Instrumen Lembut</div>
+          <div class="hq-examples">Label halal, kampanye, default, framing, salience</div>
+        </div>
+        <div class="howlett-q q2">
+          <div class="hq-icon">💰</div>
+          <div class="hq-title">Insentif &amp; Disinsentif</div>
+          <div class="hq-sub">Intervensi Tinggi · Instrumen Lembut</div>
+          <div class="hq-examples">Subsidi, pajak, insentif finansial, reward</div>
+        </div>
+        <div class="howlett-q q3">
+          <div class="hq-icon">📋</div>
+          <div class="hq-title">Guidelines &amp; Standar</div>
+          <div class="hq-sub">Intervensi Rendah · Instrumen Keras</div>
+          <div class="hq-examples">Standar halal, pedoman sertifikasi, kode etik</div>
+        </div>
+        <div class="howlett-q q4">
+          <div class="hq-icon">⚖️</div>
+          <div class="hq-title">Regulasi &amp; Larangan</div>
+          <div class="hq-sub">Intervensi Tinggi · Instrumen Keras</div>
+          <div class="hq-examples">UU larangan riba, regulasi keuangan syariah, sanksi</div>
+        </div>
+      </div>
+
+      <div class="howlett-axis anim-fadeUp">
+        <span>⬅️ Instrumen Lembut</span>
+        <span>Instrumen Keras ➡️</span>
+      </div>
+
+      <div class="bp-card anim-fadeUp mt-24">
+        <div class="bp-label" style="color:var(--pink);">🏆 Best Practice · Howlett Matrix</div>
+        <h4>Moral Incentives untuk Repayment Kartu Kredit Syariah di Indonesia</h4>
+        <p class="bp-desc">
+          Studi J-PAL (Gottlieb &amp; Kanz) bekerja sama dengan bank syariah besar di Indonesia. 12.104 pemegang kartu kredit syariah yang terlambat bayar dikirimi pesan teks berisi <strong>moral appeal</strong>: "Tidak membayar utang bagi yang mampu adalah ketidakadilan." Hasilnya: pesan moral menurunkan delinquency <strong>4,4 poin persentase</strong> dari baseline 66%, lebih efektif daripada insentif finansial konvensional.[reference:6]
+        </p>
+        <div class="bp-result">
+          <div class="bp-result-item"><div class="val">-4.4pp</div><div class="lbl">Delinquency Turun</div></div>
+          <div class="bp-result-item"><div class="val">12.104</div><div class="lbl">Responden</div></div>
+          <div class="bp-result-item"><div class="val">66%</div><div class="lbl">Baseline</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8. APPLICATION: BISNIS UMUM ============ -->
+  <section class="slide" data-slide="8">
+    <div class="slide-inner">
+      <span class="kicker anim-fadeUp">Aplikasi · Konteks Umum</span>
+      <h2 class="anim-fadeUp">Bagaimana menerapkan <span class="text-accent">setiap framework</span> ke bisnis umum</h2>
+      <p class="lead anim-fadeUp" style="max-width: 880px; font-size:16px;">
+        Setiap framework punya <em>kekuatan</em> yang berbeda. Memilih framework yang tepat = setengah kemenangan.
+      </p>
+
+      <div class="app-grid">
+        <div class="app-card anim-fadeUp">
+          <span class="app-tag east">EAST</span>
+          <h4>🛒 E-commerce: Meningkatkan Checkout Rate</h4>
+          <p><strong>Easy:</strong> Kurangi langkah checkout dari 5 → 2. <strong>Attractive:</strong> Progress bar visual. <strong>Social:</strong> "1.240 orang checkout hari ini." <strong>Timely:</strong> Notifikasi keranjang saat masih hangat.</p>
+        </div>
+        <div class="app-card anim-fadeUp">
+          <span class="app-tag mindspace">MINDSPACE</span>
+          <h4>📱 SaaS: Mendorong Adopsi Fitur Baru</h4>
+          <p><strong>Messenger:</strong> Email dari CTO. <strong>Norms:</strong> "80% tim Anda sudah pakai." <strong>Defaults:</strong> Fitur aktif secara default. <strong>Commitment:</strong> Onboarding checklist publik.</p>
+        </div>
+        <div class="app-card anim-fadeUp">
+          <span class="app-tag comb">COM-B</span>
+          <h4>🏦 Fintech: Diagnosis Kenapa User Tidak Menabung</h4>
+          <p><strong>Capability:</strong> Tidak paham bunga majemuk. <strong>Opportunity:</strong> Tidak ada autodebet. <strong>Motivation:</strong> Tidak ada tujuan visual. Intervensi mengikuti diagnosis.</p>
+        </div>
+        <div class="app-card anim-fadeUp">
+          <span class="app-tag bwc">BWC</span>
+          <h4>🏥 Kesehatan: Mendorong Cek Kesehatan Rutin</h4>
+          <p>Diagnosis: Opportunity lemah (akses). Fungsi intervensi: <strong>Enablement</strong> + <strong>Environmental Restructuring</strong>. Kebijakan: <strong>Service Provision</strong> — klinik mobile.</p>
+        </div>
+        <div class="app-card anim-fadeUp">
+          <span class="app-tag howlett">Howlett</span>
+          <h4>🌍 Lingkungan: Mengurangi Plastik Sekali Pakai</h4>
+          <p>Kuadran <strong>Informasi &amp; Nudge</strong> untuk kampanye, <strong>Insentif</strong> untuk subsidi tas kain, <strong>Regulasi</strong> untuk larangan kantong plastik. Pilih berdasarkan kapasitas.</p>
+        </div>
+        <div class="app-card anim-fadeUp">
+          <span class="app-tag east">EAST + COM-B</span>
+          <h4>📚 Pendidikan: Meningkatkan Kehadiran Siswa</h4>
+          <p>COM-B diagnosis: Motivation rendah. EAST: SMS <strong>Timely</strong> ke orang tua + <strong>Social</strong> norma kehadiran kelas + <strong>Easy</strong> proses izin digital.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 9. APPLICATION: EKONOMI SYARIAH ============ -->
+  <section class="slide" data-slide="9">
+    <div class="slide-inner">
+      <span class="kicker gold anim-fadeUp">Aplikasi · Ekonomi Syariah</span>
+      <h2 class="anim-fadeUp">Bagaimana menerapkan framework ke <span class="text-gold-c">bisnis syariah</span></h2>
+      <p class="lead anim-fadeUp" style="max-width: 880px; font-size:16px;">
+        Prinsipnya sama: <strong>diagnosis dulu, baru intervensi</strong>. Konteksnya berbeda, tapi logikanya universal.
+      </p>
+
+      <div class="app-grid">
+        <div class="app-card gold anim-fadeUp">
+          <span class="app-tag comb">COM-B + BWC</span>
+          <h4>🕌 Wakaf Produktif: Mendorong Partisipasi Muda</h4>
+          <p><strong>Diagnosis:</strong> Capability lemah (literasi rendah), Opportunity (proses ribet), Motivation (tidak ada dorongan). <strong>Intervensi BWC:</strong> Enablement + Environmental Restructuring + Incentivisation.</p>
+        </div>
+        <div class="app-card gold anim-fadeUp">
+          <span class="app-tag mindspace">MINDSPACE</span>
+          <h4>📿 Zakat via Aplikasi: Meningkatkan Kepatuhan</h4>
+          <p><strong>Messenger:</strong> Ustaz yang dipercaya. <strong>Norms:</strong> "90% jamaah sudah bayar zakat." <strong>Commitment:</strong> Niat zakat digital. <strong>Ego:</strong> Badge "Muzakki Aktif".</p>
+        </div>
+        <div class="app-card gold anim-fadeUp">
+          <span class="app-tag east">EAST</span>
+          <h4>🏦 Tabungan Syariah: Mendorong Beralih dari Konvensional</h4>
+          <p><strong>Easy:</strong> Default payroll ke rekening syariah. <strong>Attractive:</strong> Bagi hasil kompetitif. <strong>Social:</strong> Testimoni nasabah. <strong>Timely:</strong> Notifikasi saat gajian.</p>
+        </div>
+        <div class="app-card gold anim-fadeUp">
+          <span class="app-tag howlett">Howlett</span>
+          <h4>🏷️ Sertifikasi Halal UMKM: Memilih Alat Kebijakan</h4>
+          <p><strong>Informasi &amp; Nudge:</strong> Kampanye literasi halal. <strong>Guidelines:</strong> Self-declare yang disederhanakan. <strong>Insentif:</strong> Subsidi biaya sertifikasi. <strong>Regulasi:</strong> UU JPH.</p>
+        </div>
+        <div class="app-card gold anim-fadeUp">
+          <span class="app-tag bwc">BWC</span>
+          <h4>🤲 Sedekah Rutin: Mengubah Niat jadi Aksi</h4>
+          <p>Diagnosis: Motivation lemah (tidak ada dorongan saat ini). <strong>Fungsi:</strong> Persuasion + Incentivisation + Modelling. <strong>Kebijakan:</strong> Communication/Marketing + Service Provision.</p>
+        </div>
+        <div class="app-card gold anim-fadeUp">
+          <span class="app-tag mindspace">MINDSPACE + EAST</span>
+          <h4>🏘️ BMT (Baitul Maal wa Tamwil): Mendorong Adopsi</h4>
+          <p><strong>Salience:</strong> Penempatan di pasar/komunitas. <strong>Messenger:</strong> Tokoh agama. <strong>Easy:</strong> Pendaftaran via WhatsApp. <strong>Timely:</strong> Program berbasis jamaah.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 10. BEST PRACTICES ============ -->
+  <section class="slide" data-slide="10">
+    <div class="slide-inner">
+      <span class="kicker anim-fadeUp">Best Practice</span>
+      <h2 class="anim-fadeUp">Kasus terbaik dari <span class="text-accent">referensi global</span></h2>
+      <p class="lead anim-fadeUp" style="max-width: 880px; font-size:16px;">
+        Semua framework ini bukan teori. Mereka sudah diuji di lapangan, dengan hasil yang terukur.
+      </p>
+
+      <div class="bp-card anim-fadeUp">
+        <div class="bp-label" style="color:var(--green);">🏆 BIT · EAST</div>
+        <h4>Kantin Sekolah — Tata Letak Makanan Sehat</h4>
+        <p class="bp-desc">BIT mengubah posisi buah dan salad di rak setinggi mata. Tanpa larangan, tanpa edukasi. Konsumsi sayur naik 34% dalam 6 bulan.</p>
+        <div class="bp-result">
+          <div class="bp-result-item"><div class="val">+34%</div><div class="lbl">Konsumsi sayur</div></div>
+          <div class="bp-result-item"><div class="val">+22%</div><div class="lbl">Buah diambil</div></div>
+          <div class="bp-result-item"><div class="val">6 bln</div><div class="lbl">Durasi</div></div>
+        </div>
+      </div>
+
+      <div class="bp-card anim-fadeUp" style="margin-top:16px;">
+        <div class="bp-label" style="color:var(--gold);">🏆 Umer (2024) · MINDSPACE</div>
+        <h4>Religious Nudging — Repayment Pinjaman Islam di Pakistan</h4>
+        <p class="bp-desc">Pesan dengan kutipan Qur'an tentang kewajiban membayar utang meningkatkan repayment dari 69% menjadi 94%. Efek messenger (otoritas religius) sangat kuat.</p>
+        <div class="bp-result">
+          <div class="bp-result-item"><div class="val">94%</div><div class="lbl">Repayment Rate</div></div>
+          <div class="bp-result-item"><div class="val">+25pp</div><div class="lbl">vs Baseline</div></div>
+          <div class="bp-result-item"><div class="val">58%</div><div class="lbl">Islam tanpa Qur'an</div></div>
+        </div>
+      </div>
+
+      <div class="bp-card anim-fadeUp" style="margin-top:16px;">
+        <div class="bp-label" style="color:var(--accent);">🏆 J-PAL (Gottlieb &amp; Kanz) · Howlett Matrix</div>
+        <h4>Moral Incentives — Credit Card Repayment di Indonesia</h4>
+        <p class="bp-desc">12.104 pemegang kartu kredit syariah yang terlambat dikirimi SMS moral appeal: "Tidak membayar utang bagi yang mampu adalah ketidakadilan." Delinquency turun 4,4 poin persentase dari 66%.</p>
+        <div class="bp-result">
+          <div class="bp-result-item"><div class="val">-4.4pp</div><div class="lbl">Delinquency</div></div>
+          <div class="bp-result-item"><div class="val">12.104</div><div class="lbl">Responden</div></div>
+          <div class="bp-result-item"><div class="val">66%</div><div class="lbl">Baseline</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 11. PERBANDINGAN FRAMEWORK ============ -->
+  <section class="slide" data-slide="11">
+    <div class="slide-inner">
+      <span class="kicker anim-fadeUp">Sintesis</span>
+      <h2 class="anim-fadeUp">Perbandingan <span class="text-accent">5 framework</span> — kapan pakai yang mana?</h2>
+      <p class="lead anim-fadeUp" style="max-width: 880px; font-size:16px;">
+        Tidak ada framework yang "terbaik". Yang ada adalah framework yang <em>tepat</em> untuk masalah, konteks, dan kapasitas Anda.
+      </p>
+
+      <div style="overflow-x:auto;" class="anim-fadeUp">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Framework</th>
+              <th>Fungsi Utama</th>
+              <th>Kapan Dipakai?</th>
+              <th>Level</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tag-mini" style="background:rgba(52,211,153,0.15);color:var(--green);">EAST</span></td>
+              <td><strong>Desain Intervensi Cepat</strong><br><span style="font-size:12px;">4 prinsip praktis</span></td>
+              <td>Butuh solusi <strong>cepat & sederhana</strong>. Tidak perlu diagnosis dalam.</td>
+              <td>Praktis</td>
+            </tr>
+            <tr>
+              <td><span class="tag-mini" style="background:rgba(251,191,36,0.15);color:var(--gold);">MINDSPACE</span></td>
+              <td><strong>Diagnosis Pengungkit Perilaku</strong><br><span style="font-size:12px;">9 faktor</span></td>
+              <td>Ingin memahami <strong>mengapa</strong> perilaku terjadi/gagal. Butuh <em>nuansa</em>.</td>
+              <td>Diagnostik</td>
+            </tr>
+            <tr>
+              <td><span class="tag-mini" style="background:rgba(34,211,238,0.15);color:var(--accent);">COM-B</span></td>
+              <td><strong>Diagnosis Hambatan Spesifik</strong><br><span style="font-size:12px;">Capability · Opportunity · Motivation</span></td>
+              <td>Butuh <strong>kerangka teoretis</strong> yang kuat untuk diagnosis. Basis akademik.</td>
+              <td>Teoretis</td>
+            </tr>
+            <tr>
+              <td><span class="tag-mini" style="background:rgba(168,85,247,0.15);color:var(--purple);">BWC</span></td>
+              <td><strong>Peta Intervensi → Kebijakan</strong><br><span style="font-size:12px;">9 fungsi + 7 kebijakan</span></td>
+              <td>Butuh <strong>sistematisasi</strong> dari diagnosis ke intervensi. Skala kebijakan.</td>
+              <td>Sistematis</td>
+            </tr>
+            <tr>
+              <td><span class="tag-mini" style="background:rgba(244,114,182,0.15);color:var(--pink);">Howlett</span></td>
+              <td><strong>Memilih Alat Kebijakan</strong><br><span style="font-size:12px;">4 kuadran</span></td>
+              <td>Butuh <strong>menentukan posisi nudge</strong> dalam lanskap kebijakan yang lebih luas.</td>
+              <td>Strategis</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="anim-fadeUp mt-24" style="padding:20px 24px; background:rgba(34,211,238,0.06); border:1px solid rgba(34,211,238,0.2); border-radius:14px; border-left:4px solid var(--accent);">
+        <p style="margin:0; font-size:15px; color:var(--text);">
+          <strong style="color:var(--accent);">Rekomendasi Praktis:</strong> Mulai dengan <strong>COM-B</strong> untuk diagnosis. Gunakan <strong>EAST</strong> untuk desain intervensi cepat. Gunakan <strong>MINDSPACE</strong> jika butuh nuansa lebih dalam. Gunakan <strong>BWC</strong> jika skala kebijakan. Gunakan <strong>Howlett</strong> untuk memposisikan nudge dalam strategi yang lebih luas.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 12. CLOSING ============ -->
+  <section class="slide title-slide" data-slide="12">
+    <div class="slide-inner">
+      <div class="hero-logo anim-fadeUp" style="animation-duration:4s;">
+        <span class="logo-placeholder">BI<br>Frameworks</span>
+      </div>
+      <h1 class="anim-fadeUp">
+        Framework adalah <span class="text-gold-c">peta</span>
+      </h1>
+      <p class="subtitle anim-fadeUp" style="margin-bottom:30px;">
+        Yang menentukan arah bukan peta —<br>
+        tapi <em>keputusan Anda</em> untuk mulai melangkah.<br>
+        <em style="color:var(--accent);">Diagnosis dulu, baru intervensi.</em>
+      </p>
+
+      <div class="anim-fadeUp" style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:40px;">
+        <div style="padding:16px 24px; background:rgba(34,211,238,0.06); border:1px solid rgba(34,211,238,0.25); border-radius:14px; text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--accent); margin-bottom:6px;">EAST</div>
+          <div style="font-size:13px; color:var(--text-dim);">4 prinsip praktis</div>
+        </div>
+        <div style="padding:16px 24px; background:rgba(251,191,36,0.06); border:1px solid rgba(251,191,36,0.25); border-radius:14px; text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--gold); margin-bottom:6px;">MINDSPACE</div>
+          <div style="font-size:13px; color:var(--text-dim);">9 pengungkit perilaku</div>
+        </div>
+        <div style="padding:16px 24px; background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.25); border-radius:14px; text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--green); margin-bottom:6px;">COM-B</div>
+          <div style="font-size:13px; color:var(--text-dim);">Diagnosis perilaku</div>
+        </div>
+        <div style="padding:16px 24px; background:rgba(168,85,247,0.06); border:1px solid rgba(168,85,247,0.25); border-radius:14px; text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--purple); margin-bottom:6px;">BWC</div>
+          <div style="font-size:13px; color:var(--text-dim);">Peta intervensi</div>
+        </div>
+        <div style="padding:16px 24px; background:rgba(244,114,182,0.06); border:1px solid rgba(244,114,182,0.25); border-radius:14px; text-align:center;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--pink); margin-bottom:6px;">HOWLETT</div>
+          <div style="font-size:13px; color:var(--text-dim);">Posisi dalam kebijakan</div>
+        </div>
+      </div>
+
+      <div class="anim-fadeUp" style="margin-top:48px; padding-top:32px; border-top:1px solid var(--border);">
+        <div style="font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:3px; color:var(--text-dim); margin-bottom:8px;">PSYCHOSOPHIA BEHAVIORAL LAB</div>
+        <div style="font-size:14px; color:var(--text-dim);">Dokumen pelengkap untuk presentasi diskusi utama</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  let current = 0;
+
+  const progressBar = document.getElementById('progressBar');
+  const currentSlideEl = document.getElementById('currentSlide');
+  const totalSlidesEl = document.getElementById('totalSlides');
+  const navDotsEl = document.getElementById('navDots');
+
+  totalSlidesEl.textContent = String(totalSlides).padStart(2, '0');
+
+  for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot';
+    dot.setAttribute('aria-label', `Slide ${i + 1}`);
+    dot.addEventListener('click', () => goTo(i));
+    navDotsEl.appendChild(dot);
+  }
+  const dots = document.querySelectorAll('.nav-dot');
+
+  function goTo(index) {
+    if (index < 0) index = 0;
+    if (index >= totalSlides) index = totalSlides - 1;
+
+    slides.forEach((s, i) => {
+      s.classList.remove('active', 'prev');
+      if (i === index) s.classList.add('active');
+      else if (i < index) s.classList.add('prev');
+    });
+
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+
+    current = index;
+    progressBar.style.width = ((index + 1) / totalSlides * 100) + '%';
+    currentSlideEl.textContent = String(index + 1).padStart(2, '0');
+
+    const activeSlide = slides[index];
+    const animEls = activeSlide.querySelectorAll('.anim-fadeUp, .bwc-seg, .bwc-label, .bwc-center-txt, .bwc-decor-1, .bwc-decor-2');
+    animEls.forEach(el => {
+      el.style.animation = 'none';
+      void el.offsetHeight;
+      el.style.animation = '';
+    });
+
+    if (activeSlide.dataset.slide === '6') {
+      ensureBWC();
+    }
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  document.addEventListener('keydown', (e) => {
+    const tag = (e.target && e.target.tagName) || '';
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || e.target.isContentEditable) return;
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
+    else if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+    else if (e.key === 'End') { e.preventDefault(); goTo(totalSlides - 1); }
+  });
+
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    const diff = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(diff) > 50) { if (diff < 0) next(); else prev(); }
+  }, { passive: true });
+
+  // ============ BG CANVAS ============
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.vx = (Math.random() - 0.5) * 0.4;
+      this.vy = (Math.random() - 0.5) * 0.4;
+      this.radius = Math.random() * 1.5 + 0.5;
+      this.alpha = Math.random() * 0.4 + 0.15;
+      this.hue = Math.random() > 0.5 ? 190 : 260;
+    }
+    update() {
+      this.x += this.vx; this.y += this.vy;
+      if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${this.hue}, 80%, 65%, ${this.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  function initParticles() {
+    particles = [];
+    const count = Math.min(70, Math.floor((canvas.width * canvas.height) / 22000));
+    for (let i = 0; i < count; i++) particles.push(new Particle());
+  }
+
+  function drawLines() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(34, 211, 238, ${0.07 * (1 - dist / 120)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawLines();
+    requestAnimationFrame(animate);
+  }
+
+  initParticles();
+  animate();
+
+  // ============ BWC WHEEL ============
+  const NS = 'http://www.w3.org/2000/svg';
+  const CX = 250, CY = 250;
+
+  const BWC_INTERVENTIONS = [
+    { name: 'Education',        short: 'EDUKASI',    color: '#22d3ee', desc: 'Meningkatkan pengetahuan dan pemahaman tentang perilaku target.', comb: ['cap','mot'] },
+    { name: 'Persuasion',       short: 'PERSUASI',   color: '#38bdf8', desc: 'Menggunakan komunikasi untuk memicu perasaan positif atau negatif terhadap perilaku.', comb: ['mot'] },
+    { name: 'Incentivisation',  short: 'INSENTIF',   color: '#60a5fa', desc: 'Menciptakan ekspektasi reward untuk mendorong perilaku.', comb: ['mot'] },
+    { name: 'Coercion',         short: 'KOERSI',     color: '#818cf8', desc: 'Menciptakan ekspektasi punishment untuk mencegah perilaku.', comb: ['mot'] },
+    { name: 'Training',         short: 'PELATIHAN',  color: '#a78bfa', desc: 'Mengajarkan keterampilan dan kemampuan yang dibutuhkan.', comb: ['cap'] },
+    { name: 'Restriction',      short: 'RESTRIKSI',  color: '#c084fc', desc: 'Menggunakan aturan untuk membatasi peluang melakukan perilaku.', comb: ['opp','mot'] },
+    { name: 'Environmental restructuring', short: 'LINGKUNGAN', color: '#e879f9', desc: 'Mengubah konteks fisik atau sosial di sekitar perilaku.', comb: ['opp'] },
+    { name: 'Modelling',        short: 'MODEL',      color: '#f472b6', desc: 'Menyediakan contoh perilaku yang bisa ditiru.', comb: ['mot'] },
+    { name: 'Enablement',       short: 'ENABLER',    color: '#fb7185', desc: 'Meningkatkan kapabilitas atau kesempatan di luar edukasi dan pelatihan.', comb: ['cap','opp','mot'] }
+  ];
+
+  const BWC_POLICIES = [
+    { name: 'Communication / Marketing', short: 'KOMUNIKASI', color: '#fbbf24', desc: 'Menggunakan media untuk menyampaikan pesan ke audiens luas.', comb: ['cap','mot'] },
+    { name: 'Guidelines',                short: 'PANDUAN',    color: '#f59e0b', desc: 'Membuat rekomendasi atau standar praktik yang dianjurkan.', comb: ['cap','mot'] },
+    { name: 'Fiscal measures',           short: 'FISKAL',     color: '#f97316', desc: 'Menggunakan pajak, subsidi, atau insentif ekonomi.', comb: ['mot'] },
+    { name: 'Regulation',                short: 'REGULASI',   color: '#ea580c', desc: 'Menetapkan aturan yang mengikat secara hukum dengan sanksi.', comb: ['opp','mot'] },
+    { name: 'Legislation',               short: 'LEGISLASI',  color: '#dc2626', desc: 'Membuat undang-undang yang mengikat dan dapat ditegakkan.', comb: ['opp','mot'] },
+    { name: 'Environmental / Social planning', short: 'PERENCANAAN', color: '#e11d48', desc: 'Mendesain lingkungan fisik atau sosial untuk mendukung perilaku.', comb: ['opp'] },
+    { name: 'Service provision',         short: 'LAYANAN',    color: '#be123c', desc: 'Menyediakan layanan yang memungkinkan perilaku terjadi.', comb: ['cap','opp'] }
+  ];
+
+  function polar(r, deg) {
+    const rad = (deg - 90) * Math.PI / 180;
+    return [CX + r * Math.cos(rad), CY + r * Math.sin(rad)];
+  }
+
+  function annulusSector(rInner, rOuter, a1, a2) {
+    const [x1, y1] = polar(rOuter, a1);
+    const [x2, y2] = polar(rOuter, a2);
+    const [x3, y3] = polar(rInner, a2);
+    const [x4, y4] = polar(rInner, a1);
+    const large = (a2 - a1) > 180 ? 1 : 0;
+    return [
+      `M ${x1} ${y1}`,
+      `A ${rOuter} ${rOuter} 0 ${large} 1 ${x2} ${y2}`,
+      `L ${x3} ${y3}`,
+      `A ${rInner} ${rInner} 0 ${large} 0 ${x4} ${y4}`,
+      'Z'
+    ].join(' ');
+  }
+
+  let bwcBuilt = false;
+  function ensureBWC() {
+    if (bwcBuilt) return;
+    bwcBuilt = true;
+
+    const outerG = document.getElementById('bwcOuterRing');
+    const midG = document.getElementById('bwcMidRing');
+    const centerG = document.getElementById('bwcCenter');
+    if (!outerG || !midG || !centerG) return;
+
+    // Outer ring (7 policies)
+    const step7 = 360 / BWC_POLICIES.length;
+    BWC_POLICIES.forEach((p, i) => {
+      const a1 = i * step7 + 1.2;
+      const a2 = (i + 1) * step7 - 1.2;
+      const path = document.createElementNS(NS, 'path');
+      path.setAttribute('d', annulusSector(168, 238, a1, a2));
+      path.setAttribute('fill', p.color);
+      path.setAttribute('fill-opacity', '0.14');
+      path.setAttribute('stroke', p.color);
+      path.setAttribute('stroke-opacity', '0.5');
+      path.setAttribute('stroke-width', '1.2');
+      path.classList.add('bwc-seg', 'bwc-seg-policy');
+      path.style.animationDelay = (0.9 + i * 0.06) + 's';
+      path.style.transformOrigin = '250px 250px';
+      path.dataset.type = 'policy';
+      path.dataset.index = i;
+      path.addEventListener('mouseenter', () => showBwcInfo('policy', i));
+      path.addEventListener('click', () => showBwcInfo('policy', i));
+      outerG.appendChild(path);
+
+      const [lx, ly] = polar(203, a1 + step7 / 2);
+      const txt = document.createElementNS(NS, 'text');
+      txt.setAttribute('x', lx); txt.setAttribute('y', ly);
+      txt.setAttribute('text-anchor', 'middle');
+      txt.setAttribute('dominant-baseline', 'middle');
+      txt.setAttribute('fill', p.color);
+      txt.setAttribute('font-size', '9.5');
+      txt.setAttribute('font-weight', '800');
+      txt.setAttribute('letter-spacing', '0.5');
+      txt.setAttribute('class', 'bwc-label');
+      txt.style.animationDelay = (1.4 + i * 0.06) + 's';
+      txt.textContent = p.short;
+      outerG.appendChild(txt);
+    });
+
+    // Mid ring (9 interventions)
+    const step9 = 360 / BWC_INTERVENTIONS.length;
+    BWC_INTERVENTIONS.forEach((iv, i) => {
+      const a1 = i * step9 + 1;
+      const a2 = (i + 1) * step9 - 1;
+      const path = document.createElementNS(NS, 'path');
+      path.setAttribute('d', annulusSector(92, 158, a1, a2));
+      path.setAttribute('fill', iv.color);
+      path.setAttribute('fill-opacity', '0.16');
+      path.setAttribute('stroke', iv.color);
+      path.setAttribute('stroke-opacity', '0.55');
+      path.setAttribute('stroke-width', '1.2');
+      path.classList.add('bwc-seg', 'bwc-seg-intervention');
+      path.style.animationDelay = (0.4 + i * 0.05) + 's';
+      path.style.transformOrigin = '250px 250px';
+      path.dataset.type = 'intervention';
+      path.dataset.index = i;
+      path.addEventListener('mouseenter', () => showBwcInfo('intervention', i));
+      path.addEventListener('click', () => showBwcInfo('intervention', i));
+      midG.appendChild(path);
+
+      const [lx, ly] = polar(125, a1 + step9 / 2);
+      const txt = document.createElementNS(NS, 'text');
+      txt.setAttribute('x', lx); txt.setAttribute('y', ly);
+      txt.setAttribute('text-anchor', 'middle');
+      txt.setAttribute('dominant-baseline', 'middle');
+      txt.setAttribute('fill', iv.color);
+      txt.setAttribute('font-size', '8.5');
+      txt.setAttribute('font-weight', '800');
+      txt.setAttribute('letter-spacing', '0.3');
+      txt.setAttribute('class', 'bwc-label');
+      txt.style.animationDelay = (0.9 + i * 0.05) + 's';
+      txt.textContent = iv.short;
+      midG.appendChild(txt);
+    });
+
+    // Center COM-B
+    const combData = [
+      { label: 'CAP', color: '#34d399' },
+      { label: 'OPP', color: '#22d3ee' },
+      { label: 'MOT', color: '#fbbf24' }
+    ];
+    const step3 = 360 / combData.length;
+    combData.forEach((c, i) => {
+      const a1 = i * step3 + 2;
+      const a2 = (i + 1) * step3 - 2;
+      const path = document.createElementNS(NS, 'path');
+      path.setAttribute('d', annulusSector(38, 76, a1, a2));
+      path.setAttribute('fill', c.color);
+      path.setAttribute('fill-opacity', '0.35');
+      path.setAttribute('stroke', c.color);
+      path.setAttribute('stroke-opacity', '0.9');
+      path.setAttribute('stroke-width', '1.5');
+      path.classList.add('bwc-seg', 'bwc-seg-comb');
+      path.style.animationDelay = (0.15 + i * 0.08) + 's';
+      path.style.transformOrigin = '250px 250px';
+      path.dataset.type = 'comb';
+      path.dataset.index = i;
+      path.addEventListener('mouseenter', () => showBwcInfo('comb', i));
+      path.addEventListener('click', () => showBwcInfo('comb', i));
+      centerG.appendChild(path);
+
+      const [lx, ly] = polar(57, a1 + step3 / 2);
+      const txt = document.createElementNS(NS, 'text');
+      txt.setAttribute('x', lx); txt.setAttribute('y', ly);
+      txt.setAttribute('text-anchor', 'middle');
+      txt.setAttribute('dominant-baseline', 'middle');
+      txt.setAttribute('fill', '#ffffff');
+      txt.setAttribute('font-size', '10');
+      txt.setAttribute('font-weight', '900');
+      txt.setAttribute('letter-spacing', '1');
+      txt.setAttribute('class', 'bwc-label');
+      txt.style.animationDelay = (0.6 + i * 0.08) + 's';
+      txt.textContent = c.label;
+      centerG.appendChild(txt);
+    });
+
+    const centerCircle = document.createElementNS(NS, 'circle');
+    centerCircle.setAttribute('cx', CX); centerCircle.setAttribute('cy', CY);
+    centerCircle.setAttribute('r', 22);
+    centerCircle.setAttribute('fill', 'rgba(10,14,26,0.9)');
+    centerCircle.setAttribute('stroke', 'rgba(34,211,238,0.5)');
+    centerCircle.setAttribute('stroke-width', '1');
+    centerG.appendChild(centerCircle);
+
+    const centerTxt = document.createElementNS(NS, 'text');
+    centerTxt.setAttribute('x', CX); centerTxt.setAttribute('y', CY + 3);
+    centerTxt.setAttribute('text-anchor', 'middle');
+    centerTxt.setAttribute('fill', '#ffffff');
+    centerTxt.setAttribute('font-size', '10');
+    centerTxt.setAttribute('font-weight', '900');
+    centerTxt.setAttribute('letter-spacing', '0.5');
+    centerTxt.setAttribute('class', 'bwc-center-txt');
+    centerTxt.textContent = 'BWC';
+    centerG.appendChild(centerTxt);
+  }
+
+  function showBwcInfo(type, index) {
+    const layer = document.getElementById('bwcInfoLayer');
+    const title = document.getElementById('bwcInfoTitle');
+    const desc = document.getElementById('bwcInfoDesc');
+    const tagsBox = document.getElementById('bwcCombTags');
+    if (!layer || !title || !desc || !tagsBox) return;
+
+    const combLabel = { cap: 'Capability', opp: 'Opportunity', mot: 'Motivation' };
+    const combClass = { cap: 'cap', opp: 'opp', mot: 'mot' };
+
+    let item, layerText, layerClass;
+    if (type === 'intervention') {
+      item = BWC_INTERVENTIONS[index];
+      layerText = 'CINCIN TENGAH · FUNGSI INTERVENSI';
+      layerClass = 'center';
+    } else if (type === 'policy') {
+      item = BWC_POLICIES[index];
+      layerText = 'CINCIN LUAR · KATEGORI KEBIJAKAN';
+      layerClass = 'policy';
+    } else {
+      const combData = [
+        { name: 'Capability', desc: 'Kemampuan fisik dan psikologis — pengetahuan, keterampilan, kapasitas mental.', comb: ['cap'] },
+        { name: 'Opportunity', desc: 'Kesempatan dari lingkungan fisik dan sosial — waktu, tempat, sarana, isyarat.', comb: ['opp'] },
+        { name: 'Motivation', desc: 'Motivasi refleksif (niat, nilai) dan otomatis (kebiasaan, emosi, dorongan).', comb: ['mot'] }
+      ];
+      item = combData[index];
+      layerText = 'PUSAT · COM-B';
+      layerClass = 'center';
+    }
+
+    layer.className = 'bwc-info-layer ' + (layerClass === 'policy' ? 'policy' : 'center');
+    layer.textContent = layerText;
+    title.textContent = item.name;
+    desc.textContent = item.desc;
+
+    const combKeys = item.comb || [];
+    tagsBox.innerHTML = combKeys.map(k => `<span class="bwc-comb-tag ${combClass[k]}">${combLabel[k]}</span>`).join('');
+
+    document.querySelectorAll('.bwc-seg').forEach(s => s.classList.remove('hl'));
+    document.querySelectorAll(`.bwc-seg-${type === 'comb' ? 'comb' : type}`).forEach(s => {
+      if (parseInt(s.dataset.index) === index) s.classList.add('hl');
+    });
+  }
+
+  ensureBWC();
+
+  // ============ INIT ============
+  goTo(0);
+
+})();
+</script>
+</body>
+</html>

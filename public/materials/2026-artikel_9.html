@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Kerangka Praktis Multi-Dimensi untuk Mengklasifikasikan Agen AI di Industri Investasi</title>
+<style>
+  :root {
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #2c5f7c;
+    --rule: #ccc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
+    background: #fafaf7;
+    margin: 0;
+    padding: 0;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.06);
+  }
+  .article-header {
+    border-bottom: 3px double var(--rule);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+  .article-number {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 28px;
+    line-height: 1.25;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .author {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+  .affiliation {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin: 4px 0 0;
+  }
+  h2 {
+    font-size: 22px;
+    margin: 42px 0 16px;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 18px;
+    margin: 30px 0 12px;
+  }
+  p { margin: 0 0 16px; text-align: justify; hyphens: auto; }
+  p.lead { font-size: 18px; }
+  .abstract {
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 22px 26px;
+    margin: 28px 0 36px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .abstract p:last-child { margin-bottom: 0; }
+  .pullquote {
+    font-size: 21px;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding: 6px 0 6px 22px;
+    margin: 30px 0;
+    font-weight: 600;
+  }
+  .pullquote::before { content: "\201C"; }
+  .pullquote::after { content: "\201D"; }
+  figure {
+    margin: 32px 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  figure img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+  }
+  figcaption {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 10px;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .qr-note {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 14px 18px;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .qr-note .qr-box {
+    width: 48px; height: 48px;
+    background: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0/12px 12px;
+    border: 1px solid #999;
+    flex-shrink: 0;
+  }
+  .dimension-box {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 28px 0;
+  }
+  .dimension-box h4 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  .dimension-box p { font-size: 15.5px; margin: 0 0 12px; }
+  .dimension-box p:last-child { margin-bottom: 0; }
+  .refs {
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .refs h2 { font-size: 20px; }
+  .refs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    column-count: 2;
+    column-gap: 36px;
+  }
+  .refs li {
+    margin-bottom: 14px;
+    break-inside: avoid;
+    padding-left: 22px;
+    text-indent: -22px;
+  }
+  .author-bio {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 40px 0 24px;
+    font-size: 15.5px;
+  }
+  .author-bio h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  .author-bio p { text-align: left; margin-bottom: 12px; }
+  .author-bio p:last-child { margin-bottom: 0; }
+  .end-mark {
+    text-align: center;
+    color: var(--muted);
+    letter-spacing: 6px;
+    margin: 40px 0;
+  }
+  @media (max-width: 640px) {
+    .page { padding: 30px 20px; }
+    .refs ul { column-count: 1; }
+    h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ HEADER ============ -->
+  <header class="article-header">
+    <div class="article-number">Aplikasi</div>
+    <h1>Kerangka Praktis Multi-Dimensi untuk Mengklasifikasikan Agen AI di Industri Investasi</h1>
+    <p class="author">Ivana Zilic</p>
+    <p class="affiliation">Department of Management and Entrepreneurship, Richard H. Driehaus College of Business, DePaul University</p>
+    <p class="author" style="margin-top:14px;">Patrick Wierckx dan Michiel Kuhn</p>
+    <p class="affiliation">Panthera Institute</p>
+    <p class="author" style="margin-top:14px;">Markus Schuller</p>
+    <p class="affiliation">EDHEC Business School, IE Business School, dan Panthera Institute</p>
+  </header>
+
+  <div class="qr-note">
+    <div class="qr-box"></div>
+    <div>Pindai kode QR untuk menonton ringkasan video</div>
+  </div>
+
+  <!-- ============ ABSTRACT ============ -->
+  <div class="abstract">
+    <p>Kecerdasan Buatan (AI) semakin tertanam di seluruh industri investasi, memengaruhi bagaimana informasi diproses, keputusan dibuat, dan nilai diciptakan. Manajer aset, pemilik aset, dan regulator sedang bereksperimen dengan alat yang didukung AI, namun banyak perusahaan berjuang untuk mengevaluasi aplikasi ini secara konsisten atau menilai kepentingan strategisnya dalam proses investasi. Akibatnya, adopsi AI sering tetap terfragmentasi, inkremental, dan reaktif daripada deliberatif dan digerakkan oleh hasil. Artikel ini mengambil pendekatan praktis terhadap tantangan ini dengan menggabungkan penelitian yang ada dari ekonomi perilaku, manajemen organisasi, teori investasi, dan pengambilan keputusan dengan pengalaman industri dunia nyata. Artikel ini memperkenalkan cara terstruktur untuk memikirkan AI dalam proses investasi, menawarkan kerangka yang jelas untuk membantu mengklasifikasikan dan mengevaluasi berbagai jenis alat AI. Meskipun dimensi individualnya bukan hal baru, kombinasinya menyediakan lensa praktis untuk penilaian komparatif di seluruh alat AI dan kasus penggunaan. Kerangka ini dimaksudkan untuk membantu profesional investasi memperjelas di mana AI kemungkinan besar menambah nilai ekonomi dan organisasi, di mana manfaatnya mungkin terbatas, dan bagaimana berbagai aplikasi AI berhubungan satu sama lain secara strategis. Selain itu, ini mendukung prioritas yang lebih terinformasi dari inisiatif AI, keselarasan yang lebih baik dengan tujuan bisnis, dan komunikasi yang lebih jelas di seluruh fungsi investasi, teknologi, dan tata kelola. Alih-alih menyajikan hasil empiris, artikel ini bertujuan membekali praktisi dan pemangku kepentingan kebijakan dengan bantuan pengambilan keputusan yang dapat digunakan—yang bergerak melampaui diskusi abstrak tentang AI dan menuju integrasi yang lebih sistematis dalam pengaturan investasi dunia nyata.</p>
+  </div>
+
+  <!-- ============ FROM HYPE ============ -->
+  <h2>Dari Hype ke Taksonomi: Kerangka Praktis untuk Agen AI dalam Manajemen Investasi</h2>
+
+  <p>Investor profesional bertugas memaksimalkan asimetri antara risiko dan imbal hasil—proses yang semakin bergantung pada alat analitis canggih. Agen AI memainkan peran yang semakin sentral di seluruh rantai nilai investasi, dari analisis data hingga meningkatkan kemampuan pengambilan keputusan. Misalnya, Sutiene et al. (2024) mengeksplorasi berbagai teknik AI dan pembelajaran mesin (ML) untuk tugas-tugas seperti alokasi aset, termasuk metode untuk memilih prediktor dan memperkirakan deret waktu. Adopsi agen AI yang berkembang di industri investasi karena itu menciptakan kebutuhan akan kerangka yang sistematis dan terstruktur untuk memahami peran, kemampuan, dan dampak keseluruhannya.</p>
+
+  <p>Untuk membangun fondasi teoretis untuk kerangka ini, studi ini menarik pada tinjauan literatur yang ekstensif, mengungkap beberapa kesenjangan penting. <em>Pertama</em>, penelitian yang ada memberikan kejelasan terbatas tentang klasifikasi sistem dan agen AI dalam konteks keuangan, khususnya sehubungan dengan masalah skalabilitas dan interpretabilitas model (Joshi, 2025). <em>Kedua</em>, masih ada pemahaman yang tidak memadai tentang bagaimana AI dapat dikerahkan secara strategis untuk menghasilkan nilai bisnis dan meningkatkan proses pengambilan keputusan (Borges et al., 2021). <em>Ketiga</em>, literatur secara tidak memadai membahas bagaimana optimisasi berbasis data oleh agen AI dapat membentuk kembali mekanisme koordinasi pasar dan arsitektur organisasi (Lennart, 2024).</p>
+
+  <p>Akibatnya, tidak ada kerangka komprehensif yang saat ini ada untuk memandu penyebaran agen AI di seluruh proses investasi untuk mengoptimalkan trade-off risiko-imbal hasil.</p>
+
+  <blockquote class="pullquote">Tidak ada kerangka komprehensif yang saat ini ada untuk memandu penyebaran agen AI di seluruh proses investasi untuk mengoptimalkan trade-off risiko-imbal hasil.</blockquote>
+
+  <p>Untuk mengatasi kekurangan ini, artikel ini mengusulkan sistem klasifikasi baru untuk mengkategorikan agen AI di industri investasi. Tujuannya adalah untuk menetapkan kerangka konseptual bersama untuk menganalisis dan mendiskusikan peran AI di seluruh domain investasi untuk meningkatkan pengambilan keputusan dan, pada gilirannya, mendorong hasil investasi yang lebih baik.</p>
+
+  <!-- ============ THEORETICAL BACKGROUND ============ -->
+  <h2>Latar Belakang Teoretis</h2>
+
+  <h3>Definisi Kecerdasan Buatan dan Model Bahasa Besar</h3>
+
+  <p>Istilah 'kecerdasan buatan' (AI) diciptakan oleh Profesor emeritus Stanford John McCarthy pada tahun 1955. Itu didefinisikan sebagai "ilmu dan teknik membuat mesin cerdas" (Rajaraman, 2014) dan mengacu pada seperangkat metodologi yang memungkinkan robot menjalankan tugas kompleks yang biasanya memerlukan kecerdasan manusia (Hicham et al., 2023).</p>
+
+  <p>Model Bahasa Besar (LLM) adalah area yang menonjol dalam domain AI dan dapat dideskripsikan sebagai model bahasa 'generatif', dalam arti mereka dapat menghasilkan bahasa yang menyerupai manusia dan melakukan berbagai tugas pemrosesan bahasa karena pelatihan mereka pada dataset tekstual yang ekstensif, termasuk data yang tersedia untuk publik dan data yang dilisensikan dari pihak ketiga (Sarker, 2022).</p>
+
+  <p>Secara bersama-sama, perspektif ini menunjukkan bahwa penggunaan profesional LLM yang efektif membutuhkan lebih dari sekadar pembuatan teks yang dapat diskalakan. Nilai muncul ketika kemampuan generatif dipasangkan dengan pengetahuan yang berbasis domain dan dapat diverifikasi secara eksternal.</p>
+
+  <blockquote class="pullquote">Nilai muncul ketika kemampuan generatif dipasangkan dengan pengetahuan yang berbasis domain dan dapat diverifikasi secara eksternal.</blockquote>
+
+  <h3>Kurangnya Sistem Klasifikasi yang Dapat Diterapkan</h3>
+
+  <p>Meskipun ada niat yang berkembang untuk mengadopsi aplikasi berbasis AI, integrasinya dalam industri investasi tetap terfragmentasi dan tidak terstruktur (ESMA, 2026). Sampai saat ini, perhatian yang cukup besar telah diberikan pada potensi risiko dan bias yang terkait dengan AI, terutama sehubungan dengan kekhawatiran etis. Mengatasi tantangan ini bergantung secara kritis pada pengembangan dan penerapan Explainable AI (XAI), yang membantu mendemistifikasi model 'kotak hitam' dan meningkatkan transparansi dan kepercayaan dalam proses pengambilan keputusan investasi (Vukovic et al., 2025). Sutiene et al. (2024) menyajikan peran XAI dalam mengatasi sifat 'kotak hitam' dari model AI tertentu, sehingga membangun kepercayaan dan transparansi dalam proses investasi, terutama mengingat fokus regulasi yang meningkat pada industri investasi. Selain itu, kerangka tata kelola yang kokoh sangat penting untuk secara efektif mengatasi masalah seperti bias algoritmik dan transparansi. Tujuannya adalah untuk mencapai pendekatan yang seimbang yang mempromosikan inovasi sambil memastikan integrasi AI yang bertanggung jawab dan berkelanjutan dalam ekosistem keuangan.</p>
+
+  <p>Pendorong potensial yang belum dijelajahi dari implementasi AI yang terfragmentasi di industri investasi adalah tidak adanya sistem klasifikasi umum untuk mengkategorikan secara sistematis rangkaian aplikasi AI yang berkembang. Mokander et al. (2023) mengeksplorasi metode untuk mengklasifikasikan sistem AI untuk mendukung implementasi praktis etika dan tata kelola AI. Mereka meninjau pendekatan yang ada untuk mengklasifikasikan sistem AI dan mengidentifikasi tiga 'model mental' utama: Switch, klasifikasi biner sederhana; Ladder, pendekatan berbasis risiko; dan Matrix, klasifikasi multi-dimensi. Artikel ini memeriksa kekuatan dan kelemahan setiap model dalam istilah praktis dengan menilai kesesuaian untuk tujuan, kesederhanaan, kejelasan, dan stabilitas seiring waktu. Tujuannya adalah untuk membantu organisasi dan regulator menentukan batas yang jelas dan dapat diterapkan untuk tata kelola AI. Namun, klasifikasi artikel ini hampir tidak membantu perusahaan investasi yang berusaha menentukan di mana AI dapat menghasilkan nilai terbesar. Keterbatasan ini terutama berasal dari kurangnya keselarasan kerangka dengan proses investasi tipikal yang digunakan dalam organisasi semacam itu.</p>
+
+  <p>OECD (OECD Framework for the Classification of AI Systems, 2022) memperkenalkan Framework for the Classification of AI Systems, alat yang dirancang untuk membantu pembuat kebijakan dan lainnya dalam memahami dan mengevaluasi karakteristik sistem AI dalam konteks tertentu. Kerangka OECD mengkategorikan sistem AI di lima dimensi: people and planet, economic context, data and input, AI model and task, dan output. Ini menyoroti hubungan antara karakteristik sistem AI dan siklus hidup sistem AI, memberikan panduan tentang kontribusi untuk manajemen risiko, dan mengidentifikasi aktor relevan yang terlibat pada berbagai tahap. Namun, ini tidak selaras dengan alur kerja tipikal perusahaan investasi dan karena itu memberikan panduan praktis yang terbatas untuk integrasi AI yang optimal dalam proses. Akibatnya, implementasi AI yang efektif di industri investasi bergantung pada pengembangan kerangka kategorisasi yang lebih canggih.</p>
+
+  <!-- ============ DESIGN ============ -->
+  <h2>Desain Sistem Klasifikasi</h2>
+
+  <p>Pasar keuangan adalah sistem kompleks dan adaptif (Lo, 2004), yang tujuan utamanya adalah memfasilitasi alokasi sumber daya yang efisien di antara para pesertanya. Hubungan antara investor dan pasar keuangan mencerminkan interaksi antara kekuatan endogen dan eksogen. Investor bertindak sebagai agen endogen yang keputusannya membentuk alokasi modal, sementara pasar keuangan, pada gilirannya, membentuk lingkungan eksogen di mana keputusan itu berlangsung, dengan berbagai tingkat efisiensi pasar memengaruhi hasil. Artikel ini mengusulkan kerangka yang mengintegrasikan kedua himpunan kekuatan dan mekanisme yang menghubungkannya. Kerangka ini mengidentifikasi tiga dimensi yang bersama-sama menangkap sistem ini. Yang pertama adalah <em>proses investasi</em>, yang mencerminkan sisi endogen, yaitu urutan aktivitas yang dilakukan investor, termasuk idea generation, analisis, pengambilan keputusan, eksekusi, dan pemantauan. Yang kedua adalah <em>rentang kompleksitas di pasar keuangan</em>, yang mencerminkan sisi eksogen, yaitu sifat struktural yang membuat pasar lebih atau kurang dapat diprediksi. Dimensi ketiga, <em>keunggulan komparatif</em>, berfungsi sebagai jembatan antara pendorong endogen dan eksogen dan menentukan bagaimana investor berinteraksi dengan pasar keuangan dan atas dasar apa mereka berusaha menetapkan keunggulan. Karena pasar sangat kompetitif, keberhasilan yang berkelanjutan mengharuskan investor untuk mengidentifikasi dan mengeksploitasi keunggulan yang khas.</p>
+
+  <blockquote class="pullquote">Karena pasar sangat kompetitif, keberhasilan yang berkelanjutan mengharuskan investor untuk mengidentifikasi dan mengeksploitasi keunggulan yang khas.</blockquote>
+
+  <p>Secara bersama-sama, tiga dimensi membentuk model konseptual yang menawarkan cara sistematis untuk mengkategorikan rangkaian solusi AI yang berkembang dalam manajemen investasi (lihat Gambar 1). Dengan memetakan alat-alat ini ke kerangka kerja, praktisi dapat membandingkan aplikasi dengan lebih jelas. Kerangka ini juga menyoroti di mana AI kemungkinan besar memberikan dampak transformatif terbesar, serta di mana efeknya mungkin lebih terbatas atau inkremental.</p>
+
+  <figure>
+    <img src="figure1-zilic.jpg" alt="Kerangka multi-dimensi.">
+    <figcaption><strong>Gambar 1:</strong> Kerangka multi-dimensi.</figcaption>
+  </figure>
+
+  <!-- ============ DIMENSIONS ============ -->
+  <h2>Dimensi Sistem Klasifikasi</h2>
+
+  <h3>Tiga Jenis Keunggulan Komparatif di Industri Investasi</h3>
+
+  <p>Pasar keuangan adalah ekosistem yang sangat kompetitif di mana banyak peserta bersaing untuk mencapai imbal hasil berlebih. Sama seperti perusahaan yang bertujuan mengalahkan pesaing mereka untuk mencapai profitabilitas di atas rata-rata, banyak investor bertujuan mengalahkan investor lain, yang banyak di antaranya sama-sama terampil dan berlimpah sumber daya. Ini membuat keunggulan komparatif penting untuk keberhasilan.</p>
+
+  <p>Teori organisasi industri menyediakan lensa yang berguna untuk memahami dinamika ini: strategi investasi dapat dilihat sebagai strategi kompetitif. Seperti yang ditekankan Michael Porter (1980/1998), perusahaan hanya dapat memperoleh imbal hasil berlebih yang berkelanjutan jika mereka memiliki keunggulan kompetitif (yaitu, ciri yang bertahan lama yang memungkinkan mereka secara konsisten mengalahkan pesaing). Di pasar modal, prinsip yang sama berlaku. Kinerja di atas rata-rata yang berkelanjutan membutuhkan keunggulan yang tahan lama.</p>
+
+  <p>Tipologi yang diperkenalkan oleh Fuller (1998) dan diperluas dalam kerangka CAB dari Wierckx (2021) mengkategorikan keunggulan ini menjadi tiga jenis luas: informasional, analitis, dan perilaku (lihat Gambar 2). Ini berbeda dalam asal, kemudahan akuisisi, dan kerentanan terhadap erosi.</p>
+
+  <p><strong>Keunggulan informasional</strong> muncul ketika peserta pasar memiliki pengetahuan yang secara material relevan dan belum tercermin dalam harga pasar. Ini dapat berasal dari akses lebih awal ke berita, sumber data unik, atau pengungkapan publik yang terlewat. Hambatan untuk memperoleh informasi semacam itu baru-baru ini turun secara dramatis, berkat ketersediaan alat teknologi seperti web scraping, data alternatif, dan feed data yang lebih cepat.</p>
+
+  <p>Namun, manfaat yang dapat diperoleh dari keunggulan ini cenderung berumur pendek. Setelah informasi disebarkan atau diserap oleh pasar, seperti setelah rilis laba atau pengajuan regulasi, keunggulan itu hilang. Selain itu, regulasi seperti Regulation Fair Disclosure dan Sarbanes-Oxley Act, dikombinasikan dengan ketersediaan Internet yang luas dan sekarang alat yang didorong AI, telah secara dramatis mengurangi eksklusivitas dan umur simpan keunggulan berbasis informasi.</p>
+
+  <p><strong>Keunggulan analitis</strong> sering berasal dari menafsirkan informasi publik lebih baik daripada pesaing, dan muncul ketika investor dapat mensintesis data yang kompleks atau terfragmentasi dengan lebih efektif. Mendapatkan kemampuan ini biasanya memerlukan investasi berkelanjutan dalam keahlian, penelitian, dan modal manusia. Batas pada kognisi manusia menciptakan hambatan masuk, membuat keunggulan analitis relatif tahan lama. Seiring waktu, bagaimanapun, keunggulan ini sering melemah karena AI dan pembelajaran mesin semakin mengotomatiskan sintesis, pengenalan pola, dan inferensi.</p>
+
+  <p><strong>Keunggulan perilaku</strong> memanfaatkan irasionalitas dan bias yang bertahan dari peserta pasar lain. Berakar pada karya perintis Kahneman dan Tversky (1974), keuangan perilaku mengidentifikasi penyimpangan yang dapat diprediksi dari ekspektasi rasional, termasuk reaksi berlebihan (De Bondt &amp; Thaler, 1985; 1987), anchoring (Kahneman &amp; Tversky, 1974), dan aversi kerugian (Kahneman &amp; Tversky, 1979). Bias lain yang berkontribusi pada mispricing sistematis di pasar keuangan meliputi overconfidence (Odean, 1998), limited attention (Hirshleifer &amp; Teoh, 2003), dan ekstrapolasi yang digerakkan oleh representativeness (Barberis et al., 1998).</p>
+
+  <blockquote class="pullquote">Keunggulan perilaku cenderung lebih tahan lama daripada yang berasal dari keunggulan informasional atau analitis.</blockquote>
+
+  <p>Karena bias kognitif tertanam dalam dan hanya berkembang secara bertahap seiring waktu, inefisiensi yang dihasilkan relatif persisten. Akibatnya, keunggulan perilaku cenderung lebih tahan lama daripada yang berasal dari keunggulan informasional atau analitis. Meskipun kesadaran akan bias perilaku telah meningkat secara signifikan, kesadaran semacam itu tidak selalu berterjemahan menjadi kemampuan yang lebih baik untuk memitigasi efeknya. Seperti yang dikemukakan Kahneman (2011), proses kognitif intuitif sering resisten terhadap koreksi, bahkan ketika individu secara eksplisit menyadari bias mereka. Terutama dalam lingkungan yang kompleks dan tidak pasti, seperti sebagian besar pasar investasi, debiasing jauh lebih sulit karena umpan baliknya tertunda, bising, dan sering ambigu (Fischhoff, 1982).</p>
+
+  <p>Sebaliknya, keunggulan informasional dan analitis jauh lebih rentan terhadap erosi: setelah informasi disebarkan atau wawasan analitis menjadi tersebar luas, peluang yang terkait biasanya diarbitrase. Keunggulan perilaku, sebagai perbandingan, menunjukkan ketahanan yang lebih besar justru karena mengetahui tentang bias tidak sama dengan mengatasinya. Akibatnya, keunggulan perilaku adalah yang paling tahan lama dan tangguh dari ketiganya.</p>
+
+  <h3>Proses Investasi</h3>
+
+  <p>Dalam praktiknya, keunggulan komparatif ini terwujud pada berbagai titik dalam alur kerja investasi. Bagian berikut menguraikan tahap-tahap umum di mana investor menerapkan dan mengoperasionalkan keunggulan ini. Meskipun penggunaan keunggulan komparatif spesifik dan strategi investasi yang sesuai berbeda secara luas di seluruh peserta pasar, proses investasi umumnya mengikuti urutan yang sama (misalnya, Maginn &amp; Tuttle, 1990). Tahap awal, yaitu <em>Fase Idea Generation</em>, melibatkan identifikasi peluang investasi potensial yang selaras dengan keunggulan komparatif peserta. Idea generation dapat dilakukan melalui proses top-down, di mana alam semesta investasi yang luas disaring untuk mengisolasi sekuritas dengan karakteristik risiko-imbal hasil yang menguntungkan, atau melalui proses bottom-up, di mana peluang muncul dari sumber eksternal, seperti broker sisi jual, atau dari analisis internal tim investasi.</p>
+
+  <p>Tahap kedua, <em>Fase Idea Assessment</em>, melibatkan evaluasi peluang yang diidentifikasi pada langkah sebelumnya. Tujuannya adalah untuk menentukan investasi mana yang menunjukkan karakteristik risiko-imbal hasil paling menarik, dengan syarat portofolio yang ada dan kendala mandat. Evaluasi ini biasanya mengikuti serangkaian kriteria yang telah ditentukan yang mencerminkan kerangka analitis peserta pasar dan keunggulan komparatifnya. Karena AI dapat menganalisis dataset besar dan mempercepat tugas-tugas yang memakan waktu, seperti mengekstrak informasi dari beberapa laporan tahunan ke dalam spreadsheet, ia diharapkan memiliki dampak signifikan di area ini.</p>
+
+  <p>Jika suatu peluang dianggap menarik, proses berlanjut ke <em>Fase Decision</em>, di mana keputusan formal untuk mengalokasikan modal dibuat. Praktik pengambilan keputusan sangat bervariasi di seluruh peserta pasar dan bergantung pada faktor seperti ukuran tim investasi, hierarki organisasi, dan pedoman spesifik klien atau mandat. Yang penting, karena masyarakat umumnya mengharapkan manusia untuk tetap bertanggung jawab atas keputusan, tidak mungkin AI akan sepenuhnya mengambil alih pada tahap ini; sebaliknya, ia diharapkan untuk menambah pembuat keputusan manusia. Misalnya, ia dapat berfungsi sebagai mitra yang berharga dengan memberikan umpan balik kritis, memastikan bahwa keputusan dibuat hanya setelah pertimbangan yang cermat.</p>
+
+  <p>Setelah keputusan investasi diambil, <em>Fase Execution</em> mengikuti, di mana posisi dibangun melalui aktivitas perdagangan. Langkah ini melibatkan pemilihan tempat perdagangan dan strategi yang tepat sambil menyeimbangkan tujuan untuk meminimalkan biaya transaksi, dampak pasar, dan risiko eksekusi.</p>
+
+  <p>Selama <em>Fase Monitoring</em>, peserta pasar terus-menerus menilai apakah investasi tetap selaras dengan tujuan yang dimaksudkan. Ini termasuk mengevaluasi profil risiko-imbal hasil posisi yang berkelanjutan, interaksinya dengan kepemilikan portofolio lain, dan setiap perubahan dalam tesis yang mendasarinya. Proses pemantauan memastikan bahwa penyimpangan dari ekspektasi ditangani melalui rebalancing, hedging, atau divestasi.</p>
+
+  <p>Secara paralel dengan pemantauan, <em>Fase Compliance</em> memastikan bahwa kewajiban regulasi dan pedoman spesifik klien dipatuhi sepanjang siklus hidup investasi. Fungsi kepatuhan berfungsi sebagai perlindungan, memastikan bahwa aktivitas investasi tetap konsisten dengan persyaratan hukum, tugas fidusia, dan mandat kontraktual.</p>
+
+  <p>Akhirnya, <em>Fase Stakeholder Management</em> mencakup mengomunikasikan alasan investasi, posisi portofolio, dan hasil kinerja kepada klien dan pemangku kepentingan lainnya. Komunikasi yang transparan dan konsisten penting untuk mempertahankan kepercayaan, menyelaraskan ekspektasi, dan menunjukkan kepatuhan pada tanggung jawab fidusia. Fase ini menutup lingkaran dengan memastikan bahwa proses investasi tidak hanya konsisten secara internal, tetapi juga divalidasi secara eksternal melalui akuntabilitas kepada klien dan penerima manfaat.</p>
+
+  <p>Secara bersama-sama, tahap-tahap ini mendefinisikan proses investasi umum. Mereka mencakup idea generation, idea assessment, decision-making, execution, monitoring, compliance, dan stakeholder management. Meskipun substansi setiap tahap berbeda di seluruh perusahaan dan konteks, urutan keseluruhannya secara luas konsisten di seluruh industri.</p>
+
+  <h3>Rentang Kompleksitas</h3>
+
+  <p>Di seluruh proses investasi, keputusan dibuat dalam kondisi ketidakpastian yang sangat berbeda. Memahami perbedaan ini penting untuk mengevaluasi bukan hanya di mana sistem AI menambah nilai, tetapi juga jenis agen AI mana yang tepat dalam pengaturan yang berbeda.</p>
+
+  <p>Taleb (2012) mengklasifikasikan risiko dan ketidakpastian ke dalam tiga kategori berbeda: White Swans, Grey Swans, dan Black Swans. White Swans berkaitan dengan konteks di mana risiko terdefinisi dengan baik, artinya distribusi probabilitas hasil diketahui, meskipun hasil spesifiknya tetap tidak pasti. Dalam praktiknya, bagaimanapun, akuisisi data tambahan dapat memperkenalkan lebih banyak noise daripada sinyal informatif (Dawes, 1971), sehingga memperumit estimasi probabilitas yang tepat meskipun pengetahuan teoretis tentang distribusi. Situasi ini sering disebut sebagai 'Light Grey Swans'. Dark Grey Swans berkaitan dengan lingkungan di mana informasi terbatas; di sini, mengidentifikasi faktor relevan dan hubungan kausal menjadi lebih kritis daripada secara akurat menetapkan bobot kuantitatif (Dawes &amp; Corrigan, 1974). Akhirnya, Black Swans mewakili konteks ketidakpastian maksimal, mencakup 'unknown unknowns'. Dalam lingkungan ini, Gigerenzer (2011) berargumen bahwa strategi yang lebih sederhana, seperti yang mengandalkan logika dan heuristik, mungkin lebih efektif daripada model kompleks.</p>
+
+  <p>Perbedaan ini memiliki implikasi langsung untuk desain dan penyebaran agen AI dalam konteks investasi. Dalam konteks White Swan dan Light Grey Swan (di mana distribusi probabilitas diketahui atau dapat didekati secara wajar), alat AI cenderung berkinerja kuat. Model pembelajaran mesin, terutama yang dioptimalkan untuk pengenalan pola dan prediksi, dapat secara efisien memproses volume besar data keuangan terstruktur, mengidentifikasi keteraturan statistik, dan mendukung tugas peramalan seperti penetapan harga aset, estimasi risiko, dan optimisasi portofolio. Namun, bahkan dalam pengaturan ini, manfaat marginal dari model yang semakin kompleks dapat berkurang ketika data tambahan terutama memperkenalkan noise daripada sinyal, menyiratkan bahwa tata kelola model dan pemilihan fitur tetap kritis.</p>
+
+  <p>Seiring ketidakpastian meningkat di lingkungan Dark Grey dan Black Swan, keterbatasan AI menjadi lebih menonjol. Kinerja model menjadi terkendala oleh ketersediaan dan kualitas input, membuatnya sulit bagi pendekatan yang murni digerakkan data untuk menyimpulkan hubungan kausal secara andal. Dalam ketidakpastian ekstrem, karakteristik Black Swans, model AI yang dilatih pada data historis secara inheren tidak siap untuk mengantisipasi peristiwa yang belum pernah terjadi sebelumnya. Akibatnya, adopsi dalam konteks ini cenderung bergeser ke arah pendekatan hibrida, di mana AI menambah daripada menggantikan penilaian manusia. Dalam hal ini, AI masih dapat menambah nilai melalui analisis skenario, uji stres, dan identifikasi sinyal lemah, tetapi pengambilan keputusan lebih bergantung pada intuisi manusia, keahlian domain, dan penalaran heuristik.</p>
+
+  <p>Perbedaan dalam ketidakpastian ini menyiratkan bahwa kesesuaian sistem AI bergantung pada konteks—poin yang secara langsung memotivasi klasifikasi agen AI yang diperkenalkan di bagian berikutnya.</p>
+
+  <!-- ============ INTEGRATING ============ -->
+  <h2>Mengintegrasikan Dimensi: Ilustrasi Praktis</h2>
+
+  <p>Interaksi tiga dimensi dapat diilustrasikan menggunakan penganalisis sentimen panggilan laba berbasis NLP, yang dapat menghasilkan keunggulan analitis dengan mengubah informasi publik tidak terstruktur menjadi sinyal sistematis.</p>
+
+  <p>Di seluruh proses investasi, penganalisis paling efektif dalam fase idea generation dan idea assessment, tetapi juga dapat mendukung fase monitoring dengan memungkinkan pelacakan longitudinal komunikasi manajemen. Perannya dalam eksekusi dan pengambilan keputusan akhir tetap terbatas, dengan akuntabilitas dipertahankan oleh pembuat keputusan manusia.</p>
+
+  <p>Dalam hal kompleksitas, alat ini berkinerja terbaik di lingkungan White Swan dan Light Grey Swan, di mana efek komunikasi perusahaan tertentu terhadap imbal hasil investasi stabil dan data historis tersedia.</p>
+
+  <!-- ============ INTEGRATED SYSTEM ============ -->
+  <h2>Sistem Klasifikasi Terintegrasi</h2>
+
+  <p>Secara bersama-sama, tiga dimensi, yaitu keunggulan komparatif, tahap proses investasi, dan rentang kompleksitas, membentuk sistem klasifikasi terintegrasi untuk aplikasi AI dalam manajemen investasi. Pertimbangan bersama mereka memungkinkan alat AI diposisikan lebih tepat dan dibandingkan lebih sistematis.</p>
+
+  <blockquote class="pullquote">Efektivitas AI bergantung pada interaksi tiga dimensi: keunggulan komparatif, tahap proses investasi, dan rentang kompleksitas.</blockquote>
+
+  <p>Wawasan sentralnya adalah bahwa efektivitas AI bergantung pada interaksi dimensi-dimensi ini. Agen AI yang menghasilkan keunggulan informasional atau analitis mungkin cocok untuk tahap proses investasi tertentu, meskipun dalam kondisi ketidakpastian tertentu. Selain itu, alat yang mendukung keunggulan perilaku cenderung lebih mengandalkan interpretabilitas dan pengawasan manusia dan kurang bergantung pada kekayaan data. Memetakan agen AI di seluruh tiga dimensi karena itu memperjelas baik di mana mereka paling baik digunakan dan kondisi di mana mereka menambah nilai.</p>
+
+  <!-- ============ DISCUSSION ============ -->
+  <h2>Diskusi</h2>
+
+  <h3>Implikasi untuk Praktik</h3>
+
+  <p>Kerangka yang diusulkan menawarkan kepada manajer investasi, pengembang perangkat lunak, dan regulator pendekatan terstruktur untuk mengklasifikasikan agen AI. Dengan menyediakan taksonomi bersama, ini meningkatkan pengambilan keputusan dan tata kelola sambil memperjelas kapan AI harus bertindak sebagai kopilot yang menambah. Klasifikasi sistematis ini mengurangi risiko salah penerapan, mempromosikan adopsi yang bertanggung jawab, dan membantu menyelaraskan penyebaran AI dengan keunggulan komparatif spesifik perusahaan. Untuk pengembang dan regulator, kerangka ini mendukung desain yang sesuai untuk tujuan dan tata kelola yang terdiferensiasi, mengurangi salah penerapan, dan menyelaraskan penggunaan AI dengan kekuatan spesifik perusahaan dan tanggung jawab fidusia.</p>
+
+  <h3>Kekuatan, Implikasi, dan Arah Masa Depan</h3>
+
+  <p>Kontribusi sentral dari karya ini adalah integrasinya ekonomi perilaku, teori manajemen organisasi, teori investasi, dan teori pengambilan keputusan menjadi sistem klasifikasi yang koheren. Dengan bergerak melampaui perspektif AI yang murni teknis, kerangka ini menangkap interaksi desain, interaksi manusia, dan lingkungan pasar keuangan, sehingga menjembatani literatur yang terfragmentasi.</p>
+
+  <p>Penelitian di masa depan harus memperluas validasi empiris dari sistem klasifikasi melalui studi kasus, simulasi, dan umpan balik praktisi. Studi longitudinal dapat menjelaskan efek adopsi agen AI pada hasil investasi, sementara pertimbangan etis, khususnya mengenai transparansi, akuntabilitas, dan bias, memerlukan penyelidikan yang lebih dalam. Akhirnya, perbandingan lintas sektoral akan membantu menilai transferabilitas kerangka di luar manajemen investasi, sehingga memperkuat relevansi yang lebih luas.</p>
+
+  <!-- ============ CONCLUSION ============ -->
+  <h2>Kesimpulan</h2>
+
+  <p>Studi ini memeriksa penerapan AI dalam manajemen investasi melalui kerangka klasifikasi multi-dimensi. Dengan mengintegrasikan wawasan dari ekonomi perilaku, manajemen organisasi, teori investasi, dan penelitian pengambilan keputusan, kerangka ini membawa kejelasan konseptual praktis ke bidang di mana taksonomi yang tidak konsisten dapat mengakibatkan baik peluang yang terlewat maupun penggunaan AI yang tidak tepat. Dengan menawarkan cara terstruktur untuk membandingkan aplikasi AI, kerangka ini membantu profesional investasi, pengembang, dan regulator dalam menyelaraskan adopsi AI dengan baik kekuatan organisasi maupun persyaratan tata kelola.</p>
+
+  <!-- ============ AUTHOR BIOS ============ -->
+  <div class="author-bio">
+    <h3>Tentang Para Penulis</h3>
+    <p><strong>Ivana Zilic, Ph.D.</strong>, adalah clinical professor di Department of Management and Entrepreneurship di DePaul University's Driehaus College of Business. Minat penelitiannya berkisar dari masalah CSR hingga etika bisnis. Dr. Zilic telah menerbitkan di <em>Employee Relations, Industrial Relations Journal, Business and Society Review</em>, dan <em>Journal of Communication Management</em>, antara lain. Ia telah mempresentasikan karyanya di berbagai konferensi dan pertemuan, termasuk Academy of Management, Eastern Academy of Management, Society for Business Ethics, dan organisasi lain. Dr. Zilic mengajar kursus dalam bisnis internasional, manajemen, dan inovasi. Ia telah mengajar secara internasional di Eropa. Ia baru-baru ini menerima MIT Course Certificates dalam Executive Program in Artificial Intelligence dan Leadership.</p>
+    <p><strong>Patrick J. Wierckx, MSc, CFA</strong>, adalah profesional investasi Belanda dengan lebih dari 30 tahun pengalaman dalam mengelola portofolio ekuitas institusional. Ia telah menjabat posisi senior, termasuk head of equities di salah satu manajer aset terbesar di Belanda, dan ia adalah penulis "Investing in Hidden Monopolies: Why Customer Loyalty Creates Superior Moats and How You Can Profit." Wierckx adalah CFA Charterholder, Institutional Investment Advisor terdaftar ESMA, dan anggota CFA Institute. Ia memegang gelar master dalam Business Economics.</p>
+    <p><strong>Michiel Kuhn</strong> adalah analis riset kuantitatif di Panthera Solutions, di mana ia meneliti decision-intelligence investor, mencakup AI agentik, risiko iklim, dan metode kuantitatif, dan ia secara teratur berkolaborasi dengan manajer portofolio dan CIO. Kühn juga merupakan mahasiswa pascasarjana (MiM/MSc in Financial Engineering) di EDHEC Business School, di mana ia masuk Dean's List (top 5%) dan menjabat sebagai perwakilan kelas 2024/25. Sebagai penerima beasiswa EDHEC Academic Excellence dan France-South Africa, ia sebelumnya melayani klien dan penasihat keuangan di Allan Gray, manajer aset swasta terbesar di Afrika.</p>
+    <p><strong>Dr. Markus Schuller</strong> adalah pendiri dan managing partner Panthera Group, perusahaan multi-penghargaan yang diakui karena memelopori integrasi praktis Human dan Artificial Intelligence ke dalam proses investasi institusional. Platform Decision GPS milik Panthera memadukan ilmu perilaku dan keuangan kuantitatif dengan kecerdasan mesin untuk mengoptimalkan pengambilan keputusan investasi. Di samping pekerjaan kewirausahaannya, Schuller menjabat sebagai profesor adjunct dan visiting di EDHEC Business School, IE Business School, dan International University of Monaco, di mana ia mengajar di program Master in Finance berperingkat teratas. Sebagai mantan manajer hedge fund, pedagang ekuitas, dan pedagang derivatif, ia adalah peneliti yang diterbitkan, pembicara utama, dan kontributor rutin untuk jurnal akademis dan profesional terkemuka.</p>
+  </div>
+
+  <!-- ============ REFERENCES ============ -->
+  <div class="refs">
+    <h2>Referensi</h2>
+    <ul>
+      <li>Barberis, N., Shleifer, A., &amp; Vishny, R. (1998). A model of investor sentiment. <em>Journal of Financial Economics, 49</em>(3), 307–343. https://doi.org/10.1016/S0304-405X(98)00027-0</li>
+      <li>Borges, A. F. S, Laurindo, F. J. B., Spinola, M. M., Goncalves, R. F., &amp; Mattos, C. A. (2021). The strategic use of artificial intelligence in the digital era: Systematic literature review and future research direction. <em>International Journal of Information Management, 57</em>, 102225. https://doi.org/10.1016/j.jinfomgt.2020.102225</li>
+      <li>Dawes, R. M. (1971). A case study of graduate admissions: Application of three principles of human decision making. <em>American Psychologist, 26</em>(2), 180–188. https://doi.org/10.1037/h0030868</li>
+      <li>Dawes, R. M., &amp; Corrigan, B. (1974). Linear models in decision making. <em>Psychological Bulletin, 81</em>(2), 95–106. https://doi.org/10.1037/h0037613</li>
+      <li>De Bondt, W. F. M., &amp; Thaler, R. (1985). Does the stock market overreact? <em>Journal of Finance, 40</em>(3), 793–805. https://doi.org/10.1111/j.1540-6261.1985.tb05004.x</li>
+      <li>De Bondt, W. F. M., &amp; Thaler, R. (1987). Further evidence on investor overreaction and stock market seasonality. <em>Journal of Finance, 42</em>(3), 557–581. https://doi.org/10.1111/j.1540-6261.1987.tb04569.x</li>
+      <li>ESMA (2026). AI adoption and trends in securities markets: EU evidence. ESMA TRV Risk Analysis. https://www.esma.europa.eu/document/ai-adoption-and-trends-securities-markets-eu-evidence-trv-article</li>
+      <li>Fischhoff, B. (1982). Debiasing. In D. Kahneman, P. Slovic, &amp; A. Tversky (Eds.), <em>Judgment under uncertainty: Heuristics and biases</em> (pp. 422–444). Cambridge University Press.</li>
+      <li>Fuller, R. J. (1998). Behavioral finance and the sources of alpha. <em>Journal of Pension Plan Investing, 2</em>(3).</li>
+      <li>Gigerenzer, G., &amp; Gaissmaier, W. (2011). Heuristic decision making. <em>Annual Review of Psychology, 62</em>, 451–482. https://doi.org/10.1146/annurev-psych-120709-145346</li>
+      <li>Hicham, N., Habbat, N., &amp; Karim, S. (2023). Strategic framework for leveraging artificial intelligence in future marketing decision-making. <em>Journal of Intelligent Management Decision, 2</em>(3), 139–150. https://doi.org/10.56578/jimd020304</li>
+      <li>Hirshleifer, D., &amp; Teoh, S. H. (2003). Limited attention, information disclosure, and financial reporting. <em>Journal of Accounting and Economics, 36</em>(1–3), 337–386. https://doi.org/10.1016/j.jacceco.2003.10.002</li>
+      <li>Joshi, S. (2025). A literature review of gen AI agents in financial applications: Models and implementations. Social Science Research Network. https://doi.org/10.2139/ssrn.5133985</li>
+      <li>Kahneman, D. (2011). <em>Thinking, fast and slow</em>. Farrar, Straus and Giroux.</li>
+      <li>Kahneman, D., &amp; Tversky, A. (1979). Prospect theory: An analysis of decision under risk. <em>Econometrica, 47</em>(2), 263–291. https://doi.org/10.2307/1914185</li>
+      <li>Kahneman, D., &amp; Tversky, A. (1974). Judgment under uncertainty: Heuristics and biases. <em>Science, 185</em>(4157), 1124–1131. https://doi.org/10.1126/science.185.4157.1124</li>
+      <li>Lennart, A. (2024). Autonomous AI agents in decentralized finance: Market dynamics, application areas, and theoretical implications. Social Science Research Network. https://doi.org/10.2139/ssrn.5055677</li>
+      <li>Lo, A. W. (2010, 25 Februari). The adaptive markets hypothesis and the new investment paradigm. CFA Institute Research and Policy Center.</li>
+      <li>Lo, A. W. (2004). The adaptive markets hypothesis: Market efficiency from an evolutionary perspective. <em>Journal of Portfolio Management, 30</em>(5), 15–29. https://doi.org/10.3905/jpm.2004.442611</li>
+      <li>Magnin, J. L. (Ed.) (2007). <em>Managing investment portfolios: A dynamic process</em> (3rd ed.). Wiley (CFA Institute investment series).</li>
+      <li>Mokander, J., Sheth, M., Watson, D. S., &amp; Floridi, L. (2023). The switch, the ladder, and the matrix: Models for classifying AI systems. <em>Minds and Machines, 33</em>(1), 221–248. https://doi.org/10.1007/s11023-022-09620-y</li>
+      <li>Odean, T. (1998). Volume, volatility, price, and profit when all traders are above average. <em>Journal of Finance, 53</em>(6), 1887–1934. https://doi.org/10.1111/0022-1082.00078</li>
+      <li>OECD. (2022a). OECD framework for the classification of AI systems. https://www.oecd.org/en/publications/oecd-framework-for-the-classification-of-ai-systems_cb6d9eca-en.html</li>
+      <li>Porter, M. E. (1998). <em>Competitive strategy: Techniques for analyzing industries and competitors: with a new introduction</em>. Free Press.</li>
+      <li>Rajaraman, V. (2014). John McCarthy: Father of artificial intelligence. <em>Resonance</em>.</li>
+      <li>Sutiene, K. et al. (2024). Enhancing portfolio management using artificial intelligence: Literature review. <em>Frontiers in Artificial Intelligence, 7</em>. https://doi.org/10.3389/frai.2024.1371502</li>
+      <li>Sarker, I. H. (2022). AI-based modeling: Techniques, applications and research issues towards automation, intelligent and smart systems. <em>SN Computer Science, 3</em>(2), 158. https://doi.org/10.1007/s42979-022-01043-x</li>
+      <li>Taleb, N. N. (2012). <em>Antifragile: Things that gain from disorder</em>. Random House.</li>
+      <li>Vukovic, D. B., Dekpo-Adza, S., &amp; Matovic, S. (2025). AI integration in financial services: A systematic review of trends and regulatory challenges. <em>Humanities and Social Sciences Communications, 12</em>(1), 1–29. https://doi.org/10.1057/s41599-025-04850-8</li>
+      <li>Wierckx, P. J. (2021). Thinking beyond the hiring and firing of asset managers: A new framework truly aligning asset owners with asset managers. <em>Journal of Accounting and Finance, 21</em>(2). https://doi.org/10.33423/jaf.v21i2.4244</li>
+    </ul>
+  </div>
+
+  <div class="end-mark">• • •</div>
+
+</div>
+</body>
+</html>

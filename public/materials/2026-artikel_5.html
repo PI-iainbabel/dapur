@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Choice Engine: Alat Ilmu Perilaku Bertenaga LLM dan AHP</title>
+<style>
+  :root {
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #2c5f7c;
+    --rule: #ccc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
+    background: #fafaf7;
+    margin: 0;
+    padding: 0;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.06);
+  }
+  .article-header {
+    border-bottom: 3px double var(--rule);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+  .article-number {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .author {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+  .affiliation {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin: 4px 0 0;
+  }
+  h2 {
+    font-size: 22px;
+    margin: 42px 0 16px;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 18px;
+    margin: 30px 0 12px;
+  }
+  p { margin: 0 0 16px; text-align: justify; hyphens: auto; }
+  p.lead { font-size: 18px; }
+  .abstract {
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 22px 26px;
+    margin: 28px 0 36px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .abstract p:last-child { margin-bottom: 0; }
+  .pullquote {
+    font-size: 21px;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding: 6px 0 6px 22px;
+    margin: 30px 0;
+    font-weight: 600;
+  }
+  .pullquote::before { content: "\201C"; }
+  .pullquote::after { content: "\201D"; }
+  figure {
+    margin: 32px 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  figure img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+  }
+  figcaption {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 10px;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .qr-note {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 14px 18px;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .qr-note .qr-box {
+    width: 48px; height: 48px;
+    background: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0/12px 12px;
+    border: 1px solid #999;
+    flex-shrink: 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  table th {
+    background: #2c5f7c;
+    color: #fff;
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+  }
+  table td {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 12px;
+    vertical-align: top;
+  }
+  table tr:nth-child(even) td {
+    background: #f7f9fa;
+  }
+  .table-note {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: -12px 0 24px;
+  }
+  .steps {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 28px 0;
+  }
+  .steps h4 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 8px;
+  }
+  .steps p { font-size: 15.5px; margin: 0 0 12px; }
+  .steps p:last-child { margin-bottom: 0; }
+  .refs {
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .refs h2 { font-size: 20px; }
+  .refs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    column-count: 2;
+    column-gap: 36px;
+  }
+  .refs li {
+    margin-bottom: 14px;
+    break-inside: avoid;
+    padding-left: 22px;
+    text-indent: -22px;
+  }
+  .author-bio {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 40px 0 24px;
+    font-size: 15.5px;
+  }
+  .author-bio h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  .author-bio p { text-align: left; margin-bottom: 12px; }
+  .author-bio p:last-child { margin-bottom: 0; }
+  .end-mark {
+    text-align: center;
+    color: var(--muted);
+    letter-spacing: 6px;
+    margin: 40px 0;
+  }
+  @media (max-width: 640px) {
+    .page { padding: 30px 20px; }
+    .refs ul { column-count: 1; }
+    h1 { font-size: 24px; }
+    table { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ HEADER ============ -->
+  <header class="article-header">
+    <div class="article-number">Aplikasi</div>
+    <h1>Choice Engine: Alat Ilmu Perilaku Bertenaga LLM dan AHP</h1>
+    <p class="author">Pablo Coello, Pablo Villacañas, Gonzalo Díaz, Sara Ramos-Cabo, Antonio González, Francisco Ceballos, dan Juan Pablo Ospina Arboleda</p>
+    <p class="affiliation">BeWay</p>
+  </header>
+
+  <div class="qr-note">
+    <div class="qr-box"></div>
+    <div>Pindai kode QR untuk menonton ringkasan video</div>
+  </div>
+
+  <!-- ============ ABSTRACT ============ -->
+  <div class="abstract">
+    <p>Merancang intervensi perilaku yang hemat biaya di industri tidak hanya bergantung pada apa yang dikatakan literatur, tetapi juga pada pemahaman konteks bisnis di mana intervensi harus bekerja. Dalam praktiknya, ini berarti ilmuwan perilaku sering kali perlu meninjau himpunan bukti kuantitatif dan kualitatif yang besar dan heterogen dalam tenggat waktu yang ketat. Di sini, kami menyajikan Choice Engine, alur kerja terstruktur yang menggabungkan LLM, COM-B, Teori Permainan, dan Analytic Hierarchy Process (AHP) untuk mendukung baik diagnosis maupun desain intervensi. Melalui tujuh langkah, mesin ini mencerna informasi yang kompleks, mengorganisasikannya menjadi input keputusan yang eksplisit, memprediksi keputusan yang mungkin dibuat individu dalam skenario yang telah ditentukan, dan menjelaskan mengapa keputusan itu muncul. Validitas prediktifnya diilustrasikan dengan mereplikasi temuan dua studi seminal, dengan 17 dari 18 uji konfirmatori mencapai signifikansi.</p>
+  </div>
+
+  <!-- ============ INTRODUCTION ============ -->
+  <h2>Pendahuluan</h2>
+
+  <p>Bayangkan seorang ilmuwan perilaku di sebuah lembaga keuangan diminta untuk meningkatkan pengambilan akun tabungan di antara klien. Brief-nya terdengar cukup sederhana. Lalu pekerjaan nyata dimulai. Apakah klien memenuhi persyaratan hukum untuk membuka akun? Apakah produk tersedia pada saat itu? Apakah klien tertarik padanya? Apakah ia bahkan tahu bank menawarkannya? Dan ini sebelum siapa pun mulai mendiskusikan ide intervensi, pemeriksaan kepatuhan, biaya, kelayakan teknis, kepercayaan pengguna, atau pertimbangan merek.</p>
+
+  <p>Jika Anda pernah bekerja pada riset perilaku terapan di industri, pola ini kemungkinan akan terasa familier. Memahami dan mendeskripsikan perilaku manusia adalah bagian inti dari pekerjaan, tetapi perilaku target apa pun dibentuk oleh campuran padat faktor pribadi dan kontekstual. Fase diagnostik adalah tempat faktor-faktor itu diidentifikasi, dan desain intervensi yang baik bergantung pada diagnosis yang benar. Masalahnya adalah diagnosis jarang dimulai dengan dataset yang rapi. Lebih sering, ini berarti bekerja melalui pembacaan eksperimen sebelumnya, catatan etnografi, metrik corong, transkrip wawancara, log dukungan pelanggan, publikasi ilmiah, dll.</p>
+
+  <p>Yang lebih buruk lagi, temuan dari studi yang dikontrol dengan cermat tidak secara otomatis berpindah ke lingkungan dunia nyata yang berantakan. Kembali ke contoh tabungan, literatur mungkin menyarankan bahwa literasi keuangan adalah hal sentral untuk perilaku menabung, namun melihat lebih dekat pada regulasi lokal, fitur produk, norma budaya, dan wawancara klien mungkin mengarah ke tempat lain. Sementara itu, konteks bisnis berubah dengan cepat. Pergeseran pasar tidak menunggu siklus penelitian kedua.</p>
+
+  <p>Semua ini membuat ilmuwan perilaku terapan menghadapi dua masalah yang berulang: (1) terlalu banyak bukti campuran untuk ditinjau, diorganisasi, dan ditafsirkan, dan (2) kebutuhan untuk merancang intervensi yang bekerja untuk populasi dan konteks tertentu, bukan hanya dalam teori.</p>
+
+  <p>Choice Engine dirancang untuk membantu keduanya. Ia memadatkan tugas-tugas riset dan dokumentasi dengan mencerna dan menstrukturkan volume informasi yang besar, dan ia memprediksi pengambilan keputusan yang spesifik konteks sambil memberikan narasi kausal untuk pilihan akhir. Kombinasi ini berguna bukan hanya karena ia mengantisipasi apa yang mungkin dilakukan individu target, tetapi juga karena ia membuat kriteria dan mekanisme di balik keputusan itu terlihat. Sebagai gantinya, ini memberi ilmuwan perilaku titik awal yang lebih baik untuk merancang intervensi yang lebih disesuaikan—dan berpotensi lebih efektif.</p>
+
+  <blockquote class="pullquote">Choice Engine memadatkan tugas-tugas riset dan dokumentasi dengan mencerna dan menstrukturkan volume informasi yang besar, dan ia memprediksi pengambilan keputusan yang spesifik konteks sambil memberikan narasi kausal.</blockquote>
+
+  <!-- ============ PILLARS ============ -->
+  <h2>Pilar Metodologis</h2>
+
+  <p>Choice Engine bertumpu pada empat pilar metodologis.</p>
+
+  <p><strong>Large Language Models (LLM)</strong> menangani skala dan heterogenitas bukti. Namun, penggunaan LLM yang tidak terstruktur dalam alur kerja riset menghasilkan risiko yang familier: halusinasi, ringkasan yang terlalu percaya diri, dan ketidakkonsistenan output di seluruh prompt (Huang et al., 2025; Sclar et al., 2024) yang memicu pergeseran paradigma dalam akuisisi informasi. Meskipun demikian, LLM rentan terhadap halusinasi, menghasilkan konten yang tampak masuk akal tetapi non-faktual. Fenomena ini menimbulkan kekhawatiran signifikan tentang keandalan LLM dalam pengambilan informasi dunia nyata (IR). Daripada mengandalkan panggilan terisolasi dengan output yang sulit diperiksa, Choice Engine mendistribusikan penalaran di seluruh langkah-langkah yang terhubung di mana setiap output menjadi input eksplisit untuk langkah berikutnya (Khot et al., 2023). Setiap inferensi karena itu dapat diperiksa, ditantang, dan diperbarui secara independen.</p>
+
+  <p><strong>COM-B</strong> (Michie et al., 2011; West &amp; Michie, 2020) adalah pisau Swiss untuk analisis perilaku. Ini adalah kerangka teoretis yang menyatakan bahwa individu target harus memiliki Capability, Opportunity, dan Motivation untuk melakukan suatu Behavior (karenanya akronim COM-B). Dalam konteks Choice Engine, COM-B membantu menentukan apakah kondisi minimum untuk strategi tertentu sudah ada. Capability dan Opportunity diperlakukan sebagai kondisi kelayakan untuk strategi tertentu, sedangkan Motivation dimodelkan kemudian melalui evaluasi multi-kriteria.</p>
+
+  <p>Kami melengkapi COM-B dengan <strong>Teori Permainan</strong>, khususnya konsep dari Ekonomi Informasi, yang memungkinkan untuk menilai apakah individu menyadari strategi yang tersedia dan konsekuensi yang mungkin. Tambahan ini penting karena bahkan strategi yang layak tidak akan dipilih jika individu tidak tahu bahwa itu tersedia atau tidak memahami apa yang tersirat.</p>
+
+  <p>Akhirnya, <strong>Analytic Hierarchy Process</strong> (AHP, Saaty, 1980, 2008) memodelkan motivasi sebagai trade-off terstruktur di antara Benefits, Opportunities, Costs, dan Risks. Bersama-sama, empat komponen ini (LLM, COM-B, Teori Permainan, dan AHP) mengubah konteks keputusan yang luas dan berantakan menjadi alur kerja keputusan yang eksplisit dan dapat diperiksa.</p>
+
+  <blockquote class="pullquote">Bersama-sama, empat komponen ini (LLM, COM-B, Teori Permainan, dan AHP) mengubah konteks keputusan yang luas dan berantakan menjadi alur kerja keputusan yang eksplisit dan dapat diperiksa.</blockquote>
+
+  <!-- ============ REPLICATED STUDIES ============ -->
+  <h2>Studi yang Direplikasi</h2>
+
+  <p>Untuk menilai validitas prediktif Choice Engine, kami memilih dua studi seminal yang mencakup dua keluarga klasik pilihan strategis. Yang pertama melibatkan keputusan di mana individu menggunakan perilaku untuk mengungkapkan karakteristik pribadi yang tersembunyi kepada orang lain—apa yang oleh ekonom disebut signaling. Yang kedua melibatkan keputusan di bawah risiko, di mana individu menimbang hasil yang pasti dan tidak pasti sebelum memilih.</p>
+
+  <p>Studi-studi ini sangat berguna sebagai tolok ukur karena mereka sederhana secara analitis namun komprehensif. Selain itu, keduanya memberikan deskripsi yang tepat tentang profil, strategi yang tersedia, dan parameter kontekstual, yang memungkinkan Choice Engine untuk mencerna input yang terdefinisi dengan baik dan menghasilkan prediksi yang dapat dibandingkan dengan hasil asli, tanpa ambiguitas yang biasa muncul dari kasus dunia nyata yang kurang terdefinisi.</p>
+
+  <p>Dalam hal model signaling pasar kerja Spence (Spence, 1973), pikirkan dua kandidat kerja yang memiliki informasi pada saat memilih, yang penting untuk mencegah kebocoran ke prediksi selanjutnya. Serangkaian aturan netralitas membantu memastikan bahwa template tidak secara tidak sengaja menguntungkan satu strategi di atas yang lain, dan hakim LLM memverifikasi kepatuhan. Ilmuwan perilaku meninjau dan memvalidasi input ini sebelum saluran otomatis dimulai.</p>
+
+  <!-- ============ INSIDE CHOICE ENGINE ============ -->
+  <h2>Di Dalam Choice Engine: Perjalanan 7 Langkah dari Data ke Kecerdasan Keputusan</h2>
+
+  <figure>
+    <img src="figure1-choice.jpg" alt="Alur kerja 7 langkah Choice Engine.">
+    <figcaption><strong>Gambar 1:</strong> Alur kerja 7 langkah Choice Engine.</figcaption>
+  </figure>
+
+  <!-- ============ STEPS ============ -->
+  <div class="steps">
+    <h4>Langkah 1: Input (Divalidasi Manusia)</h4>
+    <p>Fase ini adalah satu-satunya fase yang tidak otomatis. Ilmuwan perilaku meninjau dan memvalidasi semua data. Seorang hakim LLM memeriksa bahwa template bersifat netral; informasi yang bersifat pribadi dipisahkan secara ketat dari data publik untuk mencegah "kebocoran".</p>
+  </div>
+
+  <div class="steps">
+    <h4>Langkah 2: Strategic Brief (Didorong AI)</h4>
+    <p>AI menggunakan Teori Permainan untuk mendeskripsikan "aturan dunia" di mana pengambilan keputusan terjadi. Informasi tentang Profil, Skenario, dan Strategi dikompilasi menjadi template yang berbeda: dua dokumen dengan deskripsi profil pekerja (yaitu produktivitas tinggi dan rendah), tiga deskripsi skenario (yaitu dasar, penipuan, dan subsidi) dan lima tingkat pendidikan (berkisar 0 hingga 4). Hasilnya adalah dekomposisi pengetahuan publik (misalnya, konvensi) dan spesifik profil pribadi yang diperlukan untuk membangun konteks signaling yang jelas.</p>
+  </div>
+
+  <div class="steps">
+    <h4>Langkah 3: Agent Grounding (Didorong AI)</h4>
+    <p>Mesin menerapkan model COM-B dan pada Langkah 3 menilai Capability dan Opportunity individu dalam setiap Skenario. Motivation dinilai pada Langkah 5 dan 6. Langkah ini menerjemahkan Strategic Brief menjadi sudut pandang spesifik profil. Untuk setiap Profil, Choice Engine menggabungkan Skenario dengan karakteristik individu untuk menentukan apa yang dapat dilakukan individu, apa yang sebenarnya tersedia dalam Skenario, apa yang diketahui individu pada saat memutuskan, dan hasil apa yang diharapkan dihasilkan setiap Strategi.</p>
+  </div>
+
+  <div class="steps">
+    <h4>Langkah 4: Binding &amp; Netting (Deterministik)</h4>
+    <p>Keuntungan dan kerugian dihitung secara aritmatika menggunakan nilai numerik yang tersedia. Binding menerapkan penyesuaian spesifik profil yang benar untuk mendapatkan nilai aktual setiap individu. Netting kemudian meruntuhkan keuntungan dan kerugian yang berbagi unit yang sama menjadi kuantitas tunggal. Ini mengurangi noise aritmatika, mencegah penghitungan ganda, dan memastikan bahwa evaluasi selanjutnya beroperasi pada data yang bersih dan dapat dibandingkan.</p>
+  </div>
+
+  <div class="steps">
+    <h4>Langkah 5: BOCR Evaluation (Didorong AI)</h4>
+    <p>AI mengkategorikan hasil ke dalam empat kuadran BOCR. Pada titik ini, mesin memiliki dua bahan kunci: konsekuensi bersih dari setiap Strategi dan kondisi spesifik profil yang didasarkan pada mana konsekuensi tersebut dievaluasi. Langkah 5 mengubahnya menjadi analisis BOCR dari Benefits, Opportunities, Costs, dan Risks setiap Strategi.</p>
+  </div>
+
+  <div class="steps">
+    <h4>Langkah 6: AHP Ranking (AI + Matematika)</h4>
+    <p>Perbandingan berpasangan menghasilkan Consistency Ratio (CR) untuk menandai penilaian yang tidak konsisten. Narasi BOCR dikonversi menjadi peringkat preferensi formal melalui metode perbandingan berpasangan Saaty (Saaty, 1980, 2008). Diagnosis kunci dalam langkah ini adalah Consistency Ratio (CR), yang mengukur apakah perbandingan berpasangan di dalam matriks AHP koheren secara internal. Dalam praktik AHP standar, CR di bawah 0,10 menunjukkan penilaian yang dapat diterima secara konsisten (Saaty, 2005).</p>
+  </div>
+
+  <div class="steps">
+    <h4>Langkah 7: Simulation Panel (Didorong AI)</h4>
+    <p>Setiap angka dalam peringkat akhir dapat dilacak kembali ke setiap output asli langkah. Langkah terakhir ini mengintegrasikan semuanya menjadi artefak keputusan interaktif yang bersifat prediktif sekaligus dapat ditafsirkan. Panel ini diorganisasikan di sekitar empat lapisan informasi, masing-masing dirancang untuk memungkinkan analis secara progresif membuka keputusan. Ilmuwan perilaku dapat menggunakan slider untuk melihat bagaimana mengubah Motivation mengubah peringkat akhir.</p>
+  </div>
+
+  <p><strong>Tabel 2: Evaluasi Benefits, Opportunities, Costs, dan Risks</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Positif</th>
+        <th>Negatif</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Imbalan pasti</strong></td>
+        <td>Benefits</td>
+        <td>Costs</td>
+      </tr>
+      <tr>
+        <td><strong>Imbalan tidak pasti</strong></td>
+        <td>Opportunities</td>
+        <td>Risks</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Pemisahan ini berguna karena tidak hanya mengklasifikasikan hasil, tetapi juga menyiapkan dasar untuk simulasi selanjutnya. Aversi risiko dan aversi kerugian, misalnya, dapat dimodelkan sebagai cara berbeda untuk membobot keempat dimensi ini. Dalam skenario Spence dasar, klasifikasinya langsung karena tidak ada ketidakpastian: tawaran upah dikodekan sebagai Benefits dan beban pendidikan pribadi sebagai Costs, sementara Opportunities dan Risks tetap tidak aktif.</p>
+
+  <!-- ============ REPLICATION RESULTS ============ -->
+  <h2>Hasil Replikasi</h2>
+
+  <p>Untuk memberikan uji empiris yang ringkas tetapi informatif tentang alur kerja, kami menyebarkan saluran lengkap pada enam skenario tolok ukur yang diambil dari dua studi klasik yang dijelaskan di atas: tiga skenario signaling berdasarkan Spence dan tiga skenario lotere berdasarkan Kahneman dan Tversky. Penyebaran menggunakan gpt-5.2-2025-12-11 dengan temperature diatur ke 0,5 dan dijalankan sebagai enam batch spesifik skenario. Dalam setiap pasangan, agen tipe tinggi dan tipe rendah berbagi konfigurasi model dan seed yang sama, sehingga satu-satunya faktor yang dimanipulasi adalah profil agen di bawah lingkungan naratif yang tetap. Setiap run mengikuti alur tujuh langkah yang sama: Input, Strategic Brief, Agent Grounding, Binding &amp; Netting, BOCR Evaluation, AHP, dan Simulation Panel.</p>
+
+  <blockquote class="pullquote">Hasilnya menunjukkan bahwa mesin memulihkan struktur teoretis dari lingkungan signaling dengan akurasi sempurna.</blockquote>
+
+  <p>Hasilnya menunjukkan bahwa mesin memulihkan struktur teoretis dari lingkungan signaling dengan akurasi sempurna. Dalam perlakuan Spence dasar, semua 50 pasangan mereproduksi hasil pemisahan yang diharapkan: tipe produktivitas tinggi memilih kredensial tinggi dan tipe produktivitas rendah memilih yang rendah. Di bawah subsidi penuh, semua 50 pasangan terkumpul pada pendidikan tinggi. Di bawah penipuan kredensial, semua 50 terkumpul pada pendidikan rendah. Dengan kata lain, pola pasangan yang diprediksi dipulihkan dalam 100% kasus di seluruh tiga skenario signaling, dan semua uji konfirmatori menolak tolok ukur nol yang telah didaftarkan sebelumnya.</p>
+
+  <p>Kinerja tetap kuat di lingkungan lotere, meskipun kondisi kerugian menunjukkan lebih banyak dispersi. Dalam skenario keuntungan, 48 dari 50 pasangan cocok dengan pola yang diprediksi, sesuai dengan akurasi tingkat pasangan 96%. Dalam skenario campuran, 47 dari 50 pasangan cocok dengan pola yang diprediksi, sesuai dengan akurasi 94%. Skenario kerugian adalah satu-satunya kasus di mana uji tingkat pasangan yang lebih ketat tidak mencapai signifikansi: 39 dari 50 pasangan cocok dengan pola bersama yang diprediksi, atau 78%. Yang penting, kekurangan ini mencerminkan kesulitan memulihkan konfigurasi bersama daripada kegagalan pada tingkat individu. Kesulitan ini terletak pada kenyataan bahwa Choice Engine menilai strategi yang mungkin dan faktor motivasional secara terpisah, yang dalam skenario PT2 menciptakan standar ganda; secara spesifik, agen diminta mengikuti logika ini: "Ketika menghadapi kerugian pasti, Anda mungkin bersedia mengambil risiko untuk berpotensi menghindari kerugian itu". Ini menghasilkan motivasi individu yang berubah berdasarkan opsi yang tersedia. Bagaimanapun, mesin tetap memilih opsi yang diharapkan secara teoretis dalam 86% run untuk tipe tinggi dan 92% untuk tipe rendah. Di seluruh analisis penuh, 17 dari 18 uji konfirmatori signifikan.</p>
+
+  <figure>
+    <img src="figure2-choice.jpg" alt="Tingkat pola yang diharapkan berdasarkan skenario.">
+    <figcaption><strong>Gambar 2:</strong> Tingkat pola yang diharapkan berdasarkan skenario.</figcaption>
+  </figure>
+
+  <p><strong>Tabel 3: Hasil Uji Binomial</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Uji</th>
+        <th>Skenario</th>
+        <th>Tipe</th>
+        <th>n</th>
+        <th>Hit</th>
+        <th>p̂</th>
+        <th>CI bawah</th>
+        <th>CI atas</th>
+        <th>Cohen h</th>
+        <th>p</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Pola pasangan</td>
+        <td>PT1 Reflection gains</td>
+        <td>Keduanya (H,L)</td>
+        <td>50</td>
+        <td>48</td>
+        <td>0,9600</td>
+        <td>0,8794</td>
+        <td>1,0000</td>
+        <td>0,7566</td>
+        <td>&lt; .001</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Pola pasangan</td>
+        <td>PT2 Reflection losses</td>
+        <td>Keduanya (H,L)</td>
+        <td>50</td>
+        <td>39</td>
+        <td>0,7800</td>
+        <td>0,6622</td>
+        <td>1,0000</td>
+        <td>0,1829</td>
+        <td>.139</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Pola pasangan</td>
+        <td>PT3 Loss aversion mixed gamble</td>
+        <td>Keduanya (H,L)</td>
+        <td>50</td>
+        <td>47</td>
+        <td>0,9400</td>
+        <td>0,8522</td>
+        <td>1,0000</td>
+        <td>0,6643</td>
+        <td>&lt; .001</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Pola pasangan</td>
+        <td>T1 Base</td>
+        <td>Keduanya (H,L)</td>
+        <td>50</td>
+        <td>50</td>
+        <td>1,0000</td>
+        <td>0,9418</td>
+        <td>1,0000</td>
+        <td>1,1593</td>
+        <td>&lt; .001</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Pola pasangan</td>
+        <td>T2 Subsidy</td>
+        <td>Keduanya (H,L)</td>
+        <td>50</td>
+        <td>50</td>
+        <td>1,0000</td>
+        <td>0,9418</td>
+        <td>1,0000</td>
+        <td>1,1593</td>
+        <td>&lt; .001</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Pola pasangan</td>
+        <td>T3 Fraud</td>
+        <td>Keduanya (H,L)</td>
+        <td>50</td>
+        <td>50</td>
+        <td>1,0000</td>
+        <td>0,9418</td>
+        <td>1,0000</td>
+        <td>1,1593</td>
+        <td>&lt; .001</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Strategi per agen</td>
+        <td>PT1 Reflection gains</td>
+        <td>H</td>
+        <td>50</td>
+        <td>48</td>
+        <td>0,9600</td>
+        <td>0,8794</td>
+        <td>1,0000</td>
+        <td>0,7566</td>
+        <td>&lt; .001</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>Strategi per agen</td>
+        <td>PT1 Reflection gains</td>
+        <td>L</td>
+        <td>50</td>
+        <td>50</td>
+        <td>1,0000</td>
+        <td>0,9418</td>
+        <td>1,0000</td>
+        <td>1,1593</td>
+        <td>&lt; .001</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>Strategi per agen</td>
+        <td>PT2 Reflection losses</td>
+        <td>H</td>
+        <td>50</td>
+        <td>43</td>
+        <td>0,8600</td>
+        <td>0,7531</td>
+        <td>1,0000</td>
+        <td>0,3923</td>
+        <td>.007</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>Strategi per agen</td>
+        <td>PT2 Reflection losses</td>
+        <td>L</td>
+        <td>50</td>
+        <td>46</td>
+        <td>0,9200</td>
+        <td>0,8262</td>
+        <td>1,0000</td>
+        <td>0,5858</td>
+        <td>&lt; .001</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>Strategi per agen</td>
+        <td>PT3 Loss aversion mixed gamble</td>
+        <td>H</td>
+        <td>50</td>
+        <td>47</td>
+        <td>0,9400</td>
+        <td>0,8522</td>
+        <td>1,0000</td>
+        <td>0,6643</td>
+        <td>&lt; .001</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>Strategi per agen</td>
+        <td>PT3 Loss aversion mixed gamble</td>
+        <td>L</td>
+        <td>50</td>
+        <td>50</td>
+        <td>1,0000</td>
+        <td>0,9418</td>
+        <td>1,0000</td>
+        <td>1,1593</td>
+        <td>&lt; .001</td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>Strategi per agen</td>
+        <td>T1 Base</td>
+        <td>H</td>
+        <td>50</td>
+        <td>50</td>
+        <td>1,0000</td>
+        <td>0,9418</td>
+        <td>1,0000</td>
+        <td>1,1593</td>
+        <td>&lt; .001</td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>Strategi per agen</td>
+        <td>T1 Base</td>
+        <td>L</td>
+        <td>50</td>
+        <td>50</td>
+        <td>1,0000</td>
+        <td>0,9418</td>
+        <td>1,0000</td>
+        <td>1,1593</td>
+        <td>&lt; .001</td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>Strategi per agen</td>
+        <td>T2 Subsidy</td>
+        <td>H</td>
+        <td>50</td>
+        <td>50</td>
+        <td>1,0000</td>
+        <td>0,9418</td>
+        <td>1,0000</td>
+        <td>1,1593</td>
+        <td>&lt; .001</td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>Strategi per agen</td>
+        <td>T2 Subsidy</td>
+        <td>L</td>
+        <td>50</td>
+        <td>50</td>
+        <td>1,0000</td>
+        <td>0,9418</td>
+        <td>1,0000</td>
+        <td>1,1593</td>
+        <td>&lt; .001</td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>Strategi per agen</td>
+        <td>T3 Fraud</td>
+        <td>H</td>
+        <td>50</td>
+        <td>50</td>
+        <td>1,0000</td>
+        <td>0,9418</td>
+        <td>1,0000</td>
+        <td>1,1593</td>
+        <td>&lt; .001</td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>Strategi per agen</td>
+        <td>T3 Fraud</td>
+        <td>L</td>
+        <td>50</td>
+        <td>50</td>
+        <td>1,0000</td>
+        <td>0,9418</td>
+        <td>1,0000</td>
+        <td>1,1593</td>
+        <td>&lt; .001</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="table-note"><em>Catatan:</em> PT = Skenario Prospect Theory dari Kahneman &amp; Tversky (1979); T = Skenario signaling Title dari Spence (1973); H = Agen tipe tinggi; L = Agen tipe rendah. p̂ = proporsi hit yang diamati. Cohen's h = ukuran efek untuk proporsi. Nilai-p adalah satu sisi, menguji terhadap tingkat peluang .05.</p>
+
+  <figure>
+    <img src="figure3-choice.jpg" alt="Pembobotan faktor BOCR berdasarkan tipe.">
+    <figcaption><strong>Gambar 3:</strong> Pembobotan faktor BOCR berdasarkan tipe. Catatan: PT = Skenario Prospect Theory dari Kahneman &amp; Tversky (1979); T = Skenario signaling Title dari Spence (1973); H = Agen tipe tinggi; L = Agen tipe rendah.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="figure4-choice.jpg" alt="Rasio konsistensi berdasarkan skenario.">
+    <figcaption><strong>Gambar 4:</strong> Rasio konsistensi berdasarkan skenario. Catatan: T = Skenario signaling Title dari Spence (1973); PT = Skenario Prospect Theory dari Kahneman &amp; Tversky (1979); H = Agen tipe tinggi; L = Agen tipe rendah.</figcaption>
+  </figure>
+
+  <!-- ============ DECISION FACTOR WEIGHTS ============ -->
+  <h2>Bobot Faktor Keputusan</h2>
+
+  <p>Bobot perantara juga bergerak ke arah yang bermakna secara substantif. Dalam pengaturan Spence dasar, tipe tinggi menempatkan sebagian besar bobot pada Benefits, sedangkan tipe rendah menempatkan sebagian besar bobot pada Costs, mereproduksi asimetri yang secara teoretis menghasilkan pemisahan. Dalam lotere keuntungan, tipe tinggi menekankan Opportunity sisi atas, sedangkan tipe rendah menekankan Benefits pasti. Dalam lotere kerugian, tipe tinggi membobot Risk paling berat, sedangkan tipe rendah menempatkan lebih banyak penekanan pada Cost. Hal ini penting karena menunjukkan bahwa mesin tidak hanya mereproduksi label yang benar di akhir saluran; ia mencapainya melalui trade-off internal yang sensitif tipe.</p>
+
+  <p>Konsisten dengan pembacaan itu, matriks AHP tingkat alternatif sangat stabil, dengan median rasio konsistensi nol untuk kedua tipe agen, sedangkan matriks tingkat kriteria lebih bervariasi. Ini adalah apa yang kita harapkan: perbandingan alternatif menggunakan data kuantitatif secara langsung, sedangkan perbandingan kriteria membutuhkan penilaian kualitatif tentang kepentingan relatif dimensi BOCR. Fakta bahwa sebagian besar CR tingkat kriteria masih berada di bawah ambang 0,10 menunjukkan bahwa perbandingan berpasangan otomatis LLM umumnya dapat diandalkan, dengan pemeriksaan konsistensi bertindak sebagai perlindungan bawaan untuk kasus-kasus yang memerlukan tinjauan lebih dekat.</p>
+
+  <!-- ============ DISCUSSION ============ -->
+  <h2>Diskusi</h2>
+
+  <p>Makalah ini membuat tiga kontribusi. <em>Pertama</em>, ia membingkai riset perilaku terapan di industri sebagai masalah rekayasa keputusan di mana auditabilitas adalah persyaratan kelas satu. <em>Kedua</em>, ia menetapkan saluran operasional yang menggabungkan penalaran LLM dengan stabilisasi deterministik melalui Binding &amp; Netting dan agregasi multi-kriteria melalui AHP. <em>Ketiga</em>, ia menunjukkan bagaimana peringkat yang bergantung tipe dan diagnostik pola insentif dapat dihasilkan sebagai artefak yang dapat diperiksa daripada rekomendasi yang buram.</p>
+
+  <p>Pada intinya, Choice Engine dimaksudkan untuk menyederhanakan bagian pekerjaan yang biasanya berantakan, memakan waktu, dan sulit dijelaskan kepada orang lain. Ilmuwan perilaku terapan secara rutin bekerja di seluruh dokumentasi klien, literatur akademis, studi kasus pesaing, wawancara kualitatif, dan dataset kuantitatif sebelum mereka bahkan dapat mulai merancang intervensi. Choice Engine mengubah kompleksitas tahap awal itu menjadi alur kerja terstruktur. Dan karena setiap langkah meninggalkan jejak eksplisit, alat ini menghasilkan bukan hanya rekomendasi, tetapi juga catatan penalaran yang dapat ditinjau, ditantang, diperbarui, dan dipertahankan.</p>
+
+  <blockquote class="pullquote">Choice Engine menghasilkan bukan hanya rekomendasi, tetapi juga catatan penalaran yang dapat ditinjau, ditantang, diperbarui, dan dipertahankan.</blockquote>
+
+  <p>Bagi praktisi, nilai alur kerja ini berada di hulu eksperimen. Ini mendukung pencernaan bukti berkapasitas tinggi dengan mengubah dokumen menjadi input terstruktur daripada ringkasan sekali pakai, menawarkan cara praktis untuk menggabungkan bukti kuantitatif dan kualitatif dalam kerangka keputusan yang sama. Ini juga memungkinkan untuk membuat pra-penilaian dan prediksi tentang apa yang mungkin terjadi dalam pengaturan tertentu yang dapat menginformasikan desain intervensi perilaku dan hasil yang mungkin sebelum meluncurkannya di dunia nyata. Ini adalah peluang yang sangat berharga untuk menyesuaikan intervensi yang sangat efektif dengan risiko minimal. Bukan kebetulan bahwa sejumlah karya yang berkembang mengusulkan penggunaan simulasi berbasis agen di banyak bidang berbeda yang menangani intervensi perilaku seperti kesehatan (Huang et al. 2021), kebijakan tempat kerja (Munoz &amp; Iglesias, 2021), dan pengalaman pelanggan (Bell &amp; Mgbemena, 2018), antara lain.</p>
+
+  <p>Diagnostik pola insentif, seperti apakah profil memisahkan atau mengumpul, juga memberikan lensa segmentasi yang berguna. Ketika peringkat yang bergantung tipe menyimpang, intervensi dapat dirancang untuk menarik atau mencegah tipe tertentu secara selektif. Ketika peringkat bertemu, tuas yang bergantung tipe kemungkinan tidak akan bekerja. Ini menghubungkan output alur kerja ke diskusi produk dan kebijakan konkret di sekitar penyaringan, pencegahan penipuan, pembangunan kepercayaan, atau desain kepatuhan. Pendekatan ini sangat berguna untuk menerapkan strategi segmentasi perilaku di mana individu yang berbeda dalam populasi target menerima intervensi spesifik profil yang disesuaikan dengan tujuan perilaku yang sama.</p>
+
+  <p>Choice Engine mencakup dua pemeriksaan kualitas yang berbeda. Consistency Ratio AHP pada Langkah 6 memberikan penilaian matematis tentang koherensi perbandingan berpasangan, sedangkan hakim LLM pada Langkah 1 mengevaluasi apakah template input mengikuti aturan netralitas alur kerja. Satu pemeriksaan formal, yang lain semantik. Bersama-sama, mereka menawarkan perlindungan pelengkap terhadap output yang tidak dapat diandalkan.</p>
+
+  <p>Meskipun ada pemeriksaan ini, keterbatasan Choice Engine juga harus diakui. Mesin ini telah divalidasi dengan dua studi seminal dengan kendala yang terdefinisi dengan baik. Kondisi dunia nyata, bagaimanapun, cenderung kurang langsung dan jauh lebih berantakan. Satu masalah potensial adalah memasukkan data yang salah atau tidak lengkap dalam input yang dapat diteruskan ke langkah-langkah berikutnya dari proses. Di sini, penting untuk menunjukkan bahwa proses Choice Engine dapat diulang sebanyak yang diperlukan, memungkinkan untuk memberi input awal dengan data setiap kali informasi baru tersedia. Peran ilmuwan perilaku dalam menghindari—atau setidaknya membatasi—masalah ini sangat penting. Bagaimanapun, Choice Engine adalah alat yang membutuhkan penggunaan ahli. Ilmuwan perilaku harus sangat berhati-hati dengan kebocoran prompt dan penilaian kesenjangan informasi ketika menggunakan Choice Engine dalam aplikasi kehidupan nyata. Demikian pula, perlu dicatat bahwa binding dapat menciptakan rasa presisi yang salah jika perbandingan kualitatif diperlakukan sebagai pengukuran bukan sebagai penilaian terstruktur. Agen LLM juga dapat tidak konsisten, terlalu menyesuaikan diri dengan pembingkaian prompt, atau menyandikan asumsi normatif yang memerlukan tinjauan manusia. AHP sendiri mengasumsikan independensi di antara kriteria, yang mungkin tidak berlaku dalam konteks produk yang lebih kompleks. Yang paling penting, auditabilitas tidak menjamin kebenaran; ia membuat ketidaksepakatan terlihat, tetapi tim tetap perlu memutuskan asumsi mana yang layak mendapat lebih banyak data.</p>
+
+  <p>Karya di masa depan harus mengevaluasi alur kerja dalam pengaturan sektor swasta nyata, dengan fokus pada kualitas keputusan, waktu-untuk-wawasan, dan kemampuan pembaruan di bawah bukti yang berubah. Memperluas AHP ke Analytic Network Process (ANP), yang memodelkan interdependensi di antara kriteria, adalah arah yang menjanjikan. Kalibrasi yang lebih kuat dari binding kuantitatif, tata kelola input yang lebih baik melalui versioning dan alur kerja tinjauan, dan propagasi ketidakpastian yang lebih berprinsip dari input ke peringkat juga merupakan peluang yang jelas untuk perbaikan. Akhirnya, pengembangan lebih lanjut alur kerja AI terstruktur dan dapat diaudit yang meningkatkan, bukan menggantikan, penilaian ilmuwan perilaku terapan sangat diperlukan.</p>
+
+  <!-- ============ AUTHOR BIOS ============ -->
+  <div class="author-bio">
+    <h3>Tentang Para Penulis</h3>
+    <p><strong>Pablo Coello</strong> adalah anggota Tim BeWay AI (BAIT) BeWay, bekerja pada sistem pendukung keputusan terapan yang menggabungkan ekonomi perilaku, penalaran berbasis LLM, dan analisis keputusan multi-kriteria.</p>
+    <p><strong>Pablo Villacañas</strong> adalah pengembang perangkat lunak di Tim BeWay AI (BAIT), berspesialisasi dalam arsitektur perangkat lunak dan pengembangan Full Stack. Minat penelitiannya terletak pada persimpangan pemodelan perilaku manusia dan arsitektur sistem kompleks, menerapkan kerangka psikologis pada lingkungan teknis dan logis.</p>
+    <p><strong>Gonzalo Díaz</strong> adalah anggota Tim BeWay AI (BAIT), berspesialisasi dalam menerapkan teknik AI mutakhir dan sistem RAG yang disesuaikan untuk aplikasi ilmu perilaku dan pengambilan keputusan otomatis.</p>
+    <p><strong>Sara Ramos-Cabo</strong> (PhD) adalah ilmuwan perilaku di BeWay. Karyanya berpusat pada pemanfaatan bukti dari ilmu kognitif, neurosains, dan psikolinguistik yang dikombinasikan dengan kerangka ilmu perilaku untuk mendukung organisasi dalam membuat intervensi yang berpusat pada manusia berbasis bukti.</p>
+    <p><strong>Antonio González</strong> adalah ilmuwan data perilaku di BeWay, memegang PhD in Health, Psychology, and Psychiatry, dengan latar belakang kuat dalam statistik dan psikometri. Ia bekerja erat dengan konsultan untuk memberikan solusi berbasis data bagi klien, merancang kerangka eksperimental yang ketat, membangun model statistik canggih, dan menerjemahkan wawasan perilaku menjadi dampak bisnis yang terukur. Ia juga memberikan dukungan teknis dan tinjauan sejawat di seluruh tim, memastikan ketelitian metodologis dan validitas statistik di seluruh hasil klien.</p>
+    <p><strong>Francisco Ceballos</strong> adalah anggota departemen data BeWay, di mana ia memimpin tim yang bertanggung jawab memastikan kualitas dalam desain dan analisis eksperimen. Ia memegang PhD dalam genetika dan statistik dan bekerja di persimpangan metode kuantitatif, desain eksperimental, dan ilmu perilaku.</p>
+    <p><strong>Juan Pablo Ospina Arboleda</strong> adalah ilmuwan data perilaku di BeWay, berspesialisasi dalam analisis data perilaku dan pengembangan model yang mendukung pengambilan keputusan berbasis bukti. Karyanya berfokus pada penerapan prinsip ekonomi perilaku dan sistem pendukung keputusan untuk meningkatkan proses bisnis di lingkungan yang kompleks.</p>
+  </div>
+
+  <!-- ============ REFERENCES ============ -->
+  <div class="refs">
+    <h2>Referensi</h2>
+    <ul>
+      <li>Akerlof, G. A. (1978). The market for 'lemons': Quality uncertainty and the market mechanism. In P. Diamond &amp; M. Rothschild (Eds.), <em>Uncertainty in economics</em> (pp. 235–251). Academic Press. https://doi.org/10.1016/B978-0-12-214850-7.50022-X</li>
+      <li>Bedard, K. (2001). Human capital versus signaling models: University access and high school dropouts. <em>Journal of Political Economy, 109</em>(4), 749–775. https://doi.org/10.1086/322089</li>
+      <li>Bell, D., &amp; Mgbemena, C. (2018). Data-driven agent-based exploration of customer behavior. <em>Simulation, 94</em>(3), 195–212. https://doi.org/10.1177/0037549717743106</li>
+      <li>Hauser, J. R., &amp; Wernerfelt, B. (1990). An evaluation cost model of consideration sets. <em>Journal of Consumer Research, 16</em>(4), 393–408. https://doi.org/10.1086/209225</li>
+      <li>Huang, W., Chang, C. H., Stuart, E. A., Daumit, G. L., Wang, N. Y., McGinty, E. E., ... &amp; Igusa, T. (2021). Agent-based modeling for implementation research: An application to tobacco smoking cessation for persons with serious mental illness. <em>Implementation Research and Practice, 2</em>, 1–16. https://doi.org/10.1177/26334895211010664</li>
+      <li>Huang, L., Yu, W., Ma, W., Zhong, W., Feng, Z., Wang, H., Chen, Q., Peng, W., Feng, X., Qin, B., &amp; Liu, T. (2025). A survey on hallucination in large language models: Principles, taxonomy, challenges, and open questions. <em>ACM Transactions on Information Systems, 43</em>(2), 42. https://doi.org/10.1145/3703155</li>
+      <li>Hvide, H. K. (2003). Education and the allocation of talent. <em>Journal of Labor Economics, 21</em>(4), 945–976. https://doi.org/10.1086/377028</li>
+      <li>Kahneman, D., &amp; Tversky, A. (1979). Prospect theory: An analysis of decision under risk. <em>Econometrica, 47</em>(2), 263–292. https://doi.org/10.1142/9789814417358_0006</li>
+      <li>Keeney, R. L., &amp; Raiffa, H. (1993). <em>Decisions with multiple objectives: Preferences and value tradeoffs</em>. Cambridge University Press.</li>
+      <li>Khot, T., Trivedi, H., Finlayson, M., Fu, Y., Richardson, K., Clark, P., &amp; Sabharwal, A. (2023). Decomposed prompting: A modular approach for solving complex tasks. arXiv. https://doi.org/10.48550/arXiv.2210.02406</li>
+      <li>Michie, S., van Stralen, M. M., &amp; West, R. (2011). The behaviour change wheel: A new method for characterising and designing behaviour change interventions. <em>Implementation Science, 6</em>(1), 42. https://doi.org/10.1186/1748-5908-6-42</li>
+      <li>Muñoz, S., &amp; Iglesias, C. A. (2021). An agent based simulation system for analyzing stress regulation policies at the workplace. <em>Journal of Computational Science, 51</em>, 101326. https://doi.org/10.1016/j.jocs.2021.101326</li>
+      <li>OpenAI. (2025). ChatGPT (5.2) [Large language model]. https://chat.openai.com/chat</li>
+      <li>Payne, J. W., Bettman, J. R., &amp; Johnson, E. J. (1993). <em>The adaptive decision maker</em>. Cambridge University Press.</li>
+      <li>Saaty, T. L. (1980). <em>The analytic hierarchy process: Planning, priority setting, resource allocation</em>. McGraw-Hill International Book Company.</li>
+      <li>Saaty, T. L. (2005). <em>Theory and applications of the analytic network process: Decision making with benefits, opportunities, costs, and risks</em>. RWS Publications.</li>
+      <li>Saaty, T. L. (2008). Decision making with the analytic hierarchy process. <em>International Journal of Services Sciences, 1</em>(1), 83–98. https://doi.org/10.1504/IJSSCI.2008.017590</li>
+      <li>Sclar, M., Choi, Y., Tsvetkov, Y., &amp; Suhr, A. (2024). Quantifying language models' sensitivity to spurious features in prompt design or: How I learned to start worrying about prompt formatting. arXiv. https://doi.org/10.48550/arXiv.2310.11324</li>
+      <li>Simon, H. A. (1955). A behavioral model of rational choice. <em>The Quarterly Journal of Economics, 69</em>(1), 99–118. https://doi.org/10.2307/1884852</li>
+      <li>Spence, M. (1973). Job market signaling. <em>The Quarterly Journal of Economics, 87</em>(3), 355–374. https://doi.org/10.2307/1882010</li>
+      <li>Tversky, A., &amp; Kahneman, D. (1974). Judgment under uncertainty: Heuristics and biases. <em>Science, 185</em>(4157), 1124–1131. https://doi.org/10.1126/science.185.4157.1124</li>
+      <li>West, R., &amp; Michie, S. (2020). A brief introduction to the COM-B Model of behaviour and the PRIME Theory of motivation [v1]. Qeios. https://doi.org/10.32388/WW04E6</li>
+    </ul>
+  </div>
+
+  <div class="end-mark">• • •</div>
+
+</div>
+</body>
+</html>

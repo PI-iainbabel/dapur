@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Ketika Bukti Tidak Berpindah: Studi Kasus Praktisi tentang Melokalkan Teknik Perubahan Perilaku</title>
+<style>
+  :root {
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #2c5f7c;
+    --rule: #ccc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
+    background: #fafaf7;
+    margin: 0;
+    padding: 0;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.06);
+  }
+  .article-header {
+    border-bottom: 3px double var(--rule);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+  .article-number {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 28px;
+    line-height: 1.25;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .author {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+  .affiliation {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin: 4px 0 0;
+  }
+  h2 {
+    font-size: 22px;
+    margin: 42px 0 16px;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 18px;
+    margin: 30px 0 12px;
+  }
+  p { margin: 0 0 16px; text-align: justify; hyphens: auto; }
+  p.lead { font-size: 18px; }
+  .abstract {
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 22px 26px;
+    margin: 28px 0 36px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .abstract p:last-child { margin-bottom: 0; }
+  .pullquote {
+    font-size: 21px;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding: 6px 0 6px 22px;
+    margin: 30px 0;
+    font-weight: 600;
+  }
+  .pullquote::before { content: "\201C"; }
+  .pullquote::after { content: "\201D"; }
+  figure {
+    margin: 32px 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  figure img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+  }
+  figcaption {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 10px;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .qr-note {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 14px 18px;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .qr-note .qr-box {
+    width: 48px; height: 48px;
+    background: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0/12px 12px;
+    border: 1px solid #999;
+    flex-shrink: 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  table th {
+    background: #2c5f7c;
+    color: #fff;
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+  }
+  table td {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 12px;
+    vertical-align: top;
+  }
+  table tr:nth-child(even) td {
+    background: #f7f9fa;
+  }
+  .table-note {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: -12px 0 24px;
+  }
+  .rumsfeld {
+    margin: 32px 0;
+    border: 1px solid #ccc;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+  }
+  .rumsfeld table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+  }
+  .rumsfeld th, .rumsfeld td {
+    border: 1px solid #ccc;
+    padding: 16px;
+    vertical-align: top;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .rumsfeld th {
+    background: #2c5f7c;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    font-size: 12.5px;
+  }
+  .rumsfeld td strong {
+    display: block;
+    color: var(--accent);
+    margin-bottom: 8px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .rumsfeld td em {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .refs {
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .refs h2 { font-size: 20px; }
+  .refs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    column-count: 2;
+    column-gap: 36px;
+  }
+  .refs li {
+    margin-bottom: 14px;
+    break-inside: avoid;
+    padding-left: 22px;
+    text-indent: -22px;
+  }
+  .author-bio {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 40px 0 24px;
+    font-size: 15.5px;
+  }
+  .author-bio h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  .author-bio p { text-align: left; margin-bottom: 0; }
+  .end-mark {
+    text-align: center;
+    color: var(--muted);
+    letter-spacing: 6px;
+    margin: 40px 0;
+  }
+  @media (max-width: 640px) {
+    .page { padding: 30px 20px; }
+    .refs ul { column-count: 1; }
+    h1 { font-size: 22px; }
+    table { font-size: 11px; }
+    .rumsfeld { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ HEADER ============ -->
+  <header class="article-header">
+    <div class="article-number">Aplikasi</div>
+    <h1>Ketika Bukti Tidak Berpindah: Studi Kasus Praktisi tentang Melokalkan Teknik Perubahan Perilaku</h1>
+    <p class="author">Marisa Nowicki</p>
+    <p class="affiliation">Lirio</p>
+  </header>
+
+  <div class="qr-note">
+    <div class="qr-box"></div>
+    <div>Pindai kode QR untuk menonton ringkasan video</div>
+  </div>
+
+  <!-- ============ ABSTRACT ============ -->
+  <div class="abstract">
+    <p>Konteks penting dalam ilmu perilaku. Namun, sebagian besar basis bukti bidang ini berasal dari populasi Western, Educated, Industrialized, Rich, and Democratic (WEIRD)—padahal lebih dari 80% orang termasuk kelompok lain. Meskipun ilmu perilaku telah mengembangkan teori, taksonomi, dan alat desain yang kokoh, ia menawarkan panduan yang lebih sedikit tentang cara melokalkan teknik perubahan perilaku untuk konteks multikultural dan non-Barat. Studi kasus praktisi ini memeriksa bagaimana satu tim ilmu perilaku melokalkan intervensi kesehatan digital untuk Kosta Rika (CR) sambil mempertahankan fondasi teoretisnya. Alih-alih mengusulkan kerangka kerja preskriptif, makalah ini mengilustrasikan bagaimana kerangka budaya dan aktivitas audit yang diinformasikan secara budaya digunakan untuk menstrukturkan ketidakpastian, menyempurnakan pertanyaan penelitian, dan memandu keputusan lokalisasi di seluruh strategi, salinan, dan desain visual. Studi kasus ini menyoroti bagaimana praktisi yang bekerja dalam pengaturan dunia nyata dapat melengkapi alat berbasis bukti yang ada dengan proses terstruktur untuk membuat pertimbangan lokalisasi lebih terlihat, dapat diperiksa, dan dapat ditindaklanjuti.</p>
+  </div>
+
+  <!-- ============ INTRODUCTION ============ -->
+  <h2>Pendahuluan: Ketika Bukti Tidak Berpindah</h2>
+
+  <p>Ilmuwan perilaku tahu bahwa konteks penting. Salah satu elemen konteks, budaya, harus dipertimbangkan ketika mengembangkan intervensi baru atau menskalakan yang sudah ada.</p>
+
+  <p>Praktisi yang menerapkan ilmu perilaku dalam pengaturan dunia nyata sering menghadapi tantangan lokalisasi: wawasan dan alat berbasis bukti yang efektif dalam satu konteks dapat sulit ditafsirkan atau diterapkan di konteks lain. Sejumlah bukti yang berkembang menunjukkan bahwa intervensi perilaku dapat berkinerja tidak merata ketika diterapkan lintas konteks budaya (Catoja &amp; Crede, 2025; Hall et al., 2016; Talhelm, 2026). Meskipun bidang ini telah mengembangkan teori, taksonomi, dan alat desain yang kokoh, ia menawarkan panduan yang lebih sedikit tentang melokalkan teknik perubahan perilaku untuk konteks multikultural dan non-Barat (Castro et al., 2024; Henrich et al., 2010).</p>
+
+  <blockquote class="pullquote">Meskipun bidang ini telah mengembangkan teori, taksonomi, dan alat desain yang kokoh, ia menawarkan panduan yang lebih sedikit tentang melokalkan teknik perubahan perilaku untuk konteks multikultural dan non-Barat.</blockquote>
+
+  <h3>Dari Bukti ke Aplikasi: Kesenjangan Praktisi</h3>
+
+  <p>Kontributor utama tantangan ini adalah representasi konteks dan populasi yang tidak merata dalam penelitian ilmu perilaku. Sebagian besar basis bukti yang ada telah dihasilkan di masyarakat Western, Educated, Industrialized, Rich, and Democratic (WEIRD) (Henrich et al., 2010). Norma budaya, struktur sosial, dan pengaturan institusional dapat membentuk bagaimana mekanisme perilaku diaktifkan, memengaruhi apakah dan bagaimana intervensi berpindah antar pengaturan. Dan ketika wawasan yang berasal dari himpunan konteks yang relatif sempit diterapkan di tempat lain, hasilnya dapat menjadi kurang dapat diprediksi—bukan karena teori yang mendasarinya tidak valid, tetapi karena asumsi kontekstual yang tertanam dalam bukti mungkin tidak sepenuhnya berlaku. Kesulitan dalam menskalakan wawasan ini sering dapat dilacak ke dua sumber kesalahan umum: kurangnya keterwakilan populasi dan situasi (List, 2021).</p>
+
+  <p>Alat berbasis bukti sangat penting untuk menerjemahkan penelitian ilmu perilaku ke dalam praktik. Sumber daya seperti Theory and Techniques Tool (TaTT) menyediakan bahasa bersama dan titik awal terstruktur untuk desain intervensi (Johnston, 2021). Namun, praktisi mungkin menghadapi keterbatasan ketika menafsirkan pemetaan bukti ini lintas konteks. Karena alat semacam itu mensintesis penelitian yang secara tidak proporsional mewakili populasi dan pengaturan WEIRD, mereka juga dapat mewarisi asumsi dan kendala basis bukti yang mendasarinya. Akibatnya, alat-alat ini sering cocok untuk menjawab pertanyaan seperti 'Mekanisme atau teknik mana yang relevan untuk hambatan perilaku ini?' tetapi kurang mendukung untuk pertanyaan spesifik konteks 'Sejauh mana bukti mendukung penggunaan teknik ini untuk mengatasi hambatan ini dalam konteks ini?'</p>
+
+  <p>Meskipun semua intervensi memerlukan penyesuaian dengan konteks lokal, praktisi yang bekerja di luar konteks WEIRD mungkin menemukan bahwa alat yang banyak digunakan memerlukan pemaknaan tambahan yang tidak proporsional untuk diterapkan secara andal. Dengan tidak adanya panduan eksplisit untuk memasukkan nuansa budaya, praktisi sering dibiarkan mengandalkan penilaian individu dan proses ad hoc untuk menentukan kapan dan bagaimana melokalkan intervensi. Bahkan ilmuwan perilaku rentan terhadap bias dan titik buta ketika mencoba mereplikasi intervensi dalam konteks budaya yang tidak familiar.</p>
+
+  <p>Kasus penggunaan ini menawarkan contoh ilustratif tentang bagaimana tim ilmu perilaku yang berbasis di AS melokalkan intervensi kesehatan digital di Kosta Rika (CR) dengan menggunakan kerangka budaya dan aktivitas audit budaya untuk menstrukturkan ketidakpastian, mengungkap asumsi, dan memandu keputusan adaptasi. Ini menawarkan titik referensi bagi praktisi yang menghadapi tantangan serupa ketika bukti tidak berpindah dengan mudah antar konteks.</p>
+
+  <!-- ============ TOWARD SYSTEMATIC ============ -->
+  <h2>Menuju Pendekatan yang Lebih Sistematis untuk Adaptasi Budaya</h2>
+
+  <h3>Manajemen Ketidakpastian</h3>
+
+  <p>Kegagalan lokalisasi budaya dalam ilmu perilaku sering merupakan kegagalan dalam manajemen ketidakpastian daripada kegagalan teori ilmu perilaku yang mendasarinya.</p>
+
+  <blockquote class="pullquote">Kegagalan lokalisasi budaya dalam ilmu perilaku sering merupakan kegagalan dalam manajemen ketidakpastian daripada kegagalan teori ilmu perilaku yang mendasarinya.</blockquote>
+
+  <p>Rumsfeld Matrix menawarkan kerangka yang berguna untuk mengidentifikasi cara memitigasi risiko ketidaksesuaian budaya dalam desain dan penskalaan intervensi. Titik buta budaya sering jatuh ke dalam kategori 'known unknowns'. Namun, banyak yang menjadi terlihat dengan secara bermakna melibatkan keahlian lokal, yaitu, dengan mengidentifikasi pengetahuan kontekstual dan perilaku yang ada secara lokal tetapi belum diakui, dihargai, atau diintegrasikan ke dalam desain intervensi.</p>
+
+  <p>Rumsfeld Matrix mengungkapkan dua tuas untuk mengurangi risiko: 1) Meningkatkan kesadaran akan asumsi, pengetahuan tacit, dan potensi titik buta dalam konteks lokal, dan 2) Meningkatkan pemahaman tentang pertanyaan dan hipotesis yang mendukung lokalisasi.</p>
+
+  <div class="rumsfeld">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:50%;">Kesadaran Tinggi</th>
+          <th style="width:50%;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <strong>Known Unknowns</strong>
+            <em>Faktor yang kita ketahui ada, tetapi belum sepenuhnya kita pahami.</em><br><br>
+            <em>Pertanyaan terbuka dan hipotesis.</em>
+          </td>
+          <td>
+            <strong>Known Knowns</strong>
+            <em>Faktor yang kita sadari dan pahami.</em><br><br>
+            <em>Variabel yang diketahui, bukti yang kokoh.</em>
+          </td>
+        </tr>
+        <tr>
+          <th style="background:#2c5f7c;">Kesadaran Rendah</th>
+          <th style="background:#2c5f7c;"></th>
+        </tr>
+        <tr>
+          <td>
+            <strong>Unknown Unknowns</strong>
+            <em>Faktor yang tidak kita sadari dan tidak kita ketahui cara mengantisipasinya.</em><br><br>
+            <em>Risiko yang tidak terduga, ancaman tersembunyi, titik buta sejati.</em>
+          </td>
+          <td>
+            <strong>Unknown Knowns</strong>
+            <em>Faktor yang kita ketahui, tetapi tidak kita sadari bahwa kita mengetahuinya.</em><br><br>
+            <em>Pengetahuan tacit, asumsi implisit, titik buta budaya.</em>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Dalam studi kasus berikut, kami menguraikan aktivitas pengurangan ketidakpastian yang dilakukan oleh tim ilmu perilaku untuk mengidentifikasi risiko, memperbaiki hipotesis, dan mendokumentasikan pengetahuan tacit untuk meningkatkan upaya lokalisasi.</p>
+
+  <!-- ============ USE CASE ============ -->
+  <h2>Kasus Penggunaan: Intervensi Kesehatan Digital di Kosta Rika</h2>
+
+  <p>Seiring Lirio terus berkembang secara global, kami bereksperimen dengan pendekatan untuk melokalkan intervensi kesehatan digital yang diinfus perilaku. Tim kami baru-baru ini melakukan intervensi kesehatan digital di Kosta Rika untuk meningkatkan pengambilan program kesehatan dan kesejahteraan. Kami menarik inspirasi untuk intervensi baru ini dari pola yang diamati dan wawasan yang dihasilkan dari intervensi kesehatan digital kami yang sebelumnya berhasil, termasuk pendekatan untuk mengaktualisasikan teknik perubahan perilaku (BCT) dalam visual dan penulisan salinan.</p>
+
+  <p>Program ini mencakup penilaian kesehatan komprehensif, konsultasi 1:1 dengan dokter untuk menguraikan tujuan kesehatan individu, peta jalan peningkatan kesehatan yang dipersonalisasi, dan diskon untuk layanan kesehatan tambahan. Tugas kami adalah melokalkan pendekatan Precision Nudging kami—yang memanfaatkan ilmu perilaku dan AI agentik untuk mengirim nudge yang dipersonalisasi—untuk mendorong pendaftaran dan keterlibatan dengan program ini. Kami bertujuan melokalkan tiga komponen kunci intervensi: matriks strategi ilmu perilaku, desain visual, dan penulisan salinan.</p>
+
+  <h3>Aktivitas: Meningkatkan Kesadaran</h3>
+
+  <p>Pertama, tim kami melakukan aktivitas penemuan standar untuk memahami perilaku dan konteks, termasuk meninjau jalur tindakan dan literatur yang relevan. Selanjutnya, kami memanfaatkan kerangka budaya dan aktivitas curah pendapat terstruktur untuk mendokumentasikan yang diketahui, mengidentifikasi risiko potensi ketidaksesuaian budaya, dan memprioritaskan area untuk penyelidikan lebih lanjut. Aktivitas ini dimaksudkan untuk meningkatkan kesadaran dengan membuat asumsi implisit menjadi eksplisit dan mengungkap sumber ketidakpastian potensial di awal proses desain.</p>
+
+  <h3>Alat Kerangka Budaya</h3>
+
+  <p>Dengan menggunakan kerangka budaya, tim kami membandingkan Amerika Serikat (di mana banyak pola dan aset intervensi yang digunakan untuk inspirasi sebelumnya dikembangkan) dan Kosta Rika sebagai konteks penyebaran target. Kerangka budaya mendeskripsikan pola makna yang umumnya dibagikan—seperti keyakinan, norma, nilai, dan tradisi—yang cenderung lebih umum atau menonjol dalam suatu kelompok. Sering beroperasi secara implisit, pola-pola ini dapat memengaruhi apa yang dipersepsikan sebagai sesuai, memotivasi, atau kredibel dalam konteks tertentu.</p>
+
+  <p>Tipologi ini memberikan orientasi tingkat tinggi untuk penjajakan tahap awal, tetapi mereka tidak menangkap keragaman penuh perspektif dalam suatu negara maupun menentukan perilaku individu. Masyarakat yang beragam (seperti AS) dapat mencakup beberapa kerangka budaya. Digunakan dengan tepat, kerangka budaya dapat membantu mengungkap fitur kontekstual dan faktor budaya yang mungkin memengaruhi efektivitas intervensi. Praktisi dapat menggunakan wawasan yang dihasilkan dari lensa kerangka budaya untuk mengembangkan hipotesis awal tentang di mana dan mengapa intervensi mungkin memerlukan penyesuaian, yang kemudian dapat divalidasi melalui penelitian lokal dan realitas sistem.</p>
+
+  <blockquote class="pullquote">Praktisi dapat menggunakan wawasan yang dihasilkan dari lensa kerangka budaya untuk mengembangkan hipotesis awal tentang di mana dan mengapa intervensi mungkin memerlukan penyesuaian.</blockquote>
+
+  <p>Ada berbagai alat kerangka budaya, masing-masing dengan kekuatan dan keterbatasannya sendiri (Yeganeh, 2025). Kerangka yang paling tepat bergantung pada tujuan intervensi, perilaku target, dan sumber pengaruh. Dalam hal ini, tim kami menggunakan Hofstede's Cultural Dimensions Theory, yang menyediakan perbandingan tingkat negara di enam dimensi: Individualism vs. Collectivism; Power Distance; Uncertainty Avoidance; Long- vs. Short-Term Orientation; Indulgence vs. Restraint; dan Masculinity vs. Femininity.</p>
+
+  <p>Dalam kerangka ini, domain dengan perbedaan terbesar antara AS dan CR meliputi:</p>
+
+  <p><strong>Individualisme-Kolektivisme:</strong> AS mendapat skor tinggi pada individualisme, sedangkan CR mendapat skor lebih tinggi pada kolektivisme. Untuk memperhitungkan perbedaan ini, kami mengevaluasi pemilihan BCT, pembingkaian pesan dan nada, serta penggambaran visual orang dan interaksi mereka. Kami juga mempertimbangkan penyesuaian kolaborasi dengan mitra lokal untuk memasukkan praktik kerja yang lebih relasional dan kolaboratif.</p>
+
+  <p><strong>Maskulinitas vs. Feminitas (Motivasi menuju Pencapaian vs. Kualitas Hidup):</strong> AS menempatkan penekanan lebih besar pada orientasi tujuan, pencapaian, dan keberhasilan terukur, sedangkan CR menempatkan nilai relatif lebih pada hubungan, kolaborasi, dan keseimbangan kerja-hidup. Karena itu kami mengeksplorasi BCT dengan penekanan yang lebih prososial atau kualitas hidup, dan kami membingkai ulang tujuan dan keberhasilan pada tingkat keluarga atau komunitas dalam citra dan salinan.</p>
+
+  <p><strong>Penghindaran Ketidakpastian:</strong> CR mendapat skor jauh lebih tinggi dari AS pada penghindaran ketidakpastian. Untuk memperhitungkan hal ini, kami mengevaluasi BCT yang menekankan kejelasan, struktur, dan prediktabilitas dan mengidentifikasi peluang untuk membingkai tindakan yang diinginkan sebagai proses langkah-demi-langkah yang sederhana dalam visual dan pesan.</p>
+
+  <h3>Aktivitas Pre-Mortem</h3>
+
+  <p>Selanjutnya, tim kami melakukan aktivitas pre-mortem untuk mengidentifikasi area potensial ketidaksesuaian budaya yang mungkin memerlukan mitigasi risiko tambahan. Pre-mortem adalah latihan strategis di mana tim membayangkan sebuah proyek telah gagal dan bekerja mundur untuk mengidentifikasi penyebab yang masuk akal. Di sini, itu digunakan untuk mendokumentasikan known knowns dan known unknowns terkait kesesuaian budaya.</p>
+
+  <p>Selama aktivitas, kami mencurahkan pendapat tentang risiko kegagalan potensial yang terkait dengan lokalisasi untuk CR, termasuk kemungkinan ketidaksesuaian yang terungkap melalui perbandingan kerangka budaya. Menggunakan kerangka menambahkan struktur dan membantu mengungkap risiko yang jika tidak akan tetap implisit, sehingga mendukung penyempurnaan hipotesis yang akan diuji. Kami kemudian melakukan latihan prioritas risiko untuk mengidentifikasi risiko yang paling mungkin dan berdampak tertinggi, setelah itu kami menghasilkan strategi mitigasi risiko untuk item prioritas.</p>
+
+  <p>Melalui langkah ini, kami mengidentifikasi asumsi yang memerlukan validasi dengan mitra lokal. Misalnya, kami menentukan bahwa penelitian tambahan diperlukan untuk melokalkan citra—terutama di sekitar konsep abstrak, interaksi interpersonal, dan bahasa tubuh—dan untuk lebih memahami persepsi konten yang diinfus perilaku relatif terhadap pendekatan pemasaran tradisional.</p>
+
+  <h3>Aktivitas: Meningkatkan Pemahaman</h3>
+
+  <p>Dari wawasan yang diperoleh melalui lensa kerangka budaya, dan berdasarkan elemen intervensi yang kami identifikasi sebagai berpotensi memerlukan penyesuaian, kami mengidentifikasi serangkaian aktivitas audit budaya untuk mengumpulkan informasi tambahan. Dengan 'aktivitas audit budaya', kami mengacu pada pendekatan untuk mengumpulkan dan mendokumentasikan pengetahuan tacit kolektif (unknown knowns) di antara mereka yang memiliki pengalaman hidup dalam konteks lokal. Ini termasuk survei, lokakarya, dan aktivitas terstruktur untuk mengeksplorasi elemen perilaku dan intervensi tertentu. Tujuan aktivitas audit budaya adalah untuk menjawab pertanyaan bertarget tentang konteks lokal untuk menginformasikan keputusan penemuan dan desain.</p>
+
+  <h3>Audit Citra</h3>
+
+  <p>Salah satu aktivitas audit budaya adalah audit citra, yang dilakukan untuk menyesuaikan strategi konten visual kami yang ada dengan konteks lokal. Dalam aktivitas ini, pemangku kepentingan lokal meninjau serangkaian gambar yang dikurasi yang sebelumnya digunakan dalam intervensi kesehatan digital, termasuk penggambaran orang, interaksi interpersonal, ekspresi emosional, dan representasi abstrak konsep kesehatan. Pemangku kepentingan memberikan umpan balik tentang gambar mana yang gagal berpindah, membangkitkan makna yang tidak diinginkan, atau kurang resonansi.</p>
+
+  <p>Audit citra membantu memvalidasi dan memperdalam pemahaman kami tentang area risiko yang diidentifikasi sebelumnya. Misalnya, berdasarkan kerangka budaya, kami berhipotesis bahwa visual yang menggambarkan interaksi pasien-dokter akan mendapat manfaat dari lokalisasi. Pemangku kepentingan lokal tertarik pada gambar di mana pasien dan dokter lebih dekat secara fisik, tanpa meja di antara mereka, dan dalam beberapa kasus terlibat dalam kontak fisik ringan (misalnya, jabat tangan, tangan di bahu, bahu-ke-bahu). Mereka juga mencatat bahwa dokter biasanya mengenakan scrubs daripada pakaian formal atau mantel putih. Wawasan ini menginformasikan pembaruan untuk lebih menyelaraskan representasi visual interaksi perawatan dengan ekspektasi lokal.</p>
+
+  <h3>Riset UX</h3>
+
+  <p>Selain itu, tim kami melakukan riset UX kuantitatif dan kualitatif untuk mendukung lokalisasi. Riset ini berfokus pada validasi penentu perilaku yang dihipotesiskan terkait pendaftaran dalam program kesehatan dan kesejahteraan dan mengidentifikasi nuansa budaya tambahan. Temuan menginformasikan pembaruan pada matriks strategi, termasuk prioritas hambatan perilaku, kategorisasi Mechanism of Action (MoA), dan pemilihan BCT yang tepat.</p>
+
+  <p>Sebagai bagian dari riset ini, kami menguji pesan yang diinformasikan perilaku terhadap pendekatan pemasaran yang lebih tradisional untuk memahami persepsi strategi pembingkaian yang berbeda. Kami juga menilai norma komunikasi lokal, termasuk persepsi nada dan formalitas dalam komunikasi email. Misalnya, responden menyatakan sensitivitas tinggi terhadap potensi penipuan email, menunjukkan bahwa strategi penjualan keras—seperti membangkitkan urgensi, menekankan penjualan, atau menggunakan nama individu—dapat menjadi bumerang dalam konteks ini.</p>
+
+  <!-- ============ LOCALIZING ============ -->
+  <h2>Melokalkan Intervensi Kesehatan Digital untuk CR</h2>
+
+  <h3>Melokalkan Matriks Strategi Ilmu Perilaku</h3>
+
+  <p>Biasanya, tim kami mengembangkan matriks strategi menggunakan TaTT. Kami mengkategorikan dan memprioritaskan penentu perilaku ke dalam MoA, lalu memasangkannya dengan BCT yang terkait bukti. Dalam banyak kasus, penentu tunggal dapat secara masuk akal dikategorikan di bawah beberapa MoA, tergantung pada bagaimana ia dibingkai atau dialami dalam konteks. Konten dibangun dengan satu nudge per pasangan MoA × BCT.</p>
+
+  <p>Untuk melokalkan matriks strategi, kami memanfaatkan wawasan dari audit budaya dan riset UX kami untuk menambahkan nuansa—termasuk mempertimbangkan kembali klasifikasi mereka dan memecah penentu yang lebih luas menjadi MoA yang lebih spesifik. Misalnya, satu hambatan yang diidentifikasi untuk pendaftaran adalah kebingungan tentang apa program itu, bagaimana cara kerjanya, dan untuk siapa program itu dimaksudkan. Secara sekilas, hambatan ini dapat dikategorikan sebagai defisit pengetahuan. Namun, temuan audit budaya mengungkapkan bahwa kebingungan ini dibentuk oleh model mental lokal yang berlaku tentang program tabungan yang berafiliasi rumah sakit. Satu program yang mapan yang mendominasi kesadaran konsumen berfokus pada kebutuhan kesehatan rutin. Sebaliknya, program baru berfokus pada perilaku kesejahteraan proaktif dan dirancang untuk melengkapi layanan yang ada. Karena program-program ini sering dipersepsikan sebagai saling eksklusif daripada komplementer, hambatan tersebut mencerminkan bukan hanya kurangnya informasi, tetapi juga ketidaksesuaian dengan norma dan ekspektasi yang ada. Untuk memperhitungkan nuansa ini, kami memasukkan MoA yang terkait dengan Pengetahuan dan Norma.</p>
+
+  <p>Selanjutnya, kami memanfaatkan wawasan budaya untuk menginformasikan pemilihan pasangan MoA-BCT. Satu MoA sering dikaitkan dengan beberapa BCT yang didukung bukti, yang mana pun mungkin sesuai secara teoretis. Wawasan budaya membantu kami memprioritaskan teknik yang paling mungkin efektif dalam konteks ini. Misalnya, mengingat orientasi kolektivis yang relatif dari pengaturan, kami memprioritaskan BCT yang berorientasi sosial, seperti Social Support (Practical). Selain itu, karena CR mendapat skor lebih rendah pada dimensi Long-Term Orientation, kami memprioritaskan teknik yang mengutamakan manfaat jangka pendek hingga menengah (misalnya, Social Reward) daripada yang menekankan hasil masa depan yang jauh (misalnya, Comparative Imagining of Future Outcomes). Pendekatan ini tidak mengecualikan BCT tertentu tetapi sebaliknya memberikan struktur dan panduan ketika memilih dari beberapa opsi yang layak.</p>
+
+  <h3>Melokalkan Salinan Tertulis</h3>
+
+  <p>Kami membuat beberapa penyesuaian pada strategi penulisan salinan untuk menyelaraskan lebih baik dengan wawasan budaya yang diidentifikasi. Misalnya, riset UX menunjukkan bahwa pesan yang dibingkai dalam istilah relasional dan suportif lebih resonan daripada bahasa pemasaran atau penjualan tradisional, sejalan dengan hipotesis kami tentang penyesuaian untuk konteks yang lebih kolektivis. Untuk memperhitungkan dinamika ini, kami beralih ke nada yang lebih ramah dan bertekanan rendah yang menekankan kredibilitas, transparansi, dan pendekatan yang mudah didekati.</p>
+
+  <p>Tim kami menerapkan lensa budaya pada salinan, membuat penyesuaian bahasa yang moderat. Di bawah ini adalah contoh bagaimana salinan yang sama mungkin dilokalkan untuk audiens AS dan CR.</p>
+
+  <p><strong>Tabel 1: Contoh — Melokalkan Salinan untuk Audiens AS vs. Kosta Rika</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:50%;">AS</th>
+        <th style="width:50%;">CR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Individualisme vs. Kolektivisme</strong><br>Sering menekankan manfaat pribadi, otonomi, perbaikan diri, kontrol, dan kenyamanan. Gunakan "Anda," "kemajuan Anda," "tujuan Anda." Soroti kemandirian dan pencapaian pribadi.</td>
+        <td>Menekankan manfaat keluarga atau komunitas, kesejahteraan bersama, harmoni, dan perawatan kolektif. Gunakan "keluarga Anda," "komunitas kami."</td>
+      </tr>
+      <tr>
+        <td><strong>Motivasi menuju Pencapaian vs. Kualitas Hidup</strong><br>Gunakan bahasa yang berorientasi tujuan, digerakkan hasil, meningkatkan kinerja: "Capai tujuan Anda," "Ambil kendali," "Capai kesehatan yang lebih baik." Rayakan kemajuan dan kemenangan pribadi.</td>
+        <td>Gunakan bahasa yang hangat, sederhana, berkualitas hidup: "Rasa lebih baik dari hari ke hari," "Rawat diri Anda dan orang lain," "Langkah kecil menuju kesejahteraan." Hindari pembingkaian kompetitif atau agresif.</td>
+      </tr>
+      <tr>
+        <td><strong>Penghindaran Ketidakpastian</strong><br>Ambiguitas dapat diterima. Anda dapat menggunakan bahasa yang fleksibel dan eksploratif: "Cobalah," "Lihat apa yang paling cocok untuk Anda." Nada dapat ringan dan mengundang otonomi.</td>
+        <td>Menekankan jaminan, kejelasan, dan langkah yang dapat diprediksi. Gunakan instruksi terstruktur dan bertahap dan sinyal keamanan: "Inilah tepatnya apa yang terjadi selanjutnya," "Aman," "Disetujui," "Dipercaya oleh klinik Anda."</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Selain menyesuaikan pembingkaian pesan, kami mengatasi hambatan terkait kepercayaan dan kredibilitas dengan menggeser seruan untuk bertindak dari pendaftaran langsung ke penjadwalan konsultasi dengan anggota tim. Pendekatan ini mengakui bahwa pengambilan keputusan sering terjadi melalui interaksi interpersonal dan pembangunan hubungan. Kami juga mencantumkan lokasi kantor di rumah sakit besar untuk menandakan kredibilitas dan mendukung kunjungan langsung.</p>
+
+  <p>Selain itu, kami merencanakan transkreasi dengan memastikan konten dapat diterjemahkan sambil mempertahankan niat BCT, pembingkaian, tingkat bacaan, dan nada. Untuk mendukung ini, kami menulis dalam bahasa yang sederhana, membatasi metafora dan idiom, dan menghindari makna ganda. Kami juga meninjau praktik terbaik untuk bahasa netral gender dalam bahasa yang bergender secara gramatikal. Akhirnya, kami bekerja dengan vendor transkreasi dan mitra lokal untuk membandingkan versi bahasa Inggris dan Spanyol, menggunakan bagian 'intent to maintain' untuk memastikan makna terbawa melalui terjemahan.</p>
+
+  <p>Bersama-sama, penyesuaian ini menghasilkan perbedaan yang halus tetapi bertujuan dalam pesan yang terasa sesuai secara lokal tanpa bersandar pada stereotip. Meskipun kami tidak dapat membagikan pesan yang tepat karena alasan privasi, jika kami mengungkapkan kembali konten untuk produk yang sama, dilokalkan untuk kedua audiens ini, mereka mungkin ditulis sebagai berikut:</p>
+
+  <p><strong>Tabel 2: Contoh Precision Nudges — Salinan Terlokalkan di Konteks AS dan Kosta Rika</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:50%;">AS</th>
+        <th style="width:50%;">CR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Hai [Nama]! Anda memenuhi syarat untuk program [Nama Produk] baru kami. Ini dirancang untuk membantu Anda merasa lebih kuat, lebih berenergi, dan mengendalikan kesehatan Anda. Siap memulai rencana pribadi Anda? Ketuk di sini: [tautan]</td>
+        <td>Hai [Nama]! Klinik lokal Anda menawarkan Program [Nama Produk] baru untuk membantu Anda dan orang-orang terkasih tetap sehat. Ini mudah diikuti, dapat diandalkan, dan didukung oleh tim perawatan kami. Berikut langkah-langkahnya agar Anda dapat memulai dengan percaya diri: [tautan]</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Melokalkan Desain Visual</h3>
+
+  <p>Tim kami membuat beberapa penyesuaian pada strategi visual untuk menyelaraskan dengan pedoman merek dan memasukkan wawasan yang ditemukan melalui audit budaya. Merek ini terkait dengan perawatan keibuan, dukungan, dan keceriaan, yang dimanfaatkan tim melalui gaya ilustrasi dan pilihan palet warna. Wawasan dari audit budaya dan umpan balik pemangku kepentingan membantu menyempurnakan gambar. Misalnya, tim kami mencatat preferensi untuk kedekatan visual antara penyedia dan pasien, tanpa meja atau komputer di antara mereka, sebagai sinyal hubungan yang lebih dekat dan terpercaya.</p>
+
+  <p>Kami juga memberikan perhatian khusus untuk memastikan pakaian yang digambarkan dalam visual mencerminkan norma CR. Pasien ditampilkan dalam gaya yang lebih klasik, bukan gaya yang lebih kasual atau trendi yang sering digunakan untuk audiens berbasis AS. Selain itu, dokter diilustrasikan mengenakan scrubs daripada mantel putih untuk mencerminkan ekspektasi lokal. Terakhir, kami memasukkan foto yang diambil di dalam rumah sakit, menampilkan anggota tim dan dokter yang berafiliasi, dalam gambar tertentu untuk memperkuat keakraban dan kepercayaan.</p>
+
+  <figure>
+    <img src="figure2-nowicki.jpg" alt="Contoh visual kesehatan digital yang dilokalkan.">
+    <figcaption><strong>Gambar 2:</strong> Contoh visual kesehatan digital yang dilokalkan. <em>Catatan:</em> Dirancang oleh Michael Pancini, Visual Designer, Lirio.</figcaption>
+  </figure>
+
+  <p>Tabel 3 menunjukkan bagaimana kami mungkin memikirkan melokalkan visual untuk kedua audiens ini.</p>
+
+  <p><strong>Tabel 3: Strategi Konten Visual untuk Audiens Berbasis AS dan Kosta Rika</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:50%;">AS</th>
+        <th style="width:50%;">CR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Individualisme vs. Kolektivisme</strong><br>
+        • Individu melakukan perilaku target (misalnya, satu orang berolahraga)<br>
+        • Sering menekankan kemajuan pribadi, perawatan diri, dan otonomi<br>
+        • Gunakan potret solo atau close-up yang menyoroti individu sebagai agen perubahan atau pengambil keputusan</td>
+        <td>• Kelompok kecil atau keluarga melakukan perilaku bersama<br>
+        • Menggambarkan kebersamaan dan kesatuan (misalnya, bermain di luar dengan keluarga, pasangan memasak)<br>
+        • Sering menekankan kesejahteraan bersama, dukungan, dan saling ketergantungan<br>
+        • Mengekspresikan kehangatan relasional (misalnya, kedekatan, kontak mata, dan isyarat sosial yang lembut)</td>
+      </tr>
+      <tr>
+        <td><strong>Motivasi menuju Pencapaian vs. Kualitas Hidup</strong><br>
+        • Citra yang dinamis dan energik (misalnya, menyelesaikan lari, merayakan)<br>
+        • Gaya "sebelum/sesudah" yang menunjukkan perbaikan atau transformasi<br>
+        • Isyarat visual kemajuan (misalnya, grafik, pelacak, lencana)<br>
+        • Warna dan komposisi yang terasa berani, aktif, dan bergerak maju<br>
+        • Citra "aspirasional" dan berorientasi kinerja</td>
+        <td>• Visual yang tenang dan seimbang yang menekankan kesejahteraan (misalnya, peregangan, mengangkat anak ke udara)<br>
+        • Orang yang terlibat dalam aktivitas sehari-hari yang berkelanjutan (misalnya, memasak, berjalan di alam)<br>
+        • Palet warna yang lembut dan hangat<br>
+        • Pengaturan alami yang terasa dapat dihubungkan<br>
+        • Menggambarkan proses bukan hasil—menekankan kemajuan lembut dan harmoni</td>
+      </tr>
+      <tr>
+        <td><strong>Penghindaran Ketidakpastian</strong><br>
+        • Visual konseptual dan abstrak<br>
+        • Citra simbolik atau metaforis<br>
+        • Penekanan pada teknologi kesehatan yang baru atau modern</td>
+        <td>• Citra yang memperkuat prediktabilitas, seperti visual proses yang jelas (misalnya, langkah-langkah dalam suatu proses)<br>
+        • Ikon dengan makna yang jelas dan tidak ambigu<br>
+        • Tokoh yang dipercaya (misalnya, perawat, dokter, petugas kesehatan komunitas)<br>
+        • Pengaturan yang familiar (klinik, rumah, lingkungan keluarga)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ============ DISCUSSION ============ -->
+  <h2>Diskusi: Implikasi untuk Desain Perilaku yang Dapat Diskalakan dan Bernuansa Budaya</h2>
+
+  <p>Ketika alat ilmu perilaku diterapkan di seluruh pengaturan yang semakin beragam, praktisi menghadapi tantangan yang berkembang: merancang intervensi yang dapat diskalakan sekaligus responsif terhadap konteks budaya. Meskipun alat berbasis bukti membuat desain intervensi lebih sistematis dan dapat direplikasi, mereka sering memerlukan interpretasi tambahan ketika diterapkan dalam konteks budaya baru. Kesenjangan ini dapat menciptakan tantangan efektivitas dan ekuitas, menempatkan beban yang tidak proporsional pada praktisi yang bekerja dalam konteks yang secara historis kurang terwakili dalam literatur.</p>
+
+  <p>Studi kasus ini mengilustrasikan nilai pendekatan terstruktur untuk mendukung keputusan lokalisasi sambil mempertahankan fondasi teoretis. Dalam contoh ini, kerangka budaya membantu mengungkap perbedaan budaya potensial yang memerlukan penyelidikan lebih lanjut, sementara aktivitas audit budaya mendasarkan hipotesis ini pada pengetahuan tacit lokal.</p>
+
+  <p>Membangun logika ini, inovasi di masa depan mungkin lebih lanjut memperhitungkan variabilitas budaya dengan menggabungkan wawasan budaya tingkat kelompok dengan adaptasi tingkat individu. Pendekatan yang mempersonalisasi komunikasi pada tingkat individu—seperti Precision Nudging Lirio, yang menerapkan ilmu perilaku dan AI agentik untuk menciptakan pengalaman pesan N=1—mungkin menawarkan satu cara untuk mengatasi variasi yang ada baik di seluruh maupun di dalam konteks budaya.</p>
+
+  <blockquote class="pullquote">Risiko lokalisasi tidak dapat dihilangkan, tetapi mereka dapat dibuat lebih terlihat, dapat diperiksa, dan dapat ditindaklanjuti.</blockquote>
+
+  <p>Risiko lokalisasi tidak dapat dihilangkan, tetapi mereka dapat dibuat lebih terlihat, dapat diperiksa, dan dapat ditindaklanjuti. Kasus penggunaan ini menunjukkan bagaimana praktisi dapat melengkapi alat berbasis bukti yang ada dengan aktivitas manajemen risiko terstruktur untuk melokalkan intervensi ilmu perilaku dalam kasus di mana bukti tidak berpindah dengan bersih antar konteks.</p>
+
+  <!-- ============ AUTHOR BIO ============ -->
+  <div class="author-bio">
+    <h3>Tentang Penulis</h3>
+    <p>Marisa Nowicki adalah desainer perilaku di Lirio, di mana ia menerapkan ilmu perilaku pada intervensi kesehatan digital dalam pengaturan dunia nyata. Ia adalah kontributor inti untuk pendekatan Precision Nudging Lirio, yang menggabungkan ilmu perilaku dan AI agentik untuk memberikan nudge yang tepat waktu dan dipersonalisasi. Dalam pekerjaannya, Marisa mendukung penerjemahan teori ke praktik dengan membentuk strategi intervensi dan berkolaborasi dengan tim lintas fungsi untuk menciptakan solusi yang dapat diterapkan. Sebelum Lirio, ia bekerja di ideas42 sebagai desainer perilaku di tim Global Development, dengan portofolio yang mencakup hak asasi manusia, pertanian, dan keberlanjutan.</p>
+  </div>
+
+  <!-- ============ REFERENCES ============ -->
+  <div class="refs">
+    <h2>Referensi</h2>
+    <ul>
+      <li>Castro, O., Fajardo, G., Johnston, M., Laroze, D., Leiva-Pinto, E., Figueroa, O., Corker, E., Chacon-Candia, J. A., &amp; Duarte, G. (2024). Translating the Behaviour Change Technique Taxonomy version 1 into Spanish: Methodology and validation. <em>Wellcome Open Research, 9</em>, 298. https://doi.org/10.12688/wellcomeopenres.21388.1</li>
+      <li>Catoja, S., &amp; Crede, A.-K. (2025). The behaviorally-informed insurance company: Insights from the Allianz Global Center for Behavioral Economics. In A. Samson (Ed.), <em>The Behavioral Economics Guide 2025</em> (pp. 48–54). Behavioral Science Solutions. https://www.behavioraleconomics.com/be-guide/the-behavioral-economics-guide-2025/</li>
+      <li>Hall, G. C. N., Ibaraki, A. Y., Huang, E. R., Marti, C. N., &amp; Stice, E. (2016). A meta-analysis of cultural adaptations of psychological interventions. <em>Behavior Therapy, 47</em>(6), 993–1014. https://doi.org/10.1016/j.beth.2016.09.005</li>
+      <li>Henrich, J., Heine, S. J., &amp; Norenzayan, A. (2010). The weirdest people in the world? (RatSWD Working Paper No. 139). EconStor. http://hdl.handle.net/10419/43616</li>
+      <li>Johnston, M., Carey, R. N., Connell Bohlen, L. E., Johnston, D. W., Rothman, A. J., De Bruin, M., &amp; Michie, S. (2021). Development of an online tool for linking behavior change techniques and mechanisms of action based on triangulation of findings from literature synthesis and expert consensus. <em>Translational Behavioral Medicine, 11</em>(5), 1049–1065. https://doi.org/10.1093/tbm/ibaa050</li>
+      <li>List, J. (2021). The voltage effect in behavioral economics. In A. Samson (Ed.), <em>The Behavioral Economics Guide 2021</em> (pp. VI–XI). Behavioral Science Solutions. https://www.behavioraleconomics.com/be-guide/the-behavioral-economics-guide-2021/</li>
+      <li>Schwartz, S. H. (2012). An overview of the Schwartz theory of basic values. <em>Online Readings in Psychology and Culture, 2</em>(1), 11. https://doi.org/10.9707/2307-0919.1116</li>
+      <li>Talhelm, T. (2026). Adapting interventions to culture can improve effectiveness and cost-efficiency. <em>Policy Insights from the Behavioral and Brain Sciences, 13</em>(1), 61–68. https://doi.org/10.1177/23727322251408076</li>
+      <li>The Uncertainty Team. (n.d.). Rumsfeld matrix. The Uncertainty Project. https://www.theuncertaintyproject.org/tools/rumsfeld-matrix</li>
+      <li>World Economic Forum. (2024, 19 April). How the 'NO, NO' Matrix can help professionals overcome failure. https://www.weforum.org/stories/2024/04/how-the-no-matrix-can-help-professionals-overcome-failure/</li>
+      <li>Yeganeh, H. (2025). Hofstede, GLOBE, Schwartz and Inglehart's cultural dimensions: A critical examination and assessment. <em>European Business Review, 37</em>(6), 1073–1090. https://doi.org/10.1108/EBR-05-2025-0144</li>
+    </ul>
+  </div>
+
+  <div class="end-mark">• • •</div>
+
+</div>
+</body>
+</html>

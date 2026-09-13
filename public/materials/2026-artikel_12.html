@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Mobilization—Pendekatan Seluruh Komunitas untuk Kepatuhan Pajak: Landasan Perilaku</title>
+<style>
+  :root {
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #2c5f7c;
+    --rule: #ccc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
+    background: #fafaf7;
+    margin: 0;
+    padding: 0;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.06);
+  }
+  .article-header {
+    border-bottom: 3px double var(--rule);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+  .article-number {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 28px;
+    line-height: 1.25;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .author {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+  .affiliation {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin: 4px 0 0;
+  }
+  h2 {
+    font-size: 22px;
+    margin: 42px 0 16px;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 18px;
+    margin: 30px 0 12px;
+  }
+  p { margin: 0 0 16px; text-align: justify; hyphens: auto; }
+  p.lead { font-size: 18px; }
+  .abstract {
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 22px 26px;
+    margin: 28px 0 36px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .abstract p:last-child { margin-bottom: 0; }
+  .pullquote {
+    font-size: 21px;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding: 6px 0 6px 22px;
+    margin: 30px 0;
+    font-weight: 600;
+  }
+  .pullquote::before { content: "\201C"; }
+  .pullquote::after { content: "\201D"; }
+  figure {
+    margin: 32px 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  figure img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+  }
+  figcaption {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 10px;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .qr-note {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 14px 18px;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .qr-note .qr-box {
+    width: 48px; height: 48px;
+    background: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0/12px 12px;
+    border: 1px solid #999;
+    flex-shrink: 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 11.5px;
+    line-height: 1.45;
+  }
+  table th {
+    background: #2c5f7c;
+    color: #fff;
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+  }
+  table td {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 12px;
+    vertical-align: top;
+  }
+  table tr:nth-child(even) td {
+    background: #f7f9fa;
+  }
+  .table-note {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: -12px 0 24px;
+  }
+  .matrix {
+    margin: 32px 0;
+    border: 1px solid #ccc;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+  }
+  .matrix table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+  }
+  .matrix th, .matrix td {
+    border: 1px solid #ccc;
+    padding: 16px;
+    vertical-align: top;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .matrix th {
+    background: #2c5f7c;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    font-size: 12px;
+  }
+  .matrix td strong {
+    display: block;
+    color: var(--accent);
+    margin-bottom: 8px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .matrix td ul {
+    padding-left: 18px;
+    margin: 6px 0 0;
+  }
+  .matrix td li { font-size: 12px; margin-bottom: 4px; }
+  .refs {
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .refs h2 { font-size: 20px; }
+  .refs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    column-count: 2;
+    column-gap: 36px;
+  }
+  .refs li {
+    margin-bottom: 14px;
+    break-inside: avoid;
+    padding-left: 22px;
+    text-indent: -22px;
+  }
+  .author-bio {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 40px 0 24px;
+    font-size: 15.5px;
+  }
+  .author-bio h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  .author-bio p { text-align: left; margin-bottom: 0; }
+  .end-mark {
+    text-align: center;
+    color: var(--muted);
+    letter-spacing: 6px;
+    margin: 40px 0;
+  }
+  @media (max-width: 640px) {
+    .page { padding: 30px 20px; }
+    .refs ul { column-count: 1; }
+    h1 { font-size: 22px; }
+    table { font-size: 10px; }
+    .matrix { font-size: 10.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ HEADER ============ -->
+  <header class="article-header">
+    <div class="article-number">Aplikasi</div>
+    <h1>Mobilization—Pendekatan Seluruh Komunitas untuk Kepatuhan Pajak: Landasan Perilaku</h1>
+    <p class="author">Johan Birkelund</p>
+    <p class="affiliation">Norwegian Tax Administration</p>
+  </header>
+
+  <div class="qr-note">
+    <div class="qr-box"></div>
+    <div>Pindai kode QR untuk menonton ringkasan video</div>
+  </div>
+
+  <!-- ============ ABSTRACT ============ -->
+  <div class="abstract">
+    <p>Artikel ini mendeskripsikan inisiatif yang disebut Norwegian Tax Administration (NTA) sebagai 'Mobilization', yaitu pendekatan seluruh komunitas untuk mencegah kejahatan pasar tenaga kerja, dan menempatkannya dalam literatur pajak perilaku kontemporer. Kami berargumen bahwa menggabungkan penegakan yang kredibel (power) dengan pembangunan kepercayaan, visibilitas pihak ketiga, dan instrumen perilaku bertarget menawarkan kerangka kerja untuk memahami kepatuhan dunia nyata yang tinggi meskipun tingkat audit rendah. Artikel ini memetakan instrumen yang digunakan dalam Mobilization—kemitraan kolaboratif dengan pembeli utama, sertifikat pajak real-time, pemantauan lokasi berbasis risiko, program konsumen Tettpå, dan koalisi akar rumput Medbyggerne—ke mekanisme inti yang diidentifikasi dalam literatur: kepercayaan dan kekuasaan, moral pajak, jejak informasi/pelaporan pihak ketiga, kepatuhan kooperatif, dan nudge/boost perilaku.</p>
+  </div>
+
+  <!-- ============ INTRODUCTION ============ -->
+  <h2>Pendahuluan</h2>
+
+  <p>Model tolok ukur Allingham-Sandmo (AS) menggambarkan pelaporan pajak sebagai trade-off utilitas yang diharapkan antara tarif pajak, probabilitas audit, dan penalti dengan syarat deteksi (Allingham &amp; Sandmo, 1972). Meskipun model ini konsisten secara internal dengan prediksi yang jelas, ia berjuang menjelaskan mengapa sistem pajak modern melihat kepatuhan tinggi yang persisten, bahkan dengan probabilitas audit rendah dan penalti modest. Bukti lapangan skala besar dari Denmark menunjukkan bahwa kunci untuk memahami teka-teki ini adalah pembedaan antara pendapatan yang tunduk pada pelaporan pihak ketiga dan pendapatan yang dilaporkan sendiri: penghindaran hampir nol untuk yang pertama dan substansial untuk yang terakhir (Kleven et al., 2011). Temuan ini menggemakan wawasan yang lebih luas dari penelitian pajak perilaku, yaitu bahwa meskipun audit pajak dan denda sangat penting untuk kepatuhan pajak, ia tidak hanya bergantung pada pencegahan klasik, tetapi juga dibentuk oleh motivasi non-keuangan seperti kepercayaan, keadilan, moral pajak, norma, dan desain informasi serta proses institusional (Luttmer &amp; Singhal, 2014; Torgler, 2007; Alm, 2019; Slemrod, 2019).</p>
+
+  <p>Mengikuti pemahaman yang diperluas tentang motivasi kepatuhan ini, penelitian pajak kontemporer mengidentifikasi pemahaman yang lebih plural tentang perilaku wajib pajak di mana pencegahan berinteraksi dengan kualitas layanan, legitimasi, dan motivasi sosial (Alm, 2020; Slemrod, 2020; Alm &amp; Kasper, 2023). Secara paralel, OECD menekankan membangun 'budaya pajak' melalui pendidikan, bantuan, komunikasi, dan transparansi institusional untuk menumbuhkan kepatuhan sukarela (OECD, 2021). Mencerminkan pergeseran ini, beberapa administrasi pajak telah bergerak dari strategi yang murni berbasis pencegahan menuju model kepatuhan kooperatif yang menekankan diskusi risiko real-time yang transparan dan kewajiban timbal balik antara otoritas dan wajib pajak (misalnya, kerangka HMRC; ICAP OECD).</p>
+
+  <p>Secara bersama-sama, alur pemikiran ini menunjukkan bahwa administrasi pajak yang efektif memerlukan pendekatan yang meningkatkan jejak informasi, memperkuat kepercayaan dan keadilan yang dipersepsikan, membangun kompetensi di antara wajib pajak dan perantara, dan memfokuskan audit pada konteks berbasis risiko. Norwegian Tax Administration (NTA) memperluas logika ini lebih jauh, bergerak dari kerja sama bilateral dengan wajib pajak individu ke model multi-pemangku kepentingan di mana pembeli publik, perusahaan swasta, lembaga keuangan, dan komunitas bersama-sama berkontribusi pada pemantauan dan memengaruhi perilaku kepatuhan.</p>
+
+  <blockquote class="pullquote">Pendekatan seluruh komunitas NTA dapat dipahami sebagai sintesis paradigma penegakan, layanan, dan kepercayaan menjadi arsitektur terpadu, berorientasi pasar, dan multi-pemangku kepentingan.</blockquote>
+
+  <p>Tinjauan komprehensif Alm (2019) tentang penelitian pajak kontemporer menguraikan tiga paradigma luas yang tersedia untuk administrasi pajak, yaitu, penegakan, layanan, dan kepercayaan. Pendekatan seluruh komunitas NTA dapat dipahami sebagai sintesis paradigma ini menjadi arsitektur terpadu, berorientasi pasar, dan multi-pemangku kepentingan. Dengan memobilisasi pembeli swasta dan publik utama, konsumen, dan komunitas lokal, pendekatan ini bertujuan memperluas jangkauan mekanisme kepatuhan di luar kapasitas penegakan langsung administrasi pajak. Artikel ini memeriksa bagaimana Mobilization mengoperasionalkan wawasan kepatuhan pajak kontemporer dalam praktik, dan mengapa pendekatan ini mungkin sangat cocok untuk mengatasi bentuk kompleks kejahatan pasar tenaga kerja dan pajak. Dalam melakukannya, artikel ini berkontribusi pada literatur dengan menunjukkan bagaimana wawasan perilaku dan institusional dapat diterjemahkan ke dalam desain administratif yang konkret.</p>
+
+  <p>Sisa artikel ini diorganisasikan sebagai berikut: bagian 2 menyajikan pendekatan seluruh komunitas, bagian 3 menjelaskan mekanisme yang mendasari pendekatan ini, dan bagian 4 memberikan ringkasan dan catatan penutup.</p>
+
+  <!-- ============ INITIATIVE ============ -->
+  <h2>Inisiatif Mobilization Norwegia</h2>
+
+  <p>Inisiatif Mobilization NTA menggabungkan penegakan, layanan, dan kolaborasi berbasis kepercayaan di seluruh pelaku pasar, konsumen, dan komunitas lokal. Instrumen intinya meliputi: (i) Kemitraan Kolaboratif dengan pembeli publik dan swasta besar, yang menanamkan penyaringan kepatuhan pajak langsung ke dalam proses pengadaan; (ii) sertifikat pajak real-time dan cross-check daftar karyawan yang menciptakan visibilitas pihak ketiga yang berkelanjutan; (iii) pemantauan lokasi berbasis risiko dengan konsekuensi yang jelas dan langsung melalui sanksi kontrak; (iv) Tettpå, program yang menghadap konsumen yang dirancang untuk membangun kompetensi, menggeser norma, dan mengurangi permintaan untuk pekerjaan yang tidak diumumkan di pasar rumah tangga; dan (v) Medbyggerne, model koalisi lokal yang memobilisasi bisnis, kotamadya, serikat pekerja, dan otoritas penegakan untuk memperkuat moral pajak dan kewaspadaan tingkat komunitas terhadap kejahatan pasar tenaga kerja.</p>
+
+  <p>Elemen kepatuhan-kerja sama dari model ini, yaitu, informasi bersama, ekspektasi yang jelas, dan intervensi dini, mencerminkan perkembangan internasional di mana otoritas pajak menekankan transparansi dan dialog real-time, serta kepercayaan yang dibenarkan, daripada hanya mengandalkan audit ex-post (HMRC, 2024; Business at OECD, 2025). Demikian pula, alur konsumen dan komunitas mencerminkan panduan OECD tentang membangun budaya pajak melalui pendidikan, komunikasi, dan pembangunan kompetensi (OECD, 2021).</p>
+
+  <p>Penelitian pajak perilaku modern berargumen bahwa kepatuhan yang berkelanjutan muncul dari interaksi kekuasaan (kapasitas kredibel untuk mendeteksi dan memberi sanksi) dan kepercayaan (kebajikan yang dipersepsikan, keadilan, dan keadilan prosedural). Kerangka 'Slippery Slope' dua pilar ini memprediksi bahwa kepatuhan yang ditegakkan bergantung pada kekuasaan yang dipersepsikan, sementara kepatuhan sukarela bergantung pada kepercayaan; namun, kepatuhan keseluruhan tertinggi terjadi ketika keduanya dimaksimalkan (Kirchler et al., 2008). Arsitektur NTA mengoperasionalkan komplementaritas ini. Kekuasaan tertanam secara struktural melalui gatekeeping pengadaan, aturan pra-kualifikasi, pemeriksaan kepatuhan real-time, pemantauan daftar karyawan, dan audit lokasi berbasis risiko, membuat akses ke pasar yang sah bergantung pada kepatuhan. Kepercayaan dibina melalui berbagi informasi yang transparan dengan mitra, pembagian peran tanggung jawab yang jelas (NTA sebagai penyedia pengetahuan; mitra sebagai penegak lini pertama), dan ko-produksi dengan komunitas dan konsumen melalui inisiatif seperti Tettpå dan Medbyggerne, yang menunjukkan bahwa tujuan NTA bukan hanya penegakan, tetapi juga dukungan dan keadilan.</p>
+
+  <p><strong>Kemitraan Kolaboratif</strong> membentuk tulang punggung Mobilization. Ini adalah kemitraan kontraktual formal antara NTA, pembeli publik utama, dan perusahaan swasta besar di sektor berisiko tinggi, yang secara khusus dirancang untuk mencegah kejahatan pasar tenaga kerja dan social dumping sebelum terjadi. Kemitraan ini mewakili intervensi strategis hulu di mana NTA melibatkan pelaku pasar yang berpengaruh untuk mempromosikan praktik yang sah dan berkelanjutan di seluruh ekosistem tenaga kerja. Per 2025, NTA memiliki 31 perjanjian kemitraan formal dengan entitas kunci, mencakup sekitar 20.000 perusahaan dan lebih dari 200.000 pekerja, termasuk beberapa kotamadya terbesar Norwegia, kabupaten, pembeli publik, dan perusahaan konstruksi dan logistik swasta besar (European Labour Authorities, 2025a). Tujuan utama Kemitraan Kolaboratif adalah memberdayakan mitra untuk membuat keputusan yang terinformasi yang mendukung kompetisi yang sah, melindungi basis pajak, dan mengurangi risiko eksploitasi dan kondisi kerja yang berbahaya melalui peningkatan transparansi dan akuntabilitas. Tujuan lebih lanjut adalah memperkuat kapasitas internal mitra untuk mengidentifikasi dan merespons aktivitas yang mencurigakan dalam rantai pasokan mereka sendiri.</p>
+
+  <p>Secara operasional, Kemitraan Kolaboratif berfungsi melalui empat mekanisme kunci: (1) <em>Berbagi informasi:</em> Menjelang kompetisi tender mitra, semua perusahaan harus menandatangani surat kuasa yang memungkinkan NTA untuk berbagi indikator kepatuhan terkait pajak dan tenaga kerja real-time (melalui sertifikat pajak standar RF-1507) dengan mitra. Ini menetapkan ekspektasi kepatuhan yang jelas dan konsisten di seluruh rantai nilai. (2) <em>Integrasi pengadaan:</em> Pemeriksaan kepatuhan ditanamkan langsung ke dalam pra-kualifikasi tender dan tindak lanjut kontrak, memastikan deteksi dini dan konsekuensi langsung, seperti tender yang ditolak dan/atau kontrak yang diakhiri, untuk perusahaan yang tidak patuh. (3) <em>Alokasi sumber daya dan pelatihan bersama:</em> NTA menugaskan staf khusus untuk setiap kemitraan, mendukung mitra ini dalam menafsirkan informasi kepatuhan, memberikan pelatihan tentang pola kejahatan pajak yang muncul, dan memfasilitasi pembelajaran sejawat di seluruh mitra untuk meningkatkan kemampuan kolektif mereka untuk mendeteksi dan mencegah ketidakpatuhan. Mitra, pada gilirannya, mengalokasikan personel untuk memantau data kepatuhan dan menyelidiki perbedaan. (4) <em>Pemantauan berkelanjutan:</em> Sertifikat pajak kontraktor ditinjau dalam pertemuan rutin antara NTA dan mitranya. Perusahaan dengan tunggakan yang berarti saat dalam kontrak dengan mitra berisiko pemutusan kontrak langsung, sehingga menghentikan arus kas mereka. Departemen penagihan NTA juga dapat mengejar klaim yang belum dibayar secara langsung melalui tindakan penegakan terhadap setiap faktur yang belum dibayar yang mungkin dimiliki kontraktor dengan mitra, sehingga memperkuat tindakan langsung.</p>
+
+  <p>Secara bersama-sama, empat mekanisme ini berfungsi sebagai arsitektur pilihan yang tertanam. Secara desain, perusahaan yang patuh menghadapi gesekan yang berkurang, prosedur yang dapat diprediksi, dan kompetisi yang adil, sedangkan perusahaan yang tidak patuh menghadapi pengawasan yang meningkat, risiko keuangan, dan potensi pengucilan dari pasar yang menguntungkan.</p>
+
+  <p>Tettpå dan Medbyggerne melengkapi kemitraan tingkat pasar dengan mengatasi dua mekanisme tambahan yang penting untuk kepatuhan yang berkelanjutan: perilaku sisi permintaan dan norma tingkat komunitas. Tettpå mengurangi prevalensi pekerjaan yang tidak diumumkan dengan memberdayakan konsumen dengan panduan praktis, informasi tepat waktu (melalui Altinn dan integrasi bank), dan alat peningkatan kompetensi yang membuat pilihan yang sah lebih menonjol. Medbyggerne membangun moral pajak jangka panjang dengan memobilisasi bisnis lokal, sekolah kejuruan, serikat pekerja, dan kotamadya di sekitar standar bersama tentang keadilan, kondisi kerja yang aman, dan kompetisi yang sah, sehingga menciptakan akuntabilitas yang digerakkan oleh sejawat yang melampaui penegakan formal.</p>
+
+  <!-- ============ MECHANISMS ============ -->
+  <h2>Mekanisme yang Mendasari Mobilization</h2>
+
+  <p>Mobilization mengoperasionalkan wawasan kepatuhan pajak kontemporer dengan mendistribusikan tanggung jawab penegakan, pembangunan kompetensi, dan pembentukan norma melalui pasar, konsumen, dan komunitas. Bertentangan dengan hanya mengandalkan otoritas pajak sebagai simpul penegakan, pendekatan ini menumbuhkan ekosistem kepatuhan multi-pemangku kepentingan di mana pembeli, warga negara swasta, dan koalisi lokal saling memperkuat kapasitas satu sama lain untuk mendeteksi, mencegah, dan merespons kejahatan pasar tenaga kerja dan pajak.</p>
+
+  <blockquote class="pullquote">Pendekatan ini menumbuhkan ekosistem kepatuhan multi-pemangku kepentingan di mana pembeli, warga negara swasta, dan koalisi lokal saling memperkuat kapasitas satu sama lain untuk mendeteksi, mencegah, dan merespons kejahatan pasar tenaga kerja dan pajak.</blockquote>
+
+  <p>NTA memanfaatkan pelaku pasar untuk menghasilkan kekuasaan melalui perjanjian kooperatif, kontrol pengadaan, sertifikat pajak real-time, dan pemantauan sistematis. Instrumen ini menciptakan jejak informasi yang ekstensif, yang pada gilirannya meningkatkan kepastian deteksi. Secara bersamaan, model ini melibatkan konsumen dan komunitas untuk menghasilkan kepercayaan melalui inisiatif seperti Tettpå dan Medbyggerne, yang menumbuhkan kompetensi, norma, identitas, dan kebanggaan dalam perilaku yang sah. Bersama-sama, mekanisme ini memastikan bahwa kepatuhan tidak hanya ditegakkan tetapi diproduksi bersama.</p>
+
+  <blockquote class="pullquote">Kepatuhan tidak hanya ditegakkan tetapi diproduksi bersama.</blockquote>
+
+  <h3>Matriks Kekuasaan-Kepercayaan dan Penempatan Instrumen NTA</h3>
+
+  <p>Strategi ganda ini berkorespondensi langsung dengan 'Slippery Slope Framework', kerangka dua dimensi yang membedakan antara kekuasaan—kapasitas otoritas untuk mendeteksi dan memberi sanksi ketidakpatuhan—dan kepercayaan—persepsi wajib pajak tentang keadilan, legitimasi, dan keadilan prosedural. Kerangka ini memprediksi bahwa kepatuhan yang paling tangguh muncul ketika kedua dimensi tinggi (Kirchler 2007; Kirchler et al., 2008; Muehlbacher &amp; Kirchler 2010). Arsitektur NTA dirancang untuk memindahkan pelaku pasar ke atas dan ke kanan dalam matriks ini: membangun kepercayaan di mana kurang, dan memperkuat kekuasaan di mana kesenjangan informasi sebelumnya memungkinkan ketidakpatuhan. Gambar 1 mengilustrasikan bagaimana instrumen yang digunakan dalam pendekatan seluruh komunitas diposisikan dalam matriks kekuasaan-kepercayaan ini.</p>
+
+  <figure>
+    <img src="figure1-birkelund.jpg" alt="Matriks Kekuasaan-Kepercayaan.">
+    <figcaption><strong>Gambar 1:</strong> Matriks Kekuasaan-Kepercayaan.</figcaption>
+  </figure>
+
+  <div class="matrix">
+    <table>
+      <thead>
+        <tr>
+          <th colspan="2">Kepercayaan Tinggi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="width:50%;">
+            <strong>Kekuasaan Rendah — Kepercayaan Tinggi</strong>
+            <em>Kepatuhan sukarela mendominasi</em>
+            <ul>
+              <li>Medbyggerne (identitas lokal, duta, penjangkauan pemuda)</li>
+              <li>Tettpå (panduan, waktu Altinn, sentuhan bank)</li>
+            </ul>
+          </td>
+          <td style="width:50%;">
+            <strong>Kekuasaan Tinggi — Kepercayaan Tinggi</strong>
+            <em>Kepatuhan campuran</em>
+            <ul>
+              <li>Perjanjian kerja sama dengan pembeli utama (pra-kualifikasi, kejelasan peran, transparansi)</li>
+              <li>Sertifikat pajak real-time (jejak informasi, gatekeeping)</li>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th colspan="2">Kepercayaan Rendah</th>
+        </tr>
+        <tr>
+          <td>
+            <strong>Kekuasaan Rendah — Kepercayaan Rendah</strong>
+            <em>Penghindaran sistemik</em>
+          </td>
+          <td>
+            <strong>Kekuasaan Tinggi — Kepercayaan Rendah</strong>
+            <em>Kepatuhan yang ditegakkan mendominasi</em>
+            <ul>
+              <li>Cross-check daftar karyawan</li>
+              <li>Audit lokasi berbasis risiko, kehadiran di lokasi (kapasitas deteksi yang terlihat)</li>
+              <li>Eskalator sanksi/Pemutusan kontrak (konsekuensi pasti dan langsung)</li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Memperluas Logika Jejak Informasi ke Rantai Pasokan Bisnis-ke-Bisnis</h3>
+
+  <p>Kleven et al. (2011) menunjukkan bahwa pelaporan pihak ketiga adalah salah satu mekanisme paling efektif untuk membatasi penghindaran. Ketika wajib pajak tunduk pada pelaporan pihak ketiga, penghindaran hampir nol, sementara substansial untuk pendapatan yang murni dilaporkan sendiri; hasil ini dijelaskan melalui keberadaan jejak informasi yang tersedia. NTA memperluas logika jejak informasi ini ke rantai pasokan berisiko tinggi. Instrumen seperti sertifikat pajak real-time, cross-check daftar karyawan, dan audit lokasi berbasis risiko menciptakan visibilitas berkelanjutan dalam hal perilaku kontraktor, sehingga memungkinkan pembeli mendeteksi indikator risiko dan menolak akses pasar ke perusahaan yang tidak patuh sebelum kerugian terjadi. Pembeli publik dan swasta utama dengan demikian menjadi simpul penegakan terdesentralisasi, memperluas kapasitas deteksi secara keseluruhan.</p>
+
+  <h3>Moral Pajak, Identitas, dan Norma Komunitas</h3>
+
+  <p>Sejumlah besar literatur menunjukkan bahwa kepatuhan tidak hanya dibentuk oleh penegakan tetapi juga oleh moral pajak, norma, dan identitas seputar membayar pajak (Alm, 2019). Medbyggerne mewujudkan mekanisme ini. Melalui memobilisasi komunitas, ia menumbuhkan budaya bersama kerja yang sah dan tanggung jawab kolektif. Selain itu, berkat duta, konferensi, keterlibatan sekolah, dan pengawasan berbasis sejawat, Medbyggerne memperkuat legitimasi sosial kepatuhan dan biaya reputasi penghindaran, mengubah kepatuhan menjadi nilai komunitas bersama.</p>
+
+  <h3>Boost, Nudge, dan Pembangunan Kompetensi Konsumen</h3>
+
+  <p>Tettpå menargetkan pasar konsumen dengan meningkatkan kompetensi pemesanan (dokumen apa yang harus diminta, bagaimana memeriksa legitimasi) dan dengan bermitra dengan bank pada tahap pencairan pinjaman, menutup celah sisi permintaan yang menopang pekerjaan yang tidak diumumkan.</p>
+
+  <p>Meta-analisis sistematis Antinyan dan Asatryan (2025) menunjukkan bahwa intervensi perilaku, seperti pesan berbingkai pencegahan dan isyarat norma sosial, menghasilkan peningkatan yang signifikan secara statistik tetapi modest dalam kepatuhan pengajuan dan pembayaran. Mereka juga menemukan bahwa desain dan waktu pesan ini sangat penting, karena nudge biasanya menghasilkan efek yang lebih kuat dalam jangka pendek (dalam dua bulan setelah pengiriman) dan lebih berdampak ketika dikirim melalui metode yang menarik seperti pengiriman langsung daripada surat fisik. Meskipun Alm et al. (2023) mendorong administrasi pajak untuk menggunakan nudge, mereka juga menyoroti pentingnya 'boosting' pengetahuan dan kompetensi wajib pajak untuk membangun perubahan perilaku yang lebih berkelanjutan. Dalam inisiatif mobilisasi NTA, pendekatan teoretis ini diterapkan melalui beberapa inisiatif, yang menargetkan baik bisnis maupun konsumen swasta. Untuk bisnis, kemitraan kolaboratif mencakup pelatihan bersama dan pengembangan kompetensi untuk pembeli publik dan swasta untuk membantu mereka mengidentifikasi kontraktor yang patuh (European Labour Authority, 2025a). Demikian pula, inisiatif Tettpå menyediakan individu swasta dengan panduan terverifikasi, daftar periksa, dan informasi tentang manfaat memilih kontraktor yang patuh, bertindak sebagai boost dengan meningkatkan 'kompetensi pemesanan' mereka dan memberdayakan mereka dalam memilih kontraktor yang sah ketika merenovasi rumah mereka (European Labour Authority, 2025c). Untuk menjangkau individu swasta secara tepat waktu ketika permintaan mereka akan kontraktor diyakini paling tinggi, inisiatif Tettpå memanfaatkan alur kerja digital yang efektif, menjangkau 100% pembeli properti di Norwegia dengan secara otomatis mengirim paket informasi melalui platform Altinn pada saat pengalihan hak milik. Selain itu, pusat panggilan NTA khusus menghubungi individu swasta yang mengajukan izin bangunan di beberapa kotamadya Norwegia terpilih, melakukan 2.750 panggilan pada 2025 (European Labour Authority, 2025c). Inisiatif ini juga mencakup sektor perbankan, di mana delapan bank Norwegia memberikan informasi ini atas nama NTA melalui penasihat mereka ketika pelanggan mengajukan pinjaman terkait bangunan.</p>
+
+  <h3>Pencegahan yang Dimodernisasi: Kepastian, Keparahan, dan Kecepatan</h3>
+
+  <p>Mobilization juga terkait dengan teori pencegahan dari kriminologi. Teori pencegahan klasik dibangun di atas tiga pilar: kepastian, keparahan, dan kecepatan (Abramovait et al., 2023). Meskipun administrasi pajak secara tradisional berfokus pada audit dan penalti untuk memengaruhi perilaku, inisiatif Mobilization NTA memperkuat pilar-pilar ini dengan cara yang berbeda dan lebih efektif. Kepastian ditingkatkan melalui visibilitas pihak ketiga yang berkelanjutan yang diciptakan oleh kontrol pengadaan, data kepatuhan real-time, dan penilaian risiko bersama. Keparahan diberikan bukan terutama melalui denda hukum tetapi melalui konsekuensi ekonomi yang bermakna seperti pemutusan kontrak dan kehilangan akses pasar. Kecepatan ditingkatkan karena penyimpangan memicu tindak lanjut langsung oleh mitra dan dapat mengarah pada tindakan penegakan dalam kasus faktur yang belum dibayar, kehilangan kontrak, dan arus kas. Pemutusan kontrak terjadi selama siklus proyek, bukan bertahun-tahun kemudian, yang sering terjadi dalam proses administratif yang panjang. Sedangkan denda dapat dipandang sebagai biaya berbisnis (Gneezy &amp; Rustichini, 2000; Lin &amp; Yang, 2006), kehilangan akses pasar adalah sanksi yang signifikan dan langsung yang dapat lebih berdampak daripada mekanisme punitif tradisional. Bersama-sama, mekanisme ini memodernisasi kerangka pencegahan klasik dan menanamkannya langsung ke dalam struktur pasar dan praktik komunitas, membuat ketidakpatuhan baik berisiko maupun tidak menguntungkan.</p>
+
+  <blockquote class="pullquote">Kehilangan akses pasar adalah sanksi yang signifikan dan langsung yang dapat lebih berdampak daripada mekanisme punitif tradisional.</blockquote>
+
+  <h3>Tiga Paradigma Administrasi Pajak</h3>
+
+  <p>Tinjauan komprehensif Alm (2019) tentang penelitian pajak kontemporer menguraikan tiga paradigma berbeda yang dapat diikuti administrasi pajak. Ini terkait dengan penegakan, layanan, dan kepercayaan. Kami percaya bahwa Mobilization mencakup semua paradigma ini. Terkait penegakan, semua kontraktor harus menyetujui NTA berbagi informasi tentang pajak dan bea sebelum penawaran tender, memastikan bahwa kontraktor tidak memiliki tunggakan yang belum dibayar saat bersaing untuk kontrak, dan saat dalam kontrak dengan mitra kolaboratif NTA mana pun. Ini secara efektif menempatkan pembeli terbesar Norwegia sebagai gatekeeper untuk bisnis yang menginginkan bagian dari pasar. Dalam hal layanan, dalam pendekatan seluruh komunitas, NTA memberikan mitra pendidikan dan dukungan selama proses pengadaan. Ini mencakup pendidikan tentang menafsirkan sertifikat pajak, memfasilitasi lokakarya dan acara berbagi informasi tentang perkembangan baru dalam mode kejahatan pajak, dan berbagi praktik terbaik dari sesama mitra, sehingga menumbuhkan rasa upaya komunitas dalam menghentikan kejahatan pajak. Selain itu, NTA memberikan semua mitra karyawan khusus untuk menindaklanjuti kemitraan dan proyek kolaboratif tertentu, memastikan dukungan yang cepat dan tepat waktu bila diperlukan. Akhirnya, terkait kepercayaan, setiap pemangku kepentingan dalam pendekatan ini harus percaya bahwa NTA bertindak untuk kepentingan terbaik mitra, pelanggan mereka, dan industri di mana mereka beroperasi.</p>
+
+  <!-- ============ SUMMARY ============ -->
+  <h2>Ringkasan dan Catatan Penutup</h2>
+
+  <p>Artikel ini telah menguraikan bagaimana pendekatan seluruh komunitas Norwegian Tax Administration, melalui inisiatif Mobilization, menerjemahkan penelitian kepatuhan pajak kontemporer ke dalam sistem praktis multi-pemangku kepentingan untuk mencegah kejahatan pasar tenaga kerja dan pajak. Model pencegahan tradisional, meskipun mendasar, tidak dapat sepenuhnya menjelaskan pola kepatuhan modern, dan penelitian perilaku menunjukkan bahwa kepercayaan, legitimasi, jejak informasi, dan norma sosial sama-sama penting sebagai pendorong kepatuhan yang berkelanjutan. Inisiatif Mobilization mengintegrasikan wawasan ini dengan menggabungkan kekuatan tinggi, melalui gerbang pengadaan, data kepatuhan real-time, dan pemantauan berkelanjutan, dengan kepercayaan tinggi, yang dibina melalui pendidikan, transparansi, pemberdayaan konsumen, dan kolaborasi tingkat komunitas.</p>
+
+  <p>Mekanisme yang dijelaskan dalam artikel ini menunjukkan bagaimana penegakan, layanan, dan kepercayaan dapat diselaraskan dalam arsitektur terpadu. Perjanjian kerja sama dengan pembeli menanamkan kapasitas deteksi langsung dalam transaksi pasar, membuat ketidakpatuhan baik berisiko maupun tidak menguntungkan. Tettpå memperkuat pengambilan keputusan rumah tangga dan mengurangi permintaan untuk pekerjaan yang tidak diumumkan dengan memberikan informasi terverifikasi yang tepat waktu pada momen perilaku kritis. Medbyggerne memobilisasi aktor lokal untuk memperkuat moral pajak, identitas, dan tanggung jawab bersama, menambatkan kepatuhan pada norma komunitas. Bersama-sama, inisiatif ini memperluas logika pelaporan pihak ketiga ke rantai pasokan berisiko tinggi, memodernisasi pencegahan melalui kepastian, keparahan, dan kecepatan, dan menciptakan ekosistem di mana perilaku yang patuh menjadi default sosial dan ekonomi.</p>
+
+  <blockquote class="pullquote">Perjanjian kerja sama dengan pembeli menanamkan kapasitas deteksi langsung dalam transaksi pasar, membuat ketidakpatuhan baik berisiko maupun tidak menguntungkan.</blockquote>
+
+  <p>Pengakuan inisiatif ini sebagai ELA Good Practices (European Labor Authority, 2025a, 2025b, 2025c) menggarisbawahi efek preventif mereka dan relevansi potensial mereka di luar Norwegia. Meskipun model ini disesuaikan dengan konteks institusional Norwegia, prinsip-prinsip yang mendasarinya, yaitu, kapasitas penegakan terdistribusi, pembangunan kompetensi, aliran informasi real-time, dan mobilisasi komunitas, dapat dialihkan ke yurisdiksi lain yang menghadapi tantangan serupa di sektor berisiko tinggi. Seiring kejahatan pasar tenaga kerja menjadi semakin kompleks, pendekatan integratif dan preventif semacam itu menawarkan jalur yang menjanjikan untuk melindungi kompetisi yang adil, melindungi pekerja, dan memperkuat integritas sistem pajak.</p>
+
+  <p>Pada akhirnya, literatur pajak kontemporer menunjukkan bahwa kepatuhan yang berkelanjutan tidak dapat dicapai hanya melalui audit dan sanksi. Ini muncul ketika institusi membangun kepercayaan, merancang lingkungan yang membuat pilihan yang sah lebih mudah, dan melibatkan pasar dan masyarakat sebagai mitra dalam melindungi supremasi hukum. Inisiatif Mobilization Norwegian Tax Administration menunjukkan bagaimana administrasi pajak dapat berkembang dari menjadi penegak tunggal menjadi koordinator ekosistem yang lebih luas—yang di dalamnya kepatuhan diproduksi bersama, didukung secara berkelanjutan, dan diperkuat secara sosial.</p>
+
+  <!-- ============ AUTHOR BIO ============ -->
+  <div class="author-bio">
+    <h3>Tentang Penulis</h3>
+    <p>Johan Birkelund adalah ekonom perilaku senior di Departemen Kejahatan Pajak Norwegian Tax Administration, di mana ia bekerja pada pendekatan preventif untuk kejahatan pajak dan merupakan anggota Tim Behavioral Insights lembaga tersebut. Ia memegang Ph.D. in Economics dari UiT The Arctic University of Norway. Birkelund sebelumnya menjabat sebagai associate professor di Inland Norway University of Applied Sciences dan sebagai adjunct associate professor di UiT The Arctic University of Norway. Ia juga berafiliasi dengan kelompok penelitian tentang Preventive Policing di Norwegian Police University College.</p>
+  </div>
+
+  <!-- ============ REFERENCES ============ -->
+  <div class="refs">
+    <h2>Referensi</h2>
+    <ul>
+      <li>Abramovait, J., Bandyopadhyay, S., Bhattacharya, S., &amp; Cowen, N. (2023). Classical deterrence theory revisited: An empirical analysis of Police Force Areas in England and Wales. <em>European Journal of Criminology, 20</em>(5), 1663–1680. https://doi.org/10.1177/14773708211072415</li>
+      <li>Allingham, M. G., &amp; Sandmo, A. (1972). Income tax evasion: A theoretical analysis. <em>Journal of Public Economics, 1</em>, 323–338. https://doi.org/10.1016/0047-2727(72)90010-2</li>
+      <li>Alm, J. (2019). What motivates tax compliance? <em>Journal of Economic Surveys, 33</em>(2), 353–388. https://doi.org/10.1111/joes.12272</li>
+      <li>Alm, J., Burgstaller, L., Domi, A., Marz, A., &amp; Kasper, M. (2023). Nudges, boosts, and sludge: Using new behavioral approaches to improve tax compliance. <em>Economies, 11</em>(9), 223. https://doi.org/10.3390/economies11090223</li>
+      <li>Antinyan, A., &amp; Asatryan, Z. (2025). Nudging for tax compliance: A meta-analysis. <em>The Economic Journal, 135</em>(668), 1033–1068. https://doi.org/10.1093/ej/ueae088</li>
+      <li>Business at OECD (BIAC). (2025). <em>OECD International Compliance Assurance Programme (ICAP) and Tax Certainty Mechanisms</em> (Briefing).</li>
+      <li>European Labour Authority. (2025a). <em>Collaborative partnerships to reduce labour-market crime and foster a culture of compliance: Norway</em>.</li>
+      <li>European Labour Authority. (2025b). <em>Medbyggerne: A grassroots coalition against undeclared work and labour-market crime in Norway</em>.</li>
+      <li>European Labour Authority. (2025c). <em>Tettpå: Consumer-focused measures to prevent undeclared work in the construction sector</em>.</li>
+      <li>Gneezy, U., &amp; Rustichini, A. (2000). A fine is a price. <em>The Journal of Legal Studies, 29</em>(1), 1–17. https://doi.org/10.1086/468061</li>
+      <li>HM Revenue &amp; Customs (HMRC). (2024). HMRC's Framework for Co-operative Compliance. GOV.UK.</li>
+      <li>Kirchler, E. (2007). <em>The economic psychology of tax behaviour</em>. Cambridge University Press.</li>
+      <li>Kirchler, E., Hoelzl, E., &amp; Wahl, I. (2008). Enforced versus voluntary tax compliance: The slippery slope framework. <em>Journal of Economic Psychology, 29</em>(2), 210–225. https://doi.org/10.1016/j.joep.2007.05.004</li>
+      <li>Kleven, H. J., Knudsen, M. B., Kreiner, C. T., Pedersen, S., &amp; Saez, E. (2011). Unwilling or unable to cheat? Evidence from a tax audit experiment in Denmark. <em>Econometrica, 79</em>(3), 651–692. https://doi.org/10.3982/ECTA9113</li>
+      <li>Lin, C. C., &amp; Yang, C. C. (2006). Fine enough or don't fine at all. <em>Journal of Economic Behavior &amp; Organization, 59</em>(2), 195–213. https://doi.org/10.1016/j.jebo.2004.04.006</li>
+      <li>Luttmer, E. F. P., &amp; Singhal, M. (2014). Tax morale. <em>Journal of Economic Perspectives, 28</em>(4), 149–168. https://doi.org/10.1257/jep.28.4.149</li>
+      <li>Muehlbacher, S., &amp; Kirchler, E. (2010). Tax compliance by trust and power of authorities. <em>International Economic Journal, 24</em>(4), 607–610. https://doi.org/10.1080/10168737.2010.526005</li>
+      <li>OECD. (2021). <em>Building tax culture, compliance and citizenship: A global source book on taxpayer education</em> (Edisi Kedua). OECD Publishing.</li>
+      <li>Sandmo, A. (2005). The theory of tax evasion: A retrospective view. <em>National Tax Journal, 58</em>(4), 643–663. https://doi.org/10.17310/ntj.2005.4.02</li>
+      <li>Slemrod, J. (2019). Tax compliance and enforcement. <em>Journal of Economic Literature, 57</em>(4), 904–954. https://doi.org/10.1257/jel.20181437</li>
+      <li>Skatteetaten (Norwegian Tax Administration) (n.d.). Certificate for tax and duties (RF-1316).</li>
+      <li>Traxler, C. (2018). Deterrence of economic crimes: Tax evasion. In G. Bruinsma &amp; D. Weisburd (Eds.), <em>Encyclopedia of criminology and criminal justice</em>. Springer. https://doi.org/10.1007/978-1-4614-5690-2_411</li>
+      <li>Torgler, B. (2007). <em>Tax compliance and tax morale: A theoretical and empirical analysis</em>. Edward Elgar.</li>
+      <li>WU Global Tax Policy Center (2021). <em>Cooperative compliance: A multi-stakeholder and sustainable approach to taxation</em> (Policy Brief).</li>
+    </ul>
+  </div>
+
+  <div class="end-mark">• • •</div>
+
+</div>
+</body>
+</html>

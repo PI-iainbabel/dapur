@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Homo Experiens: Mengapa Ekonomi Perilaku Membutuhkan Ilmu Hayati</title>
+<style>
+  :root {
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #2c5f7c;
+    --rule: #ccc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
+    background: #fafaf7;
+    margin: 0;
+    padding: 0;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.06);
+  }
+  .article-header {
+    border-bottom: 3px double var(--rule);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+  .article-number {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 32px;
+    line-height: 1.2;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .author {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+  .affiliation {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin: 4px 0 0;
+  }
+  h2 {
+    font-size: 22px;
+    margin: 42px 0 16px;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 18px;
+    margin: 30px 0 12px;
+  }
+  p { margin: 0 0 16px; text-align: justify; hyphens: auto; }
+  p.lead { font-size: 18px; }
+  .pullquote {
+    font-size: 21px;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding: 6px 0 6px 22px;
+    margin: 30px 0;
+    font-weight: 600;
+  }
+  .pullquote::before { content: "\201C"; }
+  .pullquote::after { content: "\201D"; }
+  figure {
+    margin: 32px 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  figure img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+  }
+  figcaption {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 10px;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .qr-note {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 14px 18px;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .qr-note .qr-box {
+    width: 48px; height: 48px;
+    background: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0/12px 12px;
+    border: 1px solid #999;
+    flex-shrink: 0;
+  }
+  .refs {
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .refs h2 { font-size: 20px; }
+  .refs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    column-count: 2;
+    column-gap: 36px;
+  }
+  .refs li {
+    margin-bottom: 14px;
+    break-inside: avoid;
+    padding-left: 22px;
+    text-indent: -22px;
+  }
+  .author-bio {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 40px 0 24px;
+    font-size: 15.5px;
+  }
+  .author-bio h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  .ack {
+    font-size: 15px;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+    margin-top: 30px;
+  }
+  .ack h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 8px;
+  }
+  sup { font-size: 0.75em; }
+  .end-mark {
+    text-align: center;
+    color: var(--muted);
+    letter-spacing: 6px;
+    margin: 40px 0;
+  }
+  @media (max-width: 640px) {
+    .page { padding: 30px 20px; }
+    .refs ul { column-count: 1; }
+    h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ HEADER ============ -->
+  <header class="article-header">
+    <div class="article-number">Pendahuluan</div>
+    <h1>Homo Experiens: Mengapa Ekonomi Perilaku Membutuhkan Ilmu Hayati</h1>
+    <p class="author">Ulrike Malmendier</p>
+    <p class="affiliation">University of California, Berkeley</p>
+  </header>
+
+  <div class="qr-note">
+    <div class="qr-box"></div>
+    <div>Pindai kode QR untuk menonton ringkasan video</div>
+  </div>
+
+  <!-- ============ OPENING ============ -->
+  <p class="lead">Pada tahun 1974, seorang pria bernama Henry Wallich diangkat sebagai Gubernur Sistem Federal Reserve Amerika Serikat. Lahir sebagai Heinrich Wallich di Berlin pada tahun 1914 dalam keluarga bankir, ia pernah hidup melalui hiperinflasi Jerman sebagai anak-anak sebelum beremigrasi dari Jerman Nazi pada tahun 1930-an. Setelah menghabiskan waktu di Argentina, ia menetap di Amerika Serikat, tempat ia membangun karier cemerlang sebagai ekonom: gelar PhD dari Harvard, jabatan profesor di Yale, dan akhirnya kursi di meja kebijakan moneter paling berpengaruh di dunia, Federal Open Market Committee (FOMC). Di Dewan Fed, Wallich menjadi bankir sentral paling hawkish yang pernah dimiliki AS. Karena terus-menerus khawatir tentang inflasi—dan tentang rekan-rekannya yang tidak melihat bahaya seperti yang ia lihat—ia berulang kali melakukan dissent setiap kali Ketua Fed mengusulkan pelonggaran suku bunga kebijakan. Selama karier dua belas tahunnya di Dewan yang dimulai pada 1974, ia melakukan dissent 27 kali terhadap keputusan suku bunga yang diusulkan, sebuah rekor yang masih bertahan hingga kini. Hampir selalu, dissent-nya bersifat hawkish: ia menginginkan suku bunga lebih tinggi untuk melindungi dari inflasi. Seperti yang kemudian dikenang oleh Nancy Teeters—gubernur perempuan pertama di dewan Federal Reserve, dan kolega Wallich di Dewan—"Henry Wallich adalah masalah nyata kami... Bagi sebagian orang, seperti Henry, yang hidup melalui hiperinflasi di Jerman, memerangi inflasi adalah satu-satunya hal" (Teeters, 2008).</p>
+
+  <p>Wallich tidak kekurangan informasi. Ia memiliki data makroekonomi terbaik di ujung jarinya, didukung oleh staf yang menyusun prakiraan dan menjalankan model untuknya, dan terus bertukar pikiran dengan para ahli lain. Namun, pengalaman menyaksikan kekuatan destruktif inflasi yang tak terkendali sebagai anak di Berlin—pengalaman yang terjadi pada waktu yang berbeda setengah abad sebelumnya, di benua yang berbeda, di bawah kondisi institusional yang sama sekali berbeda—membentuk pertimbangan profesionalnya dengan cara yang tidak dapat diatasi oleh data dan pengetahuan teoretis apa pun.</p>
+
+  <p>Kasus Wallich sangat gamblang, tetapi bukan hal yang atipikal. Ketika rekan-rekan penulis saya Stefan Nagel, Zhen Yan, dan saya menganalisis prakiraan, pidato, dan suara semua anggota FOMC sejak berdirinya independensi Fed pada 1951, kami menemukan pola yang sama di seluruh jajaran: anggota yang secara pribadi mengalami inflasi lebih tinggi sepanjang hidup mereka menghasilkan prakiraan yang lebih hawkish dan memberikan suara yang lebih hawkish (Malmendier et al., 2021). Mereka termasuk di antara para pengambil keputusan ekonomi paling terinformasi di dunia. Jika keyakinan dan pilihan mereka secara bertahan dibentuk oleh apa yang mereka alami secara pribadi, maka kita perlu bertanya apa yang hilang dari model ekonomi standar.</p>
+
+  <figure>
+    <img src="figure1.jpg" alt="Anak-anak bermain dengan tumpukan uang hiperinflasi selama Republik Weimar.">
+    <figcaption><strong>Gambar 1:</strong> Anak-anak bermain dengan tumpukan uang hiperinflasi selama Republik Weimar.</figcaption>
+  </figure>
+
+  <p>Ekonomi neoklasik tradisional biasanya mengaitkan pilihan yang terlalu memberatkan pengalaman pribadi dengan kurangnya informasi—individu hanya mengetahui, atau setidaknya paling mengetahui, apa yang mereka lihat sendiri. Jelas, penjelasan ini tidak berlaku untuk FOMC. Informasi dan pengetahuan bukanlah kendala. Pendekatan perilaku untuk memodelkan ketergantungan berlebihan pada pengalaman hidup pribadi biasanya mengarah pada keterbatasan kognitif, misalnya dalam hal pemrosesan data, atau bias dalam pembentukan keyakinan, seperti pemberian bobot berlebih pada realisasi yang lebih baru. Namun pendekatan ini juga tampak sulit diterapkan di sini, karena ekonom di Dewan Federal Reserve akan mengetahui model-model mutakhir tentang proses inflasi dan didukung oleh staf terlatih yang akan memperbaruinya.</p>
+
+  <p>Apa yang saya usulkan berbeda. Kita perlu berdamai dengan kenyataan bahwa manusia dibentuk oleh pengalaman hidup mereka dengan cara yang lebih dalam dan lebih terpatri daripada yang diizinkan oleh model-model kita saat ini. Kita manusia adalah organisme hidup yang bernapas, yang beradaptasi dengan lingkungan dan keadaan hidup kita, dan pengalaman-pengalaman itu memengaruhi keyakinan, pandangan dunia, dan tindakan kita.</p>
+
+  <blockquote class="pullquote">Kita perlu berdamai dengan kenyataan bahwa manusia dibentuk oleh pengalaman hidup mereka.</blockquote>
+
+  <p>Untuk lebih jelasnya, ekonomi perilaku hingga saat ini telah membuat kemajuan luar biasa dalam menanamkan realisme psikologis ke dalam model perilaku manusia. Belum lama ini, model neoklasik yang dominan menggambarkan manusia sebagai <em>homines oeconomici</em>, yaitu pemaksimal utilitas rasional dengan ekspektasi Bayesian dan kemampuan kognitif sempurna. Ekonomi perilaku telah mengambil langkah maju penting dalam membongkar fiksi ini. Gelombang pertama penelitian perilaku pada 1980-an dan 1990-an, yang dibangun di atas karya Amos Tversky dan Daniel Kahneman, menyusun katalog ekstensif tentang kesalahan pengambilan keputusan yang sistematis, dari aversi kerugian hingga heuristik ketersediaan hingga ketergantungan referensi. Gelombang kedua memasukkan wawasan ini ke dalam studi empiris di berbagai bidang, menghasilkan bukti kuat tentang perilaku yang bias di antara konsumen, investor, manajer, dan pembuat kebijakan. Bersama-sama, kemajuan ini membentuk ulang ekonomi. Mereka memberi kita model yang lebih baik, prediksi yang lebih baik, dan intervensi yang lebih baik: dari pendaftaran otomatis dalam rencana pensiun hingga formulir pengungkapan yang disederhanakan.</p>
+
+  <p>Namun, revolusi ekonomi perilaku telah terhenti pada titik yang menentukan. Elemen manusia yang saya serukan di atas masih hilang, atau setidaknya tidak lengkap. Untuk mengatakannya secara tegas, perilaku manusia masih tampak agak robotik. Jika sebelumnya, dalam model neoklasik, ia adalah keluaran dari komputer yang diprogram dengan sempurna, dalam model ekonomi perilaku ia menjadi keluaran dari program komputer yang tidak sepenuhnya sempurna, yang rentan terhadap bug sistematis. Dan meskipun penemuan heuristik dan bias merupakan perbaikan yang nyata, model yang dihasilkan tetap mekanis. Begitu kita mengidentifikasi bias dan memodelkannya, program diasumsikan berjalan dengan cara yang sama untuk semua orang, pada setiap titik dalam hidup mereka. Apa yang telah Anda alami, apa yang telah Anda rasakan, apa yang terjadi pada tubuh dan otak Anda sepanjang perjalanan—tidak ada satu pun yang masuk ke dalam model. Henry Wallich dan seorang gubernur yang lahir di Ohio tanpa ingatan tentang hiperinflasi akan dimodelkan secara identik, dengan syarat himpunan informasi yang sama.</p>
+
+  <figure>
+    <img src="figure2.jpg" alt="Henry Wallich, Gubernur Federal Reserve (1974–1986).">
+    <figcaption><strong>Gambar 2:</strong> Henry Wallich, Gubernur Federal Reserve (1974–1986).</figcaption>
+  </figure>
+
+  <p>Tetapi itu masih bukan perilaku seorang <em>homo</em>, manusia, organisme hidup yang terus berubah. Sudah waktunya bagi ekonomi untuk mengambil langkah lebih jauh dan mengembangkan model pengambilan keputusan ekonomi yang benar-benar manusiawi. Tujuan dari pendahuluan ini adalah untuk berargumen bahwa pengalaman hidup secara bertahan membentuk otak, tubuh, dan keputusan (irasional) kita, dan bahwa model ekonomi perlu memperhitungkan hal ini. Pendekatan ini memungkinkan evolusi dari konsep pengambil keputusan mekanistik menuju pribadi yang pikiran dan tubuhnya ditandai oleh pengalaman mereka dan jejak yang mereka tinggalkan: menuju <em>homo experiens</em>. Ekonomi perilaku perlu melangkah lebih jauh, tidak hanya mengandalkan psikologi sosial tetapi memasukkan wawasan dari ilmu hayati, termasuk neurosains, biologi, kedokteran, dan psikiatri. Saya kadang menyebutnya Ekonomi Perilaku 3.0—gelombang ketiga ekonomi perilaku. Intinya adalah konsep yang dikembangkan oleh rekan-rekan penulis dan saya selama dua dekade penelitian: efek pengalaman.</p>
+
+  <!-- ============ WHAT ARE EXPERIENCE EFFECTS ============ -->
+  <h2>Apa Itu Efek Pengalaman?</h2>
+
+  <p>Titik awal pendekatan baru ini adalah pengamatan sederhana. Model ekonomi standar—dan bahkan sebagian besar model perilaku—memperlakukan pengalaman hidup pribadi dan informasi yang dipelajari secara teoretis sebagai ekuivalen. Jika Anda mengetahui data historis tentang imbal hasil pasar saham, seharusnya tidak menjadi masalah apakah Anda secara pribadi mengalami crash atau hanya membacanya di buku teks. Keyakinan dan keputusan Anda seharusnya sama, dengan syarat informasi yang Anda miliki.</p>
+
+  <p>Tetapi bukan itu yang kami temukan. Lebih dari dua puluh tahun yang lalu, Stefan Nagel dan saya memulai agenda penelitian tentang efek pengalaman ketika kami menjadi tertarik pada gagasan Amerika tentang "Depression Babies", yaitu gagasan bahwa orang yang tumbuh selama Depresi Hebat tetap sangat aversif terhadap risiko sepanjang hidup mereka, menghindari pasar saham jauh setelah kondisi ekonomi pulih. Dengan menggunakan data dari Survei Keuangan Konsumen sejak 1960, dan data tentang imbal hasil pasar saham hingga tahun 1885, kami menguji apakah rata-rata imbal hasil pasar saham yang dialami seseorang sepanjang hidupnya memprediksi kesediaan mereka untuk berinvestasi di saham dan toleransi risiko yang dinyatakan. Jawabannya jelas ya. Membandingkan seseorang pada persentil ke-10 dari imbal hasil pasar saham yang dialami sepanjang hidup dengan seseorang pada persentil ke-90, kami menemukan perbedaan partisipasi pasar saham sekitar 14 poin persentase, relatif terhadap tingkat partisipasi rata-rata 37 persen (Malmendier & Nagel, 2011).</p>
+
+  <p>Yang membuat ini lebih dari sekadar cerita tentang bias kebaruan adalah penemuan bahwa individu memberikan bobot pada seluruh pengalaman hidup mereka: seorang berusia 30 tahun pada 30 tahun terakhir, dan seorang berusia 60 tahun pada 60 tahun terakhir. Pengalaman terkini memang paling penting. Tetapi pengalaman dari beberapa dekade lalu masih dapat meninggalkan jejak yang terdeteksi dalam keputusan keuangan Anda hari ini.</p>
+
+  <blockquote class="pullquote">Pengalaman terkini memang paling penting. Tetapi pengalaman dari beberapa dekade lalu masih dapat meninggalkan jejak yang terdeteksi dalam keputusan keuangan Anda hari ini.</blockquote>
+
+  <p>Yang lebih penting, kami menemukan pola yang sangat mirip untuk pengalaman inflasi dan keyakinan inflasi. Orang yang pernah hidup melalui periode inflasi tinggi mengharapkan inflasi yang lebih tinggi di masa depan (Malmendier & Nagel, 2016). Wawasan dari makalah penelitian kami tertangkap dengan baik oleh kutipan Paul Volcker pada 1979, saat itu ketua Federal Reserve. Ketika mencoba memerangi inflasi yang melampaui angka 10%, ia mengeluh bahwa sulit meyakinkan orang bahwa kembalinya stabilitas harga mungkin terjadi justru karena pengalaman hidup mereka mengatakan sebaliknya:</p>
+
+  <blockquote>
+    <p>Seluruh generasi dewasa muda telah tumbuh sejak pertengahan 1960-an hanya mengetahui inflasi, bahkan inflasi yang tampaknya berakselerasi tanpa henti. Dalam keadaan seperti itu, tidak mengherankan bahwa banyak warga mulai bertanya-tanya apakah realistis untuk mengantisipasi kembalinya stabilitas harga umum, dan mulai mengubah perilaku mereka sesuai dengan itu. (Dikutip dalam Orphanides dan Williams, 2005)</p>
+  </blockquote>
+
+  <p>Dalam analisis kami, yang menggunakan data dari Survei Konsumen Michigan sejak 1953, itulah yang kami temukan: perbedaan antargenerasi dalam ekspektasi inflasi yang melacak pengalaman inflasi seumur hidup dengan presisi yang cukup besar. Yang penting, pembobotan implisit yang diberikan orang pada pengalaman masa lalu ternyata sangat mirip di berbagai domain ini. Baik kita melihat inflasi atau saham atau obligasi, orang cenderung memberikan bobot yang menurun secara linear pada pengalaman hidup mereka, mundur dari hari ini ke awal hidup mereka. Ini menunjukkan pola perilaku umum daripada keanehan spesifik domain.</p>
+
+  <figure>
+    <img src="figure3.jpg" alt="Ekspektasi inflasi berdasarkan kelompok usia.">
+    <figcaption><strong>Gambar 3:</strong> Ekspektasi inflasi berdasarkan kelompok usia (Malmendier &amp; Nagel, 2016), diperbarui dengan data terbaru. Catatan: Kedua panel menampilkan rata-rata bergerak empat kuartal dari rata-rata ekspektasi inflasi satu tahun ke depan untuk individu muda (di bawah 40), paruh baya (40–60), dan lebih tua (di atas 60) dari Survei Konsumen Reuters/Michigan, ditampilkan sebagai deviasi dari rata-rata lintas-seksi setiap kuartal. Panel atas menunjukkan ekspektasi survei: ketidaksepakatan antar kelompok usia memuncak selama tahun-tahun inflasi tinggi pada akhir 1970-an dan awal 1980-an. Panel bawah menimpa nilai yang dipasang dari model pembelajaran-dari-pengalaman (garis) pada ekspektasi survei aktual (penanda), menunjukkan bahwa perbedaan pengalaman inflasi seumur hidup menjelaskan sebagian besar ketidaksepakatan terkait usia.</figcaption>
+  </figure>
+
+  <p>Dalam penelitian lebih lanjut, kami juga melihat bahwa efek-efek ini tidak terbatas pada tanggapan survei. Mereka berterjemahan menjadi keputusan nyata yang mahal. Orang yang mengalami inflasi tinggi lebih cenderung membeli daripada menyewa rumah mereka, mencari perlindungan inflasi di real estat (Malmendier & Steiny Wellsjo, 2024). Selain itu, mereka jauh lebih aversif terhadap hipotek dengan suku bunga dapat disesuaikan, lebih memilih keamanan suku bunga tetap bahkan ketika itu jauh lebih mahal. Rekan penulis saya Matthew Botsch dan saya menghitung bahwa generasi Baby Boomer saja membayar lebih sekitar $22 miliar untuk hipotek suku bunga tetap pada akhir 1980-an dan 1990-an karena preferensi mereka yang terdampak inflasi (Botsch & Malmendier, 2026). Dalam ranah belanja konsumen, pengalaman pengangguran masa lalu mengarah pada peningkatan tabungan berjaga-jaga dan pengurangan konsumsi, bahkan bertahun-tahun setelah episode merugikan berakhir, dengan mengontrol pendapatan, kekayaan, dan status pekerjaan saat ini (Malmendier & Shen, 2024). Dan dalam kerja sama dengan Christine Laudenbach dan Alexandra Niessen-Ruenzi, kami telah menunjukkan bahwa tumbuh di bawah ideologi komunis anti-kapitalis di Jerman Timur membentuk sikap terhadap pasar keuangan dan partisipasi pasar saham bahkan beberapa dekade setelah reunifikasi—dengan arah dan kekuatan efeknya sangat bergantung pada apakah pengalaman itu ditandai secara emosional sebagai positif atau negatif (Laudenbach et al., 2025).</p>
+
+  <blockquote class="pullquote">Generasi Baby Boomer saja membayar lebih sekitar $22 miliar untuk hipotek suku bunga tetap pada akhir 1980-an dan 1990-an karena preferensi mereka yang terdampak inflasi.</blockquote>
+
+  <p>Keluasan bukti melampaui program penelitian saya sendiri. Tim lain telah mendokumentasikan bahwa pengalaman pribadi dengan bencana banjir membentuk permintaan asuransi dan memengaruhi harga rumah (Gallagher, 2014; Bakkensen & Barrage, 2022), bahwa pengalaman resesi pada masa dewasa awal mengurangi perilaku prososial di kemudian hari di 74 negara (Bietenbeck et al., 2025), bahwa kesulitan makro awal menurunkan kepercayaan institusional dan mengubah perilaku pemilih di 34 negara Eropa (Gavresi & Litina, 2023), dan bahwa pengalaman keuangan dan budaya masa kanak-kanak meninggalkan jejak abadi pada kelayakan kredit dan perilaku pembayaran orang dewasa (Bakker et al., 2025). Baik kita melihat pasar saham, ekspektasi inflasi, keputusan perumahan, konsumsi, arus modal internasional, atau sikap politik, gambarnya konsisten: pengalaman pribadi bertindak sebagai input sentral dan tahan lama ke dalam pembentukan ekspektasi dan pengambilan keputusan, menghasilkan heterogenitas persisten yang tidak dapat dijelaskan oleh model ekonomi neoklasik maupun perilaku standar.</p>
+
+  <!-- ============ EVEN EXPERTS ============ -->
+  <h2>Bahkan Para Ahli Tidak Kebal</h2>
+
+  <p>Mungkin temuan paling konsekuensial dalam literatur ini—dan bagi ekonomi tradisional, yang paling tidak nyaman—adalah bahwa efek pengalaman beroperasi bahkan di antara para ahli yang memiliki akses ke data terbaik yang tersedia dan alat canggih untuk memprosesnya. Saya membuka esai ini dengan kasus Henry Wallich, tetapi polanya menggeneralisasi jauh melampaui dia dan melampaui kebijakan moneter di FOMC. Temuan serupa telah muncul untuk manajer dana, yang secara tidak proporsional dipengaruhi oleh pengalaman pribadi dengan gelembung (Greenwood & Nagel, 2009), dan untuk bankir, yang pengambilan risiko institusional mereka mencerminkan krisis yang mereka alami secara pribadi (Bouwman & Malmendier, 2015). Dokter juga berulang kali melaporkan mengubah pendekatan klinis mereka setelah menyaksikan hasil yang merugikan pada pasien mereka sendiri, bahkan ketika mereka tahu protokol asli benar secara ex ante. Keahlian tidak mengimunisasi terhadap jejak pengalaman hidup.</p>
+
+  <blockquote class="pullquote">Keahlian tidak mengimunisasi terhadap jejak pengalaman hidup.</blockquote>
+
+  <p>Ini adalah temuan yang mendorong kita tidak hanya melampaui ekonomi neoklasik tradisional, tetapi juga melampaui pendekatan sebelumnya dalam ekonomi perilaku. Jika para pengambil keputusan paling terinformasi di dunia—orang-orang dengan akses ke data terbaik yang tersedia, didukung oleh model canggih dan staf penelitian khusus—masih secara bertahan dibentuk oleh apa yang mereka alami secara pribadi, maka kita tidak berurusan dengan keterbatasan kognitif atau kesalahan pemrosesan informasi yang dapat diperbaiki dengan pendidikan yang lebih baik. Kita berurusan dengan sesuatu yang lebih dalam, sesuatu yang berkaitan dengan bagaimana mengalami peristiwa secara fisik membentuk ulang cara otak kita memproses informasi. Pembentukan keyakinan berbasis pengalaman, dalam bahasa neurosains, adalah masalah pengkabelan ulang, bukan masalah penyalaan: keyakinan mencerminkan konektivitas fisik dan struktural otak yang telah beradaptasi, bukan kegagalan neuron untuk mengaktifkan atau mengirimkan sinyal listrik. Memahami gagasan ini membutuhkan melihat melampaui psikologi ke ilmu hayati.</p>
+
+  <figure>
+    <img src="figure4.jpg" alt="Pengalaman inflasi dan probabilitas dissent FOMC.">
+    <figcaption><strong>Gambar 4:</strong> Pengalaman inflasi dan probabilitas dissent FOMC. Catatan: Setiap pasang batang menunjukkan bagaimana probabilitas suara dissent berubah ketika prakiraan inflasi berbasis pengalaman seorang anggota FOMC naik 0,1 poin persentase, kira-kira deviasi standar dalam rapat yang khas dalam prakiraan ini di antara anggota pada rapat tunggal (Malmendier et al., 2021). Dalam setiap kategori, batang kiri (lebih terang) adalah probabilitas rata-rata sampel tanpa syarat dari jenis dissent tersebut (2,4% dovish, 4,0% hawkish; dari 160 dissent dovish dan 265 hawkish dari 6.707 suara). Batang kanan (lebih gelap) adalah probabilitas yang diprediksi setelah kenaikan 0,1pp, yang berasal dari estimasi probit terurut penulis tentang perilaku pemungutan suara FOMC: dissent hawkish menjadi sekitar 1,2pp lebih mungkin (dari 4,0% menjadi 5,2%), sementara dissent dovish menjadi sekitar 0,8pp kurang mungkin (dari 2,4% menjadi 1,65%). Pola ini menunjukkan bahwa anggota yang mengalami inflasi lebih tinggi sepanjang hidup mereka condong hawkish: lebih cenderung melakukan dissent ke arah pengetatan dan kurang cenderung melakukan dissent ke arah pelonggaran.</figcaption>
+  </figure>
+
+  <!-- ============ BIOLOGY ============ -->
+  <h2>Biologi di Bawahnya</h2>
+
+  <p>Ilmu hayati sangat penting jika kita ingin lebih memahami bagaimana otak dan tubuh kita memengaruhi keyakinan dan pilihan kita.</p>
+
+  <blockquote class="pullquote">Neurosains khususnya memberi tahu kita bahwa otak bukanlah prosesor statis; ia adalah organ yang secara fisik mengatur ulang dirinya sebagai respons terhadap pengalaman.</blockquote>
+
+  <p>Neurosains khususnya memberi tahu kita bahwa otak bukanlah prosesor statis; ia adalah organ yang secara fisik mengatur ulang dirinya sebagai respons terhadap pengalaman, sebuah sifat yang dikenal sebagai neuroplastisitas. Setiap pengalaman signifikan memicu pembentukan atau penguatan koneksi sinaptik. Otak dan tubuh manusia bukan sekadar aparatus komputasi yang memproses data, tetapi sistem dinamis yang berubah secara struktural melalui apa yang kita alami.</p>
+
+  <p>Tiga fitur dari proses ini sangat relevan bagi para ekonom.</p>
+
+  <p><strong>Pertama, pengulangan dan durasi penting.</strong> Paparan berulang atau berkepanjangan terhadap kondisi tertentu—bertahun-tahun inflasi tinggi, resesi yang berlarut-larut—memperkuat jalur saraf melalui mekanisme yang dikenal sebagai "potensiasi jangka panjang" (LTP) (Douglas & Goddard 1975; cf. Frey & Morris, 1997, 1998). Namanya bukan metaforis. LTP adalah proses biologis yang terukur di mana koneksi sinaptik menjadi lebih kuat secara fisik dengan aktivasi berulang. Diterapkan pada ekonomi, ini berarti semakin lama episode inflasi berlangsung, atau semakin sering seseorang mengalami kesulitan ekonomi, semakin dalam jejak yang ditinggalkan pengalaman ini.</p>
+
+  <p><strong>Kedua, emosi penting.</strong> Pengalaman yang disertai emosi kuat, seperti ketakutan selama crash pasar atau kecemasan tentang uang selama periode kehilangan pekerjaan, menerima apa yang oleh neurosaintis disebut 'penandaan emosional'. Memori yang ditandai secara emosional dikodekan lebih dalam, disimpan lebih tahan lama, dan diambil lebih mudah (Dolan, 2002; LaBar & Cabeza, 2006). Penandaan emosional membantu menjelaskan mengapa pengalaman hidup memiliki kekuatan yang tidak proporsional dibandingkan informasi yang dipelajari dari buku teks: buku teks tidak datang dengan jantung berdebar dan malam-malam tanpa tidur.</p>
+
+  <p><strong>Ketiga, dan yang krusial untuk kebijakan, pengetahuan yang dipelajari memiliki kekuatan terbatas untuk membatalkan efek-efek ini.</strong> Literatur tentang trauma instruktif di sini: ia menggambarkan bagaimana stres traumatis dapat menyebabkan perubahan sinaptik yang membentuk jaringan ketakutan dan stres secara bertahan (Mahan & Ressler, 2012). Poin merujuk pada literatur trauma bukan untuk mengklasifikasikan pengalaman krisis ekonomi secara keseluruhan sebagai trauma, tetapi untuk mengakui bahwa pengalaman intens atau yang ditandai secara emosional meninggalkan jejak biologis yang tidak dapat dinetralkan hanya dengan memberikan informasi tambahan, betapapun akuratnya informasi itu. Anda tidak dapat menceramahi seseorang keluar dari jejak sinaptik.</p>
+
+  <p>Poin ketiga ini tercermin dalam bukti tentang jejak fisik stres lainnya. Misalnya, dalam kerja sama dengan Mark Borgschulte, Marius Guenzel, dan Canyao Liu, saya telah memberikan bukti langsung bahwa pengalaman krisis meninggalkan tanda biologis dalam hal penuaan yang dipercepat. Kami mempelajari apa yang terjadi pada CEO yang memimpin perusahaan melalui kesulitan industri yang parah. Dengan menggunakan analisis pembelajaran mesin visual terhadap foto, kami menerapkan teknik yang memperkirakan apa yang disebut 'usia tampak' seseorang, yaitu usia yang akan ditebak manusia dengan melihat Anda. Dalam kedokteran, dokter sering menilai status kesehatan pasien dengan membandingkan penampilan fisik mereka dengan usia kronologis aktual mereka, dan telah ditunjukkan bahwa perbedaan signifikan antara usia tampak dan usia kronologis dapat bertindak sebagai penanda risiko kematian yang lebih tinggi. Dalam sampel CEO AS kami, kami menemukan bahwa mereka yang terpapar guncangan kesulitan industri selama masa jabatan mereka sebagai CEO menua secara terlihat lebih banyak daripada rekan-rekan mereka yang tidak terpapar. Efeknya langsung dan permanen: mereka tampak sekitar satu tahun lebih tua, dan mereka tidak pernah pulih. Kami juga menemukan bahwa percepatan penuaan visual ini dipetakan satu-ke-satu ke kematian aktual, yang berterjemahan menjadi sekitar 1,1 tahun pengurangan harapan hidup. Dalam studi lain, saya menunjukkan bahwa efeknya bahkan lebih parah bagi pekerja. Dengan menggunakan data administratif Swedia yang terperinci, Paolo Sodini dan saya melacak individu yang diberhentikan selama krisis keuangan Swedia pada awal 1990-an selama lebih dari dua dekade. Pekerja-pekerja ini menunjukkan tingkat penyalahgunaan alkohol, penyalahgunaan narkoba, diagnosis kesehatan mental, hipertensi, diabetes, dan penyakit jantung yang jauh lebih tinggi, yang berterjemahan menjadi kematian yang jauh lebih tinggi. Dan ingat—ini di Swedia, negara dengan jaring pengaman sosial yang murah hati.</p>
+
+  <p>Implikasinya adalah bahwa saluran biologis di mana pengalaman memengaruhi kita—hormon stres, pengkabelan ulang saraf, respons imun dan endokrin—adalah nyata, terukur, dan konsekuensial bagi hasil ekonomi yang kita pedulikan. Dan mereka hampir sepenuhnya absen dari model ekonomi, baik perilaku maupun tidak.</p>
+
+  <figure>
+    <img src="figure5.jpg" alt="Stres rata-rata yang dilaporkan selama episode inflasi dan non-inflasi.">
+    <figcaption><strong>Gambar 5:</strong> Stres rata-rata yang dilaporkan selama episode inflasi dan non-inflasi.</figcaption>
+  </figure>
+
+  <!-- ============ NEW EVIDENCE ============ -->
+  <h2>Bukti Baru: Stres, Memori, dan Narasi</h2>
+
+  <p>Untuk memajukan agenda memasukkan wawasan dari ilmu hayati ke dalam ekonomi, saya baru-baru ini mulai mengeksplorasi bagaimana stres dan emosi selama episode inflasi masa lalu ini berhubungan dengan apa yang diingat orang, dan narasi kausal apa yang mereka bangun. Dalam Malmendier (2026), saya melakukan survei terhadap 1.105 orang Amerika berusia 20 hingga 80 tahun di platform Prolific tentang episode-episode masa lalu tersebut.</p>
+
+  <p>Hasilnya mengungkap. Ketika ditanya tentang periode inflasi tinggi, responden secara mayoritas mengaitkan episode-episode ini dengan emosi negatif dan gejala stres fisik—kesulitan tidur, masalah perut, ketegangan tubuh, kurang energi. Ini berlaku baik untuk Inflasi Hebat tahun 1970-an dan 1980-an maupun inflasi era Covid yang baru-baru ini. Ketika saya mengajukan pertanyaan terbuka tentang bagaimana episode-episode ini terasa, kata yang paling sering muncul adalah 'stres', diikuti dekat oleh 'khawatir' dan 'cemas'.</p>
+
+  <p>Yang krusial, intensitas stres penting di atas dan di luar keparahan finansial guncangan. Saya membangun ukuran tingkat individu dari 'elastisitas stres', yang menangkap seberapa banyak stres yang dilaporkan seseorang per unit inflasi yang dialami, dengan mengontrol tekanan finansial. Elastisitas stres ini adalah prediktor kuat dan independen dari ekspektasi inflasi. Dengan kata lain, dengan menahan guncangan makroekonomi objektif konstan, variasi individu dalam seberapa stres pengalaman itu terasa membawa kekuatan prediktif tambahan untuk keyakinan tentang masa depan.</p>
+
+  <p>Stres juga membentuk memori. Apakah seseorang mengingat periode tertentu sebagai periode inflasi tinggi sangat terkait dengan stres dan gejala fisik yang mereka alami selama periode itu, bukan hanya seberapa besar itu membebani keuangan mereka. Ini konsisten dengan hipotesis penandaan emosional dari neurosains: apa yang dikodekan dalam memori bukanlah rekaman peristiwa objektif tetapi disaring melalui emosi yang menyertainya. Kontrol yang dirasakan juga penting: responden yang melaporkan merasa memegang kendali atas keuangan mereka, atau merasa bahwa pemerintah memegang kendali, selama episode inflasi, lebih kecil kemungkinannya untuk mengingat periode itu sebagai periode inflasi tinggi, menunjukkan pentingnya kontrol dalam konsolidasi memori.</p>
+
+  <p>Akhirnya, stres membentuk narasi, yaitu cerita kausal yang dibangun orang untuk menjelaskan apa yang terjadi selama periode guncangan makroekonomi. Dalam kasus inflasi, ini berarti bahwa penjelasan yang dikembangkan orang untuk episode tertentu (misalnya, "Itu disebabkan oleh krisis energi" untuk Inflasi Hebat, atau "Itu gangguan rantai pasokan" untuk inflasi Covid) sangat memprediksi narasi umum mereka tentang apa yang menyebabkan inflasi. Dan tautan ini diperkuat untuk orang dengan elastisitas stres tinggi. Dengan kata lain, semakin terpengaruh secara emosional seseorang oleh episode tertentu, semakin besar kemungkinan mereka menggeneralisasi cerita episode itu ke dalam pandangan dunia ekonomi mereka yang lebih luas.</p>
+
+  <blockquote class="pullquote">Apa yang dikodekan dalam memori bukanlah rekaman peristiwa objektif tetapi disaring melalui emosi yang menyertainya.</blockquote>
+
+  <!-- ============ POLICY ============ -->
+  <h2>Apa Artinya untuk Kebijakan</h2>
+
+  <p>Jika perspektif ini benar, ia memiliki implikasi penting untuk desain kebijakan ekonomi. Pendekatan ekonomi yang berbeda sering mengarah pada rekomendasi yang sangat berbeda.</p>
+
+  <p>Dalam pandangan ekonomi tradisional, kesalahan dan keyakinan yang bias terutama dikaitkan dengan kurangnya informasi atau ketidakpastian model. Obatnya, kemudian, terletak pada meningkatkan akses ke informasi atau mengurangi ketidakpastian tentang proses penghasil data. Misalnya, keputusan investasi dan tabungan yang suboptimal mungkin dikaitkan dengan kurangnya informasi tentang ketersediaan dan aksesibilitasnya.</p>
+
+  <p>Dari perspektif ekonomi perilaku, ada sumber tambahan pengambilan keputusan suboptimal, seperti kesalahan pemrosesan informasi dan kognisi yang tidak sempurna. Dalam pendekatan ini, obatnya bergeser ke arah memungkinkan manusia mengatasi keterbatasan proses pembentukan keyakinan mereka. Contohnya adalah, dalam konteks keputusan investasi dan tabungan, penyediaan tindakan pendidikan yang ditargetkan seperti program literasi keuangan yang mengajarkan orang tentang bunga majemuk, aturan Bayes, atau manfaat diversifikasi.</p>
+
+  <p>Perspektif baru yang ditawarkan di sini menjelaskan mengapa tidak ada obat yang cukup dalam menghilangkan kesalahan investasi—baik penyediaan lebih banyak informasi dan data tentang produk keuangan yang tersedia maupun pelatihan literasi keuangan. Dari perspektif Ekonomi Perilaku 3.0, kita memahami orang sebagai organisme yang berkembang secara dinamis yang dibentuk oleh sejarah hidup mereka. Kita telah melihat bahwa efek pengalaman beroperasi melalui saluran biologis seperti pengkabelan ulang saraf, penandaan emosional, dan respons stres. Akibatnya, pemrosesan informasi dan pembentukan keyakinan itu sendiri secara struktural diubah oleh pengalaman masa lalu, dan mereka tidak dapat dengan mudah dikoreksi melalui pengetahuan tambahan. Dengan demikian, pendekatan untuk membangun obat bergeser secara fundamental: dari penyediaan informasi murni atau tindakan pendidikan ke desain pengalaman yang ditargetkan. Dalam konteks investasi dan tabungan, idenya adalah bahwa orang belajar mengakumulasi kekayaan di pasar saham dengan menerima paparan terkendali terhadap investasi pasar saham yang terdiversifikasi secara luas.</p>
+
+  <blockquote class="pullquote">Pendekatan untuk membangun obat bergeser secara fundamental: dari penyediaan informasi murni atau tindakan pendidikan ke desain pengalaman yang ditargetkan.</blockquote>
+
+  <p>Contoh konkret pergeseran ini dapat ditemukan dalam kebijakan yang saya bantu kembangkan sebagai anggota Dewan Ahli Ekonomi Jerman: Pensiun Awal Mulai. Jerman adalah negara dengan partisipasi pasar saham yang sangat rendah. Namun, sulit mengaitkan pola itu dengan kesadaran pasar saham yang tidak memadai, yang kinerjanya disebutkan setiap hari di berita. Kita juga tidak dapat dengan mudah mengaitkan perilaku outlier ini dengan kurangnya literasi keuangan karena orang Jerman mendapat skor teratas dalam peringkat literasi keuangan internasional (OECD, 2023). Masalahnya jelas bukan pengetahuan. Bahkan ketika informasi tentang risiko dan imbal hasil hadir, partisipasi pasar modal tetap rendah. Yang hilang adalah pengalaman pribadi dengan investasi pasar modal yang terdiversifikasi secara luas. Di banyak negara, seperti AS, Swedia, atau Australia, orang secara otomatis terpapar pada investasi pasar saham karena sistem pensiun (atau tabungan pensiun) mereka yang berbasis pasar modal. Hingga saat ini, Jerman gagal berhasil menerapkan reformasi semacam itu.</p>
+
+  <p>Mulai tahun 2027, Pensiun Awal Mulai akan memberikan anak-anak berusia 6 hingga 18 tahun kontribusi bulanan 10 euro yang akan secara otomatis diinvestasikan dalam dana pasar saham yang luas. Jumlahnya sengaja kecil: terlalu kecil untuk kerugian menjadi ancaman eksistensial, tetapi cukup besar untuk menghasilkan pengalaman nyata dan terasa tentang bagaimana pasar bekerja seiring waktu. Tujuannya bukan untuk mengajari anak-anak tentang pasar saham melalui instruksi—sebanyak pelatihan keuangan yang menyertainya akan disambut baik—tetapi untuk membiarkan mereka mengalaminya, untuk membangun sejarah pengalaman pribadi yang, selama bertahun-tahun, akan mengkabel ulang persepsi mereka tentang risiko dan imbal hasil pasar saham. Pengalaman pasar negatif diproses dengan cara 'dosis' pada tingkat non-eksistensial, dan diminimalkan melalui fokus pada investasi jangka panjang yang terdiversifikasi secara luas. Karena program ini universal, ia juga mengurangi ketidaksetaraan sosial dalam paparan pengalaman, memastikan bahwa pengalaman pasar modal tidak tetap menjadi hak istimewa rumah tangga berpenghasilan tinggi.</p>
+
+  <!-- ============ ROAD AHEAD ============ -->
+  <h2>Jalan ke Depan</h2>
+
+  <p>Saya percaya bahwa bab berikutnya dari ekonomi perilaku terletak pada belokan menuju ilmu hayati—dalam mengambil serius apa yang sudah diketahui neurosains, psikiatri, kedokteran, dan biologi tentang manusia dan bagaimana mereka dibentuk oleh apa yang mereka alami. Ini berarti, pertama, bahwa ekonom harus mulai mengumpulkan data tentang stres, emosi, hormon, dan kesehatan fisik bersama variabel ekonomi yang biasanya kita ukur. Sejauh ini, ekonom jarang mengumpulkan data sepanjang dimensi ini, dan sumber standar data survei—ACS, Survei Konsumen Michigan, Survei Keuangan Konsumen—mengandung sedikit variabel yang terkait. Beberapa peneliti individu telah mulai membuat kemajuan, tetapi masih banyak yang harus dilakukan.</p>
+
+  <blockquote class="pullquote">Ekonom harus mulai mengumpulkan data tentang stres, emosi, hormon, dan kesehatan fisik bersama variabel ekonomi yang biasanya kita ukur.</blockquote>
+
+  <p>Pendekatan baru ini juga mengharuskan kita membangun model yang memasukkan variabel dari penelitian stres dan trauma, variabel yang hampir tidak tersentuh oleh ekonom tetapi yang sangat memprediksi seberapa merusak guncangan tertentu dan seberapa tahan lama efeknya. Dua contoh adalah ukuran prediktabilitas dan kontrolabilitas. Prediktabilitas—apakah pengalaman merugikan mengikuti pola atau datang tanpa peringatan—ternyata sangat penting dalam menjelaskan kekuatan efek pengalaman traumatis. Penelitian di neurosains telah menunjukkan bahwa stresor yang tidak dapat diprediksi memicu respons stres fisiologis dan saraf yang lebih kuat daripada stresor yang dapat diprediksi dengan intensitas yang setara (Tsuda et al., 1983; Alvarez et al., 2011; Cohodes et al., 2021). Diterapkan pada ekonomi, ini menunjukkan bahwa ketidakpastian kondisi merugikan, seperti tidak mengetahui apakah program bantuan pangan akan tersedia dari satu bulan ke bulan berikutnya, dapat memperparah efek berbahayanya melampaui apa yang akan diprediksi oleh tingkat deprivasi material saja. Kontrolabilitas—apakah seseorang memandang dirinya memiliki agensi atas situasinya—sama pentingnya. Guncangan yang tidak dapat dikontrol menghasilkan ketidakberdayaan yang dipelajari dan penarikan diri. Dalam data survei saya, responden yang melaporkan merasa memegang kendali atas keuangan mereka, atau merasa bahwa pemerintah memegang kendali, selama episode inflasi, secara signifikan lebih kecil kemungkinannya untuk terluka olehnya. Konsep-konsep ini dapat menjelaskan fenomena seperti 'kematian karena putus asa' yang didokumentasikan oleh Case dan Deaton, di mana pertanyaan kritisnya mungkin bukan hanya seberapa parah guncangan finansialnya, tetapi bagi siapa itu dapat diprediksi dan bagi siapa itu terasa dapat dikontrol.</p>
+
+  <p>Akhirnya, perspektif yang diusulkan dalam artikel ini berarti bahwa yang terbaik adalah merancang kebijakan untuk bekerja dengan biologi kita daripada melawannya. Tidak cukup memberi orang informasi atau mengajari mereka cara memprosesnya. Tindakan kebijakan yang lebih baik akan membentuk pengalaman melalui mana informasi itu dikodekan.</p>
+
+  <p>Kita telah membuat kemajuan luar biasa dalam bergerak dari <em>homo economicus</em> ke model pengambilan keputusan manusia yang lebih kaya secara psikologis. Tetapi kita masih, dalam hal-hal penting, memodelkan manusia sebagai mesin yang canggih. Langkah berikutnya adalah memodelkan mereka sebagai apa adanya: organisme hidup, ditandai oleh sejarah mereka, diubah oleh apa yang telah mereka tanggung dan nikmati. Janji Ekonomi Perilaku 3.0 adalah bahwa, dengan memahami <em>homo experiens</em>, kita dapat membangun tidak hanya teori yang lebih baik, tetapi juga kebijakan yang lebih efektif—yang didasarkan bukan hanya pada apa yang orang ketahui tetapi pada apa yang telah mereka alami dan apa yang telah dilakukannya pada mereka.</p>
+
+  <!-- ============ AUTHOR BIO ============ -->
+  <div class="author-bio">
+    <h3>Tentang Penulis</h3>
+    <p>Ulrike Malmendier adalah Edward J. dan Mollie Arnold Professor of Finance di Haas School of Business dan Professor of Economics di University of California, Berkeley, di mana ia juga menjabat sebagai direktur pendiri O'Donnell Center for Behavioral Economics. Ia adalah rekan peneliti di National Bureau of Economic Research (NBER), dan Fellow dari Econometric Society dan American Academy of Arts and Sciences. Pada 2013, ia menerima Fischer Black Prize dari American Finance Association, yang diberikan setiap dua tahun kepada sarjana keuangan terbaik di bawah usia 40 tahun. Penelitiannya mencakup ekonomi dan keuangan perilaku, keuangan korporat, serta hukum dan ekonomi, dengan fokus khusus pada bagaimana pengalaman hidup membentuk keyakinan dan pengambilan keputusan.</p>
+  </div>
+
+  <!-- ============ ACKNOWLEDGMENTS ============ -->
+  <div class="ack">
+    <h3>Ucapan Terima Kasih</h3>
+    <p>Pendahuluan ini meminjam dari Presidential Address yang saya sampaikan pada American Finance Association Annual Meeting pada 2026. Saya ingin berterima kasih kepada banyak rekan penulis saya, khususnya Stefan Nagel (University of Chicago), Demian Pouzo (UC Berkeley), Vico Vanasco (CREI), Zach Yan (Cornerstone), Francesco D'Acunto (Georgetown), Michael Weber (University of Chicago), Juan Ospina (Banco de la Republica, Kolombia), Marius Guenzel (UPenn), Canyao Liu (Hudson River Trading), Mark Borgschulte (UIUC), Leslie Shen (Boston Federal Reserve), Alex Steiny (UCSD), Matthew Botsch (Bowdoin), Alexandra Niessen-Ruenzi (University of Mannheim), dan Christine Laudenbach (University of Frankfurt), serta anggota staf ilmiah Dewan Ahli Ekonomi Jerman dan O'Donnell Center, khususnya Nikki Azerang, Shagnik Chakravarty, Bihai Gao, Karin Li, dan Pietro Risso.</p>
+  </div>
+
+  <!-- ============ REFERENCES ============ -->
+  <div class="refs">
+    <h2>Referensi</h2>
+    <ul>
+      <li>Alvarez, R. P., Chen, G., Bodurka, J., Kaplan, R., &amp; Grillon, C. (2011). Phasic and sustained fear in humans elicits distinct patterns of brain activity. <em>Neuroimage, 55</em>(1), 389–400. https://doi.org/10.1016/j.neuroimage.2010.11.057</li>
+      <li>Bakkensen, L. A., &amp; Barrage, L. (2022). Going underwater? Flood risk belief heterogeneity and coastal home price dynamics. <em>The Review of Financial Studies, 35</em>(8), 3666–3709. https://doi.org/10.1093/rfs/hhab122</li>
+      <li>Bakker, T. J., DeLuca, S., English, E. A., Fogel, J. S., Hendren, N., &amp; Herbst, D. (2025). Credit access in the United States. NBER Working Paper 34053. https://doi.org/10.3386/w34053</li>
+      <li>Bietenbeck, J., Sunde, U., &amp; Thiemann, P. (2025). Recession experiences during early adulthood shape prosocial attitudes later in life. <em>Journal of Public Economics, 243</em>, 105327. https://doi.org/10.1016/j.jpubeco.2025.105327</li>
+      <li>Borgschulte, M., Guenzel, M., Liu, C., &amp; Malmendier, U. (2023). CEO stress, aging, and death. <em>Journal of Finance</em>, forthcoming.</li>
+      <li>Botsch, M. J., &amp; Malmendier, U. (2026). The long shadows of the Great Inflation: Evidence from residential mortgages. SSRN. https://dx.doi.org/10.2139/ssrn.3888762</li>
+      <li>Bouwman, C., &amp; Malmendier, U. (2015). Does a bank's history affect its risk-taking? <em>American Economic Review: Papers &amp; Proceedings, 105</em>(5), 321–325. https://doi.org/10.1257/aer.p20151093</li>
+      <li>Cohodes, E. M., Kitt, E. R., Baskin-Sommers, A., &amp; Gee, D. G. (2021). Influences of early-life stress on frontolimbic circuitry: Harnessing a dimensional approach to elucidate the effects of heterogeneity in stress exposure. <em>Developmental Psychobiology, 63</em>(2), 153–172. https://doi.org/10.1002/dev.21969</li>
+      <li>Dolan, R. J. (2002). Emotion, cognition, and behavior. <em>Science, 298</em>(5596), 1191–1194. https://doi.org/10.1126/science.1076358</li>
+      <li>Douglas, R. M., &amp; Goddard, G. V. (1975). Long-term potentiation of the perforant path-granule cell synapse in the rat hippocampus. <em>Brain Research, 86</em>(2), 205–215. https://doi.org/10.1016/0006-8993(75)90697-6</li>
+      <li>Frey, U., &amp; Morris, R. G. (1997). Synaptic tagging and long-term potentiation. <em>Nature, 385</em>(6616), 533–536. https://doi.org/10.1038/385533a0</li>
+      <li>Frey, U., &amp; Morris, R. G. (1998). Synaptic tagging: Implications for late maintenance of hippocampal long-term potentiation. <em>Trends in Neurosciences, 21</em>(5), 181–188. https://doi.org/10.1016/S0166-2236(97)01189-2</li>
+      <li>Gallagher, J. (2014). Learning about an infrequent event: Evidence from flood insurance take-up in the United States. <em>American Economic Journal: Applied Economics, 6</em>(3), 206–233. https://doi.org/10.1257/app.6.3.206</li>
+      <li>Gavresi, D., &amp; Litina, A. (2023). Past exposure to macroeconomic shocks and populist attitudes in Europe. <em>Journal of Comparative Economics, 51</em>(3), 989–1010. https://doi.org/10.1016/j.jce.2023.04.002</li>
+      <li>Greenwood, R., &amp; Nagel, S. (2009). Inexperienced investors and bubbles. <em>Journal of Financial Economics, 93</em>(2), 239–258. https://doi.org/10.1016/j.jfineco.2008.08.004</li>
+      <li>LaBar, K. S., &amp; Cabeza, R. (2006). Cognitive neuroscience of emotional memory. <em>Nature Reviews Neuroscience, 7</em>(1), 54–64. https://doi.org/10.1038/nrn1825</li>
+      <li>Laudenbach, C., Malmendier, U., &amp; Niessen-Ruenzi, A. (2025). The long-lasting effects of experiencing communism on attitudes toward financial markets. <em>The Journal of Finance</em>, forthcoming.</li>
+      <li>Mahan, A. L., &amp; Ressler, K. J. (2012). Fear conditioning, synaptic plasticity and the amygdala: Implications for posttraumatic stress disorder. <em>Trends in Neurosciences, 35</em>(1), 24–35. https://doi.org/10.1016/j.tins.2011.06.007</li>
+      <li>Malmendier, U., &amp; Nagel, S. (2011). Depression babies: Do macroeconomic experiences affect risk taking? <em>The Quarterly Journal of Economics, 126</em>(1), 373–416. https://doi.org/10.1093/qje/qjq004</li>
+      <li>Malmendier, U., &amp; Nagel, S. (2016). Learning from inflation experiences. <em>The Quarterly Journal of Economics, 131</em>(1), 53–87. https://doi.org/10.1093/qje/qjv037</li>
+      <li>Malmendier, U., Nagel, S., &amp; Yan, Z. (2021). The making of hawks and doves. <em>Journal of Monetary Economics, 117</em>, 19–42. https://doi.org/10.1016/j.jmoneco.2020.04.002</li>
+      <li>Malmendier, U., &amp; Shen, L. S. (2024). Scarred consumption. <em>American Economic Journal: Macroeconomics, 16</em>(1), 322–355. https://doi.org/10.1257/mac.20210387</li>
+      <li>Malmendier, U., &amp; Sodini, P. (2026). The long-term effects of job losses. Technical report, Working Paper.</li>
+      <li>Malmendier, U., &amp; Steiny Wellsjö, A. (2024). Rent or buy? Inflation experiences and homeownership within and across countries. <em>The Journal of Finance, 79</em>(3), 1977–2023. https://doi.org/10.1111/jofi.13332</li>
+      <li>OECD. (2023). <em>OECD/INFE 2023 International survey of adult financial literacy</em>. OECD Business and Finance Policy Paper. https://www.oecd.org/content/dam/oecd/en/publications/reports/2023/12/oecd-infe-2023-international-survey-of-adult-financial-literacy_8ce94e2c/56003a32-en.pdf</li>
+      <li>Orphanides, A. &amp; Williams, J. C. (2005). Imperfect knowledge, inflation expectations and monetary policy. In B. S. Bernanke &amp; M. Woodford (Eds.), <em>The inflation targeting debate</em> (pp. 201–246). University of Chicago Press.</li>
+      <li>Teeters, N. H. (2008, 25 Oktober). Federal Reserve Board Oral History Project: Interview with Nancy H. Teeters. https://www.federalreserve.gov/aboutthefed/files/nancy-h-teeters-interview-20081025.pdf</li>
+      <li>Tsuda, A., Ida, Y., Satoh, H., Tsujimaru, S., &amp; Tanaka, M. (1989). Stressor predictability and rat brain noradrenaline metabolism. <em>Pharmacology Biochemistry and Behavior, 32</em>(2), 569–572. https://doi.org/10.1016/0091-3057(89)90198-6</li>
+    </ul>
+  </div>
+
+  <div class="end-mark">• • •</div>
+
+</div>
+</body>
+</html>

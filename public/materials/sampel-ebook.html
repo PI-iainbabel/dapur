@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Behavioral Insights — Sampel Ebook</title>
+<style>
+  :root {
+    --bg-deep: #0a0e1a;
+    --bg-mid: #131a2e;
+    --bg-panel: rgba(20, 28, 48, 0.72);
+    --bg-paper: #0f1626;
+    --border: rgba(120, 160, 200, 0.15);
+    --text: #e8eef7;
+    --text-dim: #94a3b8;
+    --accent: #22d3ee;
+    --accent-2: #38bdf8;
+    --gold: #fbbf24;
+    --gold-soft: #fcd34d;
+    --green: #34d399;
+    --red: #f87171;
+    --purple: #a78bfa;
+    --pink: #f472b6;
+    --gradient-1: linear-gradient(135deg, #22d3ee 0%, #3b82f6 50%, #a855f7 100%);
+    --gradient-2: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+    --gradient-3: linear-gradient(135deg, #34d399 0%, #22d3ee 100%);
+    --font-serif: 'Georgia', 'Iowan Old Style', 'Charter', serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', 'Monaco', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  html, body {
+    width: 100%;
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  #bg-canvas {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0; opacity: 0.4;
+    pointer-events: none;
+  }
+
+  /* ===== LAYOUT ===== */
+  .ebook {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+  }
+
+  /* ===== SIDEBAR / TOC ===== */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 32px 24px;
+    border-right: 1px solid var(--border);
+    background: rgba(10, 14, 26, 0.6);
+    backdrop-filter: blur(20px);
+  }
+  .sidebar::-webkit-scrollbar { width: 6px; }
+  .sidebar::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.2); border-radius: 3px;
+  }
+
+  .book-brand {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 28px; padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .book-brand-logo {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: var(--gradient-1);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 14px; font-weight: 900; color: #0a0e1a;
+    letter-spacing: -0.5px;
+  }
+  .book-brand-text .book-title-sm {
+    font-size: 13px; font-weight: 800;
+    color: #fff; letter-spacing: 0.3px;
+    line-height: 1.2;
+  }
+  .book-brand-text .book-subtitle-sm {
+    font-size: 10px; color: var(--text-dim);
+    letter-spacing: 1.5px; text-transform: uppercase;
+    font-family: var(--font-mono);
+    margin-top: 2px;
+  }
+
+  .toc-title {
+    font-family: var(--font-mono);
+    font-size: 10.5px; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--text-dim);
+    font-weight: 700; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .toc-title::before {
+    content: ''; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+
+  .toc-part {
+    font-family: var(--font-mono);
+    font-size: 10px; letter-spacing: 2px;
+    color: var(--gold); font-weight: 800;
+    text-transform: uppercase;
+    margin: 20px 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px dashed rgba(251, 191, 36, 0.2);
+  }
+  .toc-part:first-of-type { margin-top: 8px; }
+
+  .toc-link {
+    display: block;
+    padding: 7px 12px;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 12.5px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+    line-height: 1.4;
+  }
+  .toc-link:hover {
+    background: rgba(34, 211, 238, 0.06);
+    color: var(--text);
+    border-left-color: var(--accent);
+  }
+  .toc-link.active {
+    background: rgba(34, 211, 238, 0.1);
+    color: #fff;
+    border-left-color: var(--accent);
+    font-weight: 600;
+  }
+  .toc-chapter-num {
+    font-family: var(--font-mono);
+    font-size: 10px; color: var(--accent);
+    font-weight: 700; letter-spacing: 1px;
+    margin-right: 4px;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  .content {
+    padding: 60px 80px 120px;
+    max-width: 780px;
+  }
+
+  .chapter-header {
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .chapter-number {
+    font-family: var(--font-mono);
+    font-size: 12px; letter-spacing: 3px;
+    color: var(--accent); font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .chapter-title {
+    font-family: var(--font-serif);
+    font-size: clamp(34px, 4.5vw, 52px);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -1.5px;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .chapter-subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 19px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    max-width: 620px;
+  }
+
+  /* Typography */
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.5px;
+    margin: 56px 0 20px;
+    line-height: 1.2;
+    position: relative;
+    padding-left: 22px;
+  }
+  h2::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 6px; bottom: 6px;
+    width: 4px;
+    background: var(--gradient-1);
+    border-radius: 2px;
+  }
+
+  h3 {
+    font-family: var(--font-sans);
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin: 32px 0 14px;
+    letter-spacing: -0.3px;
+  }
+
+  p {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--text);
+    margin-bottom: 20px;
+    max-width: 68ch;
+  }
+
+  p.lead {
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--text);
+    font-weight: 400;
+    margin-bottom: 28px;
+  }
+
+  strong { color: #fff; font-weight: 700; }
+  em { color: var(--accent); font-style: italic; }
+
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px dashed rgba(34, 211, 238, 0.4); }
+  a:hover { color: #fff; border-bottom-style: solid; }
+
+  ul, ol { margin: 12px 0 24px 24px; padding: 0; }
+  li {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 10px;
+    padding-left: 4px;
+  }
+  li::marker { color: var(--accent); }
+
+  /* ===== PULL QUOTE ===== */
+  .pullquote {
+    margin: 40px 0;
+    padding: 24px 0 24px 28px;
+    border-left: 4px solid var(--gold);
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-style: italic;
+    line-height: 1.5;
+    color: #fff;
+    position: relative;
+    max-width: 640px;
+  }
+  .pullquote::before {
+    content: '"';
+    position: absolute;
+    top: -20px; left: -8px;
+    font-family: Georgia, serif;
+    font-size: 90px;
+    color: rgba(251, 191, 36, 0.25);
+    line-height: 1;
+    z-index: -1;
+  }
+  .pullquote .attribution {
+    display: block;
+    margin-top: 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-style: normal;
+    letter-spacing: 1px;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* ===== CALLOUT BOXES ===== */
+  .callout {
+    margin: 36px 0;
+    border-radius: 16px;
+    padding: 24px 28px;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-panel);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+  }
+  .callout::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--accent);
+  }
+  .callout.lensa::before { background: var(--gradient-2); }
+  .callout.challenge::before { background: var(--gradient-3); }
+  .callout.insight::before { background: var(--gradient-1); }
+  .callout.etika::before { background: linear-gradient(180deg, #f87171, #a855f7); }
+  .callout.definition::before { background: linear-gradient(180deg, #a78bfa, #22d3ee); }
+
+  .callout-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+  .callout.lensa .callout-header { color: var(--gold); }
+  .callout.challenge .callout-header { color: var(--green); }
+  .callout.insight .callout-header { color: var(--accent); }
+  .callout.etika .callout-header { color: var(--red); }
+  .callout.definition .callout-header { color: var(--purple); }
+
+  .callout-icon {
+    width: 26px; height: 26px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .callout.lensa .callout-icon { background: rgba(251, 191, 36, 0.15); }
+  .callout.challenge .callout-icon { background: rgba(52, 211, 153, 0.15); }
+  .callout.insight .callout-icon { background: rgba(34, 211, 238, 0.15); }
+  .callout.etika .callout-icon { background: rgba(248, 113, 113, 0.15); }
+  .callout.definition .callout-icon { background: rgba(167, 139, 250, 0.15); }
+
+  .callout-title {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+    line-height: 1.3;
+  }
+  .callout p { font-size: 15.5px; margin-bottom: 12px; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout ul, .callout ol { margin: 10px 0 0 20px; }
+  .callout li { font-size: 15px; margin-bottom: 6px; }
+
+  /* ===== MARGIN NOTE (inline di HTML) ===== */
+  .margin-note {
+    margin: 24px 0;
+    padding: 16px 20px;
+    background: rgba(30, 41, 59, 0.4);
+    border-radius: 10px;
+    border-left: 3px solid var(--purple);
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .margin-note::before {
+    content: '📌 CATATAN';
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--purple);
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .margin-note strong { color: var(--text); }
+
+  /* ===== TABLE ===== */
+  .table-wrap {
+    margin: 32px 0;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--bg-panel);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th {
+    background: rgba(34, 211, 238, 0.08);
+    padding: 14px 18px;
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 800;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 14px 18px;
+    color: var(--text-dim);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+    line-height: 1.5;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(34, 211, 238, 0.03); }
+  td strong { color: #fff; }
+
+  /* ===== INTERACTIVE CHART ===== */
+  .chart-container {
+    margin: 32px 0;
+    padding: 24px;
+    background: var(--bg-panel);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+  }
+  .chart-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .chart-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .chart-bar-label {
+    flex: 0 0 130px;
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 600;
+  }
+  .chart-bar-track {
+    flex: 1;
+    height: 24px;
+    background: rgba(148, 163, 184, 0.08);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+  }
+  .chart-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 800;
+    color: #0a0e1a;
+  }
+  .chart-bar-fill.c1 { background: linear-gradient(90deg, #22d3ee, #34d399); }
+  .chart-bar-fill.c2 { background: linear-gradient(90deg, #fbbf24, #f472b6); }
+  .chart-bar-fill.c3 { background: linear-gradient(90deg, #a78bfa, #f472b6); }
+  .chart-bar-fill.c4 { background: linear-gradient(90deg, #34d399, #22d3ee); }
+
+  /* ===== NUMBER CARD ===== */
+  .stat-highlight {
+    display: inline-block;
+    margin: 8px 8px 8px 0;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.08), rgba(168, 85, 247, 0.06));
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    border-radius: 14px;
+    text-align: center;
+    min-width: 140px;
+  }
+  .stat-highlight .num {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .stat-highlight .lbl {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-weight: 700;
+  }
+
+  /* ===== SECTION DIVIDER ===== */
+  .section-divider {
+    text-align: center;
+    margin: 80px 0 60px;
+    position: relative;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+  .section-divider::before { left: 0; }
+  .section-divider::after { right: 0; }
+  .section-divider-mark {
+    display: inline-block;
+    font-family: var(--font-serif);
+    font-size: 24px;
+    color: var(--accent);
+    background: var(--bg-deep);
+    padding: 0 24px;
+    letter-spacing: 8px;
+  }
+
+  /* ===== PROGRESS BAR ===== */
+  .reading-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: var(--gradient-1);
+    z-index: 999;
+    transition: width 0.15s linear;
+    box-shadow: 0 0 12px rgba(34, 211, 238, 0.6);
+    width: 0%;
+  }
+
+  /* ===== HEADER TOP ===== */
+  .top-bar {
+    position: fixed;
+    top: 0; right: 0;
+    z-index: 100;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(10, 14, 26, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom-left-radius: 14px;
+    border-left: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .format-badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: rgba(34, 211, 238, 0.12);
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .format-badge.gold {
+    background: rgba(251, 191, 36, 0.12);
+    color: var(--gold);
+  }
+
+  /* ===== FOOTER ===== */
+  .chapter-footer {
+    margin-top: 72px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .chapter-nav-btn {
+    padding: 12px 20px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+  .chapter-nav-btn:hover {
+    border-color: rgba(34, 211, 238, 0.4);
+    background: rgba(34, 211, 238, 0.08);
+    color: #fff;
+  }
+  .chapter-nav-btn.primary {
+    background: var(--gradient-1);
+    color: #0a0e1a;
+    border-color: transparent;
+  }
+  .chapter-nav-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(34, 211, 238, 0.4);
+  }
+
+  /* ===== COVER (sample) ===== */
+  .cover-sample {
+    background: linear-gradient(135deg, #0a1628 0%, #132347 100%);
+    border-radius: 20px;
+    padding: 60px 48px;
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(34, 211, 238, 0.2);
+  }
+  .cover-sample::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(34, 211, 238, 0.15), transparent 40%),
+      radial-gradient(circle at 70% 80%, rgba(168, 85, 247, 0.12), transparent 40%);
+    pointer-events: none;
+  }
+  .cover-sample .cover-inner { position: relative; z-index: 1; }
+  .cover-title {
+    font-family: var(--font-serif);
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -2.5px;
+    color: #fff;
+    margin: 24px 0 16px;
+  }
+  .cover-subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--text-dim);
+    max-width: 500px;
+    margin: 0 auto 32px;
+    line-height: 1.5;
+  }
+  .cover-authors {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .ebook { grid-template-columns: 1fr; }
+    .sidebar {
+      position: fixed;
+      left: -280px;
+      top: 0;
+      width: 280px;
+      height: 100vh;
+      z-index: 200;
+      transition: left 0.3s;
+    }
+    .sidebar.open { left: 0; }
+    .content { padding: 40px 24px 80px; }
+    .top-bar { padding: 12px 16px; }
+  }
+  @media (max-width: 600px) {
+    .chapter-title { font-size: 30px; }
+    h2 { font-size: 24px; }
+    p, li { font-size: 16px; }
+    .pullquote { font-size: 18px; padding-left: 20px; }
+    .callout { padding: 20px 20px; }
+  }
+
+  /* Print-ish */
+  @media print {
+    .sidebar, .top-bar, .reading-progress { display: none; }
+    .ebook { grid-template-columns: 1fr; }
+    body { background: #fff; color: #000; }
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .chapter-header,
+  .callout,
+  .chart-container,
+  .table-wrap,
+  .pullquote,
+  .margin-note,
+  .section-divider {
+    animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+  .chapter-header { animation-delay: 0s; }
+  .callout:nth-of-type(1) { animation-delay: 0.1s; }
+  .callout:nth-of-type(2) { animation-delay: 0.2s; }
+  .callout:nth-of-type(3) { animation-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="reading-progress" id="progressBar"></div>
+
+<div class="top-bar">
+  <span class="format-badge">📖 HTML Sampel</span>
+  <span class="format-badge gold">EPUB-Ready</span>
+</div>
+
+<div class="ebook">
+
+  <!-- ============ SIDEBAR / TOC ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="book-brand">
+      <div class="book-brand-logo">BI</div>
+      <div class="book-brand-text">
+        <div class="book-title-sm">Behavioral Insights</div>
+        <div class="book-subtitle-sm">Sampel Ebook · 2026</div>
+      </div>
+    </div>
+
+    <div class="toc-title">Daftar Isi</div>
+
+    <div class="toc-part">Cover & Pembuka</div>
+    <a href="#cover" class="toc-link"><span class="toc-chapter-num">00</span> Sampul</a>
+    <a href="#sambutan" class="toc-link"><span class="toc-chapter-num">01</span> Selamat Datang</a>
+
+    <div class="toc-part">Bagian I · Fondasi</div>
+    <a href="#bab1" class="toc-link active"><span class="toc-chapter-num">Bab 1</span> Manusia vs Econs</a>
+    <a href="#bab2" class="toc-link"><span class="toc-chapter-num">Bab 2</span> Akar & Evolusi</a>
+
+    <div class="toc-part">Bagian II · Toolkit</div>
+    <a href="#bab3" class="toc-link"><span class="toc-chapter-num">Bab 3</span> Arsitek Pilihan</a>
+    <a href="#bab4" class="toc-link"><span class="toc-chapter-num">Bab 4</span> Kerangka Kerja</a>
+
+    <div class="toc-part">Bagian III · Mekanika</div>
+    <a href="#bab5" class="toc-link"><span class="toc-chapter-num">Bab 5</span> Katalog Bias</a>
+    <a href="#bab6" class="toc-link"><span class="toc-chapter-num">Bab 6</span> Emosi & Afek</a>
+
+    <div class="toc-part">Penutup</div>
+    <a href="#glosarium" class="toc-link"><span class="toc-chapter-num">—</span> Glosarium</a>
+  </aside>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <main class="content">
+
+    <!-- ============ COVER ============ -->
+    <section id="cover">
+      <div class="cover-sample">
+        <div class="cover-inner">
+          <div class="book-brand-logo" style="margin: 0 auto 20px; width: 60px; height: 60px; font-size: 20px;">BI</div>
+          <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; font-weight: 700; margin-bottom: 12px;">
+            Edisi Sampel · 2026
+          </div>
+          <h1 class="cover-title">
+            Behavioral<br>Insights
+          </h1>
+          <p class="cover-subtitle">
+            Mendesain Intervensi Perilaku untuk Pelayanan dan Kebijakan Publik
+          </p>
+          <div class="cover-authors">
+            Oktarizal Drianus · Mursyidul Wildan · Imam Alfikri Pratama
+          </div>
+        </div>
+      </div>
+
+      <div class="callout insight">
+        <div class="callout-header">
+          <span class="callout-icon">📖</span>
+          <span>HTML Sampel Interaktif</span>
+        </div>
+        <p>
+          Ini adalah <strong>sampel HTML interaktif</strong> dari buku <em>Behavioral Insights</em>.
+          Format ini menampilkan visualisasi, diagram, dan elemen desain yang tidak dapat dirender
+          oleh EPUB standar. Versi EPUB (untuk Kindle, Apple Books, Google Play Books) akan
+          menggunakan layout reflowable yang lebih sederhana namun tetap menjaga palet warna
+          dan callout boxes.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ SAMBUTAN ============ -->
+    <section id="sambutan">
+      <div class="chapter-header">
+        <div class="chapter-number">Pembuka</div>
+        <h1 class="chapter-title">Selamat Datang di Dunia Nyata</h1>
+        <p class="chapter-subtitle">Mengapa manusia tidak selalu rasional — dan mengapa itu justru membuka peluang baru untuk mendesain kebijakan.</p>
+      </div>
+
+      <p class="lead">
+        Selama puluhan tahun, kita diajarkan bahwa manusia adalah makhluk rasional.
+        Kita diajarkan bahwa jika harga naik, permintaan turun. Jika ada aturan dilarang
+        merokok, orang berhenti merokok. Jika diberi informasi kesehatan, orang akan hidup sehat.
+      </p>
+
+      <p>
+        Teorinya indah. Sayangnya, realitasnya tidak seindah itu.
+      </p>
+
+      <p>
+        Kita hidup di dunia di mana orang rajin mendaftar di kegiatan tertentu tapi tidak pernah
+        datang. Dunia di mana orang lebih takut naik pesawat daripada naik motor, padahal
+        statistik berkata sebaliknya. Dunia di mana kita menunda pekerjaan penting demi menonton
+        video kucing berjam-jam.
+      </p>
+
+      <div class="pullquote">
+        We are not just irrational, we are predictably irrational.
+        <span class="attribution">— Dan Ariely, Predictably Irrational (2008)</span>
+      </div>
+
+      <p>
+        Buku ini hadir untuk mengisi kekosongan literatur akademik di Indonesia yang selama ini
+        didominasi oleh teori "Manusia Rasional". <strong>Behavioral Insights</strong> hadir bukan
+        untuk menghapus ilmu ekonomi atau psikologi lama, melainkan untuk melengkapinya dengan
+        data tentang bagaimana manusia <em>sebenarnya</em> berperilaku.
+      </p>
+    </section>
+
+    <!-- ============ SECTION DIVIDER ============ -->
+    <div class="section-divider">
+      <span class="section-divider-mark">❖ ❖ ❖</span>
+    </div>
+
+    <!-- ============ BAB 1 ============ -->
+    <section id="bab1">
+      <div class="chapter-header">
+        <div class="chapter-number">Bagian I · Bab 1</div>
+        <h1 class="chapter-title">Manusia vs Econs</h1>
+        <p class="chapter-subtitle">Kenapa kita sering melakukan hal bodoh, padahal kita pintar?</p>
+      </div>
+
+      <p class="lead">
+        Coba bayangkan situasi ini: Anda sedang belanja bulanan. Di dekat kasir, mata Anda
+        menangkap cokelat batangan dengan label diskon 50%. Padahal, pagi tadi Anda baru saja
+        bersumpah untuk mulai diet gula. Apa yang akan Anda lakukan?
+      </p>
+
+      <p>
+        Kalau kita bertanya pada buku teks ekonomi yang terbit 50 tahun lalu, jawabannya pasti:
+        "Anda akan mengabaikan cokelat itu." Kenapa? Karena ilmu ekonomi klasik dibangun di atas
+        sebuah asumsi besar: <strong>Manusia adalah makhluk yang Rasional</strong>.
+      </p>
+
+      <h2>Makhluk Mitos Bernama "Econs"</h2>
+
+      <p>
+        Richard Thaler, salah satu begawan ekonomi perilaku, memberi nama panggilan khusus untuk
+        makhluk imajiner ini: <em>"Econs"</em>. Seorang Econs tidak akan merokok karena tahu itu
+        merusak paru-paru. Seorang Econs akan selalu menabung dana pensiun sejak gaji pertama.
+        Seorang Econs tidak akan pernah telat mengumpulkan tugas kuliah.
+      </p>
+
+      <div class="margin-note">
+        <strong>Homo Economicus (Econs)</strong> — Model manusia dalam ekonomi klasik yang
+        diasumsikan selalu bertindak rasional, egois, dan konsisten dalam memaksimalkan
+        utilitas (kepuasan) pribadi.
+      </div>
+
+      <p>
+        Tapi, mari jujur. Apakah Anda kenal orang seperti itu? Kemungkinan besar tidak.
+        Kita adalah <strong>Humans</strong>, bukan Econs.
+      </p>
+
+      <div class="callout insight">
+        <div class="callout-header">
+          <span class="callout-icon">💡</span>
+          <span>Behavioral Insight</span>
+        </div>
+        <p>
+          Sebagai <strong>Humans</strong>, kita sering kali mendaftar gym mahal tapi malas datang
+          setelah minggu kedua. Kita menyumbang ke pengemis karena merasa iba, bukan karena
+          kalkulasi ekonomi. Kita membeli barang yang tidak dibutuhkan hanya karena ada tulisan
+          "Promo Terbatas".
+        </p>
+      </div>
+
+      <h2>Dua Nahkoda di Kepala Kita</h2>
+
+      <p>
+        Jawaban atas perilaku kita yang sering "tergelincir" ada pada struktur mesin pengambil
+        keputusan kita. Daniel Kahneman, peraih Nobel Ekonomi, menjelaskan bahwa otak kita
+        tidak bekerja sebagai satu kesatuan tunggal. Ada dua "nahkoda" yang bekerja bergantian:
+        <em>System 1</em> dan <em>System 2</em>.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Fitur</th>
+              <th>System 1 · Intuisi</th>
+              <th>System 2 · Refleksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Kecepatan</strong></td>
+              <td>Cepat (Fast)</td>
+              <td>Lambat (Slow)</td>
+            </tr>
+            <tr>
+              <td><strong>Kesadaran</strong></td>
+              <td>Tidak sadar / Otomatis</td>
+              <td>Sadar / Terkontrol</td>
+            </tr>
+            <tr>
+              <td><strong>Usaha</strong></td>
+              <td>Tanpa usaha</td>
+              <td>Butuh usaha</td>
+            </tr>
+            <tr>
+              <td><strong>Sifat</strong></td>
+              <td>Asosiatif, Emosional</td>
+              <td>Deduktif, Logis</td>
+            </tr>
+            <tr>
+              <td><strong>Peran</strong></td>
+              <td>Pelaksana Harian</td>
+              <td>Pengawas / Auditor</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout lensa">
+        <div class="callout-header">
+          <span class="callout-icon">🔍</span>
+          <span>Lensa Nusantara</span>
+        </div>
+        <div class="callout-title">"Belum Lima Menit" dan Heuristik Kebersihan</div>
+        <p>
+          Di Indonesia, kita sering mendengar istilah <em>"Belum lima menit"</em> saat ada makanan
+          jatuh ke lantai, lalu dipungut dan dimakan kembali. Secara medis, kita tahu bakteri
+          menempel dalam hitungan detik, bukan menit.
+        </p>
+        <p>
+          Namun, mengapa perilaku ini masih lestari? Ini adalah contoh kerja System 1 yang
+          menggunakan aturan praktis (heuristik). Otak kita berpikir:
+          <strong>Makanan terlihat bersih + Lantai rumah sendiri = Aman.</strong>
+        </p>
+        <p>
+          Rasa sayang membuang makanan (<em>Loss Aversion</em>) mengalahkan logika kesehatan yang
+          abstrak. Sebagai mahasiswa Behavioral Insights, bagaimana Anda mengubah perilaku ini?
+          Memberi ceramah tentang bakteri (menyerang System 2) mungkin tidak mempan. Tapi
+          bagaimana jika kita ubah lingkungannya?
+        </p>
+      </div>
+
+      <h2>Grafik: Efektivitas Framing pada Kampanye Cuci Tangan</h2>
+
+      <p>
+        Untuk memahami bagaimana System 1 dan System 2 dapat dilayani secara berbeda oleh
+        satu intervensi, berikut hasil meta-analisis pada kampanye kesehatan di 12 negara
+        berkembang (2015-2024).
+      </p>
+
+      <div class="chart-container">
+        <div class="chart-title">
+          <span>📊 Efektivitas Intervensi — Persentase Perubahan Perilaku</span>
+          <span style="color: var(--accent); font-size: 10px;">n = 12 negara</span>
+        </div>
+
+        <div class="chart-bar-row">
+          <div class="chart-bar-label">Poster Edukasi</div>
+          <div class="chart-bar-track">
+            <div class="chart-bar-fill c1" data-width="18">18%</div>
+          </div>
+        </div>
+        <div class="chart-bar-row">
+          <div class="chart-bar-label">Pesan Naratif</div>
+          <div class="chart-bar-track">
+            <div class="chart-bar-fill c2" data-width="42">42%</div>
+          </div>
+        </div>
+        <div class="chart-bar-row">
+          <div class="chart-bar-label">Social Norm</div>
+          <div class="chart-bar-track">
+            <div class="chart-bar-fill c3" data-width="67">67%</div>
+          </div>
+        </div>
+        <div class="chart-bar-row">
+          <div class="chart-bar-label">Environment Design</div>
+          <div class="chart-bar-track">
+            <div class="chart-bar-fill c4" data-width="78">78%</div>
+          </div>
+        </div>
+      </div>
+
+      <p>
+        Perhatikan: intervensi yang mengubah <strong>lingkungan fisik</strong> (78%) jauh lebih
+        efektif daripada poster edukasi (18%). Ini adalah pelajaran inti Behavioral Insights —
+        ubah konteksnya, bukan manusianya.
+      </p>
+
+      <!-- Stat row -->
+      <div style="margin: 32px 0; display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-start;">
+        <div class="stat-highlight">
+          <span class="num">3×</span>
+          <span class="lbl">Lebih Efektif</span>
+        </div>
+        <div class="stat-highlight">
+          <span class="num">78%</span>
+          <span class="lbl">Environment Nudge</span>
+        </div>
+        <div class="stat-highlight">
+          <span class="num">12</span>
+          <span class="lbl">Negara Dianalisis</span>
+        </div>
+      </div>
+
+      <div class="callout definition">
+        <div class="callout-header">
+          <span class="callout-icon">📚</span>
+          <span>Definisi Kunci</span>
+        </div>
+        <p>
+          <strong>Heuristik</strong> — Strategi sederhana atau aturan praktis (rule of thumb)
+          yang digunakan otak untuk memecahkan masalah kompleks dengan cepat, meski tidak
+          selalu akurat.
+        </p>
+        <p>
+          <strong>Bias Kognitif</strong> — Kesalahan sistematis dalam berpikir yang memengaruhi
+          keputusan dan penilaian kita. Hasil dari heuristik yang "meleset" secara terprediksi.
+        </p>
+      </div>
+
+      <div class="callout challenge">
+        <div class="callout-header">
+          <span class="callout-icon">🎯</span>
+          <span>Action Challenge</span>
+        </div>
+        <p>
+          <strong>Praktikkan ilmu ini segera.</strong> Minggu ini, cobalah menjadi
+          <em>"Detektif Perilaku"</em> di lingkungan sekitar Anda (kantin, minimarket, atau mall).
+          Temukan satu contoh penerapan Arsitektur Pilihan yang mempengaruhi keputusan
+          pembelian Anda.
+        </p>
+        <p style="margin-top: 10px;">
+          <strong>Clue:</strong> Perhatikan barang-barang kecil (permen/cokelat) yang diletakkan
+          persis di sebelah kasir. Kenapa diletakkan di sana? Sistem mana yang mereka targetkan?
+        </p>
+      </div>
+
+      <div class="chapter-footer">
+        <a href="#sambutan" class="chapter-nav-btn">← Sambutan</a>
+        <a href="#bab2" class="chapter-nav-btn primary">Bab 2 · Akar & Evolusi →</a>
+      </div>
+    </section>
+
+    <!-- ============ SECTION DIVIDER ============ -->
+    <div class="section-divider">
+      <span class="section-divider-mark">❖ ❖ ❖</span>
+    </div>
+
+    <!-- ============ PREVIEW BAB 2 ============ -->
+    <section id="bab2">
+      <div class="chapter-header">
+        <div class="chapter-number">Bagian I · Bab 2</div>
+        <h1 class="chapter-title">Akar dan Evolusi</h1>
+        <p class="chapter-subtitle">Dari Adam Smith hingga Unit Kebijakan Publik.</p>
+      </div>
+
+      <p class="lead">
+        Jika Anda bertanya siapa bapak ilmu ekonomi, hampir semua orang akan menjawab: Adam Smith.
+        Namun, tahukah Anda bahwa 17 tahun sebelum <em>The Wealth of Nations</em> (1776) terbit,
+        Smith sudah menulis karya lain yang justru sangat kental nuansa psikologisnya?
+      </p>
+
+      <p>
+        Buku itu berjudul <em>The Theory of Moral Sentiments</em> (1759). Di karya pertamanya itu,
+        Smith tidak bicara soal "Tangan Tak Terlihat" atau suplai-demand. Ia justru mengupas
+        tuntas tentang pergulatan batin manusia.
+      </p>
+
+      <div class="pullquote">
+        The problem with the model of Homo Economicus is that the person being modeled
+        is actually an imaginary species.
+        <span class="attribution">— Richard Thaler, Misbehaving (2015)</span>
+      </div>
+
+      <p>
+        Sejak saat itu, Psikologi dan Ekonomi ibarat pasangan yang bercerai. Ekonomi berjalan di
+        lorong angka-angka yang dingin, sementara Psikologi sibuk di ruang terapi dan laboratorium
+        perilaku. Keduanya saling diam selama hampir satu abad.
+      </p>
+
+      <div class="callout lensa">
+        <div class="callout-header">
+          <span class="callout-icon">🔍</span>
+          <span>Lensa Nusantara</span>
+        </div>
+        <div class="callout-title">Jejak Awal Behavioral Insights di Indonesia</div>
+        <p>
+          Meski istilah Behavioral Insights baru populer belakangan ini, praktik penggunaannya di
+          Indonesia sebenarnya sudah mulai terlihat. Salah satu contoh menarik adalah eksperimen
+          kepatuhan pajak yang dilakukan oleh Direktorat Jenderal Pajak (DJP) bekerja sama dengan
+          tim peneliti.
+        </p>
+        <p>
+          Mereka menguji efektivitas pengiriman email blast himbauan lapor SPT. Ternyata, email
+          yang subjeknya diubah menjadi lebih personal dan menonjolkan norma sosial memiliki
+          tingkat pembukaan (<em>open rate</em>) dan kepatuhan lapor yang berbeda signifikan
+          dibandingkan email formal birokratis biasa.
+        </p>
+      </div>
+
+      <div class="callout insight">
+        <div class="callout-header">
+          <span class="callout-icon">💡</span>
+          <span>Behavioral Insight</span>
+        </div>
+        <p>
+          Fenomena ini membuktikan bahwa prinsip Behavioral Insights bukan hanya milik negara
+          Barat (WEIRD Societies), tapi juga relevan dan ampuh jika disesuaikan dengan konteks
+          budaya gotong-royong di Indonesia.
+        </p>
+      </div>
+
+      <div class="chapter-footer">
+        <a href="#bab1" class="chapter-nav-btn">← Bab 1</a>
+        <a href="#bab3" class="chapter-nav-btn primary">Bab 3 · Arsitek Pilihan →</a>
+      </div>
+    </section>
+
+    <!-- ============ SECTION DIVIDER ============ -->
+    <div class="section-divider">
+      <span class="section-divider-mark">❖ ❖ ❖</span>
+    </div>
+
+    <!-- ============ GLOSARIUM (Sample) ============ -->
+    <section id="glosarium">
+      <div class="chapter-header">
+        <div class="chapter-number">Penutup</div>
+        <h1 class="chapter-title">Glosarium</h1>
+        <p class="chapter-subtitle">Istilah-istilah kunci yang Anda temukan di sepanjang buku.</p>
+      </div>
+
+      <div class="callout definition">
+        <div class="callout-header">
+          <span class="callout-icon">📚</span>
+          <span>Anchoring Effect</span>
+        </div>
+        <p>
+          Kecenderungan untuk terlalu bergantung pada informasi pertama (angka) yang diterima
+          saat membuat keputusan.
+        </p>
+      </div>
+
+      <div class="callout definition">
+        <div class="callout-header">
+          <span class="callout-icon">📚</span>
+          <span>Choice Architecture</span>
+        </div>
+        <p>
+          Praktik mendesain lingkungan fisik atau digital tempat orang mengambil keputusan.
+          Tidak ada desain yang netral.
+        </p>
+      </div>
+
+      <div class="callout definition">
+        <div class="callout-header">
+          <span class="callout-icon">📚</span>
+          <span>Nudge</span>
+        </div>
+        <p>
+          Intervensi perilaku yang mengubah pilihan orang dengan cara yang terprediksi tanpa
+          melarang opsi apa pun dan tanpa mengubah insentif ekonomi secara signifikan.
+        </p>
+      </div>
+
+      <div class="callout definition">
+        <div class="callout-header">
+          <span class="callout-icon">📚</span>
+          <span>Sludge</span>
+        </div>
+        <p>
+          Kebalikan dari Nudge; hambatan (friksi) berlebihan dalam proses birokrasi atau desain
+          yang mempersulit orang untuk melakukan hal yang baik bagi mereka.
+        </p>
+      </div>
+
+      <div class="callout etika">
+        <div class="callout-header">
+          <span class="callout-icon">⚖️</span>
+          <span>Uji Etika</span>
+        </div>
+        <p>
+          <strong>Apakah strategi Anda etis atau manipulatif?</strong> Tanyakan: jika strategi
+          ini dibocorkan di halaman depan koran besok pagi, apakah Anda akan merasa malu?
+        </p>
+        <p style="margin-top: 10px;">
+          Jika malu → itu manipulasi. Jika bangga menjelaskannya → itu nudge.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ END ============ -->
+    <div class="section-divider" style="margin-bottom: 40px;">
+      <span class="section-divider-mark">✦ ✦ ✦</span>
+    </div>
+
+    <div style="text-align: center; padding: 40px 0 20px;">
+      <div style="font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-dim); font-weight: 700; margin-bottom: 8px;">
+        Psychosophia Behavioral Lab
+      </div>
+      <div style="font-family: var(--font-serif); font-style: italic; font-size: 14px; color: var(--text-dim);">
+        bridging data to behavior
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ============ BACKGROUND CANVAS ============
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.vx = (Math.random() - 0.5) * 0.3;
+      this.vy = (Math.random() - 0.5) * 0.3;
+      this.radius = Math.random() * 1.5 + 0.5;
+      this.alpha = Math.random() * 0.3 + 0.1;
+      this.hue = Math.random() > 0.5 ? 190 : 260;
+    }
+    update() {
+      this.x += this.vx; this.y += this.vy;
+      if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${this.hue}, 80%, 65%, ${this.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  function initParticles() {
+    particles = [];
+    const count = Math.min(50, Math.floor((canvas.width * canvas.height) / 30000));
+    for (let i = 0; i < count; i++) particles.push(new Particle());
+  }
+
+  function drawLines() {
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 130) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(34, 211, 238, ${0.05 * (1 - dist / 130)})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    drawLines();
+    requestAnimationFrame(animate);
+  }
+
+  initParticles();
+  animate();
+
+  // ============ READING PROGRESS ============
+  const progressBar = document.getElementById('progressBar');
+
+  function updateProgress() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  // ============ ACTIVE TOC HIGHLIGHT ============
+  const sections = document.querySelectorAll('section[id]');
+  const tocLinks = document.querySelectorAll('.toc-link');
+
+  function updateActiveToc() {
+    let currentSection = '';
+    sections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= 150) {
+        currentSection = section.id;
+      }
+    });
+
+    tocLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + currentSection) {
+        link.classList.add('active');
+      }
+    });
+  }
+  window.addEventListener('scroll', updateActiveToc, { passive: true });
+  updateActiveToc();
+
+  // ============ CHART BAR ANIMATION ============
+  const chartBars = document.querySelectorAll('.chart-bar-fill[data-width]');
+
+  function animateBars() {
+    chartBars.forEach(bar => {
+      const target = bar.getAttribute('data-width');
+      bar.style.width = '0%';
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              bar.style.width = target + '%';
+            }, 200);
+            observer.unobserve(bar);
+          }
+        });
+      }, { threshold: 0.3 });
+      observer.observe(bar);
+    });
+  }
+  animateBars();
+
+  // ============ MOBILE SIDEBAR TOGGLE ============
+  // (Untuk mobile, sidebar bisa dibuka dengan swipe atau klik)
+  let sidebar = document.getElementById('sidebar');
+  let touchStartX = 0;
+
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  document.addEventListener('touchend', (e) => {
+    const diff = e.changedTouches[0].screenX - touchStartX;
+    // Swipe right from left edge opens sidebar
+    if (touchStartX < 30 && diff > 60) {
+      sidebar.classList.add('open');
+    }
+    // Swipe left closes sidebar
+    if (diff < -60 && sidebar.classList.contains('open')) {
+      sidebar.classList.remove('open');
+    }
+  }, { passive: true });
+
+  // Close sidebar on TOC link click (mobile)
+  tocLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 900) {
+        setTimeout(() => sidebar.classList.remove('open'), 300);
+      }
+    });
+  });
+
+  // ============ SMOOTH SCROLL OFFSET ============
+  // Compensate for the fixed top bar
+  tocLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const targetId = link.getAttribute('href');
+      if (targetId.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(targetId);
+        if (target) {
+          const offset = 40;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>

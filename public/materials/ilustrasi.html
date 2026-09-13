@@ -1,0 +1,2955 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pustaka Ilustrasi — Behavioral Insights</title>
+<style>
+  :root {
+    --bg-deep: #0a0e1a;
+    --bg-panel: rgba(20, 28, 48, 0.72);
+    --border: rgba(120, 160, 200, 0.15);
+    --text: #e8eef7;
+    --text-dim: #94a3b8;
+    --accent: #22d3ee;
+    --gold: #fbbf24;
+    --green: #34d399;
+    --red: #f87171;
+    --purple: #a78bfa;
+    --pink: #f472b6;
+    --gradient-1: linear-gradient(135deg, #22d3ee 0%, #3b82f6 50%, #a855f7 100%);
+    --font-serif: Georgia, serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: Inter, -apple-system, sans-serif;
+    line-height: 1.6;
+    padding: 40px 20px 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  /* Header */
+  .page-header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-title {
+    font-family: var(--font-serif);
+    font-size: clamp(30px, 4.5vw, 48px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 14px;
+  }
+  .page-subtitle {
+    color: var(--text-dim);
+    font-size: 15px;
+    font-style: italic;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .page-meta {
+    margin-top: 18px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin: 32px 0 48px;
+    padding: 20px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: var(--font-mono);
+    font-size: 26px;
+    font-weight: 900;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .stat-lbl {
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* TOC */
+  .toc-section {
+    margin-bottom: 60px;
+  }
+  .toc-heading {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 800;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .toc-heading::before {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 10px;
+  }
+  .toc-item {
+    padding: 12px 16px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .toc-item:hover {
+    background: rgba(34, 211, 238, 0.08);
+    color: var(--text);
+    border-left-color: var(--accent);
+    transform: translateX(3px);
+  }
+  .toc-item .num {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--accent);
+    font-weight: 800;
+    min-width: 26px;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 56px;
+    padding-top: 24px;
+    border-top: 1px dashed rgba(148, 163, 184, 0.12);
+  }
+  .section:first-of-type { border-top: none; }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+  }
+
+  /* Illustration Card */
+  .ill-card {
+    background: var(--bg-panel);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 32px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gradient-1);
+  }
+  .ill-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .ill-title {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.3px;
+  }
+  .ill-ref {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.25);
+    white-space: nowrap;
+  }
+  .ill-visual {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+  }
+  .ill-visual svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  .ill-caption {
+    font-size: 12.5px;
+    color: var(--text-dim);
+    font-style: italic;
+    line-height: 1.55;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(148, 163, 184, 0.12);
+  }
+  .ill-code-toggle {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .ill-code-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(34, 211, 238, 0.06);
+  }
+  .ill-code {
+    display: none;
+    margin-top: 14px;
+    padding: 18px;
+    background: #0a0f1a;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    line-height: 1.55;
+    color: #cbd5e1;
+    white-space: pre;
+    max-height: 360px;
+    overflow-y: auto;
+  }
+  .ill-code.open { display: block; }
+  .ill-code::-webkit-scrollbar { width: 8px; height: 8px; }
+  .ill-code::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.2); border-radius: 4px;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 60px 20px 20px;
+    border-top: 1px solid var(--border);
+    margin-top: 60px;
+  }
+  .footer-brand {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .footer-tag {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  /* Back to top */
+  .back-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(20px);
+    transition: all 0.25s;
+    z-index: 100;
+    text-decoration: none;
+  }
+  .back-top:hover {
+    background: var(--accent);
+    color: #0a0e1a;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(34,211,238,0.4);
+  }
+
+  @media (max-width: 700px) {
+    .ill-card { padding: 20px; }
+    .ill-header { flex-direction: column; align-items: flex-start; }
+    .ill-title { font-size: 17px; }
+    .stats-bar { gap: 20px; padding: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ============ HEADER ============ -->
+  <div class="page-header">
+    <div class="page-title">Pustaka Ilustrasi Behavioral Insights</div>
+    <p class="page-subtitle">
+      Koleksi lengkap visualisasi dari <em>Behavioral Insights: Pengantar Desain Intervensi untuk Kebijakan dan Pelayanan Publik</em>
+      — semua dibuat murni dari SVG, siap pakai untuk ebook HTML.
+    </p>
+    <div class="page-meta">Psychosophia Behavioral Lab · Oktarizal Drianus · 2026</div>
+  </div>
+
+  <!-- ============ STATS ============ -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-num" id="statIllust">42</div>
+      <div class="stat-lbl">Ilustrasi</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="statCat">7</div>
+      <div class="stat-lbl">Kategori</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-lbl">Pure SVG</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">0</div>
+      <div class="stat-lbl">File Eksternal</div>
+    </div>
+  </div>
+
+  <!-- ============ TOC ============ -->
+  <div class="toc-section">
+    <div class="toc-heading">A · Fondasi Konseptual</div>
+    <div class="toc-grid">
+      <a href="#ill-01" class="toc-item"><span class="num">01</span>Manusia vs Econs</a>
+      <a href="#ill-02" class="toc-item"><span class="num">02</span>System 1 &amp; System 2</a>
+      <a href="#ill-03" class="toc-item"><span class="num">03</span>Gajah &amp; Penunggang</a>
+      <a href="#ill-04" class="toc-item"><span class="num">04</span>Ilusi Müller-Lyer</a>
+      <a href="#ill-05" class="toc-item"><span class="num">05</span>Spektrum Wendel</a>
+      <a href="#ill-06" class="toc-item"><span class="num">06</span>Intention-Action Gap</a>
+      <a href="#ill-07" class="toc-item"><span class="num">07</span>Iceberg Perilaku</a>
+    </div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-heading">B · Arsitek Pilihan &amp; Toolkit</div>
+    <div class="toc-grid">
+      <a href="#ill-08" class="toc-item"><span class="num">08</span>Spektrum Intervensi</a>
+      <a href="#ill-09" class="toc-item"><span class="num">09</span>GPS &amp; Libertarian Paternalism</a>
+      <a href="#ill-10" class="toc-item"><span class="num">10</span>Donor Organ Opt-in/out</a>
+      <a href="#ill-11" class="toc-item"><span class="num">11</span>EAST Framework</a>
+      <a href="#ill-12" class="toc-item"><span class="num">12</span>MINDSPACE</a>
+      <a href="#ill-13" class="toc-item"><span class="num">13</span>COM-B Model</a>
+      <a href="#ill-14" class="toc-item"><span class="num">14</span>Behaviour Change Wheel</a>
+      <a href="#ill-15" class="toc-item"><span class="num">15</span>CREATE Funnel</a>
+      <a href="#ill-16" class="toc-item"><span class="num">16</span>Fogg B=MAT</a>
+    </div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-heading">C · Mekanika Pikiran</div>
+    <div class="toc-grid">
+      <a href="#ill-17" class="toc-item"><span class="num">17</span>Multidisiplinitas BI</a>
+      <a href="#ill-18" class="toc-item"><span class="num">18</span>Cognitive Bias Codex</a>
+      <a href="#ill-19" class="toc-item"><span class="num">19</span>Bias vs Noise</a>
+      <a href="#ill-20" class="toc-item"><span class="num">20</span>Anchoring Experiment</a>
+      <a href="#ill-21" class="toc-item"><span class="num">21</span>Framing Effect</a>
+      <a href="#ill-22" class="toc-item"><span class="num">22</span>Loss Aversion</a>
+      <a href="#ill-23" class="toc-item"><span class="num">23</span>Sunk Cost Fallacy</a>
+      <a href="#ill-24" class="toc-item"><span class="num">24</span>Kompas Heuristik</a>
+    </div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-heading">D · Emosi &amp; Sosial</div>
+    <div class="toc-grid">
+      <a href="#ill-25" class="toc-item"><span class="num">25</span>Hot-Cold Empathy Gap</a>
+      <a href="#ill-26" class="toc-item"><span class="num">26</span>Odysseus Commitment</a>
+      <a href="#ill-27" class="toc-item"><span class="num">27</span>Eksperimen Asch</a>
+      <a href="#ill-28" class="toc-item"><span class="num">28</span>Opower Comparison</a>
+      <a href="#ill-29" class="toc-item"><span class="num">29</span>In-Group Bias</a>
+    </div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-heading">E · Konteks &amp; Budaya</div>
+    <div class="toc-grid">
+      <a href="#ill-30" class="toc-item"><span class="num">30</span>WEIRD vs Kolektivis</a>
+      <a href="#ill-31" class="toc-item"><span class="num">31</span>Scarcity Mindset</a>
+    </div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-heading">F · Aplikasi Dunia Nyata</div>
+    <div class="toc-grid">
+      <a href="#ill-32" class="toc-item"><span class="num">32</span>Mental Accounting</a>
+      <a href="#ill-33" class="toc-item"><span class="num">33</span>Pain of Paying</a>
+      <a href="#ill-34" class="toc-item"><span class="num">34</span>Decoy Effect</a>
+      <a href="#ill-35" class="toc-item"><span class="num">35</span>Sludge / Roach Motel</a>
+      <a href="#ill-36" class="toc-item"><span class="num">36</span>Blind Recruitment</a>
+      <a href="#ill-37" class="toc-item"><span class="num">37</span>HokBen Trash Can</a>
+      <a href="#ill-38" class="toc-item"><span class="num">38</span>Tinta Ungu</a>
+      <a href="#ill-39" class="toc-item"><span class="num">39</span>Pinjol Interest Framing</a>
+      <a href="#ill-40" class="toc-item"><span class="num">40</span>Peta BPP London-Nusantara</a>
+    </div>
+  </div>
+
+  <div class="toc-section">
+    <div class="toc-heading">G · Etika &amp; Masa Depan</div>
+    <div class="toc-grid">
+      <a href="#ill-41" class="toc-item"><span class="num">41</span>Nudge vs Sludge</a>
+      <a href="#ill-42" class="toc-item"><span class="num">42</span>Front Page Test</a>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- A · FONDASI KONSEPTUAL                       -->
+  <!-- ============================================ -->
+  <div class="section" id="section-a">
+    <div class="section-label">A · Fondasi Konseptual</div>
+    <h2 class="section-title">Memahami Mengapa Kita Tidak Rasional</h2>
+
+    <!-- 01. Manusia vs Econs -->
+    <div class="ill-card" id="ill-01">
+      <div class="ill-header">
+        <div class="ill-title">Manusia vs Econs</div>
+        <div class="ill-ref">Bab 1</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="beEcons" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#f87171" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#f87171" stop-opacity="0.03"/>
+            </linearGradient>
+            <linearGradient id="beHumans" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#34d399" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#34d399" stop-opacity="0.03"/>
+            </linearGradient>
+          </defs>
+
+          <text x="360" y="28" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">DUA MODEL MANUSIA</text>
+
+          <!-- Econs -->
+          <g transform="translate(30, 50)">
+            <rect width="310" height="240" rx="16" fill="url(#beEcons)" stroke="#f87171" stroke-width="1.5"/>
+            <text x="155" y="40" text-anchor="middle" fill="#f87171" font-family="Georgia, serif" font-style="italic" font-size="20" font-weight="700">Homo Economicus</text>
+            <text x="155" y="62" text-anchor="middle" fill="#94a3b8" font-size="11" letter-spacing="1">ECONS · MITOS</text>
+
+            <text x="25" y="100" fill="#f87171" font-size="12" font-weight="700">Karakteristik:</text>
+            <text x="25" y="125" fill="#e8eef7" font-size="12">· Informasi sempurna</text>
+            <text x="25" y="148" fill="#e8eef7" font-size="12">· Kalkulasi untung-rugi total</text>
+            <text x="25" y="171" fill="#e8eef7" font-size="12">· Tekad baja, tanpa emosi</text>
+            <text x="25" y="194" fill="#e8eef7" font-size="12">· Konsisten sepanjang waktu</text>
+
+            <text x="25" y="228" fill="#f87171" font-size="11" font-style="italic">"Makhluk imajiner — tidak ada di dunia nyata."</text>
+          </g>
+
+          <!-- Humans -->
+          <g transform="translate(380, 50)">
+            <rect width="310" height="240" rx="16" fill="url(#beHumans)" stroke="#34d399" stroke-width="1.5"/>
+            <text x="155" y="40" text-anchor="middle" fill="#34d399" font-family="Georgia, serif" font-style="italic" font-size="20" font-weight="700">Homo Humanus</text>
+            <text x="155" y="62" text-anchor="middle" fill="#94a3b8" font-size="11" letter-spacing="1">HUMANS · REALITAS</text>
+
+            <text x="25" y="100" fill="#34d399" font-size="12" font-weight="700">Karakteristik:</text>
+            <text x="25" y="125" fill="#e8eef7" font-size="12">· Informasi terbatas</text>
+            <text x="25" y="148" fill="#e8eef7" font-size="12">· Emosional, tidak konsisten</text>
+            <text x="25" y="171" fill="#e8eef7" font-size="12">· Menggunakan jalan pintas mental</text>
+            <text x="25" y="194" fill="#e8eef7" font-size="12">· Dipengaruhi lingkungan</text>
+
+            <text x="25" y="228" fill="#34d399" font-size="11" font-style="italic">"Kita semua adalah Humans."</text>
+          </g>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Dua model manusia: yang satu mitos, yang satu realitas. Behavioral Insights lahir dari pengakuan atas realitas kedua.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 340"&gt;
+  &lt;!-- Dua kartu berdampingan --&gt;
+  &lt;!-- Kiri: Homo Economicus (merah) - karakteristik Econs --&gt;
+  &lt;!-- Kanan: Homo Humanus (hijau) - karakteristik Humans --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 02. System 1 & 2 -->
+    <div class="ill-card" id="ill-02">
+      <div class="ill-header">
+        <div class="ill-title">System 1 &amp; System 2 — Kelinci &amp; Kura-kura</div>
+        <div class="ill-ref">Bab 1 · Kahneman</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="rabbitGrad" cx="40%" cy="30%">
+              <stop offset="0%" stop-color="#fde68a"/>
+              <stop offset="100%" stop-color="#fbbf24"/>
+            </radialGradient>
+            <radialGradient id="turtleGrad" cx="40%" cy="30%">
+              <stop offset="0%" stop-color="#6ee7b7"/>
+              <stop offset="100%" stop-color="#22d3ee"/>
+            </radialGradient>
+          </defs>
+
+          <text x="360" y="28" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">DUA MODE BERPIKIR</text>
+
+          <!-- System 1 -->
+          <g transform="translate(30, 50)">
+            <rect width="310" height="320" rx="18" fill="rgba(251,191,36,0.06)" stroke="#fbbf24" stroke-width="1.5"/>
+            <circle cx="80" cy="80" r="40" fill="rgba(251,191,36,0.1)"/>
+            <g transform="translate(60, 55)">
+              <ellipse cx="20" cy="25" rx="14" ry="12" fill="url(#rabbitGrad)"/>
+              <ellipse cx="12" cy="10" rx="4" ry="10" fill="url(#rabbitGrad)"/>
+              <ellipse cx="28" cy="10" rx="4" ry="10" fill="url(#rabbitGrad)"/>
+              <circle cx="15" cy="23" r="2" fill="#0a0e1a"/>
+              <circle cx="25" cy="23" r="2" fill="#0a0e1a"/>
+            </g>
+            <text x="135" y="70" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="18" font-weight="900" letter-spacing="1">SYSTEM 1</text>
+            <text x="135" y="92" fill="#94a3b8" font-size="12">Cepat · Otomatis · Emosional</text>
+
+            <text x="25" y="155" fill="#fbbf24" font-size="12" font-weight="700">Mode default otak</text>
+            <text x="25" y="180" fill="#e8eef7" font-size="12">· Tanpa sadar</text>
+            <text x="25" y="200" fill="#e8eef7" font-size="12">· Tanpa usaha</text>
+            <text x="25" y="220" fill="#e8eef7" font-size="12">· Asosiatif, paralel</text>
+            <text x="25" y="240" fill="#e8eef7" font-size="12">· Dominan sehari-hari</text>
+
+            <text x="25" y="280" fill="#94a3b8" font-size="11" font-style="italic">Contoh: mengenali wajah,</text>
+            <text x="25" y="296" fill="#94a3b8" font-size="11" font-style="italic">menyetir sambil melamun</text>
+          </g>
+
+          <!-- System 2 -->
+          <g transform="translate(380, 50)">
+            <rect width="310" height="320" rx="18" fill="rgba(34,211,238,0.06)" stroke="#22d3ee" stroke-width="1.5"/>
+            <circle cx="80" cy="80" r="40" fill="rgba(34,211,238,0.1)"/>
+            <g transform="translate(55, 60)">
+              <ellipse cx="25" cy="25" rx="20" ry="14" fill="url(#turtleGrad)"/>
+              <ellipse cx="48" cy="27" rx="7" ry="6" fill="#34d399"/>
+              <circle cx="50" cy="25" r="1.5" fill="#0a0e1a"/>
+              <ellipse cx="15" cy="38" rx="4" ry="3" fill="#34d399"/>
+              <ellipse cx="35" cy="38" rx="4" ry="3" fill="#34d399"/>
+            </g>
+            <text x="135" y="70" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="18" font-weight="900" letter-spacing="1">SYSTEM 2</text>
+            <text x="135" y="92" fill="#94a3b8" font-size="12">Lambat · Logis · Butuh Usaha</text>
+
+            <text x="25" y="155" fill="#22d3ee" font-size="12" font-weight="700">Mode berpikir sadar</text>
+            <text x="25" y="180" fill="#e8eef7" font-size="12">· Sadar, terkontrol</text>
+            <text x="25" y="200" fill="#e8eef7" font-size="12">· Butuh usaha keras</text>
+            <text x="25" y="220" fill="#e8eef7" font-size="12">· Deduktif, serial</text>
+            <text x="25" y="240" fill="#e8eef7" font-size="12">· Jarang dipakai</text>
+
+            <text x="25" y="280" fill="#94a3b8" font-size="11" font-style="italic">Contoh: menghitung 17 × 24,</text>
+            <text x="25" y="296" fill="#94a3b8" font-size="11" font-style="italic">membandingkan spesifikasi HP</text>
+          </g>
+
+          <text x="360" y="395" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" letter-spacing="1">KEBIJAKAN SERING GAGAL KARENA MENYERANG SYSTEM 2, PADAHAL AUDIENS DI SYSTEM 1</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        System 1 adalah mode default kita. Kebijakan yang hanya menyasar System 2 (poster, ceramah) sering gagal karena tidak menyentuh mode dominan manusia.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 400"&gt;
+  &lt;!-- Dua kartu --&gt;
+  &lt;!-- Kiri: System 1 dengan ikon kelinci kuning --&gt;
+  &lt;!-- Kanan: System 2 dengan ikon kura-kura cyan --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 03. Gajah & Penunggang -->
+    <div class="ill-card" id="ill-03">
+      <div class="ill-header">
+        <div class="ill-title">Gajah &amp; Penunggang — Metafora Haidt</div>
+        <div class="ill-ref">Bab 1 · Jonathan Haidt</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="groundShadow" cx="50%" cy="50%">
+              <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="eleBody" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#94a3b8"/>
+              <stop offset="100%" stop-color="#475569"/>
+            </linearGradient>
+            <linearGradient id="riderBody" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#22d3ee"/>
+              <stop offset="100%" stop-color="#3b82f6"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Ground shadow -->
+          <ellipse cx="350" cy="345" rx="220" ry="20" fill="url(#groundShadow)"/>
+          <ellipse cx="350" cy="345" rx="180" ry="10" fill="rgba(0,0,0,0.4)"/>
+
+          <!-- Elephant -->
+          <ellipse cx="330" cy="265" rx="150" ry="80" fill="url(#eleBody)"/>
+          <ellipse cx="200" cy="235" rx="70" ry="65" fill="url(#eleBody)"/>
+          <path d="M 140 255 Q 90 285 95 345 Q 100 370 120 365 Q 130 360 125 345 Q 118 305 155 285" fill="url(#eleBody)"/>
+          <ellipse cx="215" cy="220" rx="35" ry="50" fill="#64748b" opacity="0.8" transform="rotate(-15 215 220)"/>
+          <circle cx="175" cy="220" r="6" fill="#0a0e1a"/>
+          <circle cx="177" cy="218" r="2" fill="#fff"/>
+          <path d="M 155 260 Q 145 280 160 290" stroke="#f1f5f9" stroke-width="5" stroke-linecap="round" fill="none"/>
+          <ellipse cx="250" cy="335" rx="22" ry="28" fill="url(#eleBody)"/>
+          <ellipse cx="320" cy="345" rx="22" ry="28" fill="url(#eleBody)"/>
+          <ellipse cx="390" cy="340" rx="22" ry="28" fill="url(#eleBody)"/>
+          <ellipse cx="450" cy="330" rx="22" ry="28" fill="url(#eleBody)"/>
+          <path d="M 475 245 Q 510 255 505 290 Q 500 300 495 295" stroke="#64748b" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+          <!-- Rider -->
+          <ellipse cx="305" cy="205" rx="35" ry="10" fill="#a855f7" opacity="0.7"/>
+          <ellipse cx="305" cy="190" rx="18" ry="22" fill="url(#riderBody)"/>
+          <circle cx="305" cy="160" r="16" fill="url(#riderBody)"/>
+          <circle cx="302" cy="158" r="2" fill="#0a0e1a"/>
+          <circle cx="310" cy="158" r="2" fill="#0a0e1a"/>
+          <path d="M 315 185 Q 340 180 350 170" stroke="url(#riderBody)" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <rect x="348" y="153" width="24" height="18" rx="2" fill="#fbbf24" opacity="0.9"/>
+          <line x1="352" y1="159" x2="368" y2="159" stroke="#0a0e1a" stroke-width="1"/>
+          <line x1="352" y1="163" x2="368" y2="163" stroke="#0a0e1a" stroke-width="1"/>
+          <ellipse cx="295" cy="210" rx="8" ry="4" fill="url(#riderBody)"/>
+          <ellipse cx="315" cy="210" rx="8" ry="4" fill="url(#riderBody)"/>
+
+          <!-- Labels -->
+          <text x="330" y="65" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="14" font-weight="900" letter-spacing="1">SYSTEM 1 · GAJAH</text>
+          <text x="330" y="84" text-anchor="middle" fill="#94a3b8" font-size="11">Emosional · Instingtif · Besar</text>
+          <text x="520" y="160" text-anchor="end" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="14" font-weight="900" letter-spacing="1">PENUNGGANG · SYSTEM 2</text>
+          <text x="520" y="178" text-anchor="end" fill="#94a3b8" font-size="11">Logis · Memegang peta · Kecil</text>
+
+          <text x="350" y="390" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" letter-spacing="1">GAJAH YANG LARI = PENUNGGANG TERSERET</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Ketika Gajah melihat sesuatu yang memicu emosi, Penunggang kalah tenaga. Inilah mengapa kita sering gagal diet — bukan karena tidak punya rencana.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 700 400"&gt;
+  &lt;!-- Gajah besar abu-abu --&gt;
+  &lt;!-- Penunggang kecil di atas dengan peta --&gt;
+  &lt;!-- Label: System 1 (Gajah), System 2 (Penunggang) --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 04. Ilusi Müller-Lyer -->
+    <div class="ill-card" id="ill-04">
+      <div class="ill-header">
+        <div class="ill-title">Ilusi Müller-Lyer — Analogi Bias</div>
+        <div class="ill-ref">Bab 1</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg">
+          <!-- Version A -->
+          <g transform="translate(80, 60)">
+            <line x1="0" y1="40" x2="220" y2="40" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+            <line x1="0" y1="40" x2="-30" y2="10" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+            <line x1="0" y1="40" x2="-30" y2="70" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+            <line x1="220" y1="40" x2="250" y2="10" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+            <line x1="220" y1="40" x2="250" y2="70" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+            <text x="110" y="120" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="13" font-weight="800">GARIS A</text>
+            <text x="110" y="145" text-anchor="middle" fill="#94a3b8" font-size="11">Terlihat lebih panjang</text>
+          </g>
+
+          <!-- Version B -->
+          <g transform="translate(400, 60)">
+            <line x1="0" y1="40" x2="220" y2="40" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+            <line x1="0" y1="40" x2="30" y2="10" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+            <line x1="0" y1="40" x2="30" y2="70" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+            <line x1="220" y1="40" x2="190" y2="10" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+            <line x1="220" y1="40" x2="190" y2="70" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+            <text x="110" y="120" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="13" font-weight="800">GARIS B</text>
+            <text x="110" y="145" text-anchor="middle" fill="#94a3b8" font-size="11">Terlihat lebih pendek</text>
+          </g>
+
+          <text x="360" y="220" text-anchor="middle" fill="#fbbf24" font-size="12" font-style="italic">Kedua garis SAMA PANJANG. Tapi mata tidak bisa mempercayainya.</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Bias kognitif bekerja seperti ilusi optik. Kita tidak bisa mematikannya hanya dengan mengetahui bahwa ia ada.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 240"&gt;
+  &lt;!-- Dua garis dengan panah keluar (A) dan masuk (B) --&gt;
+  &lt;!-- Keduanya sama panjang, tapi persepsi berbeda --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 05. Spektrum Wendel -->
+    <div class="ill-card" id="ill-05">
+      <div class="ill-header">
+        <div class="ill-title">Spektrum Pengambilan Keputusan Wendel</div>
+        <div class="ill-ref">Bab 1 · Stephen Wendel</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="spekLine" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#34d399"/>
+              <stop offset="25%" stop-color="#22d3ee"/>
+              <stop offset="50%" stop-color="#38bdf8"/>
+              <stop offset="75%" stop-color="#a78bfa"/>
+              <stop offset="100%" stop-color="#f472b6"/>
+            </linearGradient>
+          </defs>
+
+          <text x="450" y="30" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">SPEKTRUM KEPUTUSAN</text>
+
+          <line x1="40" y1="130" x2="860" y2="130" stroke="url(#spekLine)" stroke-width="4" stroke-linecap="round"/>
+
+          <!-- 5 nodes -->
+          <g>
+            <circle cx="100" cy="130" r="12" fill="#34d399" stroke="#0a0e1a" stroke-width="3"/>
+            <text x="100" y="165" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">HABITS</text>
+            <text x="100" y="185" text-anchor="middle" fill="#94a3b8" font-size="10">Otomatis</text>
+            <text x="100" y="200" text-anchor="middle" fill="#94a3b8" font-size="10">Tak sadar</text>
+
+            <circle cx="270" cy="130" r="12" fill="#22d3ee" stroke="#0a0e1a" stroke-width="3"/>
+            <text x="270" y="165" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">INTUISI</text>
+            <text x="270" y="185" text-anchor="middle" fill="#94a3b8" font-size="10">Respon cepat</text>
+            <text x="270" y="200" text-anchor="middle" fill="#94a3b8" font-size="10">Emosional</text>
+
+            <circle cx="440" cy="130" r="12" fill="#38bdf8" stroke="#0a0e1a" stroke-width="3"/>
+            <text x="440" y="165" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">KONSEP DIRI</text>
+            <text x="440" y="185" text-anchor="middle" fill="#94a3b8" font-size="10">"Cocok</text>
+            <text x="440" y="200" text-anchor="middle" fill="#94a3b8" font-size="10">dengan saya?"</text>
+
+            <circle cx="610" cy="130" r="12" fill="#a78bfa" stroke="#0a0e1a" stroke-width="3"/>
+            <text x="610" y="165" text-anchor="middle" fill="#a78bfa" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">HEURISTIK</text>
+            <text x="610" y="185" text-anchor="middle" fill="#94a3b8" font-size="10">Jalan pintas</text>
+            <text x="610" y="200" text-anchor="middle" fill="#94a3b8" font-size="10">mental</text>
+
+            <circle cx="780" cy="130" r="12" fill="#f472b6" stroke="#0a0e1a" stroke-width="3"/>
+            <text x="780" y="165" text-anchor="middle" fill="#f472b6" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">KALKULASI</text>
+            <text x="780" y="185" text-anchor="middle" fill="#94a3b8" font-size="10">Cost-benefit</text>
+            <text x="780" y="200" text-anchor="middle" fill="#94a3b8" font-size="10">sadar</text>
+          </g>
+
+          <text x="60" y="245" fill="#34d399" font-size="11" font-weight="700" font-family="JetBrains Mono, monospace">⚡ OTOMATIS</text>
+          <text x="840" y="245" fill="#f472b6" font-size="11" font-weight="700" font-family="JetBrains Mono, monospace" text-anchor="end">🧠 BERPIKIR</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Tantangan desainer: memindahkan perilaku sulit dari zona "Mikir Keras" (kanan) ke zona "Kebiasaan" (kiri).
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 900 260"&gt;
+  &lt;!-- Garis gradient horizontal --&gt;
+  &lt;!-- 5 titik: Habits, Intuisi, Konsep Diri, Heuristik, Kalkulasi --&gt;
+  &lt;!-- Label kutub: Otomatis (kiri) vs Berpikir (kanan) --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 06. Intention-Action Gap -->
+    <div class="ill-card" id="ill-06">
+      <div class="ill-header">
+        <div class="ill-title">Celah Niat-Tindakan (Intention-Action Gap)</div>
+        <div class="ill-ref">Bab 1</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+          <!-- Left: Intention -->
+          <g transform="translate(60, 60)">
+            <text x="100" y="0" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">MALAM HARI</text>
+            <rect x="20" y="20" width="160" height="90" rx="14" fill="rgba(34,211,238,0.1)" stroke="#22d3ee" stroke-width="1.5"/>
+            <text x="100" y="55" text-anchor="middle" fill="#22d3ee" font-family="Georgia, serif" font-size="14" font-weight="700">"Besok pagi</text>
+            <text x="100" y="75" text-anchor="middle" fill="#22d3ee" font-family="Georgia, serif" font-size="14" font-weight="700">saya lari pagi!"</text>
+            <text x="100" y="98" text-anchor="middle" fill="#94a3b8" font-size="11" font-style="italic">Niat = 100%</text>
+            <text x="100" y="140" text-anchor="middle" fill="#22d3ee" font-size="11" font-weight="700">SYSTEM 2 · COLD STATE</text>
+            <text x="100" y="160" text-anchor="middle" fill="#64748b" font-size="10">Rasional, tenang</text>
+          </g>
+
+          <!-- Gap visual -->
+          <g transform="translate(280, 60)">
+            <path d="M 30 60 Q 80 10 130 60 Q 180 110 80 110 Q 20 110 30 60" fill="rgba(248,113,113,0.15)" stroke="#f87171" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <text x="80" y="70" text-anchor="middle" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">CELAH</text>
+            <text x="80" y="90" text-anchor="middle" fill="#94a3b8" font-size="10">Niat ≠ Tindakan</text>
+            <text x="80" y="140" text-anchor="middle" fill="#f87171" font-size="22">⚡</text>
+          </g>
+
+          <!-- Right: Action (or lack of it) -->
+          <g transform="translate(500, 60)">
+            <text x="100" y="0" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">PAGI HARI</text>
+            <rect x="20" y="20" width="160" height="90" rx="14" fill="rgba(248,113,113,0.1)" stroke="#f87171" stroke-width="1.5"/>
+            <text x="100" y="55" text-anchor="middle" fill="#f87171" font-family="Georgia, serif" font-size="14" font-weight="700">*snooze*</text>
+            <text x="100" y="75" text-anchor="middle" fill="#f87171" font-family="Georgia, serif" font-size="14" font-weight="700">*tidur lagi*</text>
+            <text x="100" y="98" text-anchor="middle" fill="#94a3b8" font-size="11" font-style="italic">Niat kalah oleh kenyamanan</text>
+            <text x="100" y="140" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">SYSTEM 1 · HOT STATE</text>
+            <text x="100" y="160" text-anchor="middle" fill="#64748b" font-size="10">Godaan menang</text>
+          </g>
+
+          <text x="360" y="260" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">SOLUSINYA: ARSITEKTUR PILIHAN YANG MEMBANTU SYSTEM 1</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Niat (System 2) sering kalah oleh kenyamanan saat ini (System 1). Tugas Arsitek Pilihan adalah mendesain lingkungan agar System 1 sejalan dengan tujuan jangka panjang.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 300"&gt;
+  &lt;!-- 3 bagian: Niat malam, Celah, Tindakan pagi --&gt;
+  &lt;!-- Gap ditandai dengan bentuk awan merah --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 07. Iceberg Perilaku -->
+    <div class="ill-card" id="ill-07">
+      <div class="ill-header">
+        <div class="ill-title">Iceberg Perilaku — Yang Terlihat vs Yang Tersembunyi</div>
+        <div class="ill-ref">Pelengkap Bab 1</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="iceTop" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#e0f2fe"/>
+              <stop offset="100%" stop-color="#bae6fd"/>
+            </linearGradient>
+            <linearGradient id="iceBottom" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#0369a1" stop-opacity="0.7"/>
+            </linearGradient>
+            <linearGradient id="waterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#0c4a6e" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#0c4a6e" stop-opacity="0.75"/>
+            </linearGradient>
+          </defs>
+
+          <rect width="800" height="200" fill="rgba(15,23,42,0.4)"/>
+          <rect y="200" width="800" height="280" fill="url(#waterGrad)"/>
+          <path d="M 0 200 Q 100 195 200 200 T 400 200 T 600 200 T 800 200" stroke="#22d3ee" stroke-opacity="0.7" stroke-width="2" fill="none"/>
+
+          <!-- Visible ice -->
+          <polygon points="400,60 350,200 450,200" fill="url(#iceTop)" stroke="#bae6fd" stroke-width="1.5"/>
+          <polygon points="400,60 380,200 420,200" fill="#f0f9ff" opacity="0.5"/>
+
+          <!-- Hidden ice -->
+          <polygon points="350,200 450,200 600,400 250,420 200,300" fill="url(#iceBottom)" stroke="#0ea5e9" stroke-width="1.5" opacity="0.9"/>
+          <path d="M 380 220 L 350 280 M 420 220 L 460 320 M 400 220 L 400 350" stroke="#7dd3fc" stroke-opacity="0.5" stroke-width="1"/>
+
+          <!-- Labels -->
+          <text x="640" y="90" fill="#e0f2fe" font-weight="700" font-family="Inter, sans-serif" font-size="16">YANG TERLIHAT</text>
+          <text x="640" y="115" fill="#94a3b8" font-size="12">Keputusan &amp; Perilaku</text>
+
+          <text x="640" y="285" fill="#38bdf8" font-weight="700" font-family="Inter, sans-serif" font-size="16">YANG TIDAK TERLIHAT</text>
+          <text x="640" y="308" fill="#94a3b8" font-size="12">System 1 · Bias · Heuristik</text>
+          <text x="640" y="326" fill="#94a3b8" font-size="12">Emosi · Norma Sosial · Konteks</text>
+          <text x="640" y="344" fill="#94a3b8" font-size="12">Kebiasaan · Priming · Asosiasi</text>
+
+          <path d="M 630 95 Q 550 95 500 140" stroke="#e0f2fe" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
+          <circle cx="495" cy="145" r="3" fill="#e0f2fe"/>
+
+          <path d="M 630 285 Q 550 285 500 320" stroke="#38bdf8" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
+          <circle cx="495" cy="322" r="3" fill="#38bdf8"/>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Sebagian besar penjelasan perilaku manusia ada di bawah permukaan. Intervensi efektif menyasar yang tidak terlihat.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 800 480"&gt;
+  &lt;!-- Gunung es dengan bagian atas (visible) dan bawah (hidden) --&gt;
+  &lt;!-- Label: yang terlihat = perilaku, yang tersembunyi = System 1, bias --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- B · ARSITEK PILIHAN & TOOLKIT               -->
+  <!-- ============================================ -->
+  <div class="section" id="section-b">
+    <div class="section-label">B · Arsitek Pilihan &amp; Toolkit</div>
+    <h2 class="section-title">Alat untuk Mengubah Perilaku</h2>
+
+    <!-- 08. Spektrum Intervensi -->
+    <div class="ill-card" id="ill-08">
+      <div class="ill-header">
+        <div class="ill-title">Spektrum Intervensi Perubahan Perilaku</div>
+        <div class="ill-ref">Bab 3 · Thaler &amp; Sunstein</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="spekGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#34d399"/>
+              <stop offset="33%" stop-color="#22d3ee"/>
+              <stop offset="66%" stop-color="#fbbf24"/>
+              <stop offset="100%" stop-color="#f87171"/>
+            </linearGradient>
+          </defs>
+
+          <line x1="50" y1="100" x2="750" y2="100" stroke="#475569" stroke-width="2"/>
+          <polygon points="750,100 738,94 738,106" fill="#475569"/>
+          <text x="400" y="55" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">KEBEBASAN TINGGI → KEBEBASAN RENDAH</text>
+
+          <rect x="50" y="130" width="700" height="6" rx="3" fill="url(#spekGrad)" opacity="0.6"/>
+
+          <circle cx="120" cy="133" r="8" fill="#34d399"/>
+          <text x="120" y="180" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="13" font-weight="800">EDUKASI</text>
+          <text x="120" y="200" text-anchor="middle" fill="#94a3b8" font-size="11">"Merokok berbahaya"</text>
+          <text x="120" y="220" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">Sering diabaikan</text>
+
+          <rect x="235" y="105" width="130" height="100" rx="14" fill="rgba(34,211,238,0.12)" stroke="#22d3ee" stroke-width="2"/>
+          <circle cx="300" cy="133" r="10" fill="#22d3ee" stroke="#fff" stroke-width="2"/>
+          <text x="300" y="185" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="14" font-weight="900">NUDGE</text>
+          <text x="300" y="205" text-anchor="middle" fill="#e8eef7" font-size="11">Gambar seram di bungkus</text>
+          <text x="300" y="223" text-anchor="middle" fill="#22d3ee" font-size="10" font-weight="700">SWEET SPOT</text>
+
+          <circle cx="500" cy="133" r="8" fill="#fbbf24"/>
+          <text x="500" y="180" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="13" font-weight="800">INSENTIF</text>
+          <text x="500" y="200" text-anchor="middle" fill="#94a3b8" font-size="11">Cukai rokok naik</text>
+          <text x="500" y="220" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">Insentif ekonomi</text>
+
+          <circle cx="680" cy="133" r="8" fill="#f87171"/>
+          <text x="680" y="180" text-anchor="middle" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="13" font-weight="800">MANDAT</text>
+          <text x="680" y="200" text-anchor="middle" fill="#94a3b8" font-size="11">Larangan + denda</text>
+          <text x="680" y="220" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">Kuat · Mahal</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Nudge ada di tengah — meminjam efektivitas dari kanan, tapi tetap menjaga kebebasan seperti di kiri.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 800 280"&gt;
+  &lt;!-- Garis horizontal gradient --&gt;
+  &lt;!-- 4 titik: Edukasi, Nudge (highlighted), Insentif, Mandat --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 09. GPS Libertarian Paternalism -->
+    <div class="ill-card" id="ill-09">
+      <div class="ill-header">
+        <div class="ill-title">GPS &amp; Libertarian Paternalism</div>
+        <div class="ill-ref">Bab 3 · Thaler &amp; Sunstein</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+          <!-- Road -->
+          <g transform="translate(0, 60)">
+            <rect x="40" y="120" width="640" height="70" fill="rgba(52,65,90,0.4)" stroke="#475569" stroke-width="1"/>
+            <line x1="40" y1="155" x2="680" y2="155" stroke="#fbbf24" stroke-width="2" stroke-dasharray="20 15" opacity="0.7"/>
+          </g>
+
+          <!-- Car -->
+          <g transform="translate(180, 120)">
+            <rect x="0" y="15" width="80" height="40" rx="10" fill="rgba(34,211,238,0.3)" stroke="#22d3ee" stroke-width="1.5"/>
+            <rect x="15" y="5" width="50" height="20" rx="6" fill="rgba(34,211,238,0.15)" stroke="#22d3ee" stroke-width="1"/>
+            <circle cx="20" cy="60" r="8" fill="#1a2332" stroke="#22d3ee" stroke-width="1.5"/>
+            <circle cx="60" cy="60" r="8" fill="#1a2332" stroke="#22d3ee" stroke-width="1.5"/>
+          </g>
+
+          <!-- Speech bubble - GPS suggestion -->
+          <g transform="translate(280, 40)">
+            <path d="M 20 20 Q 20 0 40 0 L 180 0 Q 200 0 200 20 L 200 70 Q 200 90 180 90 L 60 90 L 40 110 L 40 90 L 40 90 Q 20 90 20 70 Z" fill="rgba(34,211,238,0.15)" stroke="#22d3ee" stroke-width="1.5"/>
+            <text x="110" y="35" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800" letter-spacing="1">GPS MENYARANKAN</text>
+            <text x="110" y="58" text-anchor="middle" fill="#e8eef7" font-size="12">"Belok kanan di depan"</text>
+            <text x="110" y="78" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">Paternalism — peduli tujuan Anda</text>
+          </g>
+
+          <!-- Arrow showing car going wrong way -->
+          <path d="M 260 145 Q 340 200 420 200" stroke="#f87171" stroke-width="2" fill="none" stroke-dasharray="6 4"/>
+          <polygon points="420,200 408,194 410,206" fill="#f87171"/>
+          <text x="350" y="240" fill="#f87171" font-size="11" font-style="italic">Sopir bandel belok kiri</text>
+
+          <!-- Bottom note -->
+          <text x="360" y="300" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800" letter-spacing="1">GPS BILANG "RECALCULATING..." — TIDAK MENGUNCI SETIR</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Nudge seperti GPS: menyarankan rute terbaik (paternalism), tapi tidak pernah merebut kemudi (libertarian).
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 320"&gt;
+  &lt;!-- Jalan horizontal --&gt;
+  &lt;!-- Mobil dan speech bubble GPS --&gt;
+  &lt;!-- Panah menunjukkan sopir belok kiri (bandel) --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 10. Donor Organ -->
+    <div class="ill-card" id="ill-10">
+      <div class="ill-header">
+        <div class="ill-title">Donor Organ — Opt-in vs Opt-out</div>
+        <div class="ill-ref">Bab 3 · Johnson &amp; Goldstein (2003)</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 700 340" xmlns="http://www.w3.org/2000/svg">
+          <text x="350" y="28" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">PARTISIPASI DONOR ORGAN</text>
+
+          <!-- Germany -->
+          <g transform="translate(60, 70)">
+            <text x="0" y="0" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800">JERMAN</text>
+            <text x="0" y="20" fill="#94a3b8" font-size="11" font-style="italic">Opt-in · "Centang jika mau"</text>
+
+            <rect x="0" y="35" width="500" height="50" rx="6" fill="rgba(248,113,113,0.1)" stroke="#f87171" stroke-width="1"/>
+            <rect x="0" y="35" width="60" height="50" rx="6" fill="#f87171"/>
+            <text x="30" y="65" text-anchor="middle" fill="#fff" font-size="14" font-weight="900">12%</text>
+            <text x="510" y="65" fill="#f87171" font-size="14" font-weight="800">12%</text>
+
+            <rect x="80" y="48" width="22" height="22" rx="3" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+            <text x="115" y="65" fill="#94a3b8" font-size="11">Orang malas centang → tidak jadi donor</text>
+          </g>
+
+          <!-- Austria -->
+          <g transform="translate(60, 200)">
+            <text x="0" y="0" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800">AUSTRIA</text>
+            <text x="0" y="20" fill="#94a3b8" font-size="11" font-style="italic">Opt-out · "Centang jika TIDAK mau"</text>
+
+            <rect x="0" y="35" width="500" height="50" rx="6" fill="rgba(52,211,153,0.1)" stroke="#34d399" stroke-width="1"/>
+            <rect x="0" y="35" width="495" height="50" rx="6" fill="#34d399"/>
+            <text x="30" y="65" fill="#0a0e1a" font-size="14" font-weight="900">99%</text>
+            <text x="510" y="65" fill="#34d399" font-size="14" font-weight="800">99%</text>
+
+            <rect x="80" y="48" width="22" height="22" rx="3" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+            <text x="115" y="65" fill="#94a3b8" font-size="11">Orang malas centang → tetap jadi donor</text>
+          </g>
+
+          <text x="350" y="325" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">→ HANYA MENGUBAH POSISI KOTAK CENTANG</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Contoh paling kuat dari kekuatan Default. Mengubah posisi kotak centang menyelamatkan ribuan nyawa.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 700 340"&gt;
+  &lt;!-- Bar comparison: Jerman 12% (merah) vs Austria 99% (hijau) --&gt;
+  &lt;!-- Ikon kotak centang menjelaskan opt-in vs opt-out --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 11. EAST -->
+    <div class="ill-card" id="ill-11">
+      <div class="ill-header">
+        <div class="ill-title">EAST Framework — 4 Kuadran</div>
+        <div class="ill-ref">Bab 4 · BIT (2014)</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 250 250 L 250 30 A 220 220 0 0 0 30 250 Z" fill="rgba(52,211,153,0.12)" stroke="#34d399" stroke-width="1.5"/>
+          <text x="140" y="120" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="28" font-weight="900">E</text>
+          <text x="140" y="150" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" letter-spacing="2">EASY</text>
+          <text x="140" y="178" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">Make it easy</text>
+          <text x="140" y="198" text-anchor="middle" fill="#64748b" font-size="9">Default · Simplify</text>
+
+          <path d="M 250 250 L 250 30 A 220 220 0 0 1 470 250 Z" fill="rgba(251,191,36,0.12)" stroke="#fbbf24" stroke-width="1.5"/>
+          <text x="360" y="120" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="28" font-weight="900">A</text>
+          <text x="360" y="150" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" letter-spacing="2">ATTRACTIVE</text>
+          <text x="360" y="178" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">Make it attractive</text>
+          <text x="360" y="198" text-anchor="middle" fill="#64748b" font-size="9">Salience · Incentive</text>
+
+          <path d="M 250 250 L 30 250 A 220 220 0 0 0 250 470 Z" fill="rgba(34,211,238,0.12)" stroke="#22d3ee" stroke-width="1.5"/>
+          <text x="140" y="330" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="28" font-weight="900">S</text>
+          <text x="140" y="360" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" letter-spacing="2">SOCIAL</text>
+          <text x="140" y="388" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">Make it social</text>
+          <text x="140" y="408" text-anchor="middle" fill="#64748b" font-size="9">Norms · Commitment</text>
+
+          <path d="M 250 250 L 470 250 A 220 220 0 0 1 250 470 Z" fill="rgba(244,114,182,0.12)" stroke="#f472b6" stroke-width="1.5"/>
+          <text x="360" y="330" text-anchor="middle" fill="#f472b6" font-family="JetBrains Mono, monospace" font-size="28" font-weight="900">T</text>
+          <text x="360" y="360" text-anchor="middle" fill="#f472b6" font-family="JetBrains Mono, monospace" font-size="14" font-weight="800" letter-spacing="2">TIMELY</text>
+          <text x="360" y="388" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">Make it timely</text>
+          <text x="360" y="408" text-anchor="middle" fill="#64748b" font-size="9">Fresh start · Prompt</text>
+
+          <line x1="250" y1="30" x2="250" y2="470" stroke="#475569" stroke-width="1" opacity="0.5"/>
+          <line x1="30" y1="250" x2="470" y2="250" stroke="#475569" stroke-width="1" opacity="0.5"/>
+
+          <circle cx="250" cy="250" r="36" fill="#0a0e1a" stroke="#fff" stroke-width="1.5"/>
+          <text x="250" y="256" text-anchor="middle" fill="#fff" font-family="JetBrains Mono, monospace" font-size="13" font-weight="900">EAST</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Swiss Army Knife-nya Behavioral Insights. Ringkas, tajam, dan bisa dipakai di mana saja.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 500 500"&gt;
+  &lt;!-- 4 kuadran pie chart --&gt;
+  &lt;!-- Easy (hijau), Attractive (gold), Social (cyan), Timely (pink) --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 12. MINDSPACE -->
+    <div class="ill-card" id="ill-12">
+      <div class="ill-header">
+        <div class="ill-title">MINDSPACE — 9 Pengungkit Perilaku</div>
+        <div class="ill-ref">Bab 4 · Dolan et al.</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg">
+          <!-- Row 1 -->
+          <g transform="translate(20, 20)">
+            <rect width="220" height="100" rx="14" fill="rgba(34,211,238,0.1)" stroke="#22d3ee" stroke-width="1.5"/>
+            <text x="24" y="42" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="30" font-weight="900">M</text>
+            <text x="58" y="42" fill="#e8eef7" font-size="13" font-weight="700">Messenger</text>
+            <text x="24" y="65" fill="#94a3b8" font-size="11">Siapa yang menyampaikan</text>
+            <text x="24" y="83" fill="#64748b" font-size="10" font-style="italic">Ustadz, kader, atasan</text>
+          </g>
+
+          <g transform="translate(250, 20)">
+            <rect width="220" height="100" rx="14" fill="rgba(251,191,36,0.1)" stroke="#fbbf24" stroke-width="1.5"/>
+            <text x="24" y="42" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="30" font-weight="900">I</text>
+            <text x="58" y="42" fill="#e8eef7" font-size="13" font-weight="700">Incentives</text>
+            <text x="24" y="65" fill="#94a3b8" font-size="11">Insentif &amp; disinsentif</text>
+            <text x="24" y="83" fill="#64748b" font-size="10" font-style="italic">Uang, sosial, moral</text>
+          </g>
+
+          <g transform="translate(480, 20)">
+            <rect width="220" height="100" rx="14" fill="rgba(52,211,153,0.1)" stroke="#34d399" stroke-width="1.5"/>
+            <text x="24" y="42" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="30" font-weight="900">N</text>
+            <text x="58" y="42" fill="#e8eef7" font-size="13" font-weight="700">Norms</text>
+            <text x="24" y="65" fill="#94a3b8" font-size="11">Norma sosial</text>
+            <text x="24" y="83" fill="#64748b" font-size="10" font-style="italic">"Orang lain juga"</text>
+          </g>
+
+          <g transform="translate(20, 135)">
+            <rect width="220" height="100" rx="14" fill="rgba(244,114,182,0.1)" stroke="#f472b6" stroke-width="1.5"/>
+            <text x="24" y="42" fill="#f472b6" font-family="JetBrains Mono, monospace" font-size="30" font-weight="900">D</text>
+            <text x="58" y="42" fill="#e8eef7" font-size="13" font-weight="700">Defaults</text>
+            <text x="24" y="65" fill="#94a3b8" font-size="11">Pilihan standar</text>
+            <text x="24" y="83" fill="#64748b" font-size="10" font-style="italic">Opt-in vs Opt-out</text>
+          </g>
+
+          <g transform="translate(250, 135)">
+            <rect width="220" height="100" rx="14" fill="rgba(34,211,238,0.1)" stroke="#22d3ee" stroke-width="1.5"/>
+            <text x="24" y="42" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="30" font-weight="900">S</text>
+            <text x="58" y="42" fill="#e8eef7" font-size="13" font-weight="700">Salience</text>
+            <text x="24" y="65" fill="#94a3b8" font-size="11">Kemenonjolan</text>
+            <text x="24" y="83" fill="#64748b" font-size="10" font-style="italic">Warna, ukuran, kontras</text>
+          </g>
+
+          <g transform="translate(480, 135)">
+            <rect width="220" height="100" rx="14" fill="rgba(251,191,36,0.1)" stroke="#fbbf24" stroke-width="1.5"/>
+            <text x="24" y="42" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="30" font-weight="900">P</text>
+            <text x="58" y="42" fill="#e8eef7" font-size="13" font-weight="700">Priming</text>
+            <text x="24" y="65" fill="#94a3b8" font-size="11">Pemicu bawah sadar</text>
+            <text x="24" y="83" fill="#64748b" font-size="10" font-style="italic">Kata, gambar, konteks</text>
+          </g>
+
+          <g transform="translate(20, 250)">
+            <rect width="220" height="100" rx="14" fill="rgba(52,211,153,0.1)" stroke="#34d399" stroke-width="1.5"/>
+            <text x="24" y="42" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="30" font-weight="900">A</text>
+            <text x="58" y="42" fill="#e8eef7" font-size="13" font-weight="700">Affect</text>
+            <text x="24" y="65" fill="#94a3b8" font-size="11">Emosi</text>
+            <text x="24" y="83" fill="#64748b" font-size="10" font-style="italic">Suka, takut, sedih</text>
+          </g>
+
+          <g transform="translate(250, 250)">
+            <rect width="220" height="100" rx="14" fill="rgba(244,114,182,0.1)" stroke="#f472b6" stroke-width="1.5"/>
+            <text x="24" y="42" fill="#f472b6" font-family="JetBrains Mono, monospace" font-size="30" font-weight="900">C</text>
+            <text x="58" y="42" fill="#e8eef7" font-size="13" font-weight="700">Commitment</text>
+            <text x="24" y="65" fill="#94a3b8" font-size="11">Komitmen publik</text>
+            <text x="24" y="83" fill="#64748b" font-size="10" font-style="italic">Janji, konsistensi diri</text>
+          </g>
+
+          <g transform="translate(480, 250)">
+            <rect width="220" height="100" rx="14" fill="rgba(34,211,238,0.1)" stroke="#22d3ee" stroke-width="1.5"/>
+            <text x="24" y="42" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="30" font-weight="900">E</text>
+            <text x="58" y="42" fill="#e8eef7" font-size="13" font-weight="700">Ego</text>
+            <text x="24" y="65" fill="#94a3b8" font-size="11">Identitas diri</text>
+            <text x="24" y="83" fill="#64748b" font-size="10" font-style="italic">"Saya orang baik"</text>
+          </g>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Sembilan faktor yang mempengaruhi perilaku. Lebih lengkap dari EAST, cocok untuk analisis kebijakan yang kompleks.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;!-- 3x3 grid card layout --&gt;
+&lt;!-- M, I, N, D, S, P, A, C, E --&gt;</pre>
+    </div>
+
+    <!-- 13. COM-B -->
+    <div class="ill-card" id="ill-13">
+      <div class="ill-header">
+        <div class="ill-title">COM-B — Tiga Kondisi Wajib Perilaku</div>
+        <div class="ill-ref">Bab 4 · Michie et al.</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg">
+          <!-- Three conditions -->
+          <g transform="translate(20, 30)">
+            <rect width="180" height="100" rx="12" fill="rgba(52,211,153,0.12)" stroke="#34d399" stroke-width="1.5"/>
+            <text x="90" y="45" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="14" font-weight="900">CAPABILITY</text>
+            <text x="90" y="68" text-anchor="middle" fill="#94a3b8" font-size="11">Apakah orang BISA?</text>
+            <text x="90" y="88" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">Fisik · Psikologis</text>
+          </g>
+
+          <g transform="translate(20, 150)">
+            <rect width="180" height="100" rx="12" fill="rgba(34,211,238,0.12)" stroke="#22d3ee" stroke-width="1.5"/>
+            <text x="90" y="45" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="14" font-weight="900">OPPORTUNITY</text>
+            <text x="90" y="68" text-anchor="middle" fill="#94a3b8" font-size="11">Lingkungan MENDUKUNG?</text>
+            <text x="90" y="88" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">Sosial · Fisik</text>
+          </g>
+
+          <g transform="translate(20, 270)">
+            <rect width="180" height="100" rx="12" fill="rgba(251,191,36,0.12)" stroke="#fbbf24" stroke-width="1.5"/>
+            <text x="90" y="45" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="14" font-weight="900">MOTIVATION</text>
+            <text x="90" y="68" text-anchor="middle" fill="#94a3b8" font-size="11">Apakah orang MAU?</text>
+            <text x="90" y="88" text-anchor="middle" fill="#64748b" font-size="10" font-style="italic">Otomatis · Reflektif</text>
+          </g>
+
+          <!-- Converging arrows -->
+          <g stroke="#475569" stroke-width="2" fill="none">
+            <path d="M 210 80 Q 300 80 320 200"/>
+            <path d="M 210 200 L 320 200"/>
+            <path d="M 210 320 Q 300 320 320 200"/>
+          </g>
+          <polygon points="320,200 305,192 305,208" fill="#475569"/>
+
+          <!-- Target Behavior -->
+          <rect x="340" y="130" width="200" height="140" rx="20" fill="rgba(168,85,247,0.15)" stroke="#a855f7" stroke-width="2"/>
+          <text x="440" y="180" text-anchor="middle" fill="#a855f7" font-family="JetBrains Mono, monospace" font-size="16" font-weight="900">TARGET</text>
+          <text x="440" y="205" text-anchor="middle" fill="#a855f7" font-family="JetBrains Mono, monospace" font-size="16" font-weight="900">BEHAVIOR</text>
+          <text x="440" y="235" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">Jika ketiganya hadir</text>
+          <text x="440" y="252" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">sekaligus</text>
+
+          <!-- Formula on right -->
+          <text x="570" y="180" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="14" font-weight="900">C</text>
+          <text x="570" y="200" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="14" font-weight="900">+</text>
+          <text x="570" y="220" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="14" font-weight="900">O</text>
+          <text x="570" y="240" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="14" font-weight="900">+</text>
+          <text x="570" y="260" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="14" font-weight="900">M</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Kalau salah satu lemah, perilaku tidak akan terjadi — sekalipun yang lain kuat. Diagnosis ini yang menentukan intervensi.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 700 400"&gt;
+  &lt;!-- 3 kondisi kiri, arrow konvergen ke Target Behavior kanan --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 14. BCW Wheel -->
+    <div class="ill-card" id="ill-14">
+      <div class="ill-header">
+        <div class="ill-title">Behaviour Change Wheel — 3 Lapisan</div>
+        <div class="ill-ref">Bab 4 · Michie et al. (2011)</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="bwcHalo">
+              <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <circle cx="300" cy="300" r="280" fill="url(#bwcHalo)"/>
+
+          <!-- Outer ring: 7 policy categories -->
+          <circle cx="300" cy="300" r="270" fill="none" stroke="#fbbf24" stroke-width="1" stroke-dasharray="4 8" opacity="0.6"/>
+          <circle cx="300" cy="300" r="230" fill="none" stroke="#fbbf24" stroke-width="40" opacity="0.08"/>
+
+          <!-- Middle ring: 9 intervention functions -->
+          <circle cx="300" cy="300" r="170" fill="none" stroke="#22d3ee" stroke-width="50" opacity="0.08"/>
+          <circle cx="300" cy="300" r="170" fill="none" stroke="#22d3ee" stroke-width="1" stroke-dasharray="2 4" opacity="0.6"/>
+
+          <!-- Inner: COM-B -->
+          <circle cx="300" cy="300" r="110" fill="rgba(52,211,153,0.1)" stroke="#34d399" stroke-width="1.5"/>
+          <text x="300" y="295" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="12" font-weight="900" letter-spacing="1">COM-B</text>
+          <text x="300" y="315" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="0.5">Diagnosis</text>
+
+          <text x="300" y="190" text-anchor="middle" fill="#34d399" font-size="10" font-weight="700">CAP</text>
+          <text x="380" y="360" text-anchor="middle" fill="#34d399" font-size="10" font-weight="700">OPP</text>
+          <text x="220" y="360" text-anchor="middle" fill="#34d399" font-size="10" font-weight="700">MOT</text>
+
+          <!-- 9 intervention functions -->
+          <g font-family="Inter, sans-serif" font-size="9.5" font-weight="700" fill="#22d3ee">
+            <text x="300" y="85" text-anchor="middle">Education</text>
+            <text x="450" y="125" text-anchor="middle">Persuasion</text>
+            <text x="490" y="230" text-anchor="middle">Incentivisation</text>
+            <text x="460" y="360" text-anchor="middle">Coercion</text>
+            <text x="370" y="490" text-anchor="middle">Training</text>
+            <text x="230" y="490" text-anchor="middle">Restriction</text>
+            <text x="140" y="360" text-anchor="middle">Environment</text>
+            <text x="150" y="125" text-anchor="middle">Modeling</text>
+            <text x="115" y="230" text-anchor="middle">Enablement</text>
+          </g>
+
+          <!-- 7 policy categories -->
+          <g font-family="Inter, sans-serif" font-size="9" font-weight="600" fill="#fbbf24">
+            <text x="300" y="42" text-anchor="middle">Communication</text>
+            <text x="500" y="180" text-anchor="middle" transform="rotate(50 500 180)">Guidelines</text>
+            <text x="550" y="300" text-anchor="middle" transform="rotate(90 550 300)">Fiscal</text>
+            <text x="500" y="450" text-anchor="middle" transform="rotate(130 500 450)">Regulation</text>
+            <text x="300" y="565" text-anchor="middle">Legislation</text>
+            <text x="100" y="450" text-anchor="middle" transform="rotate(-130 100 450)">Planning</text>
+            <text x="60" y="280" text-anchor="middle" transform="rotate(-80 60 280)">Service</text>
+          </g>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Roda konsentris: diagnosis (COM-B) → 9 fungsi intervensi → 7 kategori kebijakan. Manual operasional sistematis.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 600 600"&gt;
+  &lt;!-- 3 cincin konsentris: COM-B, 9 interventions, 7 policies --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 15. CREATE Funnel -->
+    <div class="ill-card" id="ill-15">
+      <div class="ill-header">
+        <div class="ill-title">CREATE Action Funnel</div>
+        <div class="ill-ref">Bab 4 · Stephen Wendel</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="fg1" x1="0%" x2="100%"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#38bdf8"/></linearGradient>
+            <linearGradient id="fg2" x1="0%" x2="100%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
+            <linearGradient id="fg3" x1="0%" x2="100%"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#6366f1"/></linearGradient>
+            <linearGradient id="fg4" x1="0%" x2="100%"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#a855f7"/></linearGradient>
+            <linearGradient id="fg5" x1="0%" x2="100%"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#ec4899"/></linearGradient>
+            <linearGradient id="fg6" x1="0%" x2="100%"><stop offset="0%" stop-color="#ec4899"/><stop offset="100%" stop-color="#f472b6"/></linearGradient>
+          </defs>
+
+          <path d="M 40 40 L 460 40 L 440 100 L 60 100 Z" fill="url(#fg1)" opacity="0.85"/>
+          <text x="250" y="78" text-anchor="middle" fill="#0a0e1a" font-family="JetBrains Mono, monospace" font-size="16" font-weight="900" letter-spacing="2">CUE</text>
+
+          <path d="M 60 110 L 440 110 L 420 170 L 80 170 Z" fill="url(#fg2)" opacity="0.85"/>
+          <text x="250" y="148" text-anchor="middle" fill="#0a0e1a" font-family="JetBrains Mono, monospace" font-size="15" font-weight="900" letter-spacing="2">REACTION</text>
+
+          <path d="M 80 180 L 420 180 L 400 240 L 100 240 Z" fill="url(#fg3)" opacity="0.85"/>
+          <text x="250" y="218" text-anchor="middle" fill="#fff" font-family="JetBrains Mono, monospace" font-size="14" font-weight="900" letter-spacing="2">EVALUATION</text>
+
+          <path d="M 100 250 L 400 250 L 380 310 L 120 310 Z" fill="url(#fg4)" opacity="0.85"/>
+          <text x="250" y="288" text-anchor="middle" fill="#fff" font-family="JetBrains Mono, monospace" font-size="13" font-weight="900" letter-spacing="2">ABILITY</text>
+
+          <path d="M 120 320 L 380 320 L 360 380 L 140 380 Z" fill="url(#fg5)" opacity="0.85"/>
+          <text x="250" y="358" text-anchor="middle" fill="#fff" font-family="JetBrains Mono, monospace" font-size="12" font-weight="900" letter-spacing="2">TIMING</text>
+
+          <path d="M 140 390 L 360 390 L 330 450 L 170 450 Z" fill="url(#fg6)" opacity="0.85"/>
+          <text x="250" y="425" text-anchor="middle" fill="#fff" font-family="JetBrains Mono, monospace" font-size="11" font-weight="900" letter-spacing="1.5">EXPERIENCE</text>
+
+          <text x="250" y="485" text-anchor="middle" fill="#34d399" font-size="12" font-weight="700" font-family="JetBrains Mono, monospace" letter-spacing="1.5">↓ PERILAKU TERJADI ↓</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Setiap tahap adalah potensi kegagalan. Temukan di mana "kebocoran" terjadi sebelum intervensi diluncurkan.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 500 500"&gt;
+  &lt;!-- Funnel 6 lapis dari atas ke bawah --&gt;
+  &lt;!-- CUE, REACTION, EVALUATION, ABILITY, TIMING, EXPERIENCE --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 16. Fogg B=MAT -->
+    <div class="ill-card" id="ill-16">
+      <div class="ill-header">
+        <div class="ill-title">Fogg Behavior Model — B = MAT</div>
+        <div class="ill-ref">Bab 4 · BJ Fogg</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="foggCurve" x1="0%" x2="100%">
+              <stop offset="0%" stop-color="#22d3ee"/>
+              <stop offset="100%" stop-color="#a855f7"/>
+            </linearGradient>
+            <radialGradient id="foggSuccess" cx="50%" cy="50%">
+              <stop offset="0%" stop-color="#34d399" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#34d399" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="foggFail" cx="50%" cy="50%">
+              <stop offset="0%" stop-color="#f87171" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#f87171" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <line x1="60" y1="350" x2="560" y2="350" stroke="#475569" stroke-width="1.5"/>
+          <line x1="60" y1="350" x2="60" y2="50" stroke="#475569" stroke-width="1.5"/>
+
+          <text x="310" y="385" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700" letter-spacing="2">ABILITY → Mudah</text>
+          <text x="30" y="200" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700" letter-spacing="2" transform="rotate(-90 30 200)">MOTIVATION ↑</text>
+
+          <ellipse cx="180" cy="290" rx="130" ry="80" fill="url(#foggFail)"/>
+          <text x="180" y="295" text-anchor="middle" fill="#f87171" font-size="13" font-weight="700" font-family="JetBrains Mono, monospace">TRIGGER GAGAL</text>
+
+          <ellipse cx="430" cy="150" rx="140" ry="90" fill="url(#foggSuccess)"/>
+          <text x="430" y="155" text-anchor="middle" fill="#34d399" font-size="13" font-weight="700" font-family="JetBrains Mono, monospace">TRIGGER BERHASIL</text>
+
+          <path d="M 60 90 Q 200 200 350 280 Q 450 340 560 350" stroke="url(#foggCurve)" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+          <circle cx="150" cy="130" r="6" fill="#a855f7"/>
+          <circle cx="280" cy="205" r="6" fill="#a855f7"/>
+          <circle cx="420" cy="300" r="6" fill="#a855f7"/>
+          <circle cx="510" cy="330" r="6" fill="#a855f7"/>
+
+          <text x="200" y="110" fill="#a855f7" font-size="12" font-weight="700" font-family="JetBrains Mono, monospace" letter-spacing="1">ACTION LINE</text>
+
+          <circle cx="430" cy="130" r="15" fill="#34d399" opacity="0.3"/>
+          <circle cx="430" cy="130" r="8" fill="#34d399"/>
+          <circle cx="180" cy="280" r="15" fill="#f87171" opacity="0.3"/>
+          <circle cx="180" cy="280" r="8" fill="#f87171"/>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        B = MAT. Perilaku terjadi jika Motivation dan Ability cukup tinggi, atau Trigger datang tepat saat keduanya sudah siap.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 600 400"&gt;
+  &lt;!-- Grafik dengan kurva action line --&gt;
+  &lt;!-- Area trigger gagal (bawah-kiri) &amp; berhasil (atas-kanan) --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- C · MEKANIKA PIKIRAN                         -->
+  <!-- ============================================ -->
+  <div class="section" id="section-c">
+    <div class="section-label">C · Mekanika Pikiran</div>
+    <h2 class="section-title">Membongkar Isi Kepala</h2>
+
+    <!-- 17. Multidisiplinitas -->
+    <div class="ill-card" id="ill-17">
+      <div class="ill-header">
+        <div class="ill-title">Multidisiplinitas Behavioral Science</div>
+        <div class="ill-ref">Bab 2 · Gambar 2.1</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="pilarCenter">
+              <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <circle cx="350" cy="210" r="110" fill="url(#pilarCenter)"/>
+          <text x="350" y="205" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="13" font-weight="900" letter-spacing="2">BEHAVIORAL</text>
+          <text x="350" y="225" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="13" font-weight="900" letter-spacing="2">SCIENCE</text>
+
+          <g stroke="#22d3ee" stroke-opacity="0.3" stroke-width="1.5" stroke-dasharray="4 4">
+            <line x1="350" y1="210" x2="150" y2="80"/>
+            <line x1="350" y1="210" x2="550" y2="80"/>
+            <line x1="350" y1="210" x2="90" y2="220"/>
+            <line x1="350" y1="210" x2="610" y2="220"/>
+            <line x1="350" y1="210" x2="200" y2="370"/>
+            <line x1="350" y1="210" x2="500" y2="370"/>
+          </g>
+
+          <g font-family="Inter, sans-serif" font-size="12" font-weight="700">
+            <circle cx="150" cy="80" r="55" fill="rgba(34,211,238,0.15)" stroke="#22d3ee" stroke-width="1.5"/>
+            <text x="150" y="75" text-anchor="middle" fill="#22d3ee" font-size="11">Psikologi</text>
+            <text x="150" y="90" text-anchor="middle" fill="#22d3ee" font-size="11">Kognitif</text>
+
+            <circle cx="550" cy="80" r="55" fill="rgba(168,85,247,0.15)" stroke="#a855f7" stroke-width="1.5"/>
+            <text x="550" y="75" text-anchor="middle" fill="#a855f7" font-size="11">Neurosains</text>
+            <text x="550" y="90" text-anchor="middle" fill="#a855f7" font-size="9">(Hardware)</text>
+
+            <circle cx="90" cy="220" r="55" fill="rgba(52,211,153,0.15)" stroke="#34d399" stroke-width="1.5"/>
+            <text x="90" y="215" text-anchor="middle" fill="#34d399" font-size="11">Psikologi</text>
+            <text x="90" y="230" text-anchor="middle" fill="#34d399" font-size="11">Sosial</text>
+
+            <circle cx="610" cy="220" r="55" fill="rgba(251,191,36,0.15)" stroke="#fbbf24" stroke-width="1.5"/>
+            <text x="610" y="215" text-anchor="middle" fill="#fbbf24" font-size="11">Ekonomi</text>
+            <text x="610" y="230" text-anchor="middle" fill="#fbbf24" font-size="9">(Insentif)</text>
+
+            <circle cx="200" cy="370" r="55" fill="rgba(244,114,182,0.15)" stroke="#f472b6" stroke-width="1.5"/>
+            <text x="200" y="375" text-anchor="middle" fill="#f472b6" font-size="12">Sosiologi</text>
+
+            <circle cx="500" cy="370" r="55" fill="rgba(251,191,36,0.15)" stroke="#fbbf24" stroke-width="1.5"/>
+            <text x="500" y="375" text-anchor="middle" fill="#fbbf24" font-size="12">Antropologi</text>
+          </g>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Enam pilar keilmuan yang membentuk Behavioral Insights. Kekuatannya justru dari percampuran perspektif.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 700 420"&gt;
+  &lt;!-- Center: BEHAVIORAL SCIENCE --&gt;
+  &lt;!-- 6 pillars: Psikologi Kognitif, Neurosains, Psikologi Sosial,
+       Ekonomi, Sosiologi, Antropologi --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 18. Cognitive Bias Codex -->
+    <div class="ill-card" id="ill-18">
+      <div class="ill-header">
+        <div class="ill-title">Cognitive Bias Codex — 4 Masalah Utama Otak</div>
+        <div class="ill-ref">Bab 5 · Benson (2016)</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(20, 20)">
+            <rect width="320" height="170" rx="16" fill="rgba(34,211,238,0.08)" stroke="#22d3ee" stroke-width="1.5"/>
+            <text x="20" y="35" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800" letter-spacing="1">TOO MUCH INFO</text>
+            <text x="20" y="60" fill="#e8eef7" font-size="14" font-weight="700">Otak kewalahan → filter</text>
+            <text x="20" y="90" fill="#94a3b8" font-size="11">Contoh bias:</text>
+            <text x="20" y="112" fill="#e8eef7" font-size="11">· Confirmation Bias</text>
+            <text x="20" y="130" fill="#e8eef7" font-size="11">· Halo Effect</text>
+            <text x="20" y="148" fill="#e8eef7" font-size="11">· Bandwagon Effect</text>
+          </g>
+
+          <g transform="translate(370, 20)">
+            <rect width="320" height="170" rx="16" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1.5"/>
+            <text x="20" y="35" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800" letter-spacing="1">NOT ENOUGH MEANING</text>
+            <text x="20" y="60" fill="#e8eef7" font-size="14" font-weight="700">Otak mengarang pola</text>
+            <text x="20" y="90" fill="#94a3b8" font-size="11">Contoh bias:</text>
+            <text x="20" y="112" fill="#e8eef7" font-size="11">· Hindsight Bias</text>
+            <text x="20" y="130" fill="#e8eef7" font-size="11">· Overconfidence</text>
+            <text x="20" y="148" fill="#e8eef7" font-size="11">· Framing Effect</text>
+          </g>
+
+          <g transform="translate(20, 210)">
+            <rect width="320" height="170" rx="16" fill="rgba(244,114,182,0.08)" stroke="#f472b6" stroke-width="1.5"/>
+            <text x="20" y="35" fill="#f472b6" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800" letter-spacing="1">NEED TO ACT FAST</text>
+            <text x="20" y="60" fill="#e8eef7" font-size="14" font-weight="700">Otak ambil jalan pintas</text>
+            <text x="20" y="90" fill="#94a3b8" font-size="11">Contoh bias:</text>
+            <text x="20" y="112" fill="#e8eef7" font-size="11">· Sunk Cost Fallacy</text>
+            <text x="20" y="130" fill="#e8eef7" font-size="11">· Status Quo Bias</text>
+            <text x="20" y="148" fill="#e8eef7" font-size="11">· Self-Serving Bias</text>
+          </g>
+
+          <g transform="translate(370, 210)">
+            <rect width="320" height="170" rx="16" fill="rgba(52,211,153,0.08)" stroke="#34d399" stroke-width="1.5"/>
+            <text x="20" y="35" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800" letter-spacing="1">WHAT TO REMEMBER</text>
+            <text x="20" y="60" fill="#e8eef7" font-size="14" font-weight="700">Otak pilih-pilih memori</text>
+            <text x="20" y="90" fill="#94a3b8" font-size="11">Contoh bias:</text>
+            <text x="20" y="112" fill="#e8eef7" font-size="11">· Curse of Knowledge</text>
+            <text x="20" y="130" fill="#e8eef7" font-size="11">· Decoy Effect</text>
+            <text x="20" y="148" fill="#e8eef7" font-size="11">· In-Group Favoritism</text>
+          </g>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        180+ bias kognitif dikelompokkan menjadi 4 masalah utama yang dihadapi otak.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 400"&gt;
+  &lt;!-- 4 quadrant kategori bias --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 19. Bias vs Noise -->
+    <div class="ill-card" id="ill-19">
+      <div class="ill-header">
+        <div class="ill-title">Bias vs Noise — Target Panahan</div>
+        <div class="ill-ref">Bab 5 · Kahneman, Sibony &amp; Sunstein</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
+          <!-- ACCURATE -->
+          <g transform="translate(90, 30)">
+            <circle r="70" fill="#f87171" opacity="0.15"/>
+            <circle r="50" fill="#f87171" opacity="0.25"/>
+            <circle r="30" fill="#f87171" opacity="0.4"/>
+            <circle r="12" fill="#f87171"/>
+            <circle cx="0" cy="0" r="3" fill="#0a0e1a"/>
+            <circle cx="-5" cy="-5" r="3" fill="#0a0e1a"/>
+            <circle cx="5" cy="2" r="3" fill="#0a0e1a"/>
+            <circle cx="0" cy="5" r="3" fill="#0a0e1a"/>
+            <circle cx="-3" cy="2" r="3" fill="#0a0e1a"/>
+            <text x="0" y="110" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="13" font-weight="900">ACCURATE</text>
+          </g>
+
+          <!-- NOISY -->
+          <g transform="translate(270, 30)">
+            <circle r="70" fill="#f87171" opacity="0.15"/>
+            <circle r="50" fill="#f87171" opacity="0.25"/>
+            <circle r="30" fill="#f87171" opacity="0.4"/>
+            <circle r="12" fill="#f87171"/>
+            <circle cx="-55" cy="-40" r="3" fill="#0a0e1a"/>
+            <circle cx="50" cy="-30" r="3" fill="#0a0e1a"/>
+            <circle cx="-30" cy="55" r="3" fill="#0a0e1a"/>
+            <circle cx="55" cy="40" r="3" fill="#0a0e1a"/>
+            <circle cx="10" cy="2" r="3" fill="#0a0e1a"/>
+            <text x="0" y="110" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="13" font-weight="900">NOISY</text>
+          </g>
+
+          <!-- BIASED -->
+          <g transform="translate(450, 30)">
+            <circle r="70" fill="#f87171" opacity="0.15"/>
+            <circle r="50" fill="#f87171" opacity="0.25"/>
+            <circle r="30" fill="#f87171" opacity="0.4"/>
+            <circle r="12" fill="#f87171"/>
+            <circle cx="-50" cy="-45" r="3" fill="#0a0e1a"/>
+            <circle cx="-45" cy="-38" r="3" fill="#0a0e1a"/>
+            <circle cx="-55" cy="-32" r="3" fill="#0a0e1a"/>
+            <circle cx="-42" cy="-50" r="3" fill="#0a0e1a"/>
+            <circle cx="-48" cy="-42" r="3" fill="#0a0e1a"/>
+            <text x="0" y="110" text-anchor="middle" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="13" font-weight="900">BIASED</text>
+          </g>
+
+          <!-- BIASED & NOISY -->
+          <g transform="translate(630, 30)">
+            <circle r="70" fill="#f87171" opacity="0.15"/>
+            <circle r="50" fill="#f87171" opacity="0.25"/>
+            <circle r="30" fill="#f87171" opacity="0.4"/>
+            <circle r="12" fill="#f87171"/>
+            <circle cx="-55" cy="-45" r="3" fill="#0a0e1a"/>
+            <circle cx="60" cy="50" r="3" fill="#0a0e1a"/>
+            <circle cx="45" cy="-55" r="3" fill="#0a0e1a"/>
+            <circle cx="-60" cy="40" r="3" fill="#0a0e1a"/>
+            <circle cx="5" cy="60" r="3" fill="#0a0e1a"/>
+            <text x="0" y="110" text-anchor="middle" fill="#a855f7" font-family="JetBrains Mono, monospace" font-size="11" font-weight="900">BIASED &amp; NOISY</text>
+          </g>
+
+          <text x="360" y="330" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="1">BIAS = MELESET SISTEMATIS · NOISE = VARIASI ACAK</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Bias adalah kesalahan yang terarah dan konsisten. Noise adalah variabilitas yang tidak diinginkan dalam penilaian.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 360"&gt;
+  &lt;!-- 4 target panahan: Accurate, Noisy, Biased, Biased &amp; Noisy --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 20. Anchoring -->
+    <div class="ill-card" id="ill-20">
+      <div class="ill-header">
+        <div class="ill-title">Anchoring — Eksperimen Roda Keberuntungan</div>
+        <div class="ill-ref">Bab 5 · Tversky &amp; Kahneman (1974)</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+          <!-- Left wheel -->
+          <g transform="translate(150, 150)">
+            <circle r="90" fill="rgba(34,211,238,0.08)" stroke="#22d3ee" stroke-width="1.5"/>
+            <circle r="15" fill="#0a0e1a" stroke="#22d3ee" stroke-width="1.5"/>
+            <text x="0" y="5" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="12" font-weight="900">10</text>
+            <line x1="0" y1="-15" x2="0" y2="-80" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+            <text x="0" y="130" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">KELOMPOK A</text>
+            <text x="0" y="150" text-anchor="middle" fill="#94a3b8" font-size="11">Lihat angka 10</text>
+            <text x="0" y="175" text-anchor="middle" fill="#e8eef7" font-size="13" font-weight="700">→ Tebak: 25%</text>
+          </g>
+
+          <!-- Right wheel -->
+          <g transform="translate(480, 150)">
+            <circle r="90" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1.5"/>
+            <circle r="15" fill="#0a0e1a" stroke="#fbbf24" stroke-width="1.5"/>
+            <text x="0" y="5" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="12" font-weight="900">65</text>
+            <line x1="0" y1="-15" x2="45" y2="-68" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+            <text x="0" y="130" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">KELOMPOK B</text>
+            <text x="0" y="150" text-anchor="middle" fill="#94a3b8" font-size="11">Lihat angka 65</text>
+            <text x="0" y="175" text-anchor="middle" fill="#e8eef7" font-size="13" font-weight="700">→ Tebak: 45%</text>
+          </g>
+
+          <!-- Center vs arrow -->
+          <text x="360" y="155" text-anchor="middle" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="20" font-weight="900">≠</text>
+          <text x="360" y="185" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">angka acak</text>
+          <text x="360" y="200" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">"menjangkarkan"</text>
+
+          <text x="360" y="270" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">ESTIMASI JAWABAN TERPAKU PADA ANGKA AWAL</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Angka acak di roda keberuntungan "menjangkarkan" pikiran. Kita tidak sadar bahwa penilaian kita dimulai dari jangkar itu.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 300"&gt;
+  &lt;!-- Dua roda dengan angka 10 dan 65 --&gt;
+  &lt;!-- Hasil tebakan berbeda jauh (25% vs 45%) --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 21. Framing Effect -->
+    <div class="ill-card" id="ill-21">
+      <div class="ill-header">
+        <div class="ill-title">Framing Effect — Operasi Medis</div>
+        <div class="ill-ref">Bab 5 · Tversky &amp; Kahneman (1981)</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(60, 60)">
+            <rect width="270" height="200" rx="16" fill="rgba(52,211,153,0.1)" stroke="#34d399" stroke-width="1.5"/>
+            <text x="135" y="35" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800" letter-spacing="1">GAIN FRAME</text>
+            <text x="135" y="65" text-anchor="middle" fill="#e8eef7" font-family="Georgia, serif" font-size="15" font-style="italic">"Peluang hidup 90%"</text>
+
+            <rect x="35" y="100" width="200" height="12" rx="6" fill="rgba(52,211,153,0.2)"/>
+            <rect x="35" y="100" width="180" height="12" rx="6" fill="#34d399"/>
+
+            <text x="135" y="145" text-anchor="middle" fill="#e8eef7" font-size="13" font-weight="700">90% memilih operasi</text>
+            <text x="135" y="175" text-anchor="middle" fill="#94a3b8" font-size="11" font-style="italic">Keputusan: setuju</text>
+          </g>
+
+          <g transform="translate(390, 60)">
+            <rect width="270" height="200" rx="16" fill="rgba(248,113,113,0.1)" stroke="#f87171" stroke-width="1.5"/>
+            <text x="135" y="35" text-anchor="middle" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800" letter-spacing="1">LOSS FRAME</text>
+            <text x="135" y="65" text-anchor="middle" fill="#e8eef7" font-family="Georgia, serif" font-size="15" font-style="italic">"Peluang mati 10%"</text>
+
+            <rect x="35" y="100" width="200" height="12" rx="6" fill="rgba(248,113,113,0.2)"/>
+            <rect x="35" y="100" width="20" height="12" rx="6" fill="#f87171"/>
+
+            <text x="135" y="145" text-anchor="middle" fill="#e8eef7" font-size="13" font-weight="700">50% memilih operasi</text>
+            <text x="135" y="175" text-anchor="middle" fill="#94a3b8" font-size="11" font-style="italic">Keputusan: menolak</text>
+          </g>
+
+          <text x="360" y="285" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">ANGKA SAMA · CARA MENYAJIKAN BEDA · KEPUTUSAN BEDA</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Cara informasi "dibungkus" mengubah keputusan, meski isinya identik. Ini mengapa framing adalah alat intervensi paling halus.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 300"&gt;
+  &lt;!-- Dua kartu: Gain Frame vs Loss Frame --&gt;
+  &lt;!-- Angka sama, framing berbeda --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 22. Loss Aversion -->
+    <div class="ill-card" id="ill-22">
+      <div class="ill-header">
+        <div class="ill-title">Loss Aversion — Takut Rugi Lebih Kuat</div>
+        <div class="ill-ref">Bab 5 · Kahneman &amp; Tversky</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+          <text x="360" y="30" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">RASA SAKIT VS RASA SENANG</text>
+
+          <!-- Center line -->
+          <line x1="360" y1="60" x2="360" y2="300" stroke="#475569" stroke-width="1" stroke-dasharray="4 4"/>
+
+          <!-- Gain side -->
+          <g transform="translate(360, 170)">
+            <rect x="0" y="-60" width="250" height="60" rx="8" fill="rgba(52,211,153,0.15)" stroke="#34d399" stroke-width="1.5"/>
+            <rect x="0" y="-60" width="150" height="60" rx="8" fill="#34d399" opacity="0.7"/>
+            <text x="75" y="-25" text-anchor="middle" fill="#0a0e1a" font-size="14" font-weight="900">+Rp100rb</text>
+            <text x="270" y="-25" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">MENANG</text>
+          </g>
+
+          <!-- Loss side -->
+          <g transform="translate(360, 170)">
+            <rect x="-340" y="20" width="340" height="80" rx="8" fill="rgba(248,113,113,0.15)" stroke="#f87171" stroke-width="1.5"/>
+            <rect x="-340" y="20" width="340" height="80" rx="8" fill="#f87171" opacity="0.7"/>
+            <text x="-170" y="55" text-anchor="middle" fill="#0a0e1a" font-size="14" font-weight="900">−Rp100rb</text>
+            <text x="-170" y="80" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">2× lebih menyakitkan</text>
+            <text x="-360" y="70" text-anchor="end" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">KALAH</text>
+          </g>
+
+          <text x="360" y="325" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">RASIO 2:1 — KERUGIAN TERASA 2× LEBIH KUAT</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Rasa sakit kehilangan Rp100.000 jauh lebih menyiksa daripada rasa senang menemukan Rp100.000. Ini melawan logika ekonomi tapi sangat manusiawi.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 340"&gt;
+  &lt;!-- Perbandingan dua bar --&gt;
+  &lt;!-- Kalah (merah, 2× lebih besar) vs Menang (hijau) --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 23. Sunk Cost Fallacy -->
+    <div class="ill-card" id="ill-23">
+      <div class="ill-header">
+        <div class="ill-title">Sunk Cost Fallacy — Terus Lanjut Karena "Sayang"</div>
+        <div class="ill-ref">Bab 5</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+          <!-- Timeline -->
+          <line x1="60" y1="150" x2="660" y2="150" stroke="#475569" stroke-width="2"/>
+
+          <!-- Investment -->
+          <g transform="translate(120, 150)">
+            <circle r="12" fill="#22d3ee"/>
+            <text x="0" y="-25" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">INVESTASI</text>
+            <text x="0" y="45" text-anchor="middle" fill="#94a3b8" font-size="11">Rp10 juta</text>
+            <text x="0" y="65" text-anchor="middle" fill="#94a3b8" font-size="11">2 tahun</text>
+          </g>
+
+          <g transform="translate(300, 150)">
+            <circle r="12" fill="#fbbf24"/>
+            <text x="0" y="-25" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">RUGI</text>
+            <text x="0" y="45" text-anchor="middle" fill="#94a3b8" font-size="11">"Sayang, sudah</text>
+            <text x="0" y="62" text-anchor="middle" fill="#94a3b8" font-size="11">keluar banyak"</text>
+          </g>
+
+          <g transform="translate(480, 150)">
+            <circle r="12" fill="#f87171"/>
+            <text x="0" y="-25" text-anchor="middle" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">LANJUT?</text>
+            <text x="0" y="45" text-anchor="middle" fill="#94a3b8" font-size="11">"Sudah terlanjur..."</text>
+            <text x="0" y="62" text-anchor="middle" fill="#94a3b8" font-size="11">Tambah Rp5 juta</text>
+          </g>
+
+          <!-- Warning -->
+          <g transform="translate(610, 150)">
+            <text x="0" y="-30" text-anchor="middle" fill="#f87171" font-size="26">⚠</text>
+            <text x="0" y="45" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">Biaya yang sudah</text>
+            <text x="0" y="62" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">hangus ≠ alasan</text>
+          </g>
+
+          <text x="360" y="265" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">"SAYANG TIKETNYA HANGUS" — PADAHAL NONTON TETAP RUGI</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Kecenderungan melanjutkan usaha yang merugikan hanya karena sudah terlanjur keluar uang/waktu/tenaga. Biaya yang hangus tidak boleh mempengaruhi keputusan masa depan.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 300"&gt;
+  &lt;!-- Timeline dengan 3 titik: Investasi, Rugi, Lanjut --&gt;
+  &lt;!-- Warning di ujung --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 24. Kompas Heuristik -->
+    <div class="ill-card" id="ill-24">
+      <div class="ill-header">
+        <div class="ill-title">Kompas Heuristik vs Magnet Bias vs Kabut Noise</div>
+        <div class="ill-ref">Bab 5 · Pelengkap</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 620 340" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="compassGlow">
+              <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <circle cx="310" cy="170" r="130" fill="url(#compassGlow)"/>
+
+          <!-- Outer compass ring -->
+          <circle cx="310" cy="170" r="140" fill="none" stroke="#475569" stroke-width="2"/>
+          <circle cx="310" cy="170" r="125" fill="none" stroke="#475569" stroke-width="1" opacity="0.5"/>
+
+          <!-- Ticks -->
+          <g stroke="#94a3b8" stroke-width="2" stroke-linecap="round">
+            <line x1="310" y1="35" x2="310" y2="50"/>
+            <line x1="310" y1="290" x2="310" y2="305"/>
+            <line x1="175" y1="170" x2="190" y2="170"/>
+            <line x1="430" y1="170" x2="445" y2="170"/>
+          </g>
+
+          <!-- Compass directions -->
+          <text x="310" y="28" text-anchor="middle" fill="#e8eef7" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">N</text>
+          <text x="310" y="320" text-anchor="middle" fill="#e8eef7" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">S</text>
+          <text x="168" y="175" text-anchor="middle" fill="#e8eef7" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">W</text>
+          <text x="452" y="175" text-anchor="middle" fill="#e8eef7" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">E</text>
+
+          <!-- Compass needle (rotated) -->
+          <g transform="rotate(35 310 170)">
+            <polygon points="310,80 302,170 310,165 318,170" fill="#22d3ee"/>
+            <polygon points="310,260 302,170 310,175 318,170" fill="#64748b" opacity="0.7"/>
+          </g>
+
+          <!-- Center -->
+          <circle cx="310" cy="170" r="8" fill="#0a0e1a" stroke="#22d3ee" stroke-width="2"/>
+          <circle cx="310" cy="170" r="3" fill="#22d3ee"/>
+
+          <!-- Magnet interference (red) -->
+          <g opacity="0.6">
+            <circle cx="400" cy="90" r="20" fill="none" stroke="#f87171" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <circle cx="400" cy="90" r="12" fill="none" stroke="#f87171" stroke-width="1.5" stroke-dasharray="2 2"/>
+            <circle cx="400" cy="90" r="5" fill="#f87171"/>
+            <text x="430" y="85" fill="#f87171" font-size="11" font-weight="700">Magnet = BIAS</text>
+          </g>
+
+          <!-- Fog -->
+          <g opacity="0.4">
+            <circle cx="220" cy="270" r="30" fill="rgba(148,163,184,0.3)"/>
+            <circle cx="250" cy="280" r="25" fill="rgba(148,163,184,0.3)"/>
+            <text x="235" y="320" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="700">Kabut = NOISE</text>
+          </g>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Heuristik = kompas mental. Bias = magnet yang membuat jarum melenceng ke arah sama. Noise = kabut yang membuat setiap orang membaca arah berbeda.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 620 340"&gt;
+  &lt;!-- Kompas dengan magnet (bias) dan kabut (noise) --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- D · EMOSI & SOSIAL                           -->
+  <!-- ============================================ -->
+  <div class="section" id="section-d">
+    <div class="section-label">D · Emosi &amp; Sosial</div>
+    <h2 class="section-title">Emosi dan Lingkungan Sosial</h2>
+
+    <!-- 25. Hot-Cold Empathy Gap -->
+    <div class="ill-card" id="ill-25">
+      <div class="ill-header">
+        <div class="ill-title">Hot-Cold Empathy Gap — Pasar Takjil</div>
+        <div class="ill-ref">Bab 6 · Loewenstein</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+          <!-- Cold State -->
+          <g transform="translate(30, 30)">
+            <rect width="320" height="260" rx="16" fill="rgba(34,211,238,0.08)" stroke="#22d3ee" stroke-width="1.5"/>
+            <text x="160" y="35" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="13" font-weight="800" letter-spacing="1">COLD STATE</text>
+            <text x="160" y="55" text-anchor="middle" fill="#94a3b8" font-size="11" font-style="italic">Tenang, kenyang, rasional</text>
+
+            <text x="160" y="115" text-anchor="middle" fill="#22d3ee" font-size="42">❄</text>
+
+            <text x="160" y="160" text-anchor="middle" fill="#e8eef7" font-size="12" font-weight="700">Pukul 18.30 — Setelah berbuka</text>
+
+            <text x="30" y="195" fill="#94a3b8" font-size="11">Perasaan:</text>
+            <text x="30" y="215" fill="#e8eef7" font-size="11">"Kok saya beli sebanyak ini?"</text>
+            <text x="30" y="235" fill="#e8eef7" font-size="11">"Tidak habis, mubazir."</text>
+            <text x="30" y="255" fill="#22d3ee" font-size="10" font-style="italic">Arogansi kondisi dingin</text>
+          </g>
+
+          <!-- Hot State -->
+          <g transform="translate(370, 30)">
+            <rect width="320" height="260" rx="16" fill="rgba(248,113,113,0.08)" stroke="#f87171" stroke-width="1.5"/>
+            <text x="160" y="35" text-anchor="middle" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="13" font-weight="800" letter-spacing="1">HOT STATE</text>
+            <text x="160" y="55" text-anchor="middle" fill="#94a3b8" font-size="11" font-style="italic">Lapar, emosional, tergoda</text>
+
+            <text x="160" y="115" text-anchor="middle" fill="#f87171" font-size="42">🔥</text>
+
+            <text x="160" y="160" text-anchor="middle" fill="#e8eef7" font-size="12" font-weight="700">Pukul 16.00 — Sebelum berbuka</text>
+
+            <text x="30" y="195" fill="#94a3b8" font-size="11">Perasaan:</text>
+            <text x="30" y="215" fill="#e8eef7" font-size="11">"Aku butuh ini semua. Sekarang!"</text>
+            <text x="30" y="235" fill="#e8eef7" font-size="11">Kolak, gorengan, es buah...</text>
+            <text x="30" y="255" fill="#f87171" font-size="10" font-style="italic">"Lapar mata" — preferensi tidak stabil</text>
+          </g>
+
+          <text x="360" y="310" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" letter-spacing="1">DIRI YANG LAPAR = ORANG YANG BERBEDA</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Preferensi kita tidak stabil. Diri kita yang lapar adalah orang yang berbeda dari diri kita yang kenyang.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 320"&gt;
+  &lt;!-- Split screen: Cold State (cyan, snowflake) vs Hot State (red, fire) --&gt;
+  &lt;!-- Contoh: Ramadan takjil phenomenon --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 26. Odysseus Commitment -->
+    <div class="ill-card" id="ill-26">
+      <div class="ill-header">
+        <div class="ill-title">Odysseus &amp; Sirens — Metafora Commitment Device</div>
+        <div class="ill-ref">Bab 6</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+          <!-- Sky/ocean -->
+          <rect width="720" height="340" fill="none"/>
+          <line x1="0" y1="260" x2="720" y2="260" stroke="#22d3ee" stroke-width="1" opacity="0.5"/>
+
+          <!-- Ship mast -->
+          <rect x="355" y="80" width="10" height="180" fill="#475569"/>
+          <line x1="360" y1="80" x2="280" y2="180" stroke="#475569" stroke-width="1.5"/>
+          <line x1="360" y1="80" x2="440" y2="180" stroke="#475569" stroke-width="1.5"/>
+
+          <!-- Odysseus tied to mast -->
+          <ellipse cx="360" cy="160" rx="12" ry="20" fill="rgba(34,211,238,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+          <circle cx="360" cy="138" r="9" fill="rgba(34,211,238,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+          <text x="360" y="143" text-anchor="middle" fill="#e8eef7" font-size="8" font-weight="700">O</text>
+
+          <!-- Ropes -->
+          <path d="M 348 155 L 340 155 M 348 165 L 340 165 M 372 155 L 380 155 M 372 165 L 380 165" stroke="#fbbf24" stroke-width="2"/>
+
+          <!-- Speech -->
+          <g transform="translate(320, 40)">
+            <path d="M 40 0 Q 60 0 60 20 L 60 50 Q 60 70 40 70 L 20 70 L 10 85 L 10 70 L 0 70 Q -20 70 -20 50 L -20 20 Q -20 0 0 0 Z" fill="rgba(34,211,238,0.1)" stroke="#22d3ee" stroke-width="1.5" transform="translate(0, 0)"/>
+            <text x="20" y="30" text-anchor="middle" fill="#22d3ee" font-size="10" font-weight="700">"Jangan</text>
+            <text x="20" y="45" text-anchor="middle" fill="#22d3ee" font-size="10" font-weight="700">lepaskan!"</text>
+          </g>
+
+          <!-- Sirens on rocks -->
+          <g transform="translate(80, 200)">
+            <ellipse cx="0" cy="20" rx="40" ry="30" fill="#475569" opacity="0.6"/>
+            <text x="0" y="15" text-anchor="middle" fill="#f472b6" font-size="24">🎵</text>
+          </g>
+
+          <!-- Sailors with wax -->
+          <g transform="translate(550, 200)">
+            <ellipse cx="0" cy="20" rx="40" ry="30" fill="#475569" opacity="0.6"/>
+            <circle cx="-15" cy="-5" r="10" fill="#94a3b8"/>
+            <circle cx="15" cy="-5" r="10" fill="#94a3b8"/>
+            <rect x="-20" y="-15" width="8" height="8" rx="2" fill="#fbbf24"/>
+            <rect x="10" y="-15" width="8" height="8" rx="2" fill="#fbbf24"/>
+          </g>
+
+          <!-- Labels -->
+          <text x="360" y="290" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700">COL D STATE: MENGIKAT DIRI &amp; MENYUMBAT TELINGA</text>
+          <text x="360" y="310" text-anchor="middle" fill="#94a3b8" font-size="11" font-style="italic">Intervensi hari ini untuk mengamankan diri besok</text>
+          <text x="360" y="332" text-anchor="middle" fill="#f87171" font-size="10" font-style="italic">Hot State: "Lepaskan aku!" — tapi terlanjur terikat</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Odysseus melakukan intervensi saat Cold State untuk mengamankan dirinya saat Hot State. Inilah esensi Commitment Device.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 340"&gt;
+  &lt;!-- Kapal dengan tiang, Odysseus terikat --&gt;
+  &lt;!-- Sirens di batu (kiri), pelaut dengan lilin (kanan) --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 27. Asch Conformity -->
+    <div class="ill-card" id="ill-27">
+      <div class="ill-header">
+        <div class="ill-title">Eksperimen Garis Solomon Asch (1951)</div>
+        <div class="ill-ref">Bab 7</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(40, 40)">
+            <rect width="200" height="240" rx="10" fill="rgba(34,211,238,0.06)" stroke="#22d3ee" stroke-width="1"/>
+            <text x="100" y="30" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800" letter-spacing="1">KARTU A</text>
+            <line x1="40" y1="140" x2="160" y2="140" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+            <text x="100" y="215" text-anchor="middle" fill="#94a3b8" font-size="11" font-style="italic">Garis standar</text>
+          </g>
+
+          <g transform="translate(280, 40)">
+            <rect width="400" height="240" rx="10" fill="rgba(34,211,238,0.06)" stroke="#22d3ee" stroke-width="1"/>
+            <text x="200" y="30" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800" letter-spacing="1">KARTU B</text>
+
+            <line x1="40" y1="100" x2="140" y2="100" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+            <text x="90" y="120" text-anchor="middle" fill="#94a3b8" font-size="11">A</text>
+
+            <line x1="140" y1="150" x2="260" y2="150" stroke="#34d399" stroke-width="3" stroke-linecap="round"/>
+            <text x="200" y="170" text-anchor="middle" fill="#34d399" font-size="11" font-weight="700">B ✓ (benar)</text>
+
+            <line x1="260" y1="200" x2="360" y2="200" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+            <text x="310" y="220" text-anchor="middle" fill="#94a3b8" font-size="11">C</text>
+          </g>
+
+          <text x="360" y="305" text-anchor="middle" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800" letter-spacing="1">75% PARTISIPAN IKUT MENJAWAB SALAH SETIDAKNYA SEKALI</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Kita rela menyangkal realitas fisik di depan mata daripada harus menjadi satu-satunya orang yang berbeda pendapat.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 320"&gt;
+  &lt;!-- Dua kartu: Kartu A (satu garis) dan Kartu B (3 garis A/B/C) --&gt;
+  &lt;!-- Garis B sama dengan Kartu A --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 28. Opower Comparison -->
+    <div class="ill-card" id="ill-28">
+      <div class="ill-header">
+        <div class="ill-title">Opower — Perbandingan Tagihan Listrik</div>
+        <div class="ill-ref">Bab 7 · Allcott (2011)</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg">
+          <text x="350" y="28" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">CONTOH TAGIHAN LISTRIK OPOWER</text>
+
+          <rect x="60" y="55" width="580" height="230" rx="12" fill="rgba(20,28,48,0.7)" stroke="#22d3ee" stroke-width="1" stroke-opacity="0.4"/>
+          <text x="80" y="85" fill="#e8eef7" font-size="14" font-weight="800">Tagihan Listrik Bulan Ini</text>
+          <text x="80" y="105" fill="#64748b" font-size="11">Pelanggan: Ibu Sari · Jl. Melati No. 12</text>
+
+          <g transform="translate(80, 140)">
+            <text x="0" y="0" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">PERBANDINGAN TETANGGA</text>
+
+            <text x="0" y="35" fill="#e8eef7" font-size="11">Rumah Anda</text>
+            <rect x="120" y="22" width="260" height="20" rx="4" fill="rgba(248,113,113,0.15)" stroke="#f87171" stroke-width="1"/>
+            <rect x="120" y="22" width="240" height="20" rx="4" fill="#f87171" opacity="0.7"/>
+            <text x="395" y="37" fill="#f87171" font-size="11" font-weight="700">420 kWh</text>
+
+            <text x="0" y="70" fill="#e8eef7" font-size="11">Rata-rata</text>
+            <rect x="120" y="57" width="260" height="20" rx="4" fill="rgba(34,211,238,0.15)" stroke="#22d3ee" stroke-width="1"/>
+            <rect x="120" y="57" width="200" height="20" rx="4" fill="#22d3ee" opacity="0.7"/>
+            <text x="335" y="72" fill="#22d3ee" font-size="11" font-weight="700">340 kWh</text>
+
+            <text x="0" y="105" fill="#e8eef7" font-size="11">Paling hemat</text>
+            <rect x="120" y="92" width="260" height="20" rx="4" fill="rgba(52,211,153,0.15)" stroke="#34d399" stroke-width="1"/>
+            <rect x="120" y="92" width="150" height="20" rx="4" fill="#34d399" opacity="0.7"/>
+            <text x="285" y="107" fill="#34d399" font-size="11" font-weight="700">260 kWh</text>
+          </g>
+
+          <text x="570" y="270" text-anchor="end" fill="#34d399" font-size="22">😊</text>
+          <text x="350" y="275" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">Kami apresiasi usaha hemat Anda!</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Menambahkan grafik perbandingan dengan tetangga di tagihan listrik menurunkan konsumsi secara drastis. Bukan demi uang atau bumi, tapi demi gengsi.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;!-- Mockup tagihan listrik --&gt;
+&lt;!-- 3 bar: Rumah Anda, Rata-rata, Paling Hemat --&gt;</pre>
+    </div>
+
+    <!-- 29. In-Group Bias -->
+    <div class="ill-card" id="ill-29">
+      <div class="ill-header">
+        <div class="ill-title">In-Group Bias — "Orang Dalam" (Ordal)</div>
+        <div class="ill-ref">Bab 12 · Konteks Indonesia</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg">
+          <!-- In-Group -->
+          <g transform="translate(80, 60)">
+            <circle r="100" fill="rgba(52,211,153,0.1)" stroke="#34d399" stroke-width="2"/>
+            <text x="0" y="-115" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800" letter-spacing="1">IN-GROUP</text>
+
+            <!-- Stick figures -->
+            <circle cx="-30" cy="-20" r="12" fill="#34d399" opacity="0.7"/>
+            <circle cx="10" cy="-30" r="12" fill="#34d399" opacity="0.7"/>
+            <circle cx="35" cy="10" r="12" fill="#34d399" opacity="0.7"/>
+            <circle cx="-20" cy="30" r="12" fill="#34d399" opacity="0.7"/>
+            <circle cx="0" cy="60" r="12" fill="#34d399" opacity="0.7"/>
+
+            <text x="0" y="115" text-anchor="middle" fill="#34d399" font-size="11" font-weight="700">"Kita" · Aman · Percaya</text>
+          </g>
+
+          <!-- Out-Group -->
+          <g transform="translate(560, 60)">
+            <circle r="100" fill="rgba(248,113,113,0.06)" stroke="#f87171" stroke-width="1.5" stroke-dasharray="6 4"/>
+            <text x="0" y="-115" text-anchor="middle" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800" letter-spacing="1">OUT-GROUP</text>
+
+            <circle cx="-30" cy="-20" r="12" fill="#f87171" opacity="0.5"/>
+            <circle cx="10" cy="-30" r="12" fill="#f87171" opacity="0.5"/>
+            <circle cx="35" cy="10" r="12" fill="#f87171" opacity="0.5"/>
+            <circle cx="-20" cy="30" r="12" fill="#f87171" opacity="0.5"/>
+            <circle cx="0" cy="60" r="12" fill="#f87171" opacity="0.5"/>
+
+            <text x="0" y="115" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">"Mereka" · Curiga · Jaga jarak</text>
+          </g>
+
+          <!-- Barrier -->
+          <g transform="translate(360, 160)">
+            <line x1="-40" y1="-60" x2="-40" y2="60" stroke="#94a3b8" stroke-width="3" stroke-dasharray="8 6"/>
+            <text x="0" y="0" text-anchor="middle" fill="#94a3b8" font-size="20">🚧</text>
+            <text x="0" y="25" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700">SUNGKAN</text>
+          </g>
+
+          <text x="360" y="285" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">INTERVENSI: "DEVIL'S ADVOCATE" RESMI UNTUK MEMBONGKAR BARRIER</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Kita merasa lebih aman bekerja dengan orang yang "kita kenal". Intervensi BI: strukturkan kritik agar rasa sungkan hilang.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 300"&gt;
+  &lt;!-- Dua lingkaran: In-Group (hijau) dan Out-Group (merah) --&gt;
+  &lt;!-- Barrier di tengah dengan label "Sungkan" --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- E · KONTEKS & BUDAYA                         -->
+  <!-- ============================================ -->
+  <div class="section" id="section-e">
+    <div class="section-label">E · Konteks &amp; Budaya</div>
+    <h2 class="section-title">Konteks Adalah Raja</h2>
+
+    <!-- 30. WEIRD vs Kolektivis -->
+    <div class="ill-card" id="ill-30">
+      <div class="ill-header">
+        <div class="ill-title">WEIRD vs Kolektivis — Perbedaan Budaya</div>
+        <div class="ill-ref">Bab 8 · Henrich et al. (2010)</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+          <!-- Individualist -->
+          <g transform="translate(40, 40)">
+            <rect width="300" height="260" rx="16" fill="rgba(34,211,238,0.08)" stroke="#22d3ee" stroke-width="1.5"/>
+            <text x="150" y="35" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="13" font-weight="800" letter-spacing="1">INDIVIDUALIS (Barat)</text>
+
+            <!-- Single person centered -->
+            <circle cx="150" cy="120" r="24" fill="#22d3ee" opacity="0.7"/>
+            <circle cx="150" cy="120" r="6" fill="#fff"/>
+            <text x="150" y="170" text-anchor="middle" fill="#e8eef7" font-size="12" font-weight="700">"Aku"</text>
+
+            <text x="30" y="205" fill="#94a3b8" font-size="11">· Otonomi &amp; kebebasan</text>
+            <text x="30" y="225" fill="#94a3b8" font-size="11">· Pencapaian pribadi</text>
+            <text x="30" y="245" fill="#22d3ee" font-size="11" font-style="italic">Nudge: "Lindungi diri Anda"</text>
+          </g>
+
+          <!-- Collectivist -->
+          <g transform="translate(380, 40)">
+            <rect width="300" height="260" rx="16" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1.5"/>
+            <text x="150" y="35" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="13" font-weight="800" letter-spacing="1">KOLEKTIVIS (Indonesia)</text>
+
+            <!-- Multiple people connected -->
+            <circle cx="110" cy="120" r="18" fill="#fbbf24" opacity="0.7"/>
+            <circle cx="150" cy="100" r="18" fill="#fbbf24" opacity="0.7"/>
+            <circle cx="190" cy="120" r="18" fill="#fbbf24" opacity="0.7"/>
+            <circle cx="130" cy="150" r="18" fill="#fbbf24" opacity="0.7"/>
+            <circle cx="170" cy="150" r="18" fill="#fbbf24" opacity="0.7"/>
+
+            <line x1="110" y1="120" x2="150" y2="100" stroke="#fbbf24" stroke-width="1" opacity="0.5"/>
+            <line x1="150" y1="100" x2="190" y2="120" stroke="#fbbf24" stroke-width="1" opacity="0.5"/>
+            <line x1="110" y1="120" x2="130" y2="150" stroke="#fbbf24" stroke-width="1" opacity="0.5"/>
+
+            <text x="150" y="190" text-anchor="middle" fill="#e8eef7" font-size="12" font-weight="700">"Kita"</text>
+
+            <text x="30" y="225" fill="#94a3b8" font-size="11">· Harmoni kelompok · Jaga muka</text>
+            <text x="30" y="245" fill="#fbbf24" font-size="11" font-style="italic">Nudge: "Lindungi orang tua Anda"</text>
+          </g>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Apa yang berhasil di New York belum tentu berhasil di Yogyakarta. Konteks adalah Raja.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 340"&gt;
+  &lt;!-- Individualis (satu orang) vs Kolektivis (jaringan orang) --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 31. Scarcity Mindset -->
+    <div class="ill-card" id="ill-31">
+      <div class="ill-header">
+        <div class="ill-title">Scarcity Mindset — Bandwidth Kognitif</div>
+        <div class="ill-ref">Bab 8 · Mullainathan &amp; Shafir</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+          <!-- Normal brain -->
+          <g transform="translate(180, 170)">
+            <circle r="70" fill="rgba(34,211,238,0.1)" stroke="#22d3ee" stroke-width="2"/>
+            <text x="0" y="-85" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">BANDWIDTH PENUH</text>
+            <text x="0" y="5" text-anchor="middle" fill="#e8eef7" font-size="13" font-weight="700">Kapasitas</text>
+            <text x="0" y="25" text-anchor="middle" fill="#e8eef7" font-size="13" font-weight="700">Kognitif</text>
+
+            <rect x="-40" y="45" width="80" height="8" rx="4" fill="rgba(52,211,153,0.3)"/>
+            <rect x="-40" y="45" width="80" height="8" rx="4" fill="#34d399"/>
+
+            <text x="0" y="95" text-anchor="middle" fill="#34d399" font-size="11" font-weight="700">100% tersedia</text>
+          </g>
+
+          <!-- Scarcity brain -->
+          <g transform="translate(520, 170)">
+            <circle r="70" fill="rgba(248,113,113,0.1)" stroke="#f87171" stroke-width="2"/>
+            <text x="0" y="-85" text-anchor="middle" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">BANDWIDTH TERPAKAI</text>
+            <text x="0" y="5" text-anchor="middle" fill="#e8eef7" font-size="13" font-weight="700">Program</text>
+            <text x="0" y="25" text-anchor="middle" fill="#e8eef7" font-size="13" font-weight="700">Berat di Latar</text>
+
+            <rect x="-40" y="45" width="80" height="8" rx="4" fill="rgba(248,113,113,0.2)"/>
+            <rect x="-40" y="45" width="60" height="8" rx="4" fill="#f87171"/>
+            <text x="0" y="70" text-anchor="middle" fill="#f87171" font-size="10">"Gimana bayar utang?"</text>
+            <text x="0" y="85" text-anchor="middle" fill="#f87171" font-size="10">"Gimana makan besok?"</text>
+
+            <text x="0" y="110" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">IQ turun sementara</text>
+          </g>
+
+          <!-- Arrow -->
+          <path d="M 270 170 L 430 170" stroke="#475569" stroke-width="2"/>
+          <polygon points="430,170 418,163 418,177" fill="#475569"/>
+
+          <text x="360" y="315" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">INTERVENSI: SUPER MUDAH — JANGAN BEBANI OTAK YANG SUDAH PENUH</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Kemiskinan bukan sekadar kurang uang, tapi kurang bandwidth kognitif. Program berat di latar belakang memakan RAM otak.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 340"&gt;
+  &lt;!-- 2 kepala/brain side-by-side --&gt;
+  &lt;!-- Kiri: bandwidth penuh, kanan: bandwidth terpakai program berat --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- F · APLIKASI DUNIA NYATA                     -->
+  <!-- ============================================ -->
+  <div class="section" id="section-f">
+    <div class="section-label">F · Aplikasi Dunia Nyata</div>
+    <h2 class="section-title">Penerapan di Bidang Berbagai</h2>
+
+    <!-- 32. Mental Accounting -->
+    <div class="ill-card" id="ill-32">
+      <div class="ill-header">
+        <div class="ill-title">Mental Accounting — Amplop Mental</div>
+        <div class="ill-ref">Bab 10 · Thaler (1999)</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+          <text x="360" y="30" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">UANG YANG SAMA, PERLAKUAN BERBEDA</text>
+
+          <!-- Envelope 1: Uang Keringat -->
+          <g transform="translate(60, 70)">
+            <rect width="280" height="200" rx="14" fill="rgba(52,211,153,0.1)" stroke="#34d399" stroke-width="1.5"/>
+            <path d="M 0 30 L 140 90 L 280 30 L 280 200 L 0 200 Z" fill="rgba(52,211,153,0.05)"/>
+            <text x="140" y="55" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="13" font-weight="800" letter-spacing="1">UANG KERINGAT</text>
+
+            <text x="140" y="100" text-anchor="middle" fill="#e8eef7" font-size="24" font-weight="900">Rp 8 juta</text>
+            <text x="140" y="125" text-anchor="middle" fill="#94a3b8" font-size="11">Gaji bulanan</text>
+
+            <text x="30" y="160" fill="#94a3b8" font-size="11">· Belanja kebutuhan pokok</text>
+            <text x="30" y="180" fill="#94a3b8" font-size="11">· Hati-hati, hemat</text>
+            <text x="30" y="195" fill="#34d399" font-size="11" font-weight="700">· "Uang susah payah"</text>
+          </g>
+
+          <!-- Envelope 2: Uang Kaget -->
+          <g transform="translate(380, 70)">
+            <rect width="280" height="200" rx="14" fill="rgba(251,191,36,0.1)" stroke="#fbbf24" stroke-width="1.5"/>
+            <path d="M 0 30 L 140 90 L 280 30 L 280 200 L 0 200 Z" fill="rgba(251,191,36,0.05)"/>
+            <text x="140" y="55" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="13" font-weight="800" letter-spacing="1">UANG KAGET</text>
+
+            <text x="140" y="100" text-anchor="middle" fill="#e8eef7" font-size="24" font-weight="900">Rp 2 juta</text>
+            <text x="140" y="125" text-anchor="middle" fill="#94a3b8" font-size="11">Bonus tahunan / hadiah</text>
+
+            <text x="30" y="160" fill="#94a3b8" font-size="11">· Cepat dihabiskan</text>
+            <text x="30" y="180" fill="#94a3b8" font-size="11">· "Uang bebas"</text>
+            <text x="30" y="195" fill="#fbbf24" font-size="11" font-weight="700">· Foya-foya</text>
+          </g>
+
+          <text x="360" y="315" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">TIPS BI: SEGERA PINDAHKAN BONUS KE REKENING TABUNGAN UTAMA</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Uang Rp100.000 yang sama diperlakukan berbeda tergantung dari "amplop mental" mana ia berasal. Ini melawan ekonomi tapi sangat manusiawi.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 340"&gt;
+  &lt;!-- 2 amplop: Uang Keringat (hijau) vs Uang Kaget (gold) --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 33. Pain of Paying -->
+    <div class="ill-card" id="ill-33">
+      <div class="ill-header">
+        <div class="ill-title">Pain of Paying — Rasa Sakit Membayar</div>
+        <div class="ill-ref">Bab 10 · Prelec &amp; Loewenstein</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+          <text x="360" y="28" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">EKSPERIMEN MENGURANGI "SAKIT MEMBAYAR"</text>
+
+          <!-- Cash -->
+          <g transform="translate(60, 70)">
+            <rect width="200" height="210" rx="14" fill="rgba(248,113,113,0.08)" stroke="#f87171" stroke-width="1.5"/>
+            <text x="100" y="30" text-anchor="middle" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800" letter-spacing="1">UANG TUNAI</text>
+
+            <g transform="translate(60, 60)">
+              <rect width="80" height="50" rx="4" fill="rgba(52,211,153,0.4)" stroke="#34d399" stroke-width="1"/>
+              <text x="40" y="30" text-anchor="middle" fill="#e8eef7" font-size="10" font-weight="700">Rp 50.000</text>
+            </g>
+
+            <text x="100" y="160" text-anchor="middle" fill="#f87171" font-size="36">😖</text>
+            <text x="100" y="195" text-anchor="middle" fill="#e8eef7" font-size="12" font-weight="700">Otak: "SAKIT!"</text>
+            <text x="100" y="212" text-anchor="middle" fill="#94a3b8" font-size="11" font-style="italic">Insula aktif</text>
+          </g>
+
+          <!-- Card -->
+          <g transform="translate(260, 70)">
+            <rect width="200" height="210" rx="14" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1.5"/>
+            <text x="100" y="30" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800" letter-spacing="1">KARTU KREDIT</text>
+
+            <g transform="translate(60, 60)">
+              <rect width="80" height="50" rx="4" fill="rgba(148,163,184,0.3)" stroke="#94a3b8" stroke-width="1"/>
+              <line x1="10" y1="20" x2="70" y2="20" stroke="#94a3b8" stroke-width="1"/>
+              <line x1="10" y1="30" x2="50" y2="30" stroke="#94a3b8" stroke-width="1"/>
+            </g>
+
+            <text x="100" y="160" text-anchor="middle" fill="#fbbf24" font-size="36">😐</text>
+            <text x="100" y="195" text-anchor="middle" fill="#e8eef7" font-size="12" font-weight="700">Otak: "Nanti aja"</text>
+            <text x="100" y="212" text-anchor="middle" fill="#94a3b8" font-size="11" font-style="italic">Anestesi</text>
+          </g>
+
+          <!-- Chips -->
+          <g transform="translate(460, 70)">
+            <rect width="200" height="210" rx="14" fill="rgba(168,85,247,0.08)" stroke="#a855f7" stroke-width="1.5"/>
+            <text x="100" y="30" text-anchor="middle" fill="#a855f7" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800" letter-spacing="1">KOIN CHIP</text>
+
+            <circle cx="100" cy="80" r="30" fill="rgba(168,85,247,0.4)" stroke="#a855f7" stroke-width="1.5"/>
+            <text x="100" y="88" text-anchor="middle" fill="#e8eef7" font-size="16" font-weight="900">🎰</text>
+
+            <text x="100" y="160" text-anchor="middle" fill="#a855f7" font-size="36">😊</text>
+            <text x="100" y="195" text-anchor="middle" fill="#e8eef7" font-size="12" font-weight="700">Otak: "Bukan uang"</text>
+            <text x="100" y="212" text-anchor="middle" fill="#94a3b8" font-size="11" font-style="italic">Uang jadi abstrak</text>
+          </g>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Secara neurologis, mengeluarkan uang tunai "sakit". Kartu kredit, QRIS, dan chip kasino mematikan rasa sakit itu — membuat kita lebih boros.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 340"&gt;
+  &lt;!-- 3 kartu: Cash (sakit), Card (anestesi), Chips (abstrak) --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 34. Decoy Effect -->
+    <div class="ill-card" id="ill-34">
+      <div class="ill-header">
+        <div class="ill-title">Decoy Effect — Umpan Popcorn</div>
+        <div class="ill-ref">Bab 10 · Ariely</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg">
+          <text x="360" y="30" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">MENU POPCORN DI BIOSKOP</text>
+
+          <!-- Small -->
+          <g transform="translate(80, 70)">
+            <rect width="170" height="180" rx="12" fill="rgba(148,163,184,0.1)" stroke="#94a3b8" stroke-width="1.5"/>
+            <text x="85" y="35" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">KECIL</text>
+            <text x="85" y="100" text-anchor="middle" fill="#e8eef7" font-size="22" font-weight="900">Rp 30.000</text>
+            <text x="85" y="150" text-anchor="middle" fill="#94a3b8" font-size="11" font-style="italic">Niat awal beli</text>
+            <text x="85" y="170" text-anchor="middle" fill="#94a3b8" font-size="11" font-style="italic">yang ini</text>
+          </g>
+
+          <!-- Medium (Decoy) -->
+          <g transform="translate(275, 70)">
+            <rect width="170" height="180" rx="12" fill="rgba(148,163,184,0.08)" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 4"/>
+            <text x="85" y="35" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">SEDANG</text>
+            <text x="85" y="100" text-anchor="middle" fill="#e8eef7" font-size="22" font-weight="900">Rp 65.000</text>
+            <text x="85" y="150" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">Decoy (Umpan)</text>
+            <text x="85" y="170" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">Tidak berniat dijual</text>
+          </g>
+
+          <!-- Large -->
+          <g transform="translate(470, 70)">
+            <rect width="170" height="180" rx="12" fill="rgba(251,191,36,0.12)" stroke="#fbbf24" stroke-width="2"/>
+            <text x="85" y="35" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">BESAR</text>
+            <text x="85" y="100" text-anchor="middle" fill="#fbbf24" font-size="22" font-weight="900">Rp 70.000</text>
+            <text x="85" y="150" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="700">Terlihat MURAH!</text>
+            <text x="85" y="170" text-anchor="middle" fill="#fbbf24" font-size="10" font-style="italic">"Cuma nambah 5rb"</text>
+          </g>
+
+          <text x="360" y="295" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">AKHIRNYA BELI Rp 70.000 — PADAHAL NIAT AWAL Rp 30.000</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Ukuran "Sedang" dipajang hanya untuk membuat "Besar" terlihat murah. Tanpa sadar, kita keluar lebih banyak.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 320"&gt;
+  &lt;!-- 3 kartu: Kecil, Sedang (decoy), Besar --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 35. Sludge -->
+    <div class="ill-card" id="ill-35">
+      <div class="ill-header">
+        <div class="ill-title">Sludge — Roach Motel &amp; Dark Patterns</div>
+        <div class="ill-ref">Bab 11 · Sunstein</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+          <text x="360" y="30" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">SLUDGE · LUMPUR BIROKRASI</text>
+
+          <!-- Masuk gampang -->
+          <g transform="translate(60, 70)">
+            <rect width="280" height="120" rx="12" fill="rgba(52,211,153,0.1)" stroke="#34d399" stroke-width="1.5"/>
+            <text x="140" y="35" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">MASUK</text>
+            <text x="140" y="60" text-anchor="middle" fill="#e8eef7" font-size="13" font-weight="700">1 klik · 5 detik</text>
+            <text x="140" y="85" text-anchor="middle" fill="#34d399" font-size="12">😊 Gampang!</text>
+            <text x="140" y="105" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">Subscribe</text>
+          </g>
+
+          <!-- Keluar susah -->
+          <g transform="translate(380, 70)">
+            <rect width="280" height="120" rx="12" fill="rgba(248,113,113,0.1)" stroke="#f87171" stroke-width="1.5"/>
+            <text x="140" y="35" text-anchor="middle" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">KELUAR</text>
+            <text x="140" y="58" text-anchor="middle" fill="#e8eef7" font-size="11">Telepon CS · Email · 3 hari kerja</text>
+            <text x="140" y="78" text-anchor="middle" fill="#e8eef7" font-size="11">Konfirmasi · Verifikasi · Tunggu</text>
+            <text x="140" y="100" text-anchor="middle" fill="#f87171" font-size="12" font-weight="700">😤 Ribet banget!</text>
+          </g>
+
+          <!-- Dark patterns -->
+          <g transform="translate(60, 220)">
+            <text x="0" y="0" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800" letter-spacing="1">CIRI-CIRI SLUDGE:</text>
+            <text x="0" y="25" fill="#e8eef7" font-size="11">1. Roach Motel — masuk mudah, keluar susah</text>
+            <text x="0" y="45" fill="#e8eef7" font-size="11">2. Sneak into Basket — otomatis centang</text>
+            <text x="0" y="65" fill="#e8eef7" font-size="11">3. Confirmshaming — bikin merasa bersalah</text>
+          </g>
+
+          <g transform="translate(540, 220)">
+            <text x="0" y="0" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800" letter-spacing="1">RUGINYA:</text>
+            <text x="0" y="25" fill="#e8eef7" font-size="11">· Warga miskin gagal dapat bansos</text>
+            <text x="0" y="45" fill="#e8eef7" font-size="11">· Mahasiswa gagal daftar beasiswa</text>
+            <text x="0" y="65" fill="#e8eef7" font-size="11">· Lansia tak bisa unsubscribe</text>
+          </g>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Sludge adalah kebalikan dari Nudge. Hambatan administratif yang membuat orang malas melakukan hal baik bagi mereka.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 340"&gt;
+  &lt;!-- Perbandingan masuk vs keluar --&gt;
+  &lt;!-- Ciri-ciri sludge &amp; kerugiannya --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 36. Blind Recruitment -->
+    <div class="ill-card" id="ill-36">
+      <div class="ill-header">
+        <div class="ill-title">Blind Recruitment — Orkestra di Balik Tirai</div>
+        <div class="ill-ref">Bab 12 · Bohnet (2016)</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+          <text x="360" y="30" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">AUDISI BUTA ORKESTRA</text>
+
+          <!-- Judges (behind) -->
+          <g transform="translate(0, 60)">
+            <rect x="450" y="50" width="220" height="180" rx="14" fill="rgba(34,211,238,0.08)" stroke="#22d3ee" stroke-width="1.5"/>
+            <text x="560" y="80" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">JURI</text>
+
+            <!-- Judge figures -->
+            <circle cx="500" cy="120" r="14" fill="#22d3ee" opacity="0.7"/>
+            <circle cx="540" cy="115" r="14" fill="#22d3ee" opacity="0.7"/>
+            <circle cx="580" cy="120" r="14" fill="#22d3ee" opacity="0.7"/>
+            <circle cx="620" cy="120" r="14" fill="#22d3ee" opacity="0.7"/>
+
+            <text x="560" y="180" text-anchor="middle" fill="#94a3b8" font-size="11">Hanya mendengar</text>
+            <text x="560" y="200" text-anchor="middle" fill="#94a3b8" font-size="11">musik, tidak melihat</text>
+            <text x="560" y="220" text-anchor="middle" fill="#94a3b8" font-size="11">siapa pemainnya</text>
+          </g>
+
+          <!-- Curtain -->
+          <g transform="translate(370, 40)">
+            <rect x="0" y="40" width="60" height="250" fill="rgba(148,163,184,0.4)"/>
+            <path d="M 0 40 Q 15 90 0 140 Q 15 190 0 240 Q 15 290 0 340" stroke="#64748b" stroke-width="2" fill="none"/>
+            <path d="M 60 40 Q 45 90 60 140 Q 45 190 60 240 Q 45 290 60 340" stroke="#64748b" stroke-width="2" fill="none"/>
+            <text x="30" y="170" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="10" font-weight="800" transform="rotate(-90 30 170)">TIRAI LAYAR</text>
+          </g>
+
+          <!-- Musician (behind curtain) -->
+          <g transform="translate(150, 60)">
+            <text x="100" y="180" text-anchor="middle" fill="#e8eef7" font-size="48">🎻</text>
+            <text x="100" y="230" text-anchor="middle" fill="#94a3b8" font-size="11" font-style="italic">Pemain tidak terlihat</text>
+            <text x="100" y="250" text-anchor="middle" fill="#22d3ee" font-size="11" font-weight="700">Nama, foto, gender</text>
+            <text x="100" y="268" text-anchor="middle" fill="#22d3ee" font-size="11" font-weight="700">dihapus dari CV</text>
+          </g>
+
+          <text x="360" y="325" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">HASIL: JUMLAH WANITA YANG LOLOS AUDISI MELONJAK DRASTIS</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Desain keadilan, bukan sekadar menghimbau "jangan rasis". Hapus informasi yang tidak relevan (foto, nama, gender) di tahap awal seleksi.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 340"&gt;
+  &lt;!-- Juri di kanan, pemain di kiri, tirai di tengah --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 37. HokBen Trash Can -->
+    <div class="ill-card" id="ill-37">
+      <div class="ill-header">
+        <div class="ill-title">HokBen Mode — Trash Can by Shape</div>
+        <div class="ill-ref">Bab 9 · Ekoteologi</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+          <text x="360" y="30" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">ARSITEKTUR PILIHAN: LUBANG SPESIFIK</text>
+
+          <!-- Group A: Tulisan -->
+          <g transform="translate(40, 70)">
+            <rect width="200" height="230" rx="12" fill="rgba(248,113,113,0.08)" stroke="#f87171" stroke-width="1.5"/>
+            <text x="100" y="35" text-anchor="middle" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">KELOMPOK A</text>
+            <text x="100" y="55" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">Tulisan saja</text>
+
+            <rect x="50" y="90" width="100" height="80" rx="8" fill="#475569"/>
+            <text x="100" y="135" text-anchor="middle" fill="#94a3b8" font-size="11">Organik</text>
+
+            <text x="100" y="200" text-anchor="middle" fill="#f87171" font-size="12" font-weight="700">Akurasi: 45%</text>
+            <text x="100" y="220" text-anchor="middle" fill="#94a3b8" font-size="10">Banyak tertukar</text>
+            <text x="100" y="245" text-anchor="middle" fill="#f87171" font-size="11">😕</text>
+          </g>
+
+          <!-- Group B: Gambar -->
+          <g transform="translate(260, 70)">
+            <rect width="200" height="230" rx="12" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="1.5"/>
+            <text x="100" y="35" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">KELOMPOK B</text>
+            <text x="100" y="55" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">Gambar besar</text>
+
+            <rect x="50" y="90" width="100" height="80" rx="8" fill="#475569"/>
+            <text x="100" y="135" text-anchor="middle" fill="#fbbf24" font-size="20">🍎</text>
+
+            <text x="100" y="200" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700">Akurasi: 70%</text>
+            <text x="100" y="220" text-anchor="middle" fill="#94a3b8" font-size="10">Sedang</text>
+            <text x="100" y="245" text-anchor="middle" fill="#fbbf24" font-size="11">🙂</text>
+          </g>
+
+          <!-- Group C: HokBen -->
+          <g transform="translate(480, 70)">
+            <rect width="200" height="230" rx="12" fill="rgba(52,211,153,0.1)" stroke="#34d399" stroke-width="2"/>
+            <text x="100" y="35" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">KELOMPOK C</text>
+            <text x="100" y="55" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">Bentuk lubang spesifik</text>
+
+            <!-- Special trash can with shaped hole -->
+            <rect x="30" y="90" width="140" height="80" rx="8" fill="#475569"/>
+            <!-- Circular hole -->
+            <circle cx="70" cy="130" r="14" fill="#0a0e1a" stroke="#34d399" stroke-width="1.5"/>
+            <!-- Rectangular hole -->
+            <rect x="100" y="120" width="22" height="20" rx="2" fill="#0a0e1a" stroke="#34d399" stroke-width="1.5"/>
+
+            <text x="100" y="200" text-anchor="middle" fill="#34d399" font-size="12" font-weight="700">Akurasi: 92%</text>
+            <text x="100" y="220" text-anchor="middle" fill="#94a3b8" font-size="10">Sangat rendah kontaminasi</text>
+            <text x="100" y="245" text-anchor="middle" fill="#34d399" font-size="11">😊</text>
+          </g>
+
+          <text x="360" y="330" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">LUBANG FISIK = POKA-YOKE · MISTAKE-PROOFING</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Lubang spesifik pada tempat sampah mematikan kemungkinan salah masuk. Murah, inklusif, efektif — hanya butuh modifikasi lubang.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 340"&gt;
+  &lt;!-- 3 tempat sampah: tulisan, gambar, bentuk lubang --&gt;
+  &lt;!-- Akurasi: 45%, 70%, 92% --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 38. Tinta Ungu -->
+    <div class="ill-card" id="ill-38">
+      <div class="ill-header">
+        <div class="ill-title">Tinta Ungu — Social Badge Pemilu Indonesia</div>
+        <div class="ill-ref">Bab 13 · Lensa Nusantara</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+          <text x="360" y="30" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">FENOMENA TINTA UNGU PEMILU</text>
+
+          <!-- Left: TPS -->
+          <g transform="translate(60, 70)">
+            <rect width="240" height="220" rx="14" fill="rgba(34,211,238,0.08)" stroke="#22d3ee" stroke-width="1.5"/>
+            <text x="120" y="35" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">DI TPS</text>
+
+            <!-- Ballot box -->
+            <rect x="80" y="70" width="80" height="60" rx="4" fill="#475569" stroke="#94a3b8" stroke-width="1"/>
+            <rect x="105" y="80" width="30" height="4" rx="2" fill="#0a0e1a"/>
+
+            <!-- Dipping finger -->
+            <ellipse cx="120" cy="180" rx="14" ry="20" fill="rgba(168,85,247,0.4)"/>
+            <circle cx="120" cy="160" r="10" fill="rgba(168,85,247,0.6)"/>
+
+            <text x="120" y="215" text-anchor="middle" fill="#a855f7" font-size="11" font-weight="700">Celup tinta ungu</text>
+            <text x="120" y="235" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">Tujuan awalnya: cegah</text>
+            <text x="120" y="250" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">orang mencoblos 2x</text>
+          </g>
+
+          <!-- Right: Social Badge -->
+          <g transform="translate(380, 70)">
+            <rect width="280" height="220" rx="14" fill="rgba(168,85,247,0.08)" stroke="#a855f7" stroke-width="1.5"/>
+            <text x="140" y="35" text-anchor="middle" fill="#a855f7" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800">DAMPAK PSIKOLOGIS</text>
+
+            <!-- Finger with purple stain -->
+            <ellipse cx="80" cy="110" rx="18" ry="25" fill="#e8eef7"/>
+            <ellipse cx="80" cy="115" rx="14" ry="18" fill="rgba(168,85,247,0.7)"/>
+
+            <text x="140" y="105" fill="#a855f7" font-size="11" font-weight="700">"Saya warga negara</text>
+            <text x="140" y="122" fill="#a855f7" font-size="11" font-weight="700">yang baik!"</text>
+
+            <!-- Social media post mock -->
+            <rect x="40" y="150" width="200" height="80" rx="10" fill="rgba(20,28,48,0.8)" stroke="#475569" stroke-width="1"/>
+            <text x="60" y="175" fill="#94a3b8" font-size="10">📱 Instagram/WhatsApp</text>
+            <text x="60" y="195" fill="#e8eef7" font-size="11">"Jari ungu nih! Udah</text>
+            <text x="60" y="212" fill="#e8eef7" font-size="11">nyoblos ✅"</text>
+          </g>
+
+          <text x="360" y="325" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">PARTISIPASI PEMILU INDONESIA 70-80% · AS 50-60%</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Tinta ungu awalnya murni teknis keamanan, tapi secara psikologis menjadi Social Badge yang membuat orang bangga menunjukkan bahwa mereka sudah memilih.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 340"&gt;
+  &lt;!-- Kiri: TPS dengan proses celup tinta --&gt;
+  &lt;!-- Kanan: dampak psikologis Social Badge --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 39. Pinjol Interest Framing -->
+    <div class="ill-card" id="ill-39">
+      <div class="ill-header">
+        <div class="ill-title">Pinjol Interest Framing — 0,4%/hari vs 144%/tahun</div>
+        <div class="ill-ref">Bab 10 · Lensa Nusantara</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+          <text x="360" y="30" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">JERATAN PSIKOLOGIS PINJOL</text>
+
+          <!-- Daily framing (looks small) -->
+          <g transform="translate(60, 70)">
+            <rect width="280" height="200" rx="16" fill="rgba(52,211,153,0.08)" stroke="#34d399" stroke-width="1.5"/>
+            <text x="140" y="35" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800" letter-spacing="1">FRAMING HARIAN</text>
+
+            <text x="140" y="100" text-anchor="middle" fill="#e8eef7" font-family="Georgia, serif" font-size="36" font-weight="900">0,4%</text>
+            <text x="140" y="125" text-anchor="middle" fill="#94a3b8" font-size="13">per hari</text>
+
+            <text x="140" y="160" text-anchor="middle" fill="#34d399" font-size="11" font-weight="700">System 1: "Kecil, kan?"</text>
+            <text x="140" y="180" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">System 1 tidak menghitung</text>
+          </g>
+
+          <!-- Yearly framing (looks huge) -->
+          <g transform="translate(380, 70)">
+            <rect width="280" height="200" rx="16" fill="rgba(248,113,113,0.1)" stroke="#f87171" stroke-width="1.5"/>
+            <text x="140" y="35" text-anchor="middle" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="12" font-weight="800" letter-spacing="1">FRAMING TAHUNAN</text>
+
+            <text x="140" y="100" text-anchor="middle" fill="#f87171" font-family="Georgia, serif" font-size="36" font-weight="900">144%</text>
+            <text x="140" y="125" text-anchor="middle" fill="#94a3b8" font-size="13">per tahun</text>
+
+            <text x="140" y="160" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">System 2: "GILA!"</text>
+            <text x="140" y="180" text-anchor="middle" fill="#94a3b8" font-size="10" font-style="italic">Konteks utuh terbaca</text>
+          </g>
+
+          <text x="360" y="310" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">REGULASI HARUS WAJIBKAN FRAMING TAHUNAN</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Pinjol menampilkan bunga harian karena System 1 tidak otomatis mengalikannya. Regulasi harus memaksa tampilan tahunan agar System 2 bekerja.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 340"&gt;
+  &lt;!-- 2 kartu: Framing harian (0,4%) vs Framing tahunan (144%) --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 40. BPP Map -->
+    <div class="ill-card" id="ill-40">
+      <div class="ill-header">
+        <div class="ill-title">Peta Behavioral Public Policy — London ke Nusantara</div>
+        <div class="ill-ref">Bab 9</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+          <text x="360" y="30" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">EVOLUSI BPP · 2008 → 2026</text>
+
+          <!-- Timeline -->
+          <line x1="60" y1="180" x2="660" y2="180" stroke="#475569" stroke-width="2"/>
+
+          <!-- Node 1: 2008 Nudge book -->
+          <g transform="translate(120, 180)">
+            <circle r="14" fill="#22d3ee"/>
+            <text x="0" y="55" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">2008</text>
+            <text x="0" y="75" text-anchor="middle" fill="#e8eef7" font-size="10">Buku "Nudge"</text>
+            <text x="0" y="90" text-anchor="middle" fill="#94a3b8" font-size="9">Thaler &amp; Sunstein</text>
+          </g>
+
+          <!-- Node 2: 2010 BIT -->
+          <g transform="translate(240, 180)">
+            <circle r="14" fill="#22d3ee"/>
+            <text x="0" y="55" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">2010</text>
+            <text x="0" y="75" text-anchor="middle" fill="#e8eef7" font-size="10">BIT UK</text>
+            <text x="0" y="90" text-anchor="middle" fill="#94a3b8" font-size="9">"Nudge Unit"</text>
+          </g>
+
+          <!-- Node 3: 2015 Global -->
+          <g transform="translate(360, 180)">
+            <circle r="14" fill="#fbbf24"/>
+            <text x="0" y="55" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">2015</text>
+            <text x="0" y="75" text-anchor="middle" fill="#e8eef7" font-size="10">Global</text>
+            <text x="0" y="90" text-anchor="middle" fill="#94a3b8" font-size="9">Bank Dunia · OECD</text>
+          </g>
+
+          <!-- Node 4: 2018 Indonesia -->
+          <g transform="translate(480, 180)">
+            <circle r="14" fill="#fbbf24"/>
+            <text x="0" y="55" text-anchor="middle" fill="#fbbf24" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">2018</text>
+            <text x="0" y="75" text-anchor="middle" fill="#e8eef7" font-size="10">Indonesia</text>
+            <text x="0" y="90" text-anchor="middle" fill="#94a3b8" font-size="9">Kartu Prakerja · DJP</text>
+          </g>
+
+          <!-- Node 5: 2026 -->
+          <g transform="translate(600, 180)">
+            <circle r="14" fill="#34d399"/>
+            <text x="0" y="55" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">2026</text>
+            <text x="0" y="75" text-anchor="middle" fill="#e8eef7" font-size="10">BPP Journal</text>
+            <text x="0" y="90" text-anchor="middle" fill="#94a3b8" font-size="9">Cambridge Press</text>
+          </g>
+
+          <!-- Descriptive curve above -->
+          <path d="M 120 140 Q 240 100 360 120 Q 480 140 600 100" stroke="#22d3ee" stroke-width="1.5" fill="none" stroke-dasharray="4 4" opacity="0.5"/>
+
+          <text x="360" y="50" text-anchor="middle" fill="#22d3ee" font-size="11" font-style="italic">Dari menara gading → kantor pemerintahan → desa di Nusantara</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Perjalanan Behavioral Public Policy dari buku Nudge (2008) hingga praktik di Indonesia seperti Kartu Prakerja dan eksperimen DJP.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 340"&gt;
+  &lt;!-- Timeline dengan 5 node: 2008, 2010, 2015, 2018, 2026 --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- G · ETIKA & MASA DEPAN                       -->
+  <!-- ============================================ -->
+  <div class="section" id="section-g">
+    <div class="section-label">G · Etika &amp; Masa Depan</div>
+    <h2 class="section-title">Nudge untuk Kebaikan, Bukan Manipulasi</h2>
+
+    <!-- 41. Nudge vs Sludge -->
+    <div class="ill-card" id="ill-41">
+      <div class="ill-header">
+        <div class="ill-title">Nudge vs Sludge — Dua Sisi Koin</div>
+        <div class="ill-ref">Bab 14</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+          <text x="360" y="30" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">ALAT YANG SAMA, NIAT YANG MEMBEDAKAN</text>
+
+          <!-- Nudge (good) -->
+          <g transform="translate(60, 70)">
+            <rect width="280" height="230" rx="16" fill="rgba(52,211,153,0.08)" stroke="#34d399" stroke-width="2"/>
+            <text x="140" y="35" text-anchor="middle" fill="#34d399" font-family="JetBrains Mono, monospace" font-size="14" font-weight="900" letter-spacing="1">NUDGE ✓</text>
+            <text x="140" y="55" text-anchor="middle" fill="#94a3b8" font-size="11" font-style="italic">Membantu tujuan pengguna</text>
+
+            <text x="25" y="90" fill="#e8eef7" font-size="11">· Transparan</text>
+            <text x="25" y="112" fill="#e8eef7" font-size="11">· Mudah dihindari</text>
+            <text x="25" y="134" fill="#e8eef7" font-size="11">· Untuk kesejahteraan user</text>
+            <text x="25" y="156" fill="#e8eef7" font-size="11">· Ada manfaat jangka panjang</text>
+
+            <rect x="25" y="180" width="230" height="35" rx="8" fill="rgba(52,211,153,0.15)"/>
+            <text x="140" y="203" text-anchor="middle" fill="#34d399" font-size="11" font-weight="700">Contoh: default tabungan</text>
+            <text x="140" y="218" text-anchor="middle" fill="#34d399" font-size="11" font-weight="700">pensiun syariah</text>
+          </g>
+
+          <!-- Sludge (bad) -->
+          <g transform="translate(380, 70)">
+            <rect width="280" height="230" rx="16" fill="rgba(248,113,113,0.08)" stroke="#f87171" stroke-width="2"/>
+            <text x="140" y="35" text-anchor="middle" fill="#f87171" font-family="JetBrains Mono, monospace" font-size="14" font-weight="900" letter-spacing="1">SLUDGE ✗</text>
+            <text x="140" y="55" text-anchor="middle" fill="#94a3b8" font-size="11" font-style="italic">Mempersulit tujuan pengguna</text>
+
+            <text x="25" y="90" fill="#e8eef7" font-size="11">· Menyembunyikan info</text>
+            <text x="25" y="112" fill="#e8eef7" font-size="11">· Proses keluar rumit</text>
+            <text x="25" y="134" fill="#e8eef7" font-size="11">· Menguntungkan 1 pihak</text>
+            <text x="25" y="156" fill="#e8eef7" font-size="11">· Merugikan user jangka panjang</text>
+
+            <rect x="25" y="180" width="230" height="35" rx="8" fill="rgba(248,113,113,0.15)"/>
+            <text x="140" y="203" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">Contoh: langganan mudah,</text>
+            <text x="140" y="218" text-anchor="middle" fill="#f87171" font-size="11" font-weight="700">unsubscribe telepon CS</text>
+          </g>
+
+          <text x="360" y="325" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">DESAIN BERMANFAAT ATAU MENJERUMUSKAN?</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Alat yang sama bisa digunakan untuk dua tujuan berbeda. Yang membedakan adalah niat dan transparansi.
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 340"&gt;
+  &lt;!-- 2 kartu: Nudge (hijau) vs Sludge (merah) --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+
+    <!-- 42. Front Page Test -->
+    <div class="ill-card" id="ill-42">
+      <div class="ill-header">
+        <div class="ill-title">Front Page Test — Uji Halaman Depan</div>
+        <div class="ill-ref">Bab 14 · Thaler</div>
+      </div>
+      <div class="ill-visual">
+        <svg viewBox="0 0 720 340" xmlns="http://www.w3.org/2000/svg">
+          <text x="360" y="30" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2">UJI ETIKA PALING SEDERHANA</text>
+
+          <!-- Newspaper mockup -->
+          <g transform="translate(180, 60)">
+            <rect width="360" height="220" rx="8" fill="rgba(232,238,247,0.95)"/>
+            <rect x="0" y="0" width="360" height="50" fill="rgba(10,14,26,0.85)"/>
+            <text x="180" y="32" text-anchor="middle" fill="#e8eef7" font-family="Georgia, serif" font-size="20" font-weight="900" letter-spacing="1">KORAN NASIONAL</text>
+
+            <text x="20" y="80" fill="#0a0e1a" font-family="Georgia, serif" font-size="14" font-weight="700">"Jika strategi Anda dibocorkan</text>
+            <text x="20" y="102" fill="#0a0e1a" font-family="Georgia, serif" font-size="14" font-weight="700">besok pagi di halaman depan —</text>
+            <text x="20" y="124" fill="#0a0e1a" font-family="Georgia, serif" font-size="14" font-weight="700">Anda MALU atau BANGGA?"</text>
+
+            <text x="20" y="160" fill="#0a0e1a" font-size="11">────────────────</text>
+
+            <text x="20" y="185" fill="#f87171" font-size="12" font-weight="700">😳 MALU → Manipulasi</text>
+            <text x="20" y="205" fill="#34d399" font-size="12" font-weight="700">😊 BANGGA → Nudge Etis</text>
+          </g>
+
+          <text x="360" y="315" text-anchor="middle" fill="#22d3ee" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700" letter-spacing="1">TRANSPARAN · MUDAH DIHINDARI · UNTUK KESEJAHTERAAN</text>
+        </svg>
+      </div>
+      <div class="ill-caption">
+        Uji sederhana dari Thaler untuk membedakan intervensi etis dan manipulatif. Jika intervensi Anda dibocorkan ke publik, malu atau bangga?
+      </div>
+      <button class="ill-code-toggle" onclick="toggleCode(this)">▼ Lihat Kode SVG</button>
+      <pre class="ill-code">&lt;svg viewBox="0 0 720 340"&gt;
+  &lt;!-- Mockup koran dengan headline tentang Front Page Test --&gt;
+&lt;/svg&gt;</pre>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="footer">
+    <div class="footer-brand">Psychosophia Behavioral Lab · Behavioral Insights · 2026</div>
+    <div class="footer-tag">bridging data to behavior</div>
+    <p style="margin-top:20px; font-size:12px; color:var(--text-dim); opacity:0.65; max-width:600px; margin-left:auto; margin-right:auto; font-style:italic;">
+      42 ilustrasi dibuat murni dengan SVG — tanpa file eksternal, tajam di semua resolusi,
+      dapat disalin langsung ke ebook HTML Anda. Setiap kartu dapat dibuka kode SVG-nya untuk referensi.
+    </p>
+  </div>
+
+</div>
+
+<a href="#" class="back-top" title="Kembali ke atas">↑</a>
+
+<script>
+  function toggleCode(btn) {
+    const code = btn.nextElementSibling;
+    const isOpen = code.classList.toggle('open');
+    btn.textContent = isOpen ? '▲ Sembunyikan Kode SVG' : '▼ Lihat Kode SVG';
+  }
+</script>
+
+</body>
+</html>

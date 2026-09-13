@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Bagaimana Konsumen Mengalami dan Menafsirkan Harga: Studi Perilaku</title>
+<style>
+  :root {
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #2c5f7c;
+    --rule: #ccc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
+    background: #fafaf7;
+    margin: 0;
+    padding: 0;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.06);
+  }
+  .article-header {
+    border-bottom: 3px double var(--rule);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+  .article-number {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 28px;
+    line-height: 1.25;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .author {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+  .affiliation {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin: 4px 0 0;
+  }
+  h2 {
+    font-size: 22px;
+    margin: 42px 0 16px;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 18px;
+    margin: 30px 0 12px;
+  }
+  p { margin: 0 0 16px; text-align: justify; hyphens: auto; }
+  p.lead { font-size: 18px; }
+  .abstract {
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 22px 26px;
+    margin: 28px 0 36px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .abstract p:last-child { margin-bottom: 0; }
+  .pullquote {
+    font-size: 21px;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding: 6px 0 6px 22px;
+    margin: 30px 0;
+    font-weight: 600;
+  }
+  .pullquote::before { content: "\201C"; }
+  .pullquote::after { content: "\201D"; }
+  figure {
+    margin: 32px 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  figure img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+  }
+  figcaption {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 10px;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .qr-note {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 14px 18px;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .qr-note .qr-box {
+    width: 48px; height: 48px;
+    background: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0/12px 12px;
+    border: 1px solid #999;
+    flex-shrink: 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  table th {
+    background: #2c5f7c;
+    color: #fff;
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+  }
+  table td {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 12px;
+    vertical-align: top;
+  }
+  table tr:nth-child(even) td {
+    background: #f7f9fa;
+  }
+  .table-note {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: -12px 0 24px;
+  }
+  .rec-list {
+    counter-reset: rec;
+    list-style: none;
+    padding: 0;
+    margin: 24px 0;
+  }
+  .rec-list li {
+    counter-increment: rec;
+    position: relative;
+    padding-left: 52px;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+  .rec-list li::before {
+    content: counter(rec);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    text-align: center;
+    line-height: 34px;
+    font-size: 14px;
+  }
+  .rec-list strong {
+    color: var(--accent);
+  }
+  .refs {
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .refs h2 { font-size: 20px; }
+  .refs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    column-count: 2;
+    column-gap: 36px;
+  }
+  .refs li {
+    margin-bottom: 14px;
+    break-inside: avoid;
+    padding-left: 22px;
+    text-indent: -22px;
+  }
+  .author-bio {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 40px 0 24px;
+    font-size: 15.5px;
+  }
+  .author-bio h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  .author-bio p { text-align: left; margin-bottom: 12px; }
+  .author-bio p:last-child { margin-bottom: 0; }
+  .end-mark {
+    text-align: center;
+    color: var(--muted);
+    letter-spacing: 6px;
+    margin: 40px 0;
+  }
+  @media (max-width: 640px) {
+    .page { padding: 30px 20px; }
+    .refs ul { column-count: 1; }
+    h1 { font-size: 22px; }
+    table { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ HEADER ============ -->
+  <header class="article-header">
+    <div class="article-number">Aplikasi</div>
+    <h1>Bagaimana Konsumen Mengalami dan Menafsirkan Harga: Studi Perilaku</h1>
+    <p class="author">Claire Nolan, Alice Pearce, Pakamon Prasitsumrit, dan Angel Zhou</p>
+    <p class="affiliation">Dectech</p>
+  </header>
+
+  <div class="qr-note">
+    <div class="qr-box"></div>
+    <div>Pindai kode QR untuk menonton ringkasan video</div>
+  </div>
+
+  <!-- ============ ABSTRACT ============ -->
+  <div class="abstract">
+    <p>Ekonomi perilaku telah menunjukkan bahwa konsumen tidak secara rasional menilai harga sebagai angka absolut, tetapi sebagai titik referensi yang dibangun secara psikologis yang dibentuk oleh konteks, pembingkaian, dan bias kognitif (Barberis, 2013). Persepsi kita tentang harga dan elastisitas yang dihasilkan bersifat lentur dan bergantung konteks. Kami menjalankan tiga eksperimen perilaku untuk menggambarkan bagaimana ekspektasi awal konsumen, konteks keputusan, dan komunikasi harga semuanya secara signifikan memengaruhi perilaku dan sentimen konsumen. Temuan kami menunjukkan bahwa elastisitas harga bukanlah input yang stabil untuk strategi penetapan harga melainkan hasil yang sulit diukur, sehingga memahami penyebabnya, termasuk perspektif konsumen, sangat penting.</p>
+  </div>
+
+  <blockquote class="pullquote">Konsumen tidak secara rasional menilai harga sebagai angka absolut, tetapi sebagai titik referensi yang dibangun secara psikologis yang dibentuk oleh konteks, pembingkaian, dan bias kognitif.</blockquote>
+
+  <!-- ============ INTRODUCTION ============ -->
+  <h2>Pendahuluan</h2>
+
+  <p>Reaksi konsumen terhadap harga dan perilaku pembelian yang dihasilkan sangat fundamental untuk optimisasi pendapatan dan margin, namun merek sering memiliki pemahaman yang sempit tentang bagaimana konsumen terlibat dengan harga. Sumber daya yang cukup besar dihabiskan untuk mengukur elastisitas harga (Zhang, 2025), dengan sedikit fokus pada penyebab yang mendasarinya. Ini mengasumsikan produk memiliki elastisitas alami yang harus menentukan strategi penetapan harga, alih-alih mengakui bahwa elastisitas dibentuk oleh berbagai pengaruh. Ini termasuk faktor eksternal, seperti kondisi makroekonomi dan penetapan harga pesaing, dan faktor yang dapat dikendalikan seperti penetapan harga historis, arsitektur penetapan harga saat ini, dan strategi komunikasi. Sementara merek menggunakan elastisitas untuk memprediksi respons konsumen terhadap harga, eksperimen perilaku menyediakan pendekatan yang jauh lebih efektif untuk memprediksi respons konsumen terhadap harga.</p>
+
+  <!-- ============ METHODOLOGY ============ -->
+  <h2>Metodologi</h2>
+
+  <p>Kami melakukan tiga eksperimen perilaku untuk menganalisis bagaimana ekspektasi dan persepsi konsumen memberikan lensa tambahan untuk menafsirkan dan memengaruhi elastisitas harga yang diamati. Penelitian primer dilakukan secara online pada November 2025 menggunakan sampel 1.059 konsumen Inggris yang representatif secara nasional berusia 18+, yang direkrut oleh mitra panel kami. Eksperimen mencakup serangkaian sembilan industri yang konsisten untuk menguji generalisasi—Grocery (Bahan Makanan), Insurance (Asuransi), Utilities (Utilitas), Telecoms (Telekomunikasi), Travel (Perjalanan), Finance (Keuangan), Food Delivery (Pengiriman Makanan), Retail (Ritel), dan Pubs (Pub). Untuk memaksimalkan kekuatan statistik dan meminimalkan kelelahan responden, responden menyelesaikan ketiga eksperimen untuk tiga dari sembilan industri, dengan industri dialokasikan secara acak ke satu eksperimen untuk setiap responden. Bagian demografi disertakan untuk kontrol statistik dan untuk mengidentifikasi pola demografis.</p>
+
+  <!-- ============ EXPECTED PRICE ============ -->
+  <h2>Harga yang Diharapkan: Bagaimana Ekspektasi Konsumen Harus Membentuk Strategi Penetapan Harga?</h2>
+
+  <p>Elastisitas harga mengukur sensitivitas permintaan terhadap harga, tetapi permintaan tidak hanya bergantung pada harga absolut, tetapi juga pada seberapa jauh harga itu dari ekspektasi konsumen, atau "harga referensi" (Winer, 1986). Dari pengalaman kami dalam ilmu perilaku, ekspektasi berasal dari penetapan harga historis, penetapan harga pesaing, substitusi, lingkungan keputusan, konteks makroekonomi, dan lainnya. Harga yang jauh di atas atau di bawah ekspektasi segera memengaruhi tingkat pembelian dan margin, dan mereka memiliki dampak merek jangka panjang. Terlebih lagi, sticker shock—harga yang mengejutkan tinggi—dapat memiliki efek spiral, karena dari mulut ke mulut yang negatif memperluas kerusakan jauh melampaui mereka yang menemui harga tersebut. Pengecer harus mengoptimalkan distribusi margin dengan menghilangkan harga yang merusak tinggi sambil mempertahankan beberapa harga 'hero' yang rendah.</p>
+
+  <p>Kami mempelajari akurasi dan penyebaran estimasi harga tanpa harga referensi. Responden memperkirakan harga—dalam pound dan pence—dari produk bermerek dari deskripsi terperinci (misalnya, "S Hovis Seed Sensations loaf of bread (800g) from Waitrose"). Setiap responden menetapkan harga tiga produk (misalnya, roti, susu, cornflakes) dari masing-masing tiga industri yang dipilih secara acak, dengan merek ditugaskan secara acak ke setiap produk (lihat Lampiran). Responden kemudian menilai seberapa percaya diri mereka terhadap estimasi mereka dari 0–100%, keakraban dengan merek, dan kapan terakhir kali mereka membeli produk tersebut. Kami menguji tiga hipotesis:</p>
+
+  <p><strong>H1:</strong> Konsumen meremehkan harga yang lebih tinggi dan melebih-lebihkan harga yang lebih rendah.</p>
+  <p><strong>H2:</strong> Harga yang diharapkan akan menyimpang lebih banyak dari harga nyata di industri dengan keterlibatan rendah.</p>
+  <p><strong>H3:</strong> Ekspektasi harga konsumen membedakan merek value, mid-tier, dan premium.</p>
+
+  <p>Konsumen memberikan estimasi yang wajar, sangat berkorelasi dengan harga dunia nyata, tetapi dengan kecenderungan konsisten untuk melebih-lebihkan, yang paling besar di Travel, Utilities, dan Insurance (Gambar 1)—semuanya industri berharga lebih tinggi. Penelitian sebelumnya menunjukkan bahwa stabilitas harga memengaruhi apakah konsumen mengandalkan memori atau inferensi saat membentuk penilaian (Mazumdar et al., 2005). Di sektor yang volatil seperti Travel, konsumen kurang mengandalkan recall dan lebih mengandalkan heuristik dan anchor berbasis industri, karena harga bersifat spesifik rute dan kurang dapat diamati. Travel, Utilities, dan Insurance jarang dibeli, dan baik Utilities maupun Insurance menggunakan penetapan harga khusus, sehingga ada lebih sedikit titik referensi yang relevan. Retail adalah satu-satunya industri yang secara rata-rata diremehkan, tetapi ini karena peremehan seberapa mahal Gucci sebenarnya (Tabel 1). Estimasi untuk M&S dan H&M jauh lebih dekat ke harga dunia nyata.</p>
+
+  <figure>
+    <img src="figure1-dectech.jpg" alt="Harga yang diperkirakan vs. harga nyata berdasarkan industri.">
+    <figcaption><strong>Gambar 1:</strong> Harga yang diperkirakan vs. harga nyata berdasarkan industri. Sumber: Fieldwork Dectech, Juli 2025 (N = 1.059 nat. rep.). Responden diminta memperkirakan harga yang diharapkan untuk membayar tiga produk di tiga merek, dalam hingga tiga industri. Grafik menunjukkan hubungan antara rata-rata harga yang diharapkan di setiap industri dan rata-rata harga dunia nyata yang sesuai.</figcaption>
+  </figure>
+
+  <p>Konsumen yang baru-baru ini membeli produk membuat estimasi yang secara signifikan lebih rendah daripada mereka yang belum—rata-rata 25% lebih rendah (p &lt; 0,001)—membawa mereka lebih dekat ke harga dunia nyata. Demikian pula, mereka yang akrab dengan merek cenderung memperkirakan harga yang secara signifikan lebih rendah—rata-rata 12% lebih rendah (p &lt; 0,001). Ini membantu menjelaskan overestimate yang terlihat di Utilities dan Insurance, di mana mereka yang kurang akrab dengan produk dan merek memberikan estimasi harga yang sangat tinggi.</p>
+
+  <p>Dalam suatu industri, merek dapat menuntut ekspektasi harga yang sangat berbeda. Konsumen mungkin tidak setuju bahwa merek layak mendapatkan harga yang lebih tinggi, namun mereka tetap membentuk hierarki harga. Tingkat diferensiasi bervariasi menurut industri. Travel dan Retail menunjukkan merek premium yang jelas—British Airways dan Gucci, masing-masing—yang estimasi harganya secara statistik signifikan lebih tinggi daripada dua merek lainnya (Tabel 1). British Airways diperkirakan memiliki premi +45% di atas harga Ryanair, didorong oleh posisi merek yang konsisten oleh kedua operator. Selain itu, konsumen tahu bahwa Gucci adalah merek mewah, tetapi mereka memperkirakan H&M 10% lebih murah daripada M&S.</p>
+
+  <p>Pubs menunjukkan merek value yang terdiferensiasi, dalam arti konsumen mengharapkan harga setidaknya 14% lebih rendah di Wetherspoons, yang tidak mengejutkan, mengingat posisi mereknya. Di Groceries, estimasi Asda secara signifikan lebih rendah daripada Waitrose (p = 0,035), dengan Sainsbury's berada di antara keduanya. Industri lain menunjukkan variasi yang lebih sedikit.</p>
+
+  <p>Konsumen memiliki kepercayaan yang relatif konsisten dalam estimasi mereka di seluruh merek dalam industri yang sama, dengan variasi yang lebih tinggi antar industri. Kepercayaan tertinggi untuk estimasi yang berkaitan dengan Grocery dan terendah untuk Travel dan Insurance (Tabel 2). Dari perspektif ilmu perilaku, kepercayaan mencerminkan kemudahan konsumen dapat mengambil isyarat memori yang konsisten saat membentuk penilaian (Koriat, 1997). Keterlibatan yang sering dengan suatu industri meningkatkan volume isyarat memori: benar untuk Grocery tetapi kurang untuk Insurance. Sebaliknya, kepercayaan akan lebih rendah untuk harga yang tidak stabil sepanjang waktu dan merek, karena isyarat memori kurang konsisten. Ini akan memengaruhi kepercayaan di Travel, di mana mengetahui harga satu penerbangan belum tentu informatif ketika memperkirakan harga rute, maskapai, bandara, tanggal, atau waktu yang berbeda.</p>
+
+  <p><strong>Tabel 1: Harga yang Diperkirakan berdasarkan Merek</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Industri</th>
+        <th>Merek</th>
+        <th>Rata-rata Harga yang Diperkirakan</th>
+        <th>% Perbedaan dari Mid</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="3">Travel</td>
+        <td>British Airways</td>
+        <td>£213</td>
+        <td>+24%</td>
+      </tr>
+      <tr>
+        <td>Vueling</td>
+        <td>£171</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Ryanair</td>
+        <td>£147</td>
+        <td>-14%</td>
+      </tr>
+      <tr>
+        <td rowspan="3">Retail</td>
+        <td>Gucci</td>
+        <td>£420</td>
+        <td>+ &gt;100%</td>
+      </tr>
+      <tr>
+        <td>M&amp;S</td>
+        <td>£47</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>H&amp;M</td>
+        <td>£42</td>
+        <td>-10%</td>
+      </tr>
+      <tr>
+        <td rowspan="3">Groceries</td>
+        <td>Waitrose</td>
+        <td>£3,60</td>
+        <td>+11%</td>
+      </tr>
+      <tr>
+        <td>Sainsbury's</td>
+        <td>£3,20</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Asda</td>
+        <td>£2,90</td>
+        <td>-9%</td>
+      </tr>
+      <tr>
+        <td rowspan="3">Pubs</td>
+        <td>Greene King</td>
+        <td>£11,70</td>
+        <td>+3%</td>
+      </tr>
+      <tr>
+        <td>Marston's</td>
+        <td>£11,40</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td>Wetherspoons</td>
+        <td>£9,80</td>
+        <td>-14%</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="table-note"><em>Sumber:</em> Fieldwork Dectech, Juli 2025 (N = 1.059 nat. rep.). Responden diminta memperkirakan harga yang diharapkan untuk membayar tiga produk di tiga merek, dalam hingga tiga industri. Tabel menunjukkan rata-rata harga yang diharapkan berdasarkan merek dan industri.</p>
+
+  <p><strong>Tabel 2: Kepercayaan Estimasi berdasarkan Industri</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Industri</th>
+        <th>Kepercayaan (0–100%)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Groceries [roti, cornflakes atau 2 liter susu]</td><td>47%</td></tr>
+      <tr><td>Telecoms [broadband, data seluler atau kontrak ponsel]</td><td>41%</td></tr>
+      <tr><td>Utilities [listrik, kontrak energi tetap atau variabel]</td><td>39%</td></tr>
+      <tr><td>Pubs [Fish &amp; chips, koktail margarita atau pint]</td><td>39%</td></tr>
+      <tr><td>Retail [sepatu hak tinggi, dasi sutra atau mantel musim dingin]</td><td>38%</td></tr>
+      <tr><td>Food Delivery [garlic bread, pizza margherita atau pizza meat feast]</td><td>37%</td></tr>
+      <tr><td>Insurance [asuransi perjalanan, mobil atau rumah]</td><td>33%</td></tr>
+      <tr><td>Travel [penerbangan ke Alicante, Barcelona atau Madrid]</td><td>31%</td></tr>
+    </tbody>
+  </table>
+  <p class="table-note"><em>Sumber:</em> Fieldwork Dectech, Juli 2025 (N = 1.059 nat. rep.). Responden diminta menunjukkan kepercayaan mereka dalam estimasi harga untuk setiap produk pada skala 0% hingga 100% dalam kenaikan 10%. Tabel menunjukkan rata-rata kepercayaan berdasarkan industri.</p>
+
+  <p>Hasil kami menyoroti pentingnya memahami ekspektasi spesifik merek yang dibawa konsumen ke keputusan pembelian. Merek harus tahu di mana konsumen mengharapkan harga setiap produk berada dalam rentang mereka dan pasar untuk benar-benar mengoptimalkan pendapatan dan margin. Wawasan ini dapat membentuk strategi tingkat yang lebih tinggi tentang arsitektur penetapan harga, membatasi guncangan harga, dan mengidentifikasi harga untuk ditampilkan dalam pemasaran above-the-line. Kecenderungan konsumen yang tidak akrab untuk mengasumsikan harga yang lebih tinggi sangat penting untuk strategi akuisisi dan peluncuran merek atau produk baru.</p>
+
+  <blockquote class="pullquote">Merek harus tahu di mana konsumen mengharapkan harga setiap produk berada dalam rentang mereka dan pasar untuk benar-benar mengoptimalkan pendapatan dan margin.</blockquote>
+
+  <p>Hasil kami mendukung sebagian tetapi tidak semua hipotesis. H1 tidak didukung, karena harga yang lebih tinggi tidak secara konsisten diremehkan. H2 didukung oleh penyimpangan yang lebih besar dari harga dunia nyata di industri frekuensi rendah seperti Travel dan Insurance, dan oleh estimasi yang lebih akurat dari pembeli terkini. H3 didukung untuk empat industri, termasuk Grocery, di mana konsumen mengharapkan harga 11% lebih tinggi di merek premium seperti Waitrose dan diskon 9% di merek value seperti Asda, tetapi mereka berjuang untuk membedakan harga di industri seperti Insurance dan Energy.</p>
+
+  <!-- ============ DYNAMIC PRICING ============ -->
+  <h2>Penetapan Harga Dinamis: Bagaimana Konsumen Merespons Fluktuasi Harga?</h2>
+
+  <p>Seperti disebutkan, fluktuasi yang sering membuat lebih sulit bagi konsumen untuk memperkirakan harga dan membandingkan nilai di seluruh merek. Industri seperti hiburan, perjalanan, dan perhotelan telah bergeser ke arah penetapan harga dinamis yang cepat (Kopalle et al., 2023), tetapi konsumen mengalami fluktuasi di sebagian besar industri karena faktor lingkungan seperti inflasi dan aktivitas pesaing, faktor sisi penawaran seperti efisiensi rantai pasokan dan biaya bahan baku, dan faktor sisi permintaan seperti tren konsumen dan musiman. Merek karena itu harus memahami respons konsumen terhadap fluktuasi ini untuk menentukan strategi tentang volume, frekuensi, dan komunikasi perubahan harga.</p>
+
+  <p>Eksperimen kedua kami memeriksa persepsi konsumen tentang seberapa adil fluktuasi harga dalam berbagai keadaan. Responden diberi skenario di mana mereka mengalami harga yang lebih tinggi—misalnya, "Anda ingin terbang ke Madrid pada bulan Juli, dan Anda melihat harga lebih tinggi daripada di waktu lain"—yang dipilih secara acak dari sembilan skenario, masing-masing dari industri yang berbeda (lihat Lampiran Tabel 6). Responden selalu mengalami lonjakan harga, tetapi skenario di sini membingkai harga ini baik sebagai premi di atas harga dasar (Pembingkaian Premium) atau harga dasar dari mana orang lain menerima diskon (Pembingkaian Dasar). Responden diminta menilai keadilan skenario tersebut. Kami kemudian memberikan dua alasan untuk perubahan harga—satu terkait permintaan dan yang lainnya terkait penawaran—dan bertanya seberapa dapat diterima penjelasan tersebut dalam setiap kasus. Terakhir, kami bertanya apakah mereka pernah mengalami lonjakan seperti itu sendiri. Kami tertarik pada perbedaan antar industri dan konsumen, dan apakah fluktuasi harga lebih dapat diterima berdasarkan bagaimana mereka dibingkai atau dijelaskan. Kami mulai dengan hipotesis berikut:</p>
+
+  <p><strong>H1:</strong> Perubahan harga lebih dapat diterima di industri di mana konsumen mengharapkannya terjadi.</p>
+  <p><strong>H2:</strong> Merek dapat secara signifikan memengaruhi reaksi konsumen melalui komunikasi dan penjelasan perubahan.</p>
+
+  <p>Kami menemukan perbedaan yang cukup besar dalam peringkat keadilan antar industri. Fluktuasi dipersepsikan paling tidak adil di Insurance dan Finance, dan paling tidak tidak adil di Retail dan Travel (Tabel 3). Dalam ilmu perilaku, persepsi keadilan dibentuk oleh pergerakan harga yang konsisten dengan ekspektasi: ketika konsumen mengingat fluktuasi serupa, mereka percaya perubahan dibenarkan. Recall paling umum di Utilities, Retail, dan Travel, di mana musiman memengaruhi harga.</p>
+
+  <p>Perbedaan yang signifikan antar konsumen juga diamati. Diberikan skenario yang sama, regresi linear multivariat menemukan bahwa laki-laki, konsumen yang lebih muda, mereka dengan pendapatan lebih tinggi, dan mereka yang berada di London semuanya memiliki peringkat keadilan yang secara signifikan lebih tinggi (Gambar 2), kemungkinan sebagian karena sensitivitas harga yang lebih rendah.</p>
+
+  <p><strong>Tabel 3: Ketidakadilan yang Dipersepsikan di Seluruh Industri</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Industri</th>
+        <th>Skenario &amp; Pembingkaian Premium/Dasar</th>
+        <th>% Menilai Tidak Adil</th>
+        <th>% Mengalami</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Insurance</td>
+        <td>Asuransi mobil [lebih tinggi harganya sebelum/lebih rendah harganya di luar] hari libur (misalnya, bank holiday)</td>
+        <td>48%</td>
+        <td>28%</td>
+      </tr>
+      <tr>
+        <td>Finance</td>
+        <td>Kartu kredit memiliki [suku bunga lebih tinggi selama/suku bunga lebih rendah di luar] hari libur seperti Natal</td>
+        <td>47%</td>
+        <td>27%</td>
+      </tr>
+      <tr>
+        <td>Pub</td>
+        <td>Harga minuman [lebih tinggi ketika ada/lebih rendah ketika tidak ada] pertandingan sepak bola besar</td>
+        <td>44%</td>
+        <td>40%</td>
+      </tr>
+      <tr>
+        <td>Telecoms</td>
+        <td>Tagihan internet broadband [lebih tinggi di bulan-bulan dengan lalu lintas tinggi/lebih rendah di bulan-bulan dengan lalu lintas rendah]</td>
+        <td>43%</td>
+        <td>32%</td>
+      </tr>
+      <tr>
+        <td>Groceries</td>
+        <td>Susu [lebih mahal di/lebih murah di luar] musim dingin</td>
+        <td>41%</td>
+        <td>30%</td>
+      </tr>
+      <tr>
+        <td>Utilities</td>
+        <td>Biaya per unit energi [lebih tinggi di/lebih rendah di luar] musim dingin</td>
+        <td>38%</td>
+        <td>57%</td>
+      </tr>
+      <tr>
+        <td>Food Delivery</td>
+        <td>Harga makanan [lebih tinggi pada/lebih rendah di luar] waktu makan</td>
+        <td>38%</td>
+        <td>38%</td>
+      </tr>
+      <tr>
+        <td>Travel</td>
+        <td>Harga penerbangan [lebih tinggi di/lebih rendah di luar] liburan musim panas</td>
+        <td>33%</td>
+        <td>51%</td>
+      </tr>
+      <tr>
+        <td>Retail</td>
+        <td>Item pakaian musim dingin [lebih mahal di/lebih murah di luar] musim dingin</td>
+        <td>30%</td>
+        <td>55%</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="table-note"><em>Sumber:</em> Fieldwork Dectech, Juli 2025 (N = 1.059 nat. rep.). Responden diminta menilai keadilan surge pricing di setiap industri dan untuk menunjukkan apakah mereka pernah mengalami harga semacam itu dalam setahun terakhir. Setiap responden memberikan satu evaluasi per industri, untuk hingga tiga industri. Keadilan diukur menggunakan skala 7 poin, di mana skor 1–3 diklasifikasikan sebagai tidak adil. "% Mengalami" mengacu pada persentase peserta yang melaporkan pernah mengalami surge pricing dalam industri tertentu.</p>
+
+  <figure>
+    <img src="figure2-dectech.jpg" alt="Karakteristik konsumen dan dampak pembingkaian pada persepsi keadilan.">
+    <figcaption><strong>Gambar 2:</strong> Karakteristik konsumen dan dampak pembingkaian pada persepsi keadilan. Sumber: Fieldwork Dectech, Juli 2025 (N = 1.059 nat. rep.). Responden diberitahu bahwa harga bersifat dinamis dan bahwa mereka dikenakan harga yang lebih tinggi daripada yang mungkin mereka bayar di waktu lain. Pembingkaian skenario mengacu pada menyajikan atau menjelaskan penetapan harga dinamis baik sebagai harga yang lebih tinggi selama periode permintaan tinggi atau sebagai harga yang lebih rendah selama periode off-peak. Batang menunjukkan beta yang signifikan secara statistik dari regresi linear multivariat dengan Fairness Rating sebagai variabel dependen.</figcaption>
+  </figure>
+
+  <p>Kami kemudian menyelidiki dampak bagaimana perubahan harga dibingkai, misalnya, harga penerbangan lebih tinggi di liburan musim panas (Pembingkaian Premium) vs. harga penerbangan lebih rendah di luar liburan musim panas (Pembingkaian Dasar). Yang penting, dalam kedua pembingkaian tersebut skenario menempatkan responden pada keadaan yang berarti mereka mengalami harga yang lebih tinggi (misalnya, Juli dalam skenario Travel di atas), harga hanya disajikan sebagai lebih tinggi sekarang atau lebih rendah di waktu lain. Hasil kami mengungkapkan keadilan yang dipersepsikan secara signifikan lebih tinggi ketika harga saat ini dibingkai sebagai dasar dengan diskon di waktu lain (Gambar 2). Ini mencerminkan aversi kerugian (Thaler, 1980), yaitu, konsumen lebih sensitif terhadap kerugian yang dipersepsikan (biaya tambahan) daripada keuntungan yang setara (diskon), yang berarti biaya tambahan saat ini terasa lebih menyakitkan daripada kehilangan diskon.</p>
+
+  <p>Akhirnya, merek dapat secara signifikan memengaruhi reaksi konsumen melalui bagaimana mereka menjelaskan perubahan harga. Ketika membandingkan penjelasan terkait permintaan vs. penawaran, frustrasi yang disebabkan oleh variasi harga berkurang secara signifikan (p = 0,008) jika perubahan disebabkan oleh kekuatan pasar dari peningkatan permintaan daripada inkompetensi sisi penawaran. Masalah sisi penawaran dianggap sebagai masalah penyedia untuk diperbaiki, bukan meneruskan biaya ke konsumen. Contoh terkuat dalam hal ini adalah di Retail, Travel, dan Finance (Gambar 3). Ini konsisten dengan literatur tentang kegagalan layanan, di mana kepuasan pelanggan lebih dirugikan jika penyedia disalahkan atas kegagalan tersebut (Anderson et al., 2007).</p>
+
+  <figure>
+    <img src="figure3-dectech.jpg" alt="Skor penerimaan berdasarkan jenis alasan.">
+    <figcaption><strong>Gambar 3:</strong> Skor penerimaan berdasarkan jenis alasan. Sumber: Fieldwork Dectech, Juli 2025 (N = 1.059 nat. rep.). Grafik menunjukkan rata-rata skor penerimaan berdasarkan jenis alasan dan industri.</figcaption>
+  </figure>
+
+  <p>Hasil ini menggambarkan bagaimana merek dapat meminimalkan reaksi negatif terhadap perubahan harga. Ada produk yang diasumsikan konsumen akan bervariasi harganya, sehingga pengecer dapat memaksimalkan pendapatan dengan menerapkan strategi penetapan harga yang lebih dinamis. Fluktuasi yang tidak terduga jauh lebih merusak. Bila memungkinkan, harga yang lebih tinggi harus dibingkai sebagai harga dasar dari mana seseorang dapat mendiskon, bukan membingkai harga yang lebih rendah sebagai dasar dan menaikkannya dari sana. Merek juga mengendalikan penjelasan, yang harus berfokus pada bagaimana dinamika pasar memengaruhi harga daripada inkompetensi sisi penawaran.</p>
+
+  <blockquote class="pullquote">Ada produk yang diasumsikan konsumen akan bervariasi harganya, sehingga pengecer dapat memaksimalkan pendapatan dengan menerapkan strategi penetapan harga yang lebih dinamis.</blockquote>
+
+  <p>Temuan ini mendukung kedua hipotesis awal. Perubahan harga lebih dapat diterima di industri di mana fluktuasi semacam itu diharapkan (H1), dan reaksi konsumen sangat dibentuk oleh bagaimana merek membingkai dan menjelaskan perubahan harga (H2).</p>
+
+  <!-- ============ DRIP PRICING ============ -->
+  <h2>Drip Pricing: Bagaimana Struktur Penetapan Harga Memengaruhi Niat Pembelian?</h2>
+
+  <p>Eksperimen terakhir kami berfokus pada bagaimana penetapan harga distrukturkan dan dikomunikasikan di seluruh perjalanan pelanggan. Drip pricing—menguraikan harga menjadi beberapa komponen yang disajikan secara berurutan kepada pembeli (Rasch et al., 2020)—digunakan secara luas di industri tertentu. Maskapai penerbangan, misalnya, sering memulai dengan harga penerbangan dasar sebelum menambahkan berbagai ekstra—beberapa opsional dan beberapa wajib—yang akhirnya membangun keranjang yang jauh lebih tinggi.</p>
+
+  <p>Eksperimen kami mengukur dampak perilaku drip pricing menggunakan dua kelompok responden yang berbeda, yang ditugaskan secara acak. Kelompok 1, yang perjalanannya ditunjukkan pada Gambar 4, mereplikasi struktur perjalanan drip pricing. Awalnya, mereka melihat harga dasar (£82,80 dalam contoh ini), dan kemudian biaya tambahan 10% ditambahkan ke keranjang sebelum pembayaran, menghasilkan total £92,00. Biaya tambahan selalu 10% dari total harga, sehingga 90% dari total harga terlihat di muka. Kelompok 2 mereplikasi perjalanan online yang setara dengan hanya satu langkah, karena total harga £92,00 terlihat di muka sebagai harga produk.</p>
+
+  <p>Produk dipilih secara acak dari daftar sembilan, masing-masing dari industri yang berbeda, dan total harga untuk setiap produk didasarkan pada harga dunia nyata. Dengan membandingkan peringkat dan kelompok, kami dapat mengukur bagaimana niat pembelian dipengaruhi oleh penambahan biaya dalam struktur drip pricing.</p>
+
+  <p>Desain ini memungkinkan kami mempertimbangkan hipotesis berikut:</p>
+
+  <p><strong>H1:</strong> Menambahkan biaya dalam struktur drip pricing memiliki dampak negatif pada niat pembelian, di luar dampak dari kenaikan harga.</p>
+  <p><strong>H2:</strong> Dampak drip pricing pada niat pembelian berbeda berdasarkan industri.</p>
+
+  <p>Analisis kami menemukan bahwa drip pricing secara signifikan menurunkan niat pembelian. Kemungkinan pembelian menurun secara signifikan—sebesar 7,5 poin pada peringkat 0–100 (p &lt; 0,001)—antara peringkat produk awal Kelompok 1 dan peringkat keranjang total mereka (Gambar 5). Peringkat produk Kelompok 2 memungkinkan kami mengurai penurunan 7,5 poin ini menjadi dampak kenaikan biaya versus iritasi drip pricing. Kemungkinan pembelian menurun sebesar 2,9 poin antara peringkat produk Kelompok 1 dan 2, menunjukkan dampak kenaikan 10% dalam harga. Oleh karena itu, mayoritas penurunan Kelompok 1, yaitu 4,6 poin, dapat diatribusikan pada penyergapan drip pricing. Mengingat dampak kenaikan harga 10%, frustrasi drip pricing setara dengan kenaikan harga 15%, yang merupakan porsi substansial dari margin kotor produk apa pun.</p>
+
+  <blockquote class="pullquote">Frustrasi drip pricing setara dengan kenaikan harga 15%.</blockquote>
+
+  <figure>
+    <img src="figure5-dectech.jpg" alt="Dampak drip pricing.">
+    <figcaption><strong>Gambar 5:</strong> Dampak drip pricing. Sumber: Fieldwork Dectech, Juli 2025 (N = 1.059 nat. rep.). Peserta dibagi menjadi dua kelompok: Kelompok 1 mengalami drip pricing, melihat biaya tambahan hanya saat pembayaran, sedangkan Kelompok 2 melihat harga total penuh di muka sejak awal.</figcaption>
+  </figure>
+
+  <p>Dampak negatif drip pricing terlihat di sebagian besar industri, tetapi skala dampaknya sangat bervariasi. Ini paling merusak di Retail, Grocery, dan Travel (Tabel 4), di mana ia memiliki dampak yang signifikan secara statistik pada kemungkinan pembelian (Retail p = 0,003; Grocery p = 0,018; Travel p = 0,015). Industri-industri ini memiliki niat pembelian tertinggi, sehingga frustrasi biaya tambahan mungkin lebih tinggi ketika konsumen lebih terlibat dan karena itu lebih sensitif terhadap kerugian yang dipersepsikan ketika biaya tambahan muncul di kemudian hari dalam perjalanan.</p>
+
+  <p>Hasil mendukung kedua hipotesis: H1 divalidasi, karena drip pricing mengurangi niat pembelian melalui baik biaya total yang lebih tinggi maupun struktur itu sendiri. H2 juga didukung, dengan efek yang sangat bervariasi di seluruh industri, dengan efek terkuat terlihat di Retail, Grocery, dan Travel.</p>
+
+  <p><strong>Tabel 4: Dampak Drip Pricing berdasarkan Industri</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Industri</th>
+        <th>Produk</th>
+        <th>Contoh Biaya Tambahan</th>
+        <th>Harga Total</th>
+        <th>Kelompok 1: Peringkat Drip Price</th>
+        <th>Kelompok 2: Peringkat Normal</th>
+        <th>Dampak Drip Pricing</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Retail</td>
+        <td>Mantel Musim Dingin</td>
+        <td>Delivery Fee</td>
+        <td>£45</td>
+        <td>60,1</td>
+        <td>71,3</td>
+        <td>-11,2</td>
+      </tr>
+      <tr>
+        <td>Grocery</td>
+        <td>Susu 2L</td>
+        <td>British Farmers Fee</td>
+        <td>£2</td>
+        <td>57,5</td>
+        <td>66,9</td>
+        <td>-9,4</td>
+      </tr>
+      <tr>
+        <td>Travel</td>
+        <td>Penerbangan Barcelona</td>
+        <td>Booking Fee</td>
+        <td>£92</td>
+        <td>61,1</td>
+        <td>69,0</td>
+        <td>-8,0</td>
+      </tr>
+      <tr>
+        <td>Food Delivery</td>
+        <td>Pizza Margherita</td>
+        <td>Delivery Fee</td>
+        <td>£11</td>
+        <td>44,6</td>
+        <td>50,0</td>
+        <td>-5,4</td>
+      </tr>
+      <tr>
+        <td>Pub</td>
+        <td>Pint of Moretti</td>
+        <td>Table Fee</td>
+        <td>£7</td>
+        <td>37,0</td>
+        <td>41,6</td>
+        <td>-4,6</td>
+      </tr>
+      <tr>
+        <td>Telecoms</td>
+        <td>Broadband</td>
+        <td>Line Rental Fee</td>
+        <td>£38 pcm</td>
+        <td>49,7</td>
+        <td>53,7</td>
+        <td>-4,0</td>
+      </tr>
+      <tr>
+        <td>Utilities</td>
+        <td>Energi</td>
+        <td>Standing Charge</td>
+        <td>£131 pcm</td>
+        <td>49,6</td>
+        <td>51,0</td>
+        <td>-1,4</td>
+      </tr>
+      <tr>
+        <td>Insurance</td>
+        <td>Asuransi Perjalanan</td>
+        <td>Set Up Fee</td>
+        <td>£50</td>
+        <td>55,2</td>
+        <td>54,7</td>
+        <td>-0,5</td>
+      </tr>
+      <tr>
+        <td>Finance</td>
+        <td>Kartu Kredit</td>
+        <td>Travel Perks Membership Fee</td>
+        <td>£15 pcm</td>
+        <td>43,6</td>
+        <td>43,6</td>
+        <td>0,0</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="table-note"><em>Sumber:</em> Fieldwork Dectech, Juli 2025 (N = 1.059 nat. rep.). Tabel menyajikan kemungkinan pembelian untuk Kelompok 1 dan Kelompok 2, bersama dengan perbedaan skor antara kedua kelompok di seluruh industri yang termasuk dalam survei.</p>
+
+  <p>Analisis kami menyoroti bahaya drip pricing, yang mengganggu perjalanan pembelian dan membuat konsumen frustrasi. Pengecer menerapkan struktur penetapan harga ini karena memungkinkan mereka mengiklankan harga dasar yang lebih rendah kepada konsumen, dalam komunikasi mereka sendiri dan di lingkungan kompetitif seperti situs web perbandingan harga. Untuk beberapa merek dan industri, peningkatan volume konsumen yang memulai perjalanan pembelian yang dihasilkan akan sepadan dengan risiko drop-out yang lebih tinggi dan persepsi negatif tentang merek. Untuk yang lain, risikonya tidak akan sepadan. Bahkan dalam kasus di mana tingkat pembelian kuat, drip pricing menyebabkan kepuasan yang lebih rendah dan kemungkinan pembelian di masa depan dengan merek yang lebih rendah (Santana et al., 2020). Kerusakan merek ini mungkin lebih lemah di industri dengan frekuensi pembelian rendah, karena konsumen telah melupakan frustrasi ketika mereka datang untuk membeli lagi, tetapi kerusakan terbesar ada di industri dengan pembelian frekuensi tinggi dan merek yang kurang terdiferensiasi serta mudah digantikan.</p>
+
+  <!-- ============ CONCLUSIONS ============ -->
+  <h2>Kesimpulan</h2>
+
+  <p>Harga adalah konstruk psikologis daripada angka absolut. Persepsi harga konsumen bergantung pada bagaimana, oleh siapa, dan dalam konteks makro dan mikro apa harga itu dikomunikasikan. Penelitian ini mengilustrasikan kelenturan respons konsumen terhadap harga dan merekomendasikan bagaimana menata, mengomunikasikan, dan mengelola harga. Rekomendasi ini didasarkan pada input konsumen, yang sering kurang dimanfaatkan. Dampak perubahan harga, perjalanan penjualan, atau komunikasi dapat diuji terlebih dahulu melalui eksperimen yang ketat, alih-alih menganalisis data penjualan yang bising dan tidak konsisten. Merek harus memperlakukan perspektif konsumen sebagai input untuk strategi penetapan harga mereka, bukan hasil.</p>
+
+  <blockquote class="pullquote">Merek harus memperlakukan perspektif konsumen sebagai input untuk strategi penetapan harga mereka, bukan hasil.</blockquote>
+
+  <!-- ============ RECOMMENDATIONS ============ -->
+  <h2>Rekomendasi</h2>
+
+  <ol class="rec-list">
+    <li><strong>Perlakukan Elastisitas sebagai Hasil:</strong> Elastisitas harga adalah hasil dari strategi penjualan daripada input. Merek harus mengidentifikasi dan meramalkan pendorong elastisitas, termasuk estimasi harga konsumen, penetapan harga pesaing, dan penetapan harga historis.</li>
+    <li><strong>Selaraskan Margin dengan Ekspektasi:</strong> Distribusi margin di seluruh rentang harus mencerminkan ekspektasi harga konsumen. Merek harus menggeser margin dari sticker shock ke item yang harganya terlalu rendah, mempertahankan beberapa harga 'hero' untuk digunakan dalam pemasaran.</li>
+    <li><strong>Optimalkan Komunikasi Harga:</strong> Merek dapat secara signifikan memengaruhi bagaimana harga dipersepsikan melalui pembingkaian mereka. Promosi dan diskon harus mendukung strategi jangka panjang di mana harga yang lebih tinggi dipandang sebagai dasar dari mana diskon berlaku, bukan kenaikan yang tidak adil.</li>
+    <li><strong>Hindari Drip Pricing:</strong> Drip pricing membuat konsumen frustrasi dan mengganggu pembelian, mengurangi tingkat pembelian serupa dengan kenaikan harga 15%. Merek harus menguji perjalanan spesifik mereka dan menghindari praktik ini, kecuali harga dasar yang rendah melebihi penurunan niat pembelian dan potensi kerusakan merek.</li>
+    <li><strong>Jelaskan Perubahan Harga secara Proaktif:</strong> Fluktuasi harga lebih merusak ketika tidak terduga. Merek harus secara proaktif menjelaskan perubahan, dengan fokus pada penyebab pasar daripada masalah sisi penawaran yang mungkin menunjukkan inkompetensi.</li>
+    <li><strong>Pertahankan Posisi yang Konsisten:</strong> Posisi merek harus jelas dan konsisten untuk membentuk ekspektasi harga. Konsumen mengharapkan merek premium menetapkan harga hingga 25% lebih tinggi daripada merek mid-market. Posisi yang jelas sangat penting terutama untuk merek baru atau yang tidak familiar, yang cenderung dihargai terlalu tinggi oleh konsumen.</li>
+    <li><strong>Sesuaikan Strategi Penetapan Harga Anda:</strong> Eksperimen perilaku kami mengungkapkan perbedaan industri yang signifikan. Meskipun ada metodologi dan kerangka yang direkomendasikan, mereka harus disesuaikan dengan merek spesifik dengan pendekatan uji-dan-belajar untuk mengembangkan strategi penetapan harga yang spesifik dan terperinci.</li>
+  </ol>
+
+  <!-- ============ AUTHOR BIOS ============ -->
+  <div class="author-bio">
+    <h3>Tentang Para Penulis</h3>
+    <p><strong>Claire Nolan</strong> adalah direktur di Dectech. Sejak bergabung pada 2012, setelah menyelesaikan MSc in Psychological Research di University of Oxford, ia telah membantu klien telekomunikasi, keuangan, ritel, dan utilitas memahami pengambilan keputusan konsumen, menggunakan ekonomi perilaku dan teknik eksperimental.</p>
+    <p><strong>Alice Pearce</strong> adalah associate senior di Dectech. Ia memegang MSc in Behavioural &amp; Economic Science dari University of Warwick dan memiliki beberapa tahun pengalaman menerapkan wawasan perilaku secara komersial, dari desain nudge hingga implementasi dan analisis eksperimen.</p>
+    <p><strong>Pakamon Prasitsumrit</strong> adalah associate senior di Dectech. Ia memegang MSc in Business Analytics dari University of Warwick dan bekerja dengan klien jasa keuangan untuk menyajikan informasi kompleks dengan jelas dan mendukung pengambilan keputusan yang terinformasi.</p>
+    <p><strong>Angel Zhou</strong> adalah analis paruh waktu di Dectech dan mahasiswa BSc Psychology tahun terakhir di University College London. Ia berspesialisasi dalam analisis statistik, visualisasi data, dan penghasilan wawasan perilaku.</p>
+  </div>
+
+  <!-- ============ REFERENCES ============ -->
+  <div class="refs">
+    <h2>Referensi</h2>
+    <ul>
+      <li>Anderson, S. W., Baggett, S., &amp; Widener, S. K. (2007). The impact of service operations failures on customer satisfaction: Evidence on how failures and their source affect what matters to customers. <em>SSRN Electronic Journal</em>. https://doi.org/10.2139/ssrn.975832</li>
+      <li>Barberis, N. C. (2013). Thirty years of prospect theory in economics: A review and assessment. <em>Journal of Economic Perspectives, 27</em>(1), 173–196. https://doi.org/10.1257/jep.27.1.173</li>
+      <li>Kopalle, P. K., Pauwels, K., Akella, L. Y., &amp; Gangwar, M. (2023). Dynamic pricing: Definition, implications for managers, and future research directions. <em>Journal of Retailing, 99</em>(4), 580–593. https://doi.org/10.1016/j.jretai.2023.11.003</li>
+      <li>Koriat, A. (1997). Monitoring one's own knowledge during study: A cue-utilization approach to judgments of learning. <em>Journal of Experimental Psychology: General, 126</em>(4), 349–370. https://doi.org/10.1037/0096-3445.126.4.349</li>
+      <li>Mazumdar, T., Raj, S. P., &amp; Sinha, I. (2005). Reference price research: Review and propositions. <em>Journal of Marketing, 69</em>(4), 84–102. https://doi.org/10.1509/jmkg.2005.69.4.84</li>
+      <li>Rasch, A., Thöne, M., &amp; Wenzel, T. (2020). Drip pricing and its regulation: Experimental evidence. <em>Journal of Economic Behavior &amp; Organization, 176</em>, 353–370. https://doi.org/10.1016/j.jebo.2020.04.007</li>
+      <li>Santana, S., Dallas, S. K., &amp; Morwitz, V. G. (2020). Consumer reactions to drip pricing. <em>Marketing Science, 39</em>(1), 188–210. https://doi.org/10.1287/mksc.2019.1207</li>
+      <li>Thaler, R. (1980). Toward a positive theory of consumer choice. <em>Journal of Economic Behavior &amp; Organization, 1</em>(1), 39–60. https://doi.org/10.1016/0167-2681(80)90051-7</li>
+      <li>Winer, R. S. (1986). A reference price model of brand choice for frequently purchased products. <em>Journal of Consumer Research, 13</em>(2), 250–256. https://doi.org/10.1086/209064</li>
+      <li>Zhang, W. (2025). An economic analysis of price elasticity: Model, challenges, and implications. <em>Advances in Economics, Management and Political Sciences, 187</em>, 112–116. https://doi.org/10.54254/2754-1169/2025.bl23782</li>
+    </ul>
+  </div>
+
+  <div class="end-mark">• • •</div>
+
+</div>
+</body>
+</html>

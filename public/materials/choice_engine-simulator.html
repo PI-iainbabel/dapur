@@ -1,0 +1,2221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choice Engine — Dashboard</title>
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --panel: #ffffff;
+    --border: #e2e8f0;
+    --text: #1a2332;
+    --muted: #64748b;
+    --accent: #2c5f7c;
+    --accent-hover: #1e4a63;
+    --accent-light: #e6f0f6;
+    --gold: #b8860b;
+    --green: #10b981;
+    --green-light: #d1fae5;
+    --red: #ef4444;
+    --red-light: #fee2e2;
+    --amber: #f59e0b;
+    --amber-light: #fef3c7;
+    --purple: #8b5cf6;
+    --sidebar-bg: #1e293b;
+    --sidebar-text: #cbd5e1;
+    --sidebar-active: #2c5f7c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  /* ==================== TOP BAR ==================== */
+  .topbar {
+    height: 56px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--accent);
+  }
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+  }
+  .project-name {
+    padding-left: 20px;
+    border-left: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .project-name strong { color: var(--text); }
+  .topbar-spacer { flex: 1; }
+  .topbar-actions { display: flex; gap: 8px; align-items: center; }
+  .btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn:hover { background: #f8fafc; border-color: #cbd5e1; }
+  .btn.primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .btn.primary:hover { background: var(--accent-hover); }
+  .btn.ghost { border-color: transparent; }
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: var(--green-light);
+    color: #065f46;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+
+  /* ==================== LAYOUT ==================== */
+  .app-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr 320px;
+    height: calc(100vh - 56px);
+  }
+
+  /* ==================== SIDEBAR ==================== */
+  .sidebar {
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    padding: 20px 0;
+    overflow-y: auto;
+  }
+  .sidebar-section-title {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #64748b;
+    padding: 12px 20px 8px;
+  }
+  .step-nav {
+    list-style: none;
+  }
+  .step-nav li {
+    padding: 0;
+  }
+  .step-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-left: 3px solid transparent;
+    font-size: 13.5px;
+  }
+  .step-item:hover { background: rgba(255,255,255,0.04); }
+  .step-item.active {
+    background: rgba(44, 95, 124, 0.25);
+    border-left-color: var(--accent-light);
+    color: #fff;
+  }
+  .step-item.done .step-num-circle {
+    background: var(--green);
+    color: #fff;
+  }
+  .step-num-circle {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--sidebar-text);
+  }
+  .step-item.active .step-num-circle {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+  .step-name {
+    flex: 1;
+    font-weight: 500;
+  }
+  .step-status {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.08);
+    color: #94a3b8;
+  }
+  .step-status.done { background: var(--green); color: #fff; }
+
+  /* ==================== MAIN ==================== */
+  .main-content {
+    overflow-y: auto;
+    padding: 24px 28px 80px;
+    background: var(--bg);
+  }
+  .page-header {
+    margin-bottom: 24px;
+  }
+  .page-header .breadcrumb {
+    font-size: 11.5px;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .page-header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .page-header p {
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 720px;
+  }
+
+  /* Panels */
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .panel-header h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-header h3 .icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    background: var(--accent-light);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+  }
+  .panel-header .badge {
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .badge.blue { background: var(--accent-light); color: var(--accent); }
+  .badge.green { background: var(--green-light); color: #065f46; }
+  .badge.amber { background: var(--amber-light); color: #92400e; }
+  .badge.red { background: var(--red-light); color: #991b1b; }
+  .badge.gray { background: #f1f5f9; color: #475569; }
+
+  /* Typography */
+  .panel h4 {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 18px 0 10px;
+  }
+  .panel p { color: #334155; margin-bottom: 12px; font-size: 14px; }
+
+  /* ==================== CODE / MONOSPACE ==================== */
+  .code-block {
+    background: #0f172a;
+    color: #cbd5e1;
+    padding: 16px 18px;
+    border-radius: 6px;
+    font-family: 'SF Mono', Monaco, Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    line-height: 1.65;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 12px 0;
+  }
+  .code-block .k { color: #7dd3fc; font-weight: 600; }
+  .code-block .v { color: #fbbf24; }
+  .code-block .c { color: #64748b; font-style: italic; }
+  .code-block .ok { color: #86efac; font-weight: 600; }
+  .code-block .warn { color: #fca5a5; }
+
+  /* ==================== TABLES ==================== */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  .data-table th {
+    background: #f8fafc;
+    color: var(--muted);
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+    font-size: 11.5px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+  .data-table td {
+    padding: 11px 12px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: #fafbfc; }
+  .data-table .num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .data-table .center { text-align: center; }
+
+  /* ==================== BOCR GRID ==================== */
+  .bocr-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .bocr-card {
+    border-radius: 8px;
+    padding: 14px 16px;
+    border: 1px solid transparent;
+  }
+  .bocr-card h5 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .bocr-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .bocr-card li {
+    font-size: 12.5px;
+    line-height: 1.5;
+    margin-bottom: 5px;
+    padding-left: 14px;
+    position: relative;
+  }
+  .bocr-card li::before {
+    content: "•";
+    position: absolute;
+    left: 2px;
+    opacity: 0.6;
+  }
+  .bocr-benefits { background: #ecfdf5; border-color: #a7f3d0; color: #065f46; }
+  .bocr-benefits h5 { color: #047857; }
+  .bocr-opportunities { background: #eff6ff; border-color: #bfdbfe; color: #1e40af; }
+  .bocr-opportunities h5 { color: #2563eb; }
+  .bocr-costs { background: #fef2f2; border-color: #fecaca; color: #991b1b; }
+  .bocr-costs h5 { color: #dc2626; }
+  .bocr-risks { background: #fffbeb; border-color: #fde68a; color: #92400e; }
+  .bocr-risks h5 { color: #d97706; }
+
+  /* ==================== PROFILE CARDS ==================== */
+  .profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .profile-card {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+  .profile-card .p-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .profile-card .p-attr {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .profile-card .p-attr strong { color: var(--text); font-weight: 600; }
+
+  /* ==================== SCORE BARS ==================== */
+  .score-list {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0;
+  }
+  .score-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .score-row:last-child { border-bottom: none; }
+  .score-row .s-rank {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .score-row.top .s-rank {
+    background: var(--gold);
+    color: #fff;
+  }
+  .score-row .s-label {
+    flex: 0 0 190px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .score-row .s-track {
+    flex: 1;
+    height: 10px;
+    background: #eef2f5;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+  }
+  .score-row .s-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent) 0%, #4a8aaa 100%);
+    border-radius: 5px;
+    transition: width 0.4s ease;
+  }
+  .score-row.top .s-fill {
+    background: linear-gradient(90deg, var(--gold) 0%, #d4a02a 100%);
+  }
+  .score-row .s-value {
+    flex: 0 0 56px;
+    text-align: right;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent);
+    font-size: 14px;
+  }
+  .score-row.top .s-value { color: var(--gold); }
+
+  /* ==================== CALLOUTS ==================== */
+  .callout {
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .callout .c-icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .callout.info { background: #eff6ff; color: #1e3a8a; border-left: 4px solid #3b82f6; }
+  .callout.info .c-icon { background: #3b82f6; }
+  .callout.success { background: var(--green-light); color: #065f46; border-left: 4px solid var(--green); }
+  .callout.success .c-icon { background: var(--green); }
+  .callout.warn { background: var(--amber-light); color: #78350f; border-left: 4px solid var(--amber); }
+  .callout.warn .c-icon { background: var(--amber); }
+  .callout.danger { background: var(--red-light); color: #7f1d1d; border-left: 4px solid var(--red); }
+  .callout.danger .c-icon { background: var(--red); }
+
+  /* ==================== FLOW STEPS ==================== */
+  .flow-strip {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 14px 0;
+  }
+  .flow-chip {
+    padding: 6px 12px;
+    background: #f1f5f9;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .flow-chip.active {
+    background: var(--accent);
+    color: #fff;
+  }
+  .flow-chip.done {
+    background: var(--green-light);
+    color: #047857;
+  }
+
+  /* ==================== RIGHT PANEL ==================== */
+  .context-panel {
+    background: var(--panel);
+    border-left: 1px solid var(--border);
+    padding: 20px;
+    overflow-y: auto;
+    font-size: 13px;
+  }
+  .context-section {
+    margin-bottom: 24px;
+  }
+  .context-section h4 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12.5px;
+  }
+  .meta-row:last-child { border-bottom: none; }
+  .meta-row .label { color: var(--muted); }
+  .meta-row .value { color: var(--text); font-weight: 600; text-align: right; }
+
+  /* Sliders in context panel */
+  .ctrl-group {
+    margin-bottom: 16px;
+  }
+  .ctrl-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .ctrl-group label span {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .ctrl-group input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    outline: none;
+    margin: 6px 0;
+  }
+  .ctrl-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: var(--accent);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  .ctrl-group input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: var(--accent);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+  }
+  .ctrl-hint {
+    font-size: 10.5px;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.4;
+    margin-top: 4px;
+  }
+
+  /* Progress ring */
+  .progress-ring {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 6px;
+  }
+  .ring-visual {
+    width: 44px;
+    height: 44px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .ring-visual svg {
+    width: 44px;
+    height: 44px;
+    transform: rotate(-90deg);
+  }
+  .ring-visual circle {
+    fill: none;
+    stroke-width: 4;
+  }
+  .ring-visual .bg-circle { stroke: #e2e8f0; }
+  .ring-visual .fg-circle {
+    stroke: var(--green);
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.4s ease;
+  }
+  .ring-info { font-size: 12px; }
+  .ring-info .r-percent {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--green);
+  }
+  .ring-info .r-label {
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  /* ==================== BOTTOM ACTION BAR ==================== */
+  .action-bar {
+    position: fixed;
+    bottom: 0;
+    left: 260px;
+    right: 320px;
+    height: 60px;
+    background: var(--panel);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    z-index: 50;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
+  }
+  .action-hint {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .action-nav {
+    display: flex;
+    gap: 8px;
+  }
+
+  /* Tab content */
+  .tab-content {
+    display: none;
+  }
+  .tab-content.active {
+    display: block;
+  }
+
+  /* Matrix */
+  .feasibility-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    margin: 12px 0;
+  }
+  .feasibility-table th {
+    background: #f8fafc;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 11.5px;
+    text-align: center;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .feasibility-table th:first-child { text-align: left; }
+  .feasibility-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid var(--border);
+    vertical-align: middle;
+    font-weight: 600;
+  }
+  .feasibility-table td:first-child { text-align: left; font-weight: 600; color: var(--text); }
+  .feasibility-table .yes { background: var(--green-light); color: #065f46; }
+  .feasibility-table .no { background: var(--red-light); color: #991b1b; }
+  .feasibility-table .partial { background: var(--amber-light); color: #92400e; }
+
+  /* KPI cards */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .kpi-card {
+    padding: 14px 16px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .kpi-card .kpi-label {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .kpi-card .kpi-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.1;
+  }
+  .kpi-card .kpi-sub {
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .kpi-card.good .kpi-value { color: var(--green); }
+  .kpi-card.warn .kpi-value { color: var(--amber); }
+  .kpi-card.bad .kpi-value { color: var(--red); }
+
+  @media (max-width: 1100px) {
+    .app-layout { grid-template-columns: 220px 1fr; }
+    .context-panel { display: none; }
+    .action-bar { left: 220px; right: 0; }
+  }
+  @media (max-width: 720px) {
+    .app-layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .action-bar { left: 0; }
+    .bocr-grid { grid-template-columns: 1fr; }
+    .score-row .s-label { flex: 0 0 120px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== TOP BAR ==================== -->
+<header class="topbar">
+  <div class="logo">
+    <div class="logo-mark">CE</div>
+    <span>Choice Engine</span>
+  </div>
+  <div class="project-name">
+    <strong>Studi: Tabungan Syariah Milenial</strong> · v2.1
+  </div>
+  <div class="topbar-spacer"></div>
+  <div class="topbar-actions">
+    <span class="status-badge"><span class="status-dot"></span>Validated</span>
+    <button class="btn ghost">📤 Ekspor</button>
+    <button class="btn">↺ Ulang</button>
+    <button class="btn primary">💾 Simpan Skenario</button>
+  </div>
+</header>
+
+<!-- ==================== APP LAYOUT ==================== -->
+<div class="app-layout">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="sidebar-section-title">Workflow</div>
+    <ul class="step-nav">
+      <li>
+        <div class="step-item active" data-step="1">
+          <span class="step-num-circle">1</span>
+          <span class="step-name">Input</span>
+          <span class="step-status done">✓</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-item done" data-step="2">
+          <span class="step-num-circle">2</span>
+          <span class="step-name">Strategic Brief</span>
+          <span class="step-status done">✓</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-item done" data-step="3">
+          <span class="step-num-circle">3</span>
+          <span class="step-name">Agent Grounding</span>
+          <span class="step-status done">✓</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-item done" data-step="4">
+          <span class="step-num-circle">4</span>
+          <span class="step-name">Binding & Netting</span>
+          <span class="step-status done">✓</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-item done" data-step="5">
+          <span class="step-num-circle">5</span>
+          <span class="step-name">BOCR Evaluation</span>
+          <span class="step-status done">✓</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-item done" data-step="6">
+          <span class="step-num-circle">6</span>
+          <span class="step-name">AHP Ranking</span>
+          <span class="step-status done">✓</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-item done" data-step="7">
+          <span class="step-num-circle">7</span>
+          <span class="step-name">Simulation Panel</span>
+          <span class="step-status done">✓</span>
+        </div>
+      </li>
+    </ul>
+
+    <div class="sidebar-section-title">Analisis</div>
+    <ul class="step-nav">
+      <li>
+        <div class="step-item" data-step="audit">
+          <span class="step-num-circle">📋</span>
+          <span class="step-name">Audit Trail</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-item" data-step="compare">
+          <span class="step-num-circle">⇄</span>
+          <span class="step-name">Perbandingan Profil</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-item" data-step="export">
+          <span class="step-num-circle">↗</span>
+          <span class="step-name">Laporan</span>
+        </div>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <main class="main-content" id="mainContent">
+
+    <!-- ==================== STEP 1 ==================== -->
+    <div class="tab-content active" id="tab-1">
+      <div class="page-header">
+        <div class="breadcrumb">Tahap 1 dari 7 · Human-Validated</div>
+        <h1>Input & Validasi Data</h1>
+        <p>Fase ini adalah satu-satunya fase yang tidak otomatis. Behavioral scientist menyusun template terstruktur dan LLM Judge memverifikasi netralitas.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">👥</span> Profil Konsumen</h3>
+          <span class="badge blue">4 Profil</span>
+        </div>
+        <div class="profile-grid">
+          <div class="profile-card">
+            <div class="p-name">P1 — Ahmad</div>
+            <div class="p-attr">
+              <strong>27</strong> · Rp 6jt/bln · S1<br>
+              Religiusitas: <strong>Tinggi</strong><br>
+              Literasi keuangan: <strong>Rendah</strong><br>
+              Pengalaman syariah: <strong>Belum</strong>
+            </div>
+          </div>
+          <div class="profile-card">
+            <div class="p-name">P2 — Fatimah</div>
+            <div class="p-attr">
+              <strong>31</strong> · Rp 15jt/bln · S2<br>
+              Religiusitas: <strong>Tinggi</strong><br>
+              Literasi keuangan: <strong>Tinggi</strong><br>
+              Pengalaman syariah: <strong>Sudah</strong>
+            </div>
+          </div>
+          <div class="profile-card">
+            <div class="p-name">P3 — Budi</div>
+            <div class="p-attr">
+              <strong>29</strong> · Rp 12jt/bln · S1<br>
+              Religiusitas: <strong>Moderat</strong><br>
+              Literasi keuangan: <strong>Tinggi</strong><br>
+              Pengalaman syariah: <strong>Tidak</strong>
+            </div>
+          </div>
+          <div class="profile-card">
+            <div class="p-name">P4 — Siti</div>
+            <div class="p-attr">
+              <strong>26</strong> · Rp 5jt/bln · S1<br>
+              Religiusitas: <strong>Sangat Tinggi</strong><br>
+              Literasi keuangan: <strong>Rendah</strong><br>
+              Pengalaman syariah: <strong>Belum</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">🎯</span> Strategi Tersedia</h3>
+          <span class="badge blue">4 Alternatif</span>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 80px;">Kode</th>
+              <th>Deskripsi</th>
+              <th style="width: 120px;">Tipe</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>S1</strong></td>
+              <td>Buka tabungan syariah (mudharabah)</td>
+              <td><span class="badge blue">Target</span></td>
+            </tr>
+            <tr>
+              <td><strong>S2</strong></td>
+              <td>Tetap dengan tabungan konvensional</td>
+              <td><span class="badge gray">Status quo</span></td>
+            </tr>
+            <tr>
+              <td><strong>S3</strong></td>
+              <td>Tunda keputusan, cari informasi lebih lanjut</td>
+              <td><span class="badge amber">Delay</span></td>
+            </tr>
+            <tr>
+              <td><strong>S4</strong></td>
+              <td>Pindah ke produk non-bank (e-wallet, reksa dana)</td>
+              <td><span class="badge gray">Kompetitor</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">✓</span> Hasil LLM Judge</h3>
+          <span class="badge green">PASS</span>
+        </div>
+        <div class="code-block"><span class="c">// LLM Judge — Neutrality verification</span>
+
+<span class="k">Template neutrality:</span>    <span class="ok">✓ PASS</span>
+<span class="k">Private info separated:</span>  <span class="ok">✓ PASS</span>
+<span class="k">Potential leakage:</span>       <span class="ok">None detected</span>
+<span class="k">Prompt consistency:</span>      <span class="ok">✓ PASS</span>
+
+<span class="k">Verified by:</span>             <span class="v">LLM Judge v2.1</span>
+<span class="k">Human sign-off:</span>         <span class="v">Dr. Sarah Wijaya</span>
+<span class="k">Timestamp:</span>              <span class="v">2026-03-15 09:42 WIB</span></div>
+
+        <div class="callout success">
+          <div class="c-icon">✓</div>
+          <div>Template input telah divalidasi. Pipeline otomatis dapat dimulai. Seluruh data siap untuk Tahap 2 (Strategic Brief).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 2 ==================== -->
+    <div class="tab-content" id="tab-2">
+      <div class="page-header">
+        <div class="breadcrumb">Tahap 2 dari 7 · AI-Driven · Game Theory</div>
+        <h1>Strategic Brief</h1>
+        <p>Mesin memetakan "fisika dunia" keputusan — aktor, observability, konvensi sosial, dan information gaps. <em>Tidak ada data profil pada tahap ini.</em></p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">🎭</span> Aktor & Observability</h3>
+          <span class="badge blue">Profile-agnostic</span>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Aktor</th>
+              <th>Dapat Diamati</th>
+              <th>Tidak Dapat Diamati</th>
+              <th>Ekspektasi Peran</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Konsumen</strong></td>
+              <td>Preferensi produk</td>
+              <td>Religiusitas, prioritas</td>
+              <td>Pengambil keputusan utama</td>
+            </tr>
+            <tr>
+              <td><strong>Keluarga</strong></td>
+              <td>Sikap terhadap syariah</td>
+              <td>Pengalaman lampau</td>
+              <td>Influencer signifikan</td>
+            </tr>
+            <tr>
+              <td><strong>Teman sebaya</strong></td>
+              <td>Pilihan yang terlihat</td>
+              <td>Alasan internal</td>
+              <td>Social proof</td>
+            </tr>
+            <tr>
+              <td><strong>Bank syariah</strong></td>
+              <td>Sertifikasi, produk</td>
+              <td>Kualitas layanan riil</td>
+              <td>Pihak penawaran</td>
+            </tr>
+            <tr>
+              <td><strong>Influencer</strong></td>
+              <td>Konten, review</td>
+              <td>Insentif komersial</td>
+              <td>Pembentuk opini</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">🌐</span> Konvensi Sosial & Information Gaps</h3>
+        </div>
+
+        <h4>Konvensi Sosial</h4>
+        <div class="code-block"><span class="k">Komunitas religius:</span>
+  → Produk syariah = "konsisten" dengan identitas
+  → Reputasi positif untuk yang memilih
+
+<span class="k">Lingkungan sekuler-pragmatis:</span>
+  → Konvensi lebih longgar
+  → Tidak ada tekanan sosial signifikan
+
+<span class="k">Keluarga religius:</span>
+  → Cenderung mendorong pilihan syariah
+  → Kadang memengaruhi keputusan anak</div>
+
+        <h4>Information Gaps</h4>
+        <div class="code-block"><span class="warn">⚠ Apakah bagi hasil kompetitif vs bunga konvensional?</span>
+<span class="warn">⚠ Apakah ada biaya tersembunyi?</span>
+<span class="warn">⚠ Apakah benar-benar bebas riba secara fikih?</span>
+<span class="warn">⚠ Bagaimana kualitas layanan digital bank syariah?</span></div>
+
+        <div class="callout info">
+          <div class="c-icon">i</div>
+          <div>Strategic Brief tidak menyebut profil manapun. Ini adalah "peta medan" yang akan digunakan oleh semua profil di tahap berikutnya.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 3 ==================== -->
+    <div class="tab-content" id="tab-3">
+      <div class="page-header">
+        <div class="breadcrumb">Tahap 3 dari 7 · COM-B Framework</div>
+        <h1>Agent Grounding</h1>
+        <p>Strategic Brief diterjemahkan menjadi sudut pandang spesifik profil. COM-B diterapkan: Capability & Opportunity = kondisi kelayakan keras; Motivation = dinilai di Step 5.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">📊</span> Feasibility Matrix</h3>
+          <span class="badge blue">Capability & Opportunity</span>
+        </div>
+        <table class="feasibility-table">
+          <thead>
+            <tr>
+              <th>Profil</th>
+              <th>S1 — Syariah</th>
+              <th>S2 — Konvensional</th>
+              <th>S3 — Tunda</th>
+              <th>S4 — Non-Bank</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>P1 Ahmad</td>
+              <td class="yes">✓ Layak</td>
+              <td class="yes">✓ Layak</td>
+              <td class="yes">✓ Layak</td>
+              <td class="partial">△ Terbatas</td>
+            </tr>
+            <tr>
+              <td>P2 Fatimah</td>
+              <td class="yes">✓ Layak</td>
+              <td class="yes">✓ Layak</td>
+              <td class="yes">✓ Layak</td>
+              <td class="yes">✓ Layak</td>
+            </tr>
+            <tr>
+              <td>P3 Budi</td>
+              <td class="yes">✓ Layak</td>
+              <td class="yes">✓ Layak</td>
+              <td class="yes">✓ Layak</td>
+              <td class="yes">✓ Layak</td>
+            </tr>
+            <tr>
+              <td>P4 Siti</td>
+              <td class="yes">✓ Layak</td>
+              <td class="yes">✓ Layak</td>
+              <td class="yes">✓ Layak</td>
+              <td class="partial">△ Terbatas</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">💰</span> Biaya Spesifik Profil</h3>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Profil</th>
+              <th>Biaya Kognitif</th>
+              <th>Biaya Sosial</th>
+              <th>Pengetahuan Awal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>P1 Ahmad</strong></td>
+              <td><span class="badge red">Tinggi</span></td>
+              <td><span class="badge green">Rendah</span></td>
+              <td>Tahu "syariah = bebas riba"</td>
+            </tr>
+            <tr>
+              <td><strong>P2 Fatimah</strong></td>
+              <td><span class="badge green">Rendah</span></td>
+              <td><span class="badge green">Rendah</span></td>
+              <td>Paham seluruh konsep</td>
+            </tr>
+            <tr>
+              <td><strong>P3 Budi</strong></td>
+              <td><span class="badge amber">Menengah</span></td>
+              <td><span class="badge amber">Menengah</span></td>
+              <td>Konsep dasar saja</td>
+            </tr>
+            <tr>
+              <td><strong>P4 Siti</strong></td>
+              <td><span class="badge red">Tinggi</span></td>
+              <td><span class="badge green">Sangat Rendah</span></td>
+              <td>Konsep dari kajian</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout warn">
+          <div class="c-icon">!</div>
+          <div><strong>Asimetri kunci:</strong> S1 (Syariah) memiliki biaya kognitif tinggi untuk Ahmad & Siti (literasi rendah), tetapi biaya sosial rendah. Untuk Budi, biaya kognitif menengah tetapi biaya sosial lebih tinggi karena lingkungan pragmatis.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 4 ==================== -->
+    <div class="tab-content" id="tab-4">
+      <div class="page-header">
+        <div class="breadcrumb">Tahap 4 dari 7 · Deterministik</div>
+        <h1>Binding & Netting</h1>
+        <p>Keuntungan dan kerugian dihitung secara aritmatika. Binding menerapkan penyesuaian spesifik profil; Netting menggabungkan gain/loss ke satu nilai bersih.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">🔢</span> Binding — S1 (Syariah)</h3>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th class="num">Ahmad</th>
+              <th class="num">Fatimah</th>
+              <th class="num">Budi</th>
+              <th class="num">Siti</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bagi hasil tahunan (est.)</td>
+              <td class="num">3,2%</td>
+              <td class="num">3,2%</td>
+              <td class="num">3,2%</td>
+              <td class="num">3,2%</td>
+            </tr>
+            <tr>
+              <td>Bunga konvensional (pembanding)</td>
+              <td class="num">3,5%</td>
+              <td class="num">3,5%</td>
+              <td class="num">3,5%</td>
+              <td class="num">3,5%</td>
+            </tr>
+            <tr>
+              <td>Selisih return (cost)</td>
+              <td class="num">−0,3%</td>
+              <td class="num">−0,3%</td>
+              <td class="num">−0,3%</td>
+              <td class="num">−0,3%</td>
+            </tr>
+            <tr>
+              <td>Biaya admin bulanan</td>
+              <td class="num">Rp 10rb</td>
+              <td class="num">Rp 10rb</td>
+              <td class="num">Rp 10rb</td>
+              <td class="num">Rp 10rb</td>
+            </tr>
+            <tr>
+              <td>Diskon admin bulan 1</td>
+              <td class="num">−Rp 10rb</td>
+              <td class="num">−Rp 10rb</td>
+              <td class="num">−Rp 10rb</td>
+              <td class="num">−Rp 10rb</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">⚖️</span> Netting — Nilai Bersih</h3>
+        </div>
+
+        <h4>P1 Ahmad</h4>
+        <div class="code-block"><span class="k">Cost ekonomi:</span>    <span class="v">−Rp 18rb/tahun</span>
+<span class="k">Cost kognitif:</span>    <span class="warn">TINGGI</span>
+<span class="k">Benefit spiritual:</span> <span class="ok">TINGGI</span>
+
+<span class="c">→ Net: AMBIVALEN — didorong benefit non-moneter</span></div>
+
+        <h4>P2 Fatimah</h4>
+        <div class="code-block"><span class="k">Cost ekonomi:</span>    <span class="v">−Rp 45rb/tahun</span>
+<span class="k">Cost kognitif:</span>    <span class="ok">RENDAH</span>
+<span class="k">Benefit spiritual:</span> <span class="ok">TINGGI</span>
+
+<span class="c">→ Net: POSITIF — biaya kecil, motivasi kuat</span></div>
+
+        <h4>P3 Budi</h4>
+        <div class="code-block"><span class="k">Cost ekonomi:</span>    <span class="v">−Rp 36rb/tahun</span>
+<span class="k">Cost kognitif:</span>    <span class="warn">MENENGAH</span>
+<span class="k">Benefit spiritual:</span> <span class="warn">RENDAH</span>
+
+<span class="c">→ Net: NEGATIF-BORDERLINE — return lebih rendah, motivasi lemah</span></div>
+
+        <h4>P4 Siti</h4>
+        <div class="code-block"><span class="k">Cost ekonomi:</span>    <span class="v">−Rp 15rb/tahun</span>
+<span class="k">Cost kognitif:</span>    <span class="warn">TINGGI</span>
+<span class="k">Benefit spiritual:</span> <span class="ok">SANGAT TINGGI</span>
+
+<span class="c">→ Net: POSITIF KUAT — benefit spiritual mendominasi</span></div>
+
+      </div>
+    </div>
+
+    <!-- ==================== STEP 5 ==================== -->
+    <div class="tab-content" id="tab-5">
+      <div class="page-header">
+        <div class="breadcrumb">Tahap 5 dari 7 · AI-Driven</div>
+        <h1>BOCR Evaluation</h1>
+        <p>Setiap strategi dinilai dalam empat kuadran: Benefits, Opportunities, Costs, Risks. AI menghasilkan narasi terstruktur siap untuk AHP.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">🎯</span> S1 — Buka Syariah · P1 Ahmad</h3>
+          <span class="badge blue">Narrative</span>
+        </div>
+        <div class="bocr-grid">
+          <div class="bocr-card bocr-benefits">
+            <h5>◆ Benefits</h5>
+            <ul>
+              <li>Konsistensi spiritual (bebas riba)</li>
+              <li>Ketenangan psikologis</li>
+              <li>Bagi hasil sesuai akad</li>
+              <li>Reputasi positif di komunitas</li>
+            </ul>
+          </div>
+          <div class="bocr-card bocr-opportunities">
+            <h5>◇ Opportunities</h5>
+            <ul>
+              <li>Akses ke produk syariah lain</li>
+              <li>Networking komunitas religius</li>
+              <li>Potensi upgrade segmen premium</li>
+            </ul>
+          </div>
+          <div class="bocr-card bocr-costs">
+            <h5>◆ Costs</h5>
+            <ul>
+              <li>Waktu belajar akad (tinggi)</li>
+              <li>Biaya admin Rp 10rb/bln</li>
+              <li>Switching cost dari bank lama</li>
+              <li>Selisih return −0,3%</li>
+            </ul>
+          </div>
+          <div class="bocr-card bocr-risks">
+            <h5>◇ Risks</h5>
+            <ul>
+              <li>Return lebih rendah dari konvensional</li>
+              <li>Nisbah bagi hasil tidak pasti</li>
+              <li>Kualitas layanan digital belum matang</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">🎯</span> S1 — Buka Syariah · P3 Budi</h3>
+          <span class="badge amber">Kontras</span>
+        </div>
+        <div class="bocr-grid">
+          <div class="bocr-card bocr-benefits">
+            <h5>◆ Benefits</h5>
+            <ul>
+              <li>Konsistensi spiritual (terbatas)</li>
+              <li>Bagi hasil sesuai akad</li>
+              <li>Potensi reputasi (kecil)</li>
+            </ul>
+          </div>
+          <div class="bocr-card bocr-opportunities">
+            <h5>◇ Opportunities</h5>
+            <ul>
+              <li>Akses ke produk syariah lain</li>
+              <li>Potensi bonus onboarding</li>
+            </ul>
+          </div>
+          <div class="bocr-card bocr-costs">
+            <h5>◆ Costs</h5>
+            <ul>
+              <li>Selisih return −0,3% (relevan)</li>
+              <li>Biaya admin Rp 10rb/bln</li>
+              <li>Waktu belajar akad (menengah)</li>
+              <li>Switching cost</li>
+            </ul>
+          </div>
+          <div class="bocr-card bocr-risks">
+            <h5>◇ Risks</h5>
+            <ul>
+              <li>Return lebih rendah dari konvensional</li>
+              <li>Kualitas layanan bank syariah</li>
+              <li>Risiko reputasi lingkungan pragmatis</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout warn">
+          <div class="c-icon">!</div>
+          <div>Untuk Budi, <strong>Costs</strong> dan <strong>Risks</strong> mendominasi; untuk Ahmad, <strong>Benefits</strong> spiritual mendominasi. BOCR narratives ini akan menghasilkan bobot AHP yang sangat berbeda di Step 6.</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">📈</span> Skor BOCR Agregat Semua Strategi</h3>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Strategi</th>
+              <th class="num">Benefits</th>
+              <th class="num">Opportunities</th>
+              <th class="num">Costs</th>
+              <th class="num">Risks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>S1 — Buka Syariah</strong></td>
+              <td class="num">0,85</td>
+              <td class="num">0,70</td>
+              <td class="num">0,45</td>
+              <td class="num">0,40</td>
+            </tr>
+            <tr>
+              <td><strong>S2 — Tetap Konvensional</strong></td>
+              <td class="num">0,55</td>
+              <td class="num">0,30</td>
+              <td class="num">0,20</td>
+              <td class="num">0,25</td>
+            </tr>
+            <tr>
+              <td><strong>S3 — Tunda</strong></td>
+              <td class="num">0,20</td>
+              <td class="num">0,40</td>
+              <td class="num">0,30</td>
+              <td class="num">0,35</td>
+            </tr>
+            <tr>
+              <td><strong>S4 — Non-Bank</strong></td>
+              <td class="num">0,60</td>
+              <td class="num">0,65</td>
+              <td class="num">0,35</td>
+              <td class="num">0,50</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 6 ==================== -->
+    <div class="tab-content" id="tab-6">
+      <div class="page-header">
+        <div class="breadcrumb">Tahap 6 dari 7 · AI + Matematika</div>
+        <h1>AHP Ranking</h1>
+        <p>Narasi BOCR dikonversi menjadi peringkat preferensi formal melalui pairwise comparisons Saaty. Consistency Ratio (CR &lt; 0,10) memvalidasi koherensi.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">⚖️</span> Bobot Kriteria BOCR per Profil</h3>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Profil</th>
+              <th class="num">Benefits</th>
+              <th class="num">Opportunities</th>
+              <th class="num">Costs</th>
+              <th class="num">Risks</th>
+              <th class="num">CR</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>P1 Ahmad</strong></td>
+              <td class="num">0,40</td>
+              <td class="num">0,25</td>
+              <td class="num">0,20</td>
+              <td class="num">0,15</td>
+              <td class="num" style="color:var(--green)">0,04 ✓</td>
+            </tr>
+            <tr>
+              <td><strong>P2 Fatimah</strong></td>
+              <td class="num">0,30</td>
+              <td class="num">0,40</td>
+              <td class="num">0,15</td>
+              <td class="num">0,15</td>
+              <td class="num" style="color:var(--green)">0,03 ✓</td>
+            </tr>
+            <tr>
+              <td><strong>P3 Budi</strong></td>
+              <td class="num">0,20</td>
+              <td class="num">0,15</td>
+              <td class="num">0,35</td>
+              <td class="num">0,30</td>
+              <td class="num" style="color:var(--amber)">0,06 ⚠</td>
+            </tr>
+            <tr>
+              <td><strong>P4 Siti</strong></td>
+              <td class="num">0,45</td>
+              <td class="num">0,20</td>
+              <td class="num">0,20</td>
+              <td class="num">0,15</td>
+              <td class="num" style="color:var(--green)">0,02 ✓</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size: 12.5px; color: var(--muted);">CR Budi (0,06) lebih tinggi — mencerminkan ambivalensi preferensi, bukan kesalahan.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">📊</span> Skor Akhir per Profil</h3>
+        </div>
+
+        <h4>P1 — Ahmad</h4>
+        <ul class="score-list">
+          <li class="score-row top">
+            <span class="s-rank">1</span>
+            <span class="s-label">S1 — Buka Syariah</span>
+            <span class="s-track"><span class="s-fill" style="width: 82%"></span></span>
+            <span class="s-value">0,82</span>
+          </li>
+          <li class="score-row">
+            <span class="s-rank">2</span>
+            <span class="s-label">S3 — Tunda</span>
+            <span class="s-track"><span class="s-fill" style="width: 45%"></span></span>
+            <span class="s-value">0,45</span>
+          </li>
+          <li class="score-row">
+            <span class="s-rank">3</span>
+            <span class="s-label">S4 — Non-Bank</span>
+            <span class="s-track"><span class="s-fill" style="width: 40%"></span></span>
+            <span class="s-value">0,40</span>
+          </li>
+          <li class="score-row">
+            <span class="s-rank">4</span>
+            <span class="s-label">S2 — Konvensional</span>
+            <span class="s-track"><span class="s-fill" style="width: 18%"></span></span>
+            <span class="s-value">0,18</span>
+          </li>
+        </ul>
+
+        <h4>P2 — Fatimah</h4>
+        <ul class="score-list">
+          <li class="score-row top">
+            <span class="s-rank">1</span>
+            <span class="s-label">S1 — Buka Syariah</span>
+            <span class="s-track"><span class="s-fill" style="width: 91%"></span></span>
+            <span class="s-value">0,91</span>
+          </li>
+          <li class="score-row">
+            <span class="s-rank">2</span>
+            <span class="s-label">S4 — Non-Bank</span>
+            <span class="s-track"><span class="s-fill" style="width: 52%"></span></span>
+            <span class="s-value">0,52</span>
+          </li>
+          <li class="score-row">
+            <span class="s-rank">3</span>
+            <span class="s-label">S3 — Tunda</span>
+            <span class="s-track"><span class="s-fill" style="width: 22%"></span></span>
+            <span class="s-value">0,22</span>
+          </li>
+          <li class="score-row">
+            <span class="s-rank">4</span>
+            <span class="s-label">S2 — Konvensional</span>
+            <span class="s-track"><span class="s-fill" style="width: 12%"></span></span>
+            <span class="s-value">0,12</span>
+          </li>
+        </ul>
+
+        <h4>P3 — Budi</h4>
+        <ul class="score-list">
+          <li class="score-row top">
+            <span class="s-rank">1</span>
+            <span class="s-label">S2 — Konvensional</span>
+            <span class="s-track"><span class="s-fill" style="width: 68%"></span></span>
+            <span class="s-value">0,68</span>
+          </li>
+          <li class="score-row">
+            <span class="s-rank">2</span>
+            <span class="s-label">S4 — Non-Bank</span>
+            <span class="s-track"><span class="s-fill" style="width: 62%"></span></span>
+            <span class="s-value">0,62</span>
+          </li>
+          <li class="score-row">
+            <span class="s-rank">3</span>
+            <span class="s-label">S1 — Buka Syariah</span>
+            <span class="s-track"><span class="s-fill" style="width: 41%"></span></span>
+            <span class="s-value">0,41</span>
+          </li>
+          <li class="score-row">
+            <span class="s-rank">4</span>
+            <span class="s-label">S3 — Tunda</span>
+            <span class="s-track"><span class="s-fill" style="width: 35%"></span></span>
+            <span class="s-value">0,35</span>
+          </li>
+        </ul>
+
+        <h4>P4 — Siti</h4>
+        <ul class="score-list">
+          <li class="score-row top">
+            <span class="s-rank">1</span>
+            <span class="s-label">S1 — Buka Syariah</span>
+            <span class="s-track"><span class="s-fill" style="width: 95%"></span></span>
+            <span class="s-value">0,95</span>
+          </li>
+          <li class="score-row">
+            <span class="s-rank">2</span>
+            <span class="s-label">S3 — Tunda</span>
+            <span class="s-track"><span class="s-fill" style="width: 32%"></span></span>
+            <span class="s-value">0,32</span>
+          </li>
+          <li class="score-row">
+            <span class="s-rank">3</span>
+            <span class="s-label">S4 — Non-Bank</span>
+            <span class="s-track"><span class="s-fill" style="width: 20%"></span></span>
+            <span class="s-value">0,20</span>
+          </li>
+          <li class="score-row">
+            <span class="s-rank">4</span>
+            <span class="s-label">S2 — Konvensional</span>
+            <span class="s-track"><span class="s-fill" style="width: 8%"></span></span>
+            <span class="s-value">0,08</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 7 ==================== -->
+    <div class="tab-content" id="tab-7">
+      <div class="page-header">
+        <div class="breadcrumb">Tahap 7 dari 7 · Interactive Artifact</div>
+        <h1>Simulation Panel</h1>
+        <p>Panel interaktif dengan 4 lapisan informasi. Setiap angka dapat dilacak kembali ke input asalnya. Geser slider untuk melihat bagaimana ranking berubah.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">🎛️</span> Sensitivity Controls</h3>
+          <span class="badge blue">Live</span>
+        </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="ctrl-group">
+            <label>Aversi Risiko <span id="ra-val">0.00</span></label>
+            <input type="range" id="ra-slider" min="0" max="1" step="0.05" value="0">
+            <div class="ctrl-hint">Membobot hasil pasti (B, C) relatif terhadap tidak pasti (O, R)</div>
+          </div>
+          <div class="ctrl-group">
+            <label>Aversi Kerugian <span id="la-val">0.00</span></label>
+            <input type="range" id="la-slider" min="0" max="1" step="0.05" value="0">
+            <div class="ctrl-hint">Membobot Costs & Risks relatif terhadap Benefits & Opportunities</div>
+          </div>
+        </div>
+        <div style="display:flex; gap: 8px; margin-top: 14px;">
+          <button class="btn" id="reset-btn">↺ Reset</button>
+          <button class="btn" onclick="selectProfile('ahmad')">P1 Ahmad</button>
+          <button class="btn" onclick="selectProfile('fatimah')">P2 Fatimah</button>
+          <button class="btn" onclick="selectProfile('budi')">P3 Budi</button>
+          <button class="btn" onclick="selectProfile('siti')">P4 Siti</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">📊</span> Live Ranking — <span id="current-profile-name">Ahmad</span></h3>
+          <span class="badge blue" id="cr-display">CR: 0,04 ✓</span>
+        </div>
+        <ul class="score-list" id="live-scores"></ul>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">⚖️</span> Bobot BOCR Efektif</h3>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+          <div class="bocr-card bocr-benefits" style="text-align:center;">
+            <h5>Benefits</h5>
+            <div style="font-size: 26px; font-weight: 700; margin-top: 8px;" id="w-b">40%</div>
+          </div>
+          <div class="bocr-card bocr-opportunities" style="text-align:center;">
+            <h5>Opportunities</h5>
+            <div style="font-size: 26px; font-weight: 700; margin-top: 8px;" id="w-o">25%</div>
+          </div>
+          <div class="bocr-card bocr-costs" style="text-align:center;">
+            <h5>Costs</h5>
+            <div style="font-size: 26px; font-weight: 700; margin-top: 8px;" id="w-c">20%</div>
+          </div>
+          <div class="bocr-card bocr-risks" style="text-align:center;">
+            <h5>Risks</h5>
+            <div style="font-size: 26px; font-weight: 700; margin-top: 8px;" id="w-r">15%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">💡</span> Interpretasi Otomatis</h3>
+        </div>
+        <div class="callout info" id="narrative-box">
+          <div class="c-icon">i</div>
+          <div id="narrative-text">Geser slider untuk melihat bagaimana interpretasi berubah.</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">📋</span> Audit Trail</h3>
+        </div>
+        <div class="code-block"><span class="k">Setiap skor dapat dilacak ke:</span>
+
+Step 1 → Template input + profil
+Step 2 → Strategic Brief & assumptions
+Step 3 → COM-B feasibility
+Step 4 → Binding & netting values
+Step 5 → BOCR narratives
+Step 6 → Pairwise comparison matrices
+
+<span class="ok">✓ Audit trail lengkap</span>
+<span class="c">Setiap keputusan dapat direview & diperbarui secara independen.</span></div>
+      </div>
+    </div>
+
+    <!-- ==================== AUDIT TRAIL ==================== -->
+    <div class="tab-content" id="tab-audit">
+      <div class="page-header">
+        <div class="breadcrumb">Analisis</div>
+        <h1>Audit Trail</h1>
+        <p>Riwayat lengkap keputusan yang dihasilkan Choice Engine untuk kasus ini.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">📜</span> Log Keputusan</h3>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Tahap</th>
+              <th>Waktu</th>
+              <th>Aktor</th>
+              <th>Keputusan</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Input</td>
+              <td>09:42 WIB</td>
+              <td>Dr. Sarah Wijaya</td>
+              <td>Validasi 4 profil, 4 strategi</td>
+              <td><span class="badge green">✓ Approved</span></td>
+            </tr>
+            <tr>
+              <td>Strategic Brief</td>
+              <td>09:43 WIB</td>
+              <td>LLM Engine v2.1</td>
+              <td>5 aktor, 4 info gaps teridentifikasi</td>
+              <td><span class="badge green">✓ Auto</span></td>
+            </tr>
+            <tr>
+              <td>Agent Grounding</td>
+              <td>09:44 WIB</td>
+              <td>LLM Engine v2.1</td>
+              <td>COM-B feasibility matrix</td>
+              <td><span class="badge green">✓ Auto</span></td>
+            </tr>
+            <tr>
+              <td>Binding & Netting</td>
+              <td>09:44 WIB</td>
+              <td>Deterministic Calc</td>
+              <td>Nilai bersih per profil</td>
+              <td><span class="badge green">✓ Auto</span></td>
+            </tr>
+            <tr>
+              <td>BOCR</td>
+              <td>09:45 WIB</td>
+              <td>LLM Engine v2.1</td>
+              <td>Narasi BOCR 4 strategi × 4 profil</td>
+              <td><span class="badge green">✓ Auto</span></td>
+            </tr>
+            <tr>
+              <td>AHP Ranking</td>
+              <td>09:46 WIB</td>
+              <td>AHP Calculator</td>
+              <td>Bobot & pairwise matrices</td>
+              <td><span class="badge green">✓ CR &lt; 0,10</span></td>
+            </tr>
+            <tr>
+              <td>Simulation Panel</td>
+              <td>09:46 WIB</td>
+              <td>Interactive Tool</td>
+              <td>Sensitivity analysis ready</td>
+              <td><span class="badge blue">Pending review</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ==================== COMPARE ==================== -->
+    <div class="tab-content" id="tab-compare">
+      <div class="page-header">
+        <div class="breadcrumb">Analisis</div>
+        <h1>Perbandingan Profil</h1>
+        <p>Bagaimana strategi dominan dan intervensi berbeda antar profil.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">⇄</span> Ringkasan Temuan</h3>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Profil</th>
+              <th>Strategi Dominan</th>
+              <th>Hambatan Utama</th>
+              <th>Intervensi Rekomendasi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>P1 Ahmad</strong></td>
+              <td><span class="badge green">S1 — Syariah (0,82)</span></td>
+              <td>Biaya kognitif akad</td>
+              <td>Onboarding simplification, edukasi akad ringkas</td>
+            </tr>
+            <tr>
+              <td><strong>P2 Fatimah</strong></td>
+              <td><span class="badge green">S1 — Syariah (0,91)</span></td>
+              <td>Tidak ada (sudah siap)</td>
+              <td>Retention, upsell ke produk premium</td>
+            </tr>
+            <tr>
+              <td><strong>P3 Budi</strong></td>
+              <td><span class="badge amber">S2 — Konvensional (0,68)</span></td>
+              <td>Return & kemudahan</td>
+              <td>Perbandingan jangka panjang, insentif awal</td>
+            </tr>
+            <tr>
+              <td><strong>P4 Siti</strong></td>
+              <td><span class="badge green">S1 — Syariah (0,95)</span></td>
+              <td>Kualitas layanan (persepsi)</td>
+              <td>Komunikasi kualitas, garansi nisbah</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">💡</span> Insight Kunci</h3>
+        </div>
+        <div class="callout success">
+          <div class="c-icon">1</div>
+          <div><strong>Segmentasi bukan demografi.</strong> Ahmad dan Siti memiliki karakteristik observasi serupa, namun jalur intervensinya berbeda.</div>
+        </div>
+        <div class="callout warn">
+          <div class="c-icon">2</div>
+          <div><strong>Budi adalah swing segment.</strong> Intervensi berbasis return atau kemudahan berpotensi menggeser dia. Pendekatan identitas justru berisiko backfire.</div>
+        </div>
+        <div class="callout info">
+          <div class="c-icon">3</div>
+          <div><strong>Consistency Ratio sebagai diagnostik.</strong> CR Budi (0,06) lebih tinggi — mencerminkan ambivalensi nyata, bukan error.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== EXPORT ==================== -->
+    <div class="tab-content" id="tab-export">
+      <div class="page-header">
+        <div class="breadcrumb">Analisis</div>
+        <h1>Laporan & Ekspor</h1>
+        <p>Hasilkan laporan lengkap dari analisis Choice Engine.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3><span class="icon">📄</span> Format Ekspor</h3>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-label">PDF Report</div>
+            <div class="kpi-value">📄</div>
+            <div class="kpi-sub">Laporan lengkap 7 tahapan</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">JSON Data</div>
+            <div class="kpi-value">{ }</div>
+            <div class="kpi-sub">Data mentah untuk integrasi</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Slide Deck</div>
+            <div class="kpi-value">📊</div>
+            <div class="kpi-sub">Presentasi untuk stakeholder</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Audit Log</div>
+            <div class="kpi-value">📋</div>
+            <div class="kpi-sub">Trace lengkap keputusan</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ============ CONTEXT PANEL ============ -->
+  <aside class="context-panel">
+    <div class="context-section">
+      <h4>📁 Proyek</h4>
+      <div class="meta-row">
+        <span class="label">Nama</span>
+        <span class="value">Tabungan Syariah Milenial</span>
+      </div>
+      <div class="meta-row">
+        <span class="label">Klien</span>
+        <span class="value">Bank Syariah X</span>
+      </div>
+      <div class="meta-row">
+        <span class="label">Analis</span>
+        <span class="value">Dr. S. Wijaya</span>
+      </div>
+      <div class="meta-row">
+        <span class="label">Tanggal</span>
+        <span class="value">15 Mar 2026</span>
+      </div>
+      <div class="meta-row">
+        <span class="label">Versi</span>
+        <span class="value">v2.1</span>
+      </div>
+    </div>
+
+    <div class="context-section">
+      <h4>📊 Progress</h4>
+      <div class="progress-ring">
+        <div class="ring-visual">
+          <svg viewBox="0 0 44 44">
+            <circle class="bg-circle" cx="22" cy="22" r="18"/>
+            <circle class="fg-circle" cx="22" cy="22" r="18"
+              stroke-dasharray="113"
+              stroke-dashoffset="0"
+              id="progressRing"/>
+          </svg>
+        </div>
+        <div class="ring-info">
+          <div class="r-percent">100%</div>
+          <div class="r-label">7 dari 7 tahapan selesai</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="context-section">
+      <h4>🎛️ Kontrol Global</h4>
+      <div class="ctrl-group">
+        <label>Aversi Risiko <span id="ra-global">0.00</span></label>
+        <input type="range" id="ra-global-slider" min="0" max="1" step="0.05" value="0">
+      </div>
+      <div class="ctrl-group">
+        <label>Aversi Kerugian <span id="la-global">0.00</span></label>
+        <input type="range" id="la-global-slider" min="0" max="1" step="0.05" value="0">
+      </div>
+    </div>
+
+    <div class="context-section">
+      <h4>📈 Metrik Kunci</h4>
+      <div class="meta-row">
+        <span class="label">Strategi dominan</span>
+        <span class="value">S1 — Syariah</span>
+      </div>
+      <div class="meta-row">
+        <span class="label">Segmen swing</span>
+        <span class="value">P3 Budi</span>
+      </div>
+      <div class="meta-row">
+        <span class="label">CR tertinggi</span>
+        <span class="value">0,06 (Budi)</span>
+      </div>
+      <div class="meta-row">
+        <span class="label">Audit lengkap</span>
+        <span class="value">✓ Ya</span>
+      </div>
+    </div>
+
+    <div class="context-section">
+      <h4>⚠️ Catatan</h4>
+      <div class="callout warn" style="font-size: 12px; padding: 10px 14px;">
+        <div>Angka bersifat ilustratif. Validasi empiris diperlukan sebelum keputusan bisnis aktual.</div>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<!-- ==================== ACTION BAR ==================== -->
+<div class="action-bar">
+  <div class="action-hint" id="action-hint">Tahap 1 dari 7 · Input & Validasi Data</div>
+  <div class="action-nav">
+    <button class="btn" id="prev-btn" disabled>← Sebelumnya</button>
+    <button class="btn primary" id="next-btn">Selanjutnya →</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ============ STATE ============
+  const state = {
+    currentStep: 1,
+    maxStep: 7,
+    profile: 'ahmad',
+    RA: 0,
+    LA: 0
+  };
+
+  const stepNames = {
+    1: 'Input & Validasi Data',
+    2: 'Strategic Brief',
+    3: 'Agent Grounding',
+    4: 'Binding & Netting',
+    5: 'BOCR Evaluation',
+    6: 'AHP Ranking',
+    7: 'Simulation Panel',
+    'audit': 'Audit Trail',
+    'compare': 'Perbandingan Profil',
+    'export': 'Laporan & Ekspor'
+  };
+
+  const profiles = {
+    ahmad: { name: 'Ahmad', weights: { B: 0.40, O: 0.25, C: 0.20, R: 0.15 } },
+    fatimah: { name: 'Fatimah', weights: { B: 0.30, O: 0.40, C: 0.15, R: 0.15 } },
+    budi: { name: 'Budi', weights: { B: 0.20, O: 0.15, C: 0.35, R: 0.30 } },
+    siti: { name: 'Siti', weights: { B: 0.45, O: 0.20, C: 0.20, R: 0.15 } }
+  };
+
+  const strategies = {
+    S1: { name: 'Buka Syariah', B: 0.85, O: 0.70, C: 0.45, R: 0.40 },
+    S2: { name: 'Konvensional', B: 0.55, O: 0.30, C: 0.20, R: 0.25 },
+    S3: { name: 'Tunda', B: 0.20, O: 0.40, C: 0.30, R: 0.35 },
+    S4: { name: 'Non-Bank', B: 0.60, O: 0.65, C: 0.35, R: 0.50 }
+  };
+
+  const narratives = {
+    S1: 'Strategi dominan adalah <strong>membuka tabungan syariah</strong>. Motivasi spiritual dan sosial cukup kuat untuk mengalahkan biaya kognitif. Intervensi: mempermudah onboarding, edukasi akad ringkas, dan memperkuat sinyal sosial positif.',
+    S2: 'Strategi dominan adalah <strong>tetap dengan tabungan konvensional</strong>. Hambatan beralih terlalu besar relatif terhadap manfaat. Intervensi: mengurangi friction switching, menyoroti keunggulan jangka panjang, atau insentif awal yang signifikan.',
+    S3: 'Strategi dominan adalah <strong>menunda keputusan</strong>. Ini sinyal hambatan struktural belum terpecahkan. Intervensi: menyederhanakan pilihan, perbandingan visual, atau trial experience tanpa komitmen.',
+    S4: 'Strategi dominan adalah <strong>pindah ke non-bank</strong>. Bank dianggap tidak kompetitif dalam kemudahan atau return. Intervensi: memperkuat ekosistem digital atau bermitra dengan platform yang sudah digunakan.'
+  };
+
+  // ============ NAVIGATION ============
+  function showStep(step) {
+    // Hide all tabs
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    // Show current
+    const target = document.getElementById('tab-' + step);
+    if (target) target.classList.add('active');
+
+    // Update sidebar
+    document.querySelectorAll('.step-item').forEach(el => el.classList.remove('active'));
+    const navItem = document.querySelector(`.step-item[data-step="${step}"]`);
+    if (navItem) navItem.classList.add('active');
+
+    // Update action bar
+    const hint = document.getElementById('action-hint');
+    if (typeof step === 'number') {
+      hint.textContent = `Tahap ${step} dari 7 · ${stepNames[step]}`;
+      document.getElementById('prev-btn').disabled = step === 1;
+      document.getElementById('next-btn').textContent = step === 7 ? '✓ Selesai' : 'Selanjutnya →';
+    } else {
+      hint.textContent = stepNames[step];
+      document.getElementById('prev-btn').disabled = false;
+      document.getElementById('next-btn').textContent = '← Kembali ke Flow';
+    }
+
+    // Scroll main to top
+    document.getElementById('mainContent').scrollTop = 0;
+  }
+
+  // Sidebar navigation
+  document.querySelectorAll('.step-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const step = el.dataset.step;
+      if (step === 'audit' || step === 'compare' || step === 'export') {
+        showStep(step);
+      } else {
+        const n = parseInt(step, 10);
+        if (!isNaN(n)) {
+          state.currentStep = n;
+          showStep(n);
+        }
+      }
+    });
+  });
+
+  // Prev/Next
+  document.getElementById('prev-btn').addEventListener('click', () => {
+    if (state.currentStep > 1) {
+      state.currentStep--;
+      showStep(state.currentStep);
+    }
+  });
+
+  document.getElementById('next-btn').addEventListener('click', () => {
+    if (state.currentStep < 7) {
+      state.currentStep++;
+      showStep(state.currentStep);
+    } else {
+      // Complete — go to compare
+      showStep('compare');
+    }
+  });
+
+  // ============ SCORING ============
+  function computeEffectiveWeights(base, RA, LA) {
+    let B = base.B * (1 + RA * 0.3);
+    let O = base.O * (1 - RA * 0.5);
+    let C = base.C * (1 + RA * 0.3);
+    let R = base.R * (1 - RA * 0.5);
+
+    B = B * (1 - LA * 0.3);
+    O = O * (1 - LA * 0.3);
+    C = C * (1 + LA * 0.5);
+    R = R * (1 + LA * 0.5);
+
+    B = Math.max(0, B); O = Math.max(0, O);
+    C = Math.max(0, C); R = Math.max(0, R);
+
+    const sum = B + O + C + R;
+    if (sum === 0) return { B: 0.25, O: 0.25, C: 0.25, R: 0.25 };
+    return { B: B / sum, O: O / sum, C: C / sum, R: R / sum };
+  }
+
+  function scoreStrategy(s, w) {
+    return w.B * s.B + w.O * s.O + w.C * (1 - s.C) + w.R * (1 - s.R);
+  }
+
+  function computeCR(w) {
+    const vals = [w.B, w.O, w.C, w.R];
+    const dev = vals.reduce((a, v) => a + Math.abs(v - 0.25), 0);
+    const norm = dev / 1.5;
+    return Math.max(0.01, norm * 0.25);
+  }
+
+  function getAllScores() {
+    const base = profiles[state.profile].weights;
+    const effective = computeEffectiveWeights(base, state.RA, state.LA);
+    const results = {};
+    for (const [k, s] of Object.entries(strategies)) {
+      results[k] = scoreStrategy(s, effective);
+    }
+    return { effective, results, cr: computeCR(effective) };
+  }
+
+  // ============ RENDER LIVE PANEL ============
+  function renderLive() {
+    const { effective, results, cr } = getAllScores();
+
+    // Name
+    document.getElementById('current-profile-name').textContent = profiles[state.profile].name;
+
+    // CR
+    const crEl = document.getElementById('cr-display');
+    crEl.textContent = `CR: ${cr.toFixed(3).replace('.', ',')} ${cr > 0.10 ? '⚠' : '✓'}`;
+
+    // Scores
+    const sorted = Object.entries(results).sort((a, b) => b[1] - a[1]);
+    const maxScore = sorted[0][1];
+    const minScore = sorted[sorted.length - 1][1];
+    const range = Math.max(maxScore - minScore, 0.01);
+
+    const listEl = document.getElementById('live-scores');
+    listEl.innerHTML = sorted.map(([key, score], idx) => {
+      const isTop = idx === 0;
+      const barWidth = 40 + ((score - minScore) / range) * 60;
+      return `
+        <li class="score-row ${isTop ? 'top' : ''}">
+          <span class="s-rank">${idx + 1}</span>
+          <span class="s-label">${key} — ${strategies[key].name}</span>
+          <span class="s-track"><span class="s-fill" style="width: ${barWidth}%"></span></span>
+          <span class="s-value">${score.toFixed(2).replace('.', ',')}</span>
+        </li>
+      `;
+    }).join('');
+
+    // Weights
+    document.getElementById('w-b').textContent = Math.round(effective.B * 100) + '%';
+    document.getElementById('w-o').textContent = Math.round(effective.O * 100) + '%';
+    document.getElementById('w-c').textContent = Math.round(effective.C * 100) + '%';
+    document.getElementById('w-r').textContent = Math.round(effective.R * 100) + '%';
+
+    // Narrative
+    const topKey = sorted[0][0];
+    document.getElementById('narrative-text').innerHTML = narratives[topKey];
+
+    // Update local slider displays
+    document.getElementById('ra-val').textContent = state.RA.toFixed(2);
+    document.getElementById('la-val').textContent = state.LA.toFixed(2);
+    document.getElementById('ra-global').textContent = state.RA.toFixed(2);
+    document.getElementById('la-global').textContent = state.LA.toFixed(2);
+  }
+
+  function selectProfile(p) {
+    state.profile = p;
+    renderLive();
+  }
+  window.selectProfile = selectProfile;
+
+  // ============ EVENT LISTENERS ============
+  document.getElementById('ra-slider').addEventListener('input', e => {
+    state.RA = parseFloat(e.target.value);
+    document.getElementById('ra-global-slider').value = state.RA;
+    renderLive();
+  });
+  document.getElementById('la-slider').addEventListener('input', e => {
+    state.LA = parseFloat(e.target.value);
+    document.getElementById('la-global-slider').value = state.LA;
+    renderLive();
+  });
+  document.getElementById('ra-global-slider').addEventListener('input', e => {
+    state.RA = parseFloat(e.target.value);
+    document.getElementById('ra-slider').value = state.RA;
+    renderLive();
+  });
+  document.getElementById('la-global-slider').addEventListener('input', e => {
+    state.LA = parseFloat(e.target.value);
+    document.getElementById('la-slider').value = state.LA;
+    renderLive();
+  });
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    state.RA = 0; state.LA = 0;
+    document.getElementById('ra-slider').value = 0;
+    document.getElementById('la-slider').value = 0;
+    document.getElementById('ra-global-slider').value = 0;
+    document.getElementById('la-global-slider').value = 0;
+    renderLive();
+  });
+
+  // ============ INIT ============
+  renderLive();
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choice Engine — Simulasi 7 Tahapan: Tabungan Syariah</title>
+<style>
+  :root {
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #2c5f7c;
+    --accent-light: #4a8aaa;
+    --gold: #b8860b;
+    --green: #3a6b4a;
+    --red: #a84a4a;
+    --rule: #ccc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text);
+    background: #fafaf7;
+    margin: 0;
+    padding: 0;
+  }
+  .page {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 50px 40px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.06);
+  }
+  header {
+    border-bottom: 3px double var(--rule);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+  .subtitle {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-size: 28px;
+    line-height: 1.25;
+    margin: 0 0 12px;
+    font-weight: 700;
+  }
+  .sub-title {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin: 0;
+  }
+  h2 {
+    font-size: 20px;
+    margin: 32px 0 14px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+  }
+  p { margin: 0 0 14px; text-align: justify; }
+
+  /* ============ STEP BLOCK ============ */
+  .step-block {
+    margin: 40px 0;
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(44, 95, 124, 0.08);
+  }
+  .step-header {
+    background: var(--accent);
+    color: #fff;
+    padding: 16px 24px;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+  .step-header .step-num {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.85;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .step-header h3 {
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .step-header .step-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+  .step-body {
+    padding: 24px 28px;
+  }
+  .step-body > p:first-child {
+    font-size: 15px;
+    color: var(--muted);
+    font-style: italic;
+    border-left: 3px solid var(--accent-light);
+    padding-left: 14px;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  /* ============ OUTPUT BLOCK ============ */
+  .output {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent-light);
+    padding: 16px 20px;
+    margin: 18px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: #2a3a44;
+    overflow-x: auto;
+    border-radius: 0 4px 4px 0;
+    white-space: pre-wrap;
+  }
+  .output .key { color: var(--accent); font-weight: 700; }
+  .output .val { color: #5a3a1a; }
+  .output .comment { color: #888; font-style: italic; }
+
+  /* ============ TABLE ============ */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  table th {
+    background: var(--accent);
+    color: #fff;
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+  }
+  table td {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 12px;
+    vertical-align: top;
+  }
+  table tr:nth-child(even) td {
+    background: #f7f9fa;
+  }
+  table .num { text-align: right; font-variant-numeric: tabular-nums; }
+  table .center { text-align: center; }
+
+  /* ============ BOCR GRID ============ */
+  .bocr-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  .bocr-cell {
+    padding: 14px 16px;
+    border-radius: 6px;
+  }
+  .bocr-cell h5 {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin: 0 0 8px;
+    font-weight: 700;
+  }
+  .bocr-cell ul {
+    padding-left: 16px;
+    margin: 0;
+  }
+  .bocr-cell li { margin-bottom: 4px; font-size: 12px; }
+  .bocr-benefits { background: #e8f4ec; color: #2d5f3a; }
+  .bocr-benefits h5 { color: #3a8a4a; }
+  .bocr-opportunities { background: #e8eef4; color: #2c4a5f; }
+  .bocr-opportunities h5 { color: #4a6b8a; }
+  .bocr-costs { background: #f4ece8; color: #7a4633; }
+  .bocr-costs h5 { color: #a8624a; }
+  .bocr-risks { background: #f4e8e8; color: #7a3333; }
+  .bocr-risks h5 { color: #a84a4a; }
+
+  /* ============ SCORE BARS ============ */
+  .score-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 10px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+  }
+  .score-row .s-label {
+    flex: 0 0 220px;
+    font-weight: 600;
+    color: #333;
+  }
+  .score-row .s-track {
+    flex: 1;
+    height: 18px;
+    background: #eee;
+    border-radius: 9px;
+    overflow: hidden;
+  }
+  .score-row .s-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 100%);
+    border-radius: 9px;
+  }
+  .score-row .s-fill.gold {
+    background: linear-gradient(90deg, var(--gold) 0%, #d4a02a 100%);
+  }
+  .score-row .s-value {
+    flex: 0 0 56px;
+    text-align: right;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .score-row.top .s-label { color: var(--gold); }
+  .score-row.top .s-value { color: var(--gold); }
+
+  /* ============ PROFILE CARD ============ */
+  .profile-card {
+    background: #fff;
+    border: 1px solid #d8e2e8;
+    border-left: 4px solid var(--accent);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .profile-card .p-header {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+  .profile-card .p-body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .profile-card .p-body strong { color: #333; }
+
+  /* ============ CALLOUT ============ */
+  .callout {
+    background: #fff8e1;
+    border-left: 4px solid var(--gold);
+    padding: 14px 20px;
+    margin: 18px 0;
+    font-size: 14px;
+    color: #5a4a1a;
+    border-radius: 0 4px 4px 0;
+  }
+  .callout strong { color: var(--gold); }
+  .callout.info {
+    background: #e8eef4;
+    border-left-color: var(--accent);
+    color: #1f3a4d;
+  }
+  .callout.info strong { color: var(--accent); }
+  .callout.warn {
+    background: #f4e8e8;
+    border-left-color: var(--red);
+    color: #5a1a1a;
+  }
+  .callout.warn strong { color: var(--red); }
+  .callout.success {
+    background: #e8f4ec;
+    border-left-color: var(--green);
+    color: #1a4a2a;
+  }
+  .callout.success strong { color: var(--green); }
+
+  /* ============ MATRIX ============ */
+  .matrix {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+  .matrix th {
+    background: #2c5f7c;
+    color: #fff;
+    padding: 10px 8px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+  .matrix td {
+    border: 1px solid #d8e2e8;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .matrix td.left { text-align: left; }
+  .matrix .yes { background: #e8f4ec; color: #1a4a2a; font-weight: 700; }
+  .matrix .no { background: #f4e8e8; color: #5a1a1a; font-weight: 700; }
+  .matrix .partial { background: #fff8e1; color: #5a4a1a; font-weight: 700; }
+
+  /* ============ FLOW ============ */
+  .flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 24px 0;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 10.5px;
+    letter-spacing: 0.5px;
+  }
+  .flow-step {
+    flex: 1;
+    min-width: 80px;
+    background: #f6f8f9;
+    border: 1px solid #d8e2e8;
+    border-radius: 4px;
+    padding: 10px 6px;
+    text-align: center;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .flow-step.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .flow-arrow {
+    color: #ccc;
+    font-size: 14px;
+  }
+
+  /* ============ END ============ */
+  .end-mark {
+    text-align: center;
+    color: var(--muted);
+    letter-spacing: 6px;
+    margin: 50px 0 20px;
+  }
+
+  @media (max-width: 720px) {
+    .page { padding: 24px 18px; }
+    h1 { font-size: 22px; }
+    .step-body { padding: 18px 20px; }
+    .bocr-grid { grid-template-columns: 1fr; }
+    .score-row .s-label { flex: 0 0 140px; font-size: 11.5px; }
+    .output { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="subtitle">Choice Engine · Worked Example</div>
+    <h1>Simulasi 7 Tahapan: Keputusan Tabungan Syariah</h1>
+    <p class="sub-title">Mengikuti metodologi BeWay — LLM + COM-B + Game Theory + AHP<br>Kasus: Konsumen Muslim Milenial Indonesia · Segmen 25–35 tahun</p>
+  </header>
+
+  <!-- ============ OVERVIEW ============ -->
+  <h2>Ikhtisar Simulasi</h2>
+
+  <p>Dokumen ini menampilkan <strong>output yang dihasilkan Choice Engine</strong> pada setiap dari tujuh tahapan, untuk kasus keputusan pembukaan tabungan syariah. Setiap tahap menampilkan struktur input, penalaran, dan output yang dihasilkan — sebagaimana yang akan terlihat oleh behavioral scientist yang menggunakan tool ini.</p>
+
+  <div class="flow">
+    <div class="flow-step active">Input</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step active">Brief</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step active">Ground</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step active">Bind</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step active">BOCR</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step active">AHP</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step active">Panel</div>
+  </div>
+
+  <div class="callout info">
+    <strong>Catatan:</strong> Simulasi ini menggunakan angka ilustratif yang konsisten dengan logika framework. Validasi empiris dengan data nyata tetap diperlukan sebelum digunakan untuk keputusan bisnis aktual.
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- STEP 1 -->
+  <!-- ============================================================ -->
+  <div class="step-block">
+    <div class="step-header">
+      <span class="step-num">Tahap 1 dari 7</span>
+      <h3>Input — Divalidasi Manusia</h3>
+      <span class="step-tag">Human-validated · Only non-automated phase</span>
+    </div>
+    <div class="step-body">
+
+      <p>Fase ini adalah satu-satunya fase yang tidak otomatis. Behavioral scientist menyusun template terstruktur untuk <strong>Profile</strong>, <strong>Scenario</strong>, dan <strong>Strategy</strong>. Seorang LLM Judge memverifikasi netralitas template; informasi privat dipisahkan dari data publik untuk mencegah leakage.</p>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">1.1 Template — Profile</h4>
+
+      <div class="profile-card">
+        <div class="p-header">P1 — "Ahmad"</div>
+        <div class="p-body">
+          <strong>Usia:</strong> 27 · <strong>Pendapatan:</strong> Rp 6jt/bln · <strong>Pendidikan:</strong> S1<br>
+          <strong>Religiusitas:</strong> Tinggi (ritual harian, aktif di kajian)<br>
+          <strong>Literasi keuangan:</strong> Rendah (belum pernah pakai produk investasi)<br>
+          <strong>Pengalaman syariah:</strong> Belum pernah<br>
+          <strong>Sumber informasi:</strong> Instagram, grup WhatsApp, teman sebaya
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="p-header">P2 — "Fatimah"</div>
+        <div class="p-body">
+          <strong>Usia:</strong> 31 · <strong>Pendapatan:</strong> Rp 15jt/bln · <strong>Pendidikan:</strong> S2<br>
+          <strong>Religiusitas:</strong> Tinggi<br>
+          <strong>Literasi keuangan:</strong> Tinggi (punya reksa dana syariah)<br>
+          <strong>Pengalaman syariah:</strong> Sudah<br>
+          <strong>Sumber informasi:</strong> Artikel keuangan, komunitas profesional
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="p-header">P3 — "Budi"</div>
+        <div class="p-body">
+          <strong>Usia:</strong> 29 · <strong>Pendapatan:</strong> Rp 12jt/bln · <strong>Pendidikan:</strong> S1<br>
+          <strong>Religiusitas:</strong> Moderat (ritual wajib, tidak aktif komunitas)<br>
+          <strong>Literasi keuangan:</strong> Tinggi<br>
+          <strong>Pengalaman syariah:</strong> Tidak<br>
+          <strong>Sumber informasi:</strong> Aplikasi keuangan, comparison tool
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="p-header">P4 — "Siti"</div>
+        <div class="p-body">
+          <strong>Usia:</strong> 26 · <strong>Pendapatan:</strong> Rp 5jt/bln · <strong>Pendidikan:</strong> S1<br>
+          <strong>Religiusitas:</strong> Sangat tinggi (rutin kajian, aktif komunitas)<br>
+          <strong>Literasi keuangan:</strong> Rendah<br>
+          <strong>Pengalaman syariah:</strong> Belum<br>
+          <strong>Sumber informasi:</strong> Komunitas keagamaan, keluarga
+        </div>
+      </div>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">1.2 Template — Scenario</h4>
+
+      <p style="font-family: Helvetica; font-size: 13px;">Skenario dasar: Konsumen sedang mempertimbangkan untuk membuka rekening tabungan. Tersedia beberapa alternatif produk keuangan. Konteks Indonesia, Maret 2026, ekonomi stabil, inflasi 3%.</p>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">1.3 Template — Strategy</h4>
+
+      <div class="output"><span class="comment">// Strategies available to every profile</span>
+S1: <span class="val">Buka tabungan syariah (mudharabah)</span>
+S2: <span class="val">Tetap dengan tabungan konvensional</span>
+S3: <span class="val">Tunda keputusan, cari informasi lebih lanjut</span>
+S4: <span class="val">Pindah ke produk non-bank (e-wallet, reksa dana)</span></div>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">1.4 LLM Judge — Neutrality Check</h4>
+
+      <div class="output"><span class="comment">// LLM Judge output</span>
+<span class="key">Template neutral:</span> <span class="val">✓ PASS</span>
+<span class="key">Private info separated:</span> <span class="val">✓ PASS</span>
+<span class="key">Potential leakage detected:</span> <span class="val">None</span>
+<span class="key">Human review required:</span> <span class="val">Yes — sign off by behavioral scientist</span></div>
+
+      <div class="callout success">
+        <strong>✓ Input validated.</strong> Behavioral scientist menyetujui template. Pipeline otomatis dapat dimulai.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- STEP 2 -->
+  <!-- ============================================================ -->
+  <div class="step-block">
+    <div class="step-header">
+      <span class="step-num">Tahap 2 dari 7</span>
+      <h3>Strategic Brief — Didorong AI</h3>
+      <span class="step-tag">Game Theory · "Physics of the world"</span>
+    </div>
+    <div class="step-body">
+
+      <p>Mesin memetakan "aturan dunia" keputusan — siapa aktornya, apa yang dapat diamati publik, bagaimana orang lain diharapkan merespons, dan kesenjangan informasi apa yang tersisa. <em>Tidak ada data profil yang masuk pada tahap ini.</em></p>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">2.1 Output Strategic Brief</h4>
+
+      <div class="output"><span class="comment">// Strategic Brief — Profile-agnostic</span>
+
+<span class="key">ACTORS:</span>
+  - Konsumen Muslim milenial
+  - Keluarga/orang tua (kadang ikut memutuskan)
+  - Teman sebaya
+  - Influencer keuangan & keagamaan
+  - Bank syariah (pihak yang menawarkan)
+
+<span class="key">PUBLICLY OBSERVABLE:</span>
+  - Label "syariah" pada produk
+  - Reputasi bank & sertifikasi DSN-MUI
+  - Testimoni di media sosial
+  - Perbandingan rate / bagi hasil
+
+<span class="key">NOT OBSERVABLE:</span>
+  - Tingkat religiusitas internal
+  - Prioritas pribadi (return vs ketenangan)
+  - Toleransi terhadap kompleksitas administratif
+  - Sejarah pengalaman dengan produk keuangan
+
+<span class="key">SOCIAL CONVENTIONS:</span>
+  - Dalam komunitas religius: produk syariah dipandang
+    "konsisten" dengan identitas → reputasi positif
+  - Dalam lingkungan sekuler-pragmatis: konvensi lebih longgar
+  - Keluarga religius cenderung mendorong pilihan syariah
+
+<span class="key">EXPECTED RESPONSES:</span>
+  - Teman sebaya religius → memuji / mendukung
+  - Keluarga religius → mendukung / mengingatkan kewajiban
+  - Lingkungan kerja pragmatis → netral / tidak peduli
+
+<span class="key">INFORMATION GAPS:</span>
+  - Apakah bagi hasil kompetitif vs bunga konvensional?
+  - Apakah ada biaya tersembunyi?
+  - Apakah benar-benar bebas riba secara fikih?
+  - Bagaimana kualitas layanan digital bank syariah?
+
+<span class="key">KEY UNCERTAINTIES:</span>
+  - Return (bagi hasil) tidak dapat dipastikan di muka
+  - Kualitas layanan bank syariah bervariasi
+  - Persepsi "syariah hanya label" masih kuat</div>
+
+      <div class="callout info">
+        <strong>Catatan:</strong> Strategic Brief tidak menyebut satu pun profil. Ini adalah "peta medan" yang akan digunakan oleh semua profil. Langkah berikutnya akan menerjemahkan peta ini menjadi sudut pandang spesifik profil.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- STEP 3 -->
+  <!-- ============================================================ -->
+  <div class="step-block">
+    <div class="step-header">
+      <span class="step-num">Tahap 3 dari 7</span>
+      <h3>Agent Grounding — COM-B</h3>
+      <span class="step-tag">AI-driven · Capability, Opportunity, Motivation</span>
+    </div>
+    <div class="step-body">
+
+      <p>Mesin menerjemahkan Strategic Brief menjadi sudut pandang spesifik profil. COM-B diterapkan: <strong>Capability</strong> dan <strong>Opportunity</strong> menjadi kondisi kelayakan keras; <strong>Motivation</strong> dinilai pada tahap BOCR (Step 5).</p>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">3.1 Feasibility Matrix — Capability & Opportunity</h4>
+
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th style="width: 20%;">Profil</th>
+            <th>S1 — Syariah</th>
+            <th>S2 — Konvensional</th>
+            <th>S3 — Tunda</th>
+            <th>S4 — Non-Bank</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="left"><strong>P1 Ahmad</strong></td>
+            <td class="yes">✓ Layak</td>
+            <td class="yes">✓ Layak</td>
+            <td class="yes">✓ Layak</td>
+            <td class="partial">△ Capability terbatas</td>
+          </tr>
+          <tr>
+            <td class="left"><strong>P2 Fatimah</strong></td>
+            <td class="yes">✓ Layak</td>
+            <td class="yes">✓ Layak</td>
+            <td class="yes">✓ Layak</td>
+            <td class="yes">✓ Layak</td>
+          </tr>
+          <tr>
+            <td class="left"><strong>P3 Budi</strong></td>
+            <td class="yes">✓ Layak</td>
+            <td class="yes">✓ Layak</td>
+            <td class="yes">✓ Layak</td>
+            <td class="yes">✓ Layak</td>
+          </tr>
+          <tr>
+            <td class="left"><strong>P4 Siti</strong></td>
+            <td class="yes">✓ Layak</td>
+            <td class="yes">✓ Layak</td>
+            <td class="yes">✓ Layak</td>
+            <td class="partial">△ Capability terbatas</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="font-family: Helvetica; font-size: 12.5px; color: var(--muted);"><em>Catatan:</em> S4 (non-bank) memiliki hambatan capability untuk profil literasi rendah karena kompleksitas produk. Namun tetap "layak" dalam arti tidak mustahil.</p>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">3.2 Profile-specific Knowledge & Costs</h4>
+
+      <div class="output"><span class="comment">// Knowledge state per profile at decision time</span>
+
+<span class="key">P1 Ahmad:</span>
+  - Tahu: "Ada bank syariah, katanya bebas riba"
+  - Tidak tahu: akad mudharabah, nisbah, risiko
+  - Biaya kognitif mempelajari: <span class="val">TINGGI</span>
+  - Biaya sosial beralih: <span class="val">RENDAH</span> (lingkungan mendukung)
+
+<span class="key">P2 Fatimah:</span>
+  - Tahu: seluruh konsep syariah, produk, perbandingan
+  - Biaya kognitif: <span class="val">RENDAH</span>
+  - Biaya sosial beralih: <span class="val">RENDAH</span>
+  - Sudah punya pengalaman dengan produk syariah
+
+<span class="key">P3 Budi:</span>
+  - Tahu: konsep dasar, tapi tidak yakin bedanya signifikan
+  - Biaya kognitif: <span class="val">MENENGAH</span>
+  - Biaya sosial beralih: <span class="val">MENENGAH</span>
+  - Prioritas: return & kemudahan
+
+<span class="key">P4 Siti:</span>
+  - Tahu: konsep dasar dari kajian, tapi belum praktik
+  - Biaya kognitif: <span class="val">TINGGI</span>
+  - Biaya sosial beralih: <span class="val">SANGAT RENDAH</span>
+  - Lingkungan sangat mendukung</div>
+
+      <div class="callout info">
+        <strong>Asimetri kunci:</strong> S1 (Syariah) memiliki biaya kognitif tinggi untuk Ahmad & Siti (literasi rendah), tetapi biaya sosial rendah. Untuk Budi, biaya kognitif menengah tetapi biaya sosial lebih tinggi karena lingkungan pragmatis.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- STEP 4 -->
+  <!-- ============================================================ -->
+  <div class="step-block">
+    <div class="step-header">
+      <span class="step-num">Tahap 4 dari 7</span>
+      <h3>Binding & Netting — Deterministik</h3>
+      <span class="step-tag">AI + Math · Arithmetic, not inference</span>
+    </div>
+    <div class="step-body">
+
+      <p>Keuntungan dan kerugian dihitung secara aritmatika menggunakan nilai numerik yang tersedia. <strong>Binding</strong> menerapkan penyesuaian spesifik profil; <strong>Netting</strong> menggabungkan gain/loss dalam unit yang sama menjadi satu nilai. Tujuannya: menghindari double-counting dan memastikan angka bersih untuk tahap BOCR.</p>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">4.1 Binding — Nilai Spesifik Profil untuk S1 (Syariah)</h4>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th class="center">Ahmad</th>
+            <th class="center">Fatimah</th>
+            <th class="center">Budi</th>
+            <th class="center">Siti</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bagi hasil tahunan (estimasi)</td>
+            <td class="num">3,2%</td>
+            <td class="num">3,2%</td>
+            <td class="num">3,2%</td>
+            <td class="num">3,2%</td>
+          </tr>
+          <tr>
+            <td>Bunga konvensional (pembanding)</td>
+            <td class="num">3,5%</td>
+            <td class="num">3,5%</td>
+            <td class="num">3,5%</td>
+            <td class="num">3,5%</td>
+          </tr>
+          <tr>
+            <td>Selisih return (cost ekonomi)</td>
+            <td class="num">−0,3%</td>
+            <td class="num">−0,3%</td>
+            <td class="num">−0,3%</td>
+            <td class="num">−0,3%</td>
+          </tr>
+          <tr>
+            <td>Biaya admin bulanan</td>
+            <td class="num">Rp 10rb</td>
+            <td class="num">Rp 10rb</td>
+            <td class="num">Rp 10rb</td>
+            <td class="num">Rp 10rb</td>
+          </tr>
+          <tr>
+            <td>Biaya kognitif (waktu belajar)</td>
+            <td class="num">Tinggi</td>
+            <td class="num">Rendah</td>
+            <td class="num">Menengah</td>
+            <td class="num">Tinggi</td>
+          </tr>
+          <tr>
+            <td>Diskon admin bulan pertama</td>
+            <td class="num">−Rp 10rb</td>
+            <td class="num">−Rp 10rb</td>
+            <td class="num">−Rp 10rb</td>
+            <td class="num">−Rp 10rb</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">4.2 Netting — Nilai Bersih per Profil</h4>
+
+      <div class="output"><span class="comment">// Net value of S1 (Syariah) relative to S2 (Konvensional)</span>
+
+<span class="key">Ahmad:</span>
+  Cost ekonomi: −0,3% p.a. (≈ −Rp 18rb/tahun)
+  Cost kognitif: TINGGI (≈ −Rp 500rb effort)
+  Benefit spiritual: <span class="val">TINGGI</span> (tidak dalam Rupiah)
+  <span class="comment">→ Net: AMBIVALEN — didorong oleh benefit non-moneter</span>
+
+<span class="key">Fatimah:</span>
+  Cost ekonomi: −0,3% p.a. (≈ −Rp 45rb/tahun)
+  Cost kognitif: RENDAH
+  Benefit spiritual: TINGGI
+  <span class="comment">→ Net: POSITIF — biaya kecil, motivasi sudah kuat</span>
+
+<span class="key">Budi:</span>
+  Cost ekonomi: −0,3% p.a. (≈ −Rp 36rb/tahun)
+  Cost kognitif: MENENGAH
+  Benefit spiritual: RENDAH
+  <span class="comment">→ Net: NEGATIF-BORDERLINE — return lebih rendah, motivasi lemah</span>
+
+<span class="key">Siti:</span>
+  Cost ekonomi: −0,3% p.a. (≈ −Rp 15rb/tahun)
+  Cost kognitif: TINGGI
+  Benefit spiritual: SANGAT TINGGI
+  <span class="comment">→ Net: POSITIF KUAT — benefit spiritual mendominasi</span></div>
+
+      <div class="callout info">
+        <strong>Hasil Binding & Netting:</strong> Empat profil menghasilkan empat "net values" yang berbeda untuk strategi yang sama. Inilah inti dari framework — bahwa strategi identik memiliki makna berbeda bagi setiap profil.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- STEP 5 -->
+  <!-- ============================================================ -->
+  <div class="step-block">
+    <div class="step-header">
+      <span class="step-num">Tahap 5 dari 7</span>
+      <h3>BOCR Evaluation — Didorong AI</h3>
+      <span class="step-tag">AI-driven · Benefits, Opportunities, Costs, Risks</span>
+    </div>
+    <div class="step-body">
+
+      <p>Setiap strategi dinilai dalam empat kuadran BOCR. AI mengkategorikan hasil berdasarkan net values dari Step 4, menghasilkan narasi terstruktur yang siap untuk AHP ranking.</p>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">5.1 BOCR untuk S1 (Syariah) — P1 Ahmad</h4>
+
+      <div class="bocr-grid">
+        <div class="bocr-cell bocr-benefits">
+          <h5>Benefits</h5>
+          <ul>
+            <li>Konsistensi spiritual (bebas riba)</li>
+            <li>Ketenangan psikologis</li>
+            <li>Bagi hasil sesuai akad</li>
+            <li>Reputasi positif di komunitas</li>
+          </ul>
+        </div>
+        <div class="bocr-cell bocr-opportunities">
+          <h5>Opportunities</h5>
+          <ul>
+            <li>Akses ke produk syariah lain</li>
+            <li>Networking komunitas religius</li>
+            <li>Potensi upgrade ke segmen premium</li>
+          </ul>
+        </div>
+        <div class="bocr-cell bocr-costs">
+          <h5>Costs</h5>
+          <ul>
+            <li>Waktu belajar akad (tinggi untuk Ahmad)</li>
+            <li>Biaya admin Rp 10rb/bln</li>
+            <li>Switching cost dari bank lama</li>
+            <li>Selisih return −0,3%</li>
+          </ul>
+        </div>
+        <div class="bocr-cell bocr-risks">
+          <h5>Risks</h5>
+          <ul>
+            <li>Return lebih rendah dari konvensional</li>
+            <li>Nisbah bagi hasil tidak pasti</li>
+            <li>Kualitas layanan digital belum matang</li>
+            <li>Kekecewaan jika ekspektasi tidak terpenuhi</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">5.2 BOCR untuk S1 (Syariah) — P3 Budi</h4>
+
+      <div class="bocr-grid">
+        <div class="bocr-cell bocr-benefits">
+          <h5>Benefits</h5>
+          <ul>
+            <li>Konsistensi spiritual (terbatas)</li>
+            <li>Bagi hasil sesuai akad</li>
+            <li>Potensi reputasi (kecil)</li>
+          </ul>
+        </div>
+        <div class="bocr-cell bocr-opportunities">
+          <h5>Opportunities</h5>
+          <ul>
+            <li>Akses ke produk syariah lain (jika ada)</li>
+            <li>Potensi bonus onboarding</li>
+          </ul>
+        </div>
+        <div class="bocr-cell bocr-costs">
+          <h5>Costs</h5>
+          <ul>
+            <li>Selisih return −0,3% (relevan)</li>
+            <li>Biaya admin Rp 10rb/bln</li>
+            <li>Waktu belajar akad (menengah)</li>
+            <li>Switching cost</li>
+          </ul>
+        </div>
+        <div class="bocr-cell bocr-risks">
+          <h5>Risks</h5>
+          <ul>
+            <li>Return lebih rendah dari konvensional</li>
+            <li>Kualitas layanan bank syariah</li>
+            <li>Risiko reputasi di lingkungan pragmatis</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <strong>Perbedaan kunci:</strong> Untuk Budi, <em>Costs</em> dan <em>Risks</em> mendominasi; untuk Ahmad, <em>Benefits</em> spiritual mendominasi. BOCR narratives ini nantinya akan menghasilkan bobot AHP yang sangat berbeda.
+      </div>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">5.3 BOCR Lengkap untuk Semua Strategi (ringkas)</h4>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Strategi</th>
+            <th>B</th>
+            <th>O</th>
+            <th>C</th>
+            <th>R</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>S1 — Buka Syariah</td><td class="num">0,85</td><td class="num">0,70</td><td class="num">0,45</td><td class="num">0,40</td></tr>
+          <tr><td>S2 — Tetap Konvensional</td><td class="num">0,55</td><td class="num">0,30</td><td class="num">0,20</td><td class="num">0,25</td></tr>
+          <tr><td>S3 — Tunda</td><td class="num">0,20</td><td class="num">0,40</td><td class="num">0,30</td><td class="num">0,35</td></tr>
+          <tr><td>S4 — Non-Bank</td><td class="num">0,60</td><td class="num">0,65</td><td class="num">0,35</td><td class="num">0,50</td></tr>
+        </tbody>
+      </table>
+
+      <p style="font-size: 13px; color: var(--muted);"><em>Skala 0–1. Nilai-nilai ini bersifat agregat dari BOCR narratives di atas dan konsisten dengan net values dari Step 4.</em></p>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- STEP 6 -->
+  <!-- ============================================================ -->
+  <div class="step-block">
+    <div class="step-header">
+      <span class="step-num">Tahap 6 dari 7</span>
+      <h3>AHP Ranking — AI + Math</h3>
+      <span class="step-tag">Pairwise Comparisons · Consistency Ratio</span>
+    </div>
+    <div class="step-body">
+
+      <p>Narasi BOCR dikonversi menjadi peringkat preferensi formal melalui metode perbandingan berpasangan Saaty. Dua bagian: (1) <strong>bobot kriteria</strong> untuk tiap profil, (2) <strong>perbandingan alternatif</strong> untuk setiap kriteria. Semua matriks divalidasi dengan Consistency Ratio (CR &lt; 0,10).</p>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">6.1 Bobot Kriteria BOCR per Profil</h4>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Profil</th>
+            <th class="center">Benefits</th>
+            <th class="center">Opportunities</th>
+            <th class="center">Costs</th>
+            <th class="center">Risks</th>
+            <th class="center">CR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>P1 Ahmad</strong></td>
+            <td class="center">0,40</td>
+            <td class="center">0,25</td>
+            <td class="center">0,20</td>
+            <td class="center">0,15</td>
+            <td class="center">0,04 ✓</td>
+          </tr>
+          <tr>
+            <td><strong>P2 Fatimah</strong></td>
+            <td class="center">0,30</td>
+            <td class="center">0,40</td>
+            <td class="center">0,15</td>
+            <td class="center">0,15</td>
+            <td class="center">0,03 ✓</td>
+          </tr>
+          <tr>
+            <td><strong>P3 Budi</strong></td>
+            <td class="center">0,20</td>
+            <td class="center">0,15</td>
+            <td class="center">0,35</td>
+            <td class="center">0,30</td>
+            <td class="center">0,06 ✓</td>
+          </tr>
+          <tr>
+            <td><strong>P4 Siti</strong></td>
+            <td class="center">0,45</td>
+            <td class="center">0,20</td>
+            <td class="center">0,20</td>
+            <td class="center">0,15</td>
+            <td class="center">0,02 ✓</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="font-size: 13px; color: var(--muted);">CR di bawah 0,10 mengindikasikan penilaian konsisten. Budi memiliki CR tertinggi (0,06) — mencerminkan ambivalensi preferensi yang lebih besar.</p>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">6.2 Pairwise Matrix — Alternatif untuk Ahmad (kriteria Benefits)</h4>
+
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th></th>
+            <th>S1</th>
+            <th>S2</th>
+            <th>S3</th>
+            <th>S4</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="left"><strong>S1</strong></td>
+            <td class="center">1</td>
+            <td class="center">3</td>
+            <td class="center">5</td>
+            <td class="center">2</td>
+          </tr>
+          <tr>
+            <td class="left"><strong>S2</strong></td>
+            <td class="center">1/3</td>
+            <td class="center">1</td>
+            <td class="center">2</td>
+            <td class="center">1/2</td>
+          </tr>
+          <tr>
+            <td class="left"><strong>S3</strong></td>
+            <td class="center">1/5</td>
+            <td class="center">1/2</td>
+            <td class="center">1</td>
+            <td class="center">1/3</td>
+          </tr>
+          <tr>
+            <td class="left"><strong>S4</strong></td>
+            <td class="center">1/2</td>
+            <td class="center">2</td>
+            <td class="center">3</td>
+            <td class="center">1</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="font-size: 13px; color: var(--muted);">Priority vector: S1 = 0,48 · S4 = 0,26 · S2 = 0,16 · S3 = 0,10. CR = 0,007 ✓</p>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">6.3 Skor Akhir per Profil</h4>
+
+      <p style="font-family: Helvetica; font-size: 13.5px; margin-bottom: 8px;"><strong>P1 — Ahmad</strong></p>
+      <div class="score-row top">
+        <div class="s-label">S1 — Buka Syariah</div>
+        <div class="s-track"><div class="s-fill gold" style="width: 82%"></div></div>
+        <div class="s-value">0,82</div>
+      </div>
+      <div class="score-row">
+        <div class="s-label">S3 — Tunda</div>
+        <div class="s-track"><div class="s-fill" style="width: 45%"></div></div>
+        <div class="s-value">0,45</div>
+      </div>
+      <div class="score-row">
+        <div class="s-label">S4 — Non-Bank</div>
+        <div class="s-track"><div class="s-fill" style="width: 40%"></div></div>
+        <div class="s-value">0,40</div>
+      </div>
+      <div class="score-row">
+        <div class="s-label">S2 — Konvensional</div>
+        <div class="s-track"><div class="s-fill" style="width: 18%"></div></div>
+        <div class="s-value">0,18</div>
+      </div>
+
+      <p style="font-family: Helvetica; font-size: 13.5px; margin: 24px 0 8px;"><strong>P2 — Fatimah</strong></p>
+      <div class="score-row top">
+        <div class="s-label">S1 — Buka Syariah</div>
+        <div class="s-track"><div class="s-fill gold" style="width: 91%"></div></div>
+        <div class="s-value">0,91</div>
+      </div>
+      <div class="score-row">
+        <div class="s-label">S4 — Non-Bank</div>
+        <div class="s-track"><div class="s-fill" style="width: 52%"></div></div>
+        <div class="s-value">0,52</div>
+      </div>
+      <div class="score-row">
+        <div class="s-label">S3 — Tunda</div>
+        <div class="s-track"><div class="s-fill" style="width: 22%"></div></div>
+        <div class="s-value">0,22</div>
+      </div>
+      <div class="score-row">
+        <div class="s-label">S2 — Konvensional</div>
+        <div class="s-track"><div class="s-fill" style="width: 12%"></div></div>
+        <div class="s-value">0,12</div>
+      </div>
+
+      <p style="font-family: Helvetica; font-size: 13.5px; margin: 24px 0 8px;"><strong>P3 — Budi</strong></p>
+      <div class="score-row top">
+        <div class="s-label">S2 — Konvensional</div>
+        <div class="s-track"><div class="s-fill gold" style="width: 68%"></div></div>
+        <div class="s-value">0,68</div>
+      </div>
+      <div class="score-row">
+        <div class="s-label">S4 — Non-Bank</div>
+        <div class="s-track"><div class="s-fill" style="width: 62%"></div></div>
+        <div class="s-value">0,62</div>
+      </div>
+      <div class="score-row">
+        <div class="s-label">S1 — Buka Syariah</div>
+        <div class="s-track"><div class="s-fill" style="width: 41%"></div></div>
+        <div class="s-value">0,41</div>
+      </div>
+      <div class="score-row">
+        <div class="s-label">S3 — Tunda</div>
+        <div class="s-track"><div class="s-fill" style="width: 35%"></div></div>
+        <div class="s-value">0,35</div>
+      </div>
+
+      <p style="font-family: Helvetica; font-size: 13.5px; margin: 24px 0 8px;"><strong>P4 — Siti</strong></p>
+      <div class="score-row top">
+        <div class="s-label">S1 — Buka Syariah</div>
+        <div class="s-track"><div class="s-fill gold" style="width: 95%"></div></div>
+        <div class="s-value">0,95</div>
+      </div>
+      <div class="score-row">
+        <div class="s-label">S3 — Tunda</div>
+        <div class="s-track"><div class="s-fill" style="width: 32%"></div></div>
+        <div class="s-value">0,32</div>
+      </div>
+      <div class="score-row">
+        <div class="s-label">S4 — Non-Bank</div>
+        <div class="s-track"><div class="s-fill" style="width: 20%"></div></div>
+        <div class="s-value">0,20</div>
+      </div>
+      <div class="score-row">
+        <div class="s-label">S2 — Konvensional</div>
+        <div class="s-track"><div class="s-fill" style="width: 8%"></div></div>
+        <div class="s-value">0,08</div>
+      </div>
+
+      <div class="callout success">
+        <strong>Pola segmentasi yang muncul:</strong> Dua profil (Fatimah & Siti) secara jelas mengarah ke S1. Satu profil (Ahmad) juga mengarah ke S1 tetapi dengan margin lebih kecil dan hambatan kognitif. Satu profil (Budi) mengarah ke S2/S4 — ini adalah <em>swing segment</em> yang membutuhkan intervensi berbeda.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- STEP 7 -->
+  <!-- ============================================================ -->
+  <div class="step-block">
+    <div class="step-header">
+      <span class="step-num">Tahap 7 dari 7</span>
+      <h3>Simulation Panel — Didorong AI</h3>
+      <span class="step-tag">Interactive artifact · Fully auditable</span>
+    </div>
+    <div class="step-body">
+
+      <p>Panel interaktif menggabungkan semua lapisan informasi. Behavioral scientist dapat mengeksplorasi skenario, mengubah slider, dan melacak setiap angka kembali ke input asalnya. Outputnya bukan rekomendasi kotak hitam, tetapi <strong>catatan keputusan yang dapat diaudit</strong>.</p>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">7.1 Layer 1 — Strategy Feasibility Matrix</h4>
+
+      <p style="font-size: 13.5px;">Dari Step 3: Ahmad dan Siti tidak memiliki Capability penuh untuk S4, sehingga strategi ini secara otomatis dikeluarkan dari ranking <em>hanya jika</em> ada strategi lain yang layak.</p>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">7.2 Layer 2 — AHP Ranking & Stability</h4>
+
+      <p style="font-size: 13.5px;">Bar chart dengan error bars dari 50 run simulasi menunjukkan stabilitas ranking. Untuk profil dengan preferensi jelas (Siti), error bars kecil. Untuk profil ambivalen (Budi), error bars lebih besar.</p>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">7.3 Layer 3 — Sensitivity Controls</h4>
+
+      <div class="output"><span class="comment">// Interactive sliders available in the panel</span>
+
+<span class="key">Risk Aversion:</span> [0.0 ————————— 1.0]
+  → Amplifies Benefits & Costs relative to Opportunities & Risks
+
+<span class="key">Loss Aversion:</span> [0.0 ————————— 1.0]
+  → Amplifies Costs & Risks relative to Benefits & Opportunities
+
+<span class="key">Religiosity Weight:</span> [0.0 ————————— 1.0]
+  → Custom slider for this case study; amplifies B (spiritual)
+    relative to other dimensions
+
+<span class="key">Social Proof Weight:</span> [0.0 ————————— 1.0]
+  → Amplifies O (social opportunities) for communal profiles</div>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">7.4 Layer 4 — Detail Decomposition</h4>
+
+      <div class="output"><span class="comment">// Click on any strategy to see full BOCR decomposition</span>
+
+<span class="key">S1 — Buka Syariah untuk Ahmad</span>
+  Global score: <span class="val">0.82</span>
+  
+  Contributions:
+    B (0.40) × 0.85 = <span class="val">0.340</span>
+    O (0.25) × 0.70 = <span class="val">0.175</span>
+    C (0.20) × 0.55 = <span class="val">0.110</span>  (inverted)
+    R (0.15) × 0.60 = <span class="val">0.090</span>  (inverted)
+    Total: <span class="val">0.715</span>  →  normalized to <span class="val">0.82</span>
+
+  Narrative:
+    Ahmad unggul karena motivasi spiritual yang tinggi.
+    Hambatan utama: biaya kognitif akad.
+    Intervensi yang direkomendasikan: onboarding simplification,
+    edukasi akad ringkas, testimoni komunitas.</div>
+
+      <h4 style="font-family: Helvetica; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin: 20px 0 10px;">7.5 Audit Trail</h4>
+
+      <p style="font-size: 13.5px;">Setiap angka dalam ranking akhir dapat dilacak kembali ke:</p>
+      <ul style="font-size: 13.5px;">
+        <li>Template input awal (Step 1)</li>
+        <li>Strategic Brief & asumsi Game Theory (Step 2)</li>
+        <li>Penilaian COM-B per profil (Step 3)</li>
+        <li>Nilai binding & netting (Step 4)</li>
+        <li>Narasi BOCR (Step 5)</li>
+        <li>Pairwise comparison matriks (Step 6)</li>
+      </ul>
+
+      <div class="callout success">
+        <strong>✓ Audit trail lengkap.</strong> Setiap keputusan dapat direview, ditantang, dan diperbarui secara independen — inilah yang membedakan Choice Engine dari sekadar prediksi AI.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SYNTHESIS -->
+  <!-- ============================================================ -->
+  <h2>Sintesis: Apa yang Dihasilkan Simulasi Ini</h2>
+
+  <p>Setelah tujuh tahapan, Choice Engine menghasilkan <strong>peta keputusan yang dapat ditindaklanjuti</strong> untuk kasus tabungan syariah. Berikut ringkasan temuan utama:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Profil</th>
+        <th>Strategi Dominan</th>
+        <th>Hambatan Utama</th>
+        <th>Intervensi Rekomendasi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ahmad</strong></td>
+        <td>S1 — Syariah (0,82)</td>
+        <td>Biaya kognitif akad</td>
+        <td>Onboarding simplification, edukasi akad ringkas, testimoni komunitas</td>
+      </tr>
+      <tr>
+        <td><strong>Fatimah</strong></td>
+        <td>S1 — Syariah (0,91)</td>
+        <td>Tidak ada (sudah siap)</td>
+        <td>Retention, upsell ke produk premium</td>
+      </tr>
+      <tr>
+        <td><strong>Budi</strong></td>
+        <td>S2 — Konvensional (0,68)</td>
+        <td>Return & kemudahan</td>
+        <td>Perbandingan return jangka panjang, integrasi digital, insentif awal</td>
+      </tr>
+      <tr>
+        <td><strong>Siti</strong></td>
+        <td>S1 — Syariah (0,95)</td>
+        <td>Kualitas layanan (persepsi)</td>
+        <td>Komunikasi kualitas layanan, garansi nisbah, dukungan komunitas</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-family: Helvetica; font-size: 15px; color: var(--accent); margin: 28px 0 12px;">Insight Utama</h3>
+
+  <div class="callout">
+    <strong>1. Segmentasi bukan demografi.</strong> Ahmad dan Siti memiliki karakteristik observasi serupa (usia muda, religius, literasi rendah, pendapatan menengah), namun jalur intervensinya berbeda. Ahmad butuh pengurangan friksi kognitif; Siti butuh penguatan kepercayaan layanan.
+  </div>
+
+  <div class="callout">
+    <strong>2. Budi adalah swing segment.</strong> Budi bukan anti-syariah; ia belum melihat kasus bisnisnya. Intervensi yang berfokus pada perbandingan return jangka panjang atau kemudahan digital berpotensi menggeser dia. Namun, pendekatan berbasis identitas justru berisiko backfire.
+  </div>
+
+  <div class="callout">
+    <strong>3. Consistency Ratio sebagai diagnostik.</strong> CR Budi (0,06) lebih tinggi dari profil lain — ini <em>sesuai</em> dengan ambivalensi sejatinya, bukan error. CR tinggi adalah sinyal bahwa preferensi Budi tidak koheren secara internal dan memerlukan eksplorasi lebih lanjut.
+  </div>
+
+  <div class="callout">
+    <strong>4. Auditability adalah nilai inti.</strong> Setiap angka dalam tabel di atas dapat dilacak kembali ke input, asumsi, dan perhitungan. Ini memungkinkan behavioral scientist untuk menantang, memperbarui, dan mempertahankan keputusan — tidak seperti rekomendasi AI kotak hitam.
+  </div>
+
+  <h3 style="font-family: Helvetica; font-size: 15px; color: var(--accent); margin: 28px 0 12px;">Keterbatasan Simulasi</h3>
+
+  <ul style="font-size: 14.5px;">
+    <li><strong>Angka bersifat ilustratif.</strong> Skor di atas merupakan hasil model konseptual, bukan data empiris.</li>
+    <li><strong>Religiusitas disederhanakan.</strong> Konstruk seperti intrinsic vs. extrinsic religiosity belum diuraikan.</li>
+    <li><strong>Konteks Indonesia sangat spesifik.</strong> Norma komunitas, peran keluarga, dan dinamika ormas keagamaan perlu validasi lokal.</li>
+    <li><strong>Choice Engine membutuhkan ahli.</strong> Prompt leakage, kesenjangan informasi, dan bias LLM harus dikelola secara aktif oleh behavioral scientist.</li>
+    <li><strong>Iterasi diperlukan.</strong> Model harus dijalankan ulang setiap kali ada data baru — dari eksperimen A/B, wawancara, atau perubahan pasar.</li>
+  </ul>
+
+  <h3 style="font-family: Helvetica; font-size: 15px; color: var(--accent); margin: 28px 0 12px;">Mengapa Framework Ini Kuat untuk Domain Syariah</h3>
+
+  <p>Yang membuat Choice Engine sangat cocok untuk domain seperti keuangan syariah adalah kemampuannya <strong>mengurai apa yang sering dicampur</strong>. Dalam analisis konvensional, "religiusitas", "harga", "kepercayaan", dan "kemudahan" sering diperlakukan sebagai variabel yang terpisah-pisah atau, sebaliknya, disatukan dalam satu konstruk "persepsi konsumen" yang kabur.</p>
+
+  <p>Choice Engine memaksa setiap dimensi untuk <em>dinyatakan secara eksplisit</em> dalam BOCR, diberi bobot dalam AHP, dan diuji dalam simulation panel. Spiritualitas menjadi salah satu kuadran B di antara empat, bukan variabel yang mengalahkan semuanya. Ekonomi tidak diabaikan. Sosial tidak direduksi menjadi demografi.</p>
+
+  <p>Inilah yang dimaksud Brocas dalam editorialnya: perilaku tidak muncul dari modul terpisah, tetapi dari interaksi sistem biologis, kognitif, dan sosial yang saling terkait. Choice Engine adalah salah satu cara praktis untuk memperlakukan konsumen sebagai <em>manusia yang utuh</em> — seseorang yang keputusannya mengalir dari semua lapisan itu sekaligus.</p>
+
+  <div class="end-mark">• • •</div>
+
+</div>
+</body>
+</html>

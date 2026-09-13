@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Melampaui Preferensi: Landasan Biologis Pengambilan Keputusan</title>
+<style>
+  :root {
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #2c5f7c;
+    --rule: #ccc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
+    background: #fafaf7;
+    margin: 0;
+    padding: 0;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.06);
+  }
+  .article-header {
+    border-bottom: 3px double var(--rule);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+  .article-number {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 32px;
+    line-height: 1.2;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .author {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+  .affiliation {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin: 4px 0 0;
+  }
+  h2 {
+    font-size: 22px;
+    margin: 42px 0 16px;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 18px;
+    margin: 30px 0 12px;
+  }
+  p { margin: 0 0 16px; text-align: justify; hyphens: auto; }
+  p.lead { font-size: 18px; }
+  .abstract {
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 22px 26px;
+    margin: 28px 0 36px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .abstract p:last-child { margin-bottom: 0; }
+  .pullquote {
+    font-size: 21px;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding: 6px 0 6px 22px;
+    margin: 30px 0;
+    font-weight: 600;
+  }
+  .pullquote::before { content: "\201C"; }
+  .pullquote::after { content: "\201D"; }
+  figure {
+    margin: 32px 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  figure img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+  }
+  figcaption {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 10px;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .qr-note {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 14px 18px;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .qr-note .qr-box {
+    width: 48px; height: 48px;
+    background: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0/12px 12px;
+    border: 1px solid #999;
+    flex-shrink: 0;
+  }
+  .refs {
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .refs h2 { font-size: 20px; }
+  .refs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    column-count: 2;
+    column-gap: 36px;
+  }
+  .refs li {
+    margin-bottom: 14px;
+    break-inside: avoid;
+    padding-left: 22px;
+    text-indent: -22px;
+  }
+  .author-bio {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 40px 0 24px;
+    font-size: 15.5px;
+  }
+  .author-bio h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  .end-mark {
+    text-align: center;
+    color: var(--muted);
+    letter-spacing: 6px;
+    margin: 40px 0;
+  }
+  @media (max-width: 640px) {
+    .page { padding: 30px 20px; }
+    .refs ul { column-count: 1; }
+    h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ HEADER ============ -->
+  <header class="article-header">
+    <div class="article-number">Editorial Tamu</div>
+    <h1>Melampaui Preferensi: Landasan Biologis Pengambilan Keputusan</h1>
+    <p class="author">Isabelle Brocas</p>
+    <p class="affiliation">University of Southern California</p>
+  </header>
+
+  <div class="qr-note">
+    <div class="qr-box"></div>
+    <div>Pindai kode QR untuk menonton ringkasan video</div>
+  </div>
+
+  <!-- ============ ABSTRACT ============ -->
+  <div class="abstract">
+    <p>Ekonomi telah membuat kemajuan penting dengan memasukkan psikologi dan ilmu kognitif, namun masih sering memperlakukan pengambilan keputusan seolah-olah terorganisasi ke dalam domain perilaku yang berbeda seperti risiko, waktu, memori, pengendalian diri, dan pilihan sosial. Editorial ini berargumen bahwa fragmentasi semacam itu menjadi terbatas secara intelektual dan praktis. Bukti dari neurosains, ilmu perkembangan, genetika, ilmu afektif, dan teori ekonomi formal semakin menunjukkan bahwa perilaku tidak muncul dari modul preferensi yang terisolasi, melainkan dari sistem biologis yang saling berinteraksi yang terlibat dalam persepsi, valuasi, memori, atensi, afek, regulasi, dan pemilihan tindakan. Ekonomi yang berbasis biologi tidak mengharuskan ekonom meninggalkan preferensi atau mereduksi perilaku menjadi neuron dan gen. Preferensi tetap menjadi representasi bentuk tereduksi yang berguna ketika perilaku stabil dan prediksi menjadi tujuannya. Persoalannya berbeda: ketika ekonom berusaha menjelaskan heterogenitas, mendiagnosis mengapa intervensi gagal, atau merancang kebijakan yang bekerja lintas konteks dan populasi, sering kali perlu memodelkan mekanisme yang menghasilkan pola pilihan yang tampak. Biologi dapat masuk ke ekonomi tidak hanya secara empiris, tetapi juga secara teoretis melalui model yang menurunkan perilaku yang diamati dari proses otak dan kendala sumber daya yang mendasarinya. Perspektif ini memperjelas apa yang dapat diubah, kapan dapat diubah, untuk siapa, dan melalui tuas kebijakan mana. Mengambil biologi secara serius karena itu bukan pengalihan dari teori ekonomi—ini adalah langkah menuju ilmu perilaku manusia yang lebih menjelaskan dan lebih berguna.</p>
+  </div>
+
+  <!-- ============ INTRODUCTION ============ -->
+  <h2>Pendahuluan</h2>
+
+  <p>Ekonomi telah lama mengandalkan abstraksi yang produktif. Ia menjelaskan perilaku melalui preferensi, keyakinan, insentif, dan kendala, dan menyimpulkan objek laten ini dari pilihan yang diamati. Strategi ini sangat kuat. Strategi ini memungkinkan ekonom mendisiplinkan penjelasan, membangun model yang dapat dikelola, dan membuat prediksi dalam berbagai pengaturan mulai dari pasar hingga keluarga, sekolah, perusahaan, dan kebijakan publik. Namun abstraksi yang sama juga mendorong cara berpikir tentang pengambilan keputusan yang semakin terlalu rapi untuk fenomena yang ingin kita jelaskan. Perilaku biasanya dipartisi ke dalam domain: risiko, pilihan intertemporal, pengendalian diri, preferensi sosial, kecanggihan strategis, memori, atensi, dan pembentukan keyakinan. Perbedaan ini memiliki nilai analitis. Namun, perbedaan ini tidak boleh disalahartikan sebagai arsitektur alami pikiran.</p>
+
+  <p>Tantangannya bukan lagi sekadar mendokumentasikan bahwa orang menyimpang dari tolok ukur rasional yang sempit, atau sekadar menambahkan lebih banyak keteraturan perilaku ke daftar. Tantangannya adalah memahami bagaimana perilaku dihasilkan. Begitu kita mulai mengajukan pertanyaan itu dengan serius, pembagian lama mulai tampak semakin arbitrer.</p>
+
+  <p>Otak tidak berisi modul risiko, modul kesabaran, modul memori, dan modul pengendalian diri yang masing-masing beroperasi secara independen lalu menyerahkan outputnya kepada ekonom. Perilaku ekonomi muncul dari proses biologis yang saling berinteraksi, termasuk persepsi, atensi, pengambilan memori, valuasi, penilaian afektif, kontrol inhibitori, dan pemilihan tindakan. Proses-proses ini sangat saling terhubung dan direkrut dalam kombinasi berbeda di berbagai tugas dan konteks.</p>
+
+  <blockquote class="pullquote">Perilaku ekonomi muncul dari proses biologis yang saling berinteraksi, termasuk persepsi, atensi, pengambilan memori, valuasi, penilaian afektif, kontrol inhibitori, dan pemilihan tindakan.</blockquote>
+
+  <p>Ekonomi telah diubah oleh dialognya dengan psikologi, terutama melalui karya yang menunjukkan bahwa penilaian di bawah ketidakpastian sering mengandalkan heuristik daripada penalaran Bayesian sepenuhnya (Tversky &amp; Kahneman, 1974). Neuroekonomi kemudian memperjelas bahwa neurosains dapat memperkaya teori ekonomi dengan menerangi mekanisme yang mendasari valuasi, pilihan, pembelajaran, dan pengaturan diri (Camerer et al., 2005). Dalam kerangka yang diusulkan oleh Rangel, Camerer, dan Montague (2008), pengambilan keputusan berbasis nilai didekonstruksi menjadi proses inti: merepresentasikan masalah keputusan, menilai tindakan, memilih di antara tindakan, mengevaluasi hasil, dan belajar. Fehr dan Rangel (2011) juga berargumen bahwa neuroekonomi dapat memberikan akun komputasional dan neurobiologis yang lebih rinci tentang pilihan daripada deskripsi perilaku bentuk tereduksi tradisional saja.</p>
+
+  <p>Pandangan itu tidak sepenuhnya spekulatif, dan bukan hanya milik neurosains; ia dapat diformalkan secara ekonomi. Satu lini kerja teoretis telah menunjukkan bagaimana perilaku yang diamati dapat diturunkan dari proses otak dan kendala sumber daya internal yang mendasarinya, bukan sekadar dijelaskan pada tingkat pilihan. Model pemetaan persepsi-ke-tindakan, pengambilan memori endogen, alokasi sumber daya otak, dan pengendalian diri sebagai optimisasi berkendala semuanya menunjuk ke arah yang sama: perilaku ekonomi yang familier sering dapat ditafsirkan ulang sebagai output dari sistem biologis yang saling berinteraksi yang menghadapi kelangkaan, trade-off, dan kendala internal (Brocas &amp; Carrillo, 2012, 2016, 2021; Brocas, Alonso, &amp; Carrillo, 2014). Ini bukan cabang samping ekonomi. Ini adalah bagian dari upaya membuat ekonomi benar-benar menjelaskan.</p>
+
+  <p>Meskipun demikian, argumen ini tidak boleh disalahpahami sebagai serangan terhadap preferensi. Preferensi adalah alat pemodelan yang sangat diperlukan ketika mereka merangkum pola pilihan yang stabil dan ketika tujuannya adalah prediksi dalam lingkungan yang diketahui. Masalah muncul ketika preferensi diperlakukan sebagai penjelasan final, bukan sebagai deskripsi ringkas tentang perilaku yang dihasilkan oleh proses yang lebih dalam. Seseorang mungkin tampak mencintai risiko, tidak sabar, tidak percaya, atau berkemauan lemah. Label-label ini mungkin akurat secara deskriptif, tetapi mereka tidak memberi tahu kita apakah perilaku yang diamati mencerminkan sensitivitas hadiah, simulasi masa depan, pengambilan memori, ancaman emosional, penangkapan atensi, kendala regulasi, atau ekspektasi lingkungan yang tidak stabil. Perbedaannya penting karena intervensi yang menghasilkan perubahan bentuk tereduksi yang sama dalam pilihan mungkin beroperasi melalui mekanisme yang sangat berbeda, dan intervensi yang diarahkan pada mekanisme yang salah mungkin gagal.</p>
+
+  <blockquote class="pullquote">Preferensi adalah alat pemodelan yang sangat diperlukan ketika mereka merangkum pola pilihan yang stabil dan ketika tujuannya adalah prediksi dalam lingkungan yang diketahui.</blockquote>
+
+  <p>Ekonomi yang berbasis biologi juga tidak boleh disamakan dengan determinisme biologis. Gen bukanlah takdir. Mekanisme saraf tidak menghilangkan agensi. Teori ekonomi tidak menjadi usang karena keberadaan otak. Tetapi jika tujuan kita adalah memodelkan perilaku manusia daripada sekadar mencocokkannya, biologi tidak bisa lagi tetap di latar belakang; ia membantu menjelaskan mengapa berbagai jenis keputusan sering koheren dalam diri individu, mengapa orang berbeda dalam cara yang terstruktur, mengapa orang yang sama berperilaku berbeda di berbagai konteks, dan mengapa lingkungan membentuk perilaku begitu dalam sepanjang perjalanan hidup.</p>
+
+  <p>Hal ini sangat penting untuk kebijakan. Ekonom sudah memperkirakan hubungan bentuk tereduksi antara perilaku dan insentif, kendala, atau informasi. Nilai perspektif biologis bukanlah bahwa ia menggantikan perkiraan itu, melainkan bahwa ia membantu menafsirkannya. Ia bertanya proses internal mana yang mengikat; apakah kendalanya kognitif, emosional, perkembangan, informasi, sosial, atau lingkungan; apakah sistem yang relevan dapat diubah; apakah waktu penting; apakah kebijakan harus mengubah insentif, mengurangi beban kognitif, menstabilkan ekspektasi, menurunkan stres, meningkatkan tidur atau nutrisi, atau merancang ulang lingkungan agar sistem regulasi yang rapuh tidak terlalu terbebani. Dalam pengertian ini, biologi mengubah bukan hanya apa yang kita ukur, tetapi juga apa yang kita anggap sebagai tuas kebijakan.</p>
+
+  <p>Klaim yang lebih luas dari editorial ini karena itu sederhana tetapi konsekuensial: ekonomi harus bergerak melampaui memperlakukan pengambilan keputusan sebagai seperangkat domain preferensi yang terisolasi dan menuju akun yang lebih terintegrasi yang didasarkan pada biologi, perkembangan, afek, dan kendala kognitif internal. Ini tidak akan menggantikan teori ekonomi—ini akan memperdalamnya. Gambar 1 merangkum kerangka sentral yang diajukan dalam editorial ini. Perilaku ekonomi tidak boleh diperlakukan sebagai output dari domain preferensi yang terisolasi tetapi sebagai produk dari sistem biologis yang saling berinteraksi yang mengubah persepsi, memori, valuasi, afek, dan regulasi menjadi tindakan.</p>
+
+  <!-- ============ PROBLEM ============ -->
+  <h2>Masalah dengan Memperlakukan Domain Ekonomi sebagai Terpisah</h2>
+
+  <p>Salah satu kekuatan besar disiplin ini adalah kemampuannya mengisolasi dimensi perilaku. Preferensi risiko, preferensi intertemporal, sikap ambiguitas, preferensi sosial, kecanggihan strategis, dan pengendalian diri semuanya telah menghasilkan literatur yang produktif. Namun, pemartisian ini juga datang dengan biaya. Ia mendorong gagasan bahwa domain-domain ini sesuai dengan objek psikologis yang dapat dipisahkan, padahal banyak di antaranya mungkin mencerminkan mekanisme mendasar yang tumpang tindih.</p>
+
+  <p>Ambil risiko dan waktu. Ekonom sering memperlakukannya sebagai dimensi preferensi yang berbeda: yang satu menyangkut ketidakpastian, yang lain menyangkut penundaan. Tetapi pemisahan itu menjadi kurang meyakinkan begitu kita berpikir secara mekanistik. Kedua jenis keputusan merekrut valuasi, antisipasi afektif, representasi masa depan, atensi terhadap hasil yang menonjol, pembelajaran dari umpan balik, dan kontrol inhibitori. Seseorang yang impulsif mungkin juga tampak lebih bersedia mengambil risiko, bukan karena ketidaksabaran dan kecintaan risiko adalah konstruk yang identik, tetapi karena keduanya mungkin dibentuk oleh pola umum sensitivitas hadiah, simulasi masa depan yang terbatas, stres, atau pengaturan diri yang lebih lemah. Tumpang tindih serupa kemungkinan ada antara penalaran strategis dan memori kerja, antara kerja sama dan regulasi emosi, antara kepercayaan dan persepsi ancaman, dan antara pilihan konsumen dan hambatan atensi.</p>
+
+  <p>Bahasa preferensi tradisional karena itu dapat mengaburkan sebanyak yang ia ungkapkan. Ia menjelaskan keteraturan pada tingkat hasil, tetapi tidak memberi tahu kita apakah keteraturan itu muncul dari mekanisme umum atau sistem yang benar-benar berbeda. Kerja neuroekonomi sangat berharga di sini karena menunjukkan bahwa pilihan berbasis nilai bergantung pada urutan komputasi yang saling berinteraksi daripada pada modul perilaku yang terisolasi. Tindakan memilih melibatkan merepresentasikan masalah, menetapkan nilai subjektif, memilih tindakan, mengalami hasil, dan memperbarui perilaku melalui pembelajaran (Rangel et al., 2008). Logika ini sudah mendorong melawan gagasan bahwa risiko, waktu, pilihan sosial, dan pengendalian diri harus dipahami sebagai domain yang mandiri.</p>
+
+  <figure>
+    <img src="figure1-brocas.jpg" alt="Kerangka pengambilan keputusan berbasis biologi.">
+    <figcaption><strong>Gambar 1:</strong> Kerangka pengambilan keputusan berbasis biologi. Perilaku ekonomi muncul dari interaksi persepsi, atensi, memori, valuasi, afek, regulasi, dan pemilihan tindakan (hijau). Proses-proses ini dibentuk oleh endowmen biologis dan kondisi lingkungan sepanjang perkembangan (biru).</figcaption>
+  </figure>
+
+  <p>Implikasinya bukan bahwa ekonom harus berhenti memperkirakan aversi risiko, tingkat diskonto, atau preferensi sosial; sebaliknya, konstruk-konstruk ini harus diperlakukan sebagai permukaan perilaku. Mereka adalah ringkasan berguna tentang apa yang dilakukan agen dalam lingkungan tertentu. Mereka kurang berguna sebagai penjelasan ketika perilaku berubah lintas konteks, ketika intervensi yang sama memiliki efek berbeda di antara individu, atau ketika analisis kesejahteraan membutuhkan pemahaman apakah suatu pilihan mencerminkan valuasi yang stabil, misinformation, kompulsi, ketakutan, kelebihan beban, atau adaptasi terhadap ketidakstabilan. Semakin ekonom peduli pada mekanisme, transportabilitas, dan desain intervensi, semakin penting untuk melihat di bawah label preferensi.</p>
+
+  <blockquote class="pullquote">Semakin ekonom peduli pada mekanisme, transportabilitas, dan desain intervensi, semakin penting untuk melihat di bawah label preferensi.</blockquote>
+
+  <p>Gambar 2 menggambarkan poin ini. Proses mendasar yang sama dapat berkontribusi pada perilaku di beberapa domain ekonomi, yang menjelaskan mengapa korelasi yang tampak di antara pengambilan risiko, ketidaksabaran, impulsivitas, kepercayaan, atau sensitivitas sosial mungkin mencerminkan mekanisme bersama daripada parameter preferensi yang terpisah.</p>
+
+  <p>Kritik yang sama berlaku untuk hubungan antara kognisi dan afek. Ekonom semakin nyaman dengan gagasan bahwa kognisi terbatas dan atensi langka. Ini telah menjadi kemajuan besar, tetapi bidang ini masih terlalu sering memperlakukan proses afektif dan emosional sebagai pengubah dari pemilih yang fundamentalnya kognitif. Hierarki ini terlalu sempit. Pengambilan keputusan bukanlah kognisi dengan emosi dilapisi di atasnya. Kognisi, afek, memori, dan regulasi terjalin sejak awal. Sinyal emosional membentuk atensi, aksesibilitas memori, valuasi, persepsi ancaman, dan tindakan. Ciri kepribadian mengubah cara informasi dikodekan, ditafsirkan, dan ditindaklanjuti. Tidak ada pemilih dasar yang netral dan sepenuhnya kognitif dari mana emosi menyimpang.</p>
+
+  <p>Pandangan yang lebih terintegrasi karena itu diperlukan. Poinnya bukan menghapus konstruk ekonomi tetapi berhenti mengasumsikan bahwa konstruk itu berkorespondensi satu-ke-satu dengan struktur otak. Kategori yang digunakan ekonom tetap berguna secara deskriptif, tetapi mereka harus disematkan dalam arsitektur proses bersama yang lebih dalam yang mengubah persepsi, memori, nilai, afek, dan regulasi menjadi tindakan.</p>
+
+  <figure>
+    <img src="figure2-brocas.jpg" alt="Mekanisme bersama lintas domain ekonomi.">
+    <figcaption><strong>Gambar 2:</strong> Mekanisme bersama lintas domain ekonomi. Domain ekonomi tradisional seperti risiko, waktu, pengendalian diri, pilihan sosial, dan perilaku strategis mungkin bergantung pada mekanisme yang tumpang tindih, termasuk atensi, memori, penilaian afektif, valuasi, dan regulasi (oranye). Gambar ini menyoroti mengapa perilaku spesifik domain sebagian mungkin mencerminkan arsitektur biologis bersama (hijau).</figcaption>
+  </figure>
+
+  <!-- ============ FROM BRAIN PROCESSES ============ -->
+  <h2>Dari Proses Otak ke Perilaku Ekonomi</h2>
+
+  <p>Ekonomi yang lebih berbasis biologi dimulai dengan proposisi sederhana: apa yang kita amati sebagai pengambilan keputusan adalah produk dari beberapa proses yang saling berinteraksi yang mengubah persepsi menjadi tindakan. Alih-alih berisi modul yang berbeda untuk risiko, waktu, atau pengendalian diri, otak mengandalkan sistem yang lebih luas untuk valuasi, pembelajaran hadiah, atensi, memori, dan kontrol yang outputnya direkrut di banyak bentuk pengambilan keputusan (Schultz, 2015). Otak tidak pertama-tama membangun urutan preferensi yang sempurna stabil dan kemudian dengan tenang melaksanakannya—otak harus mengalokasikan atensi, mengambil memori, merepresentasikan alternatif, mengintegrasikan sinyal afektif, meregulasi impuls yang bersaing, dan memilih tindakan di bawah kendala internal dan eksternal.</p>
+
+  <p>Implikasi sentral dari perspektif ini adalah bahwa biologi dapat masuk ke ekonomi tidak hanya melalui pengukuran, tetapi juga melalui teori itu sendiri. Gagasan ini telah memotivasi satu lini kerja yang tidak sekadar menyebut biologi secara deskriptif; ia menggunakan kendala biologis untuk menurunkan perilaku. Gambar 3 merepresentasikan logika teoretis di balik pendekatan ini. Himpunan pilihan, insentif, informasi, dan isyarat kontekstual masuk ke organisme sebagai input, tetapi perilaku yang diamati bergantung pada bagaimana input tersebut diubah oleh kendala pemrosesan internal.</p>
+
+  <blockquote class="pullquote">Biologi dapat masuk ke ekonomi tidak hanya melalui pengukuran, tetapi juga melalui teori itu sendiri.</blockquote>
+
+  <p>Brocas dan Carrillo (2012) mengembangkan kerangka di mana perilaku muncul dari urutan operasi otak yang menghubungkan persepsi ke tindakan, bukan muncul sebagai primitif yang tidak dijelaskan. Pendekatan ini membantu menjelaskan fenomena dalam pembentukan keyakinan yang sulit direkonsiliasi dengan model pembaruan yang lebih sederhana. Ia menjelaskan penjangkaran keyakinan, di mana urutan bukti yang diterima memengaruhi keyakinan dan pilihan; polarisasi, di mana individu dengan prior yang berlawanan dapat bergerak semakin jauh setelah mengamati bukti yang identik; ketergantungan keyakinan pada imbalan; dan ketidaksepakatan keyakinan, di mana individu dengan prior identik yang menerima bukti yang sama tetap dapat berakhir dengan keyakinan posterior yang berbeda. Kontribusi yang lebih luas adalah menunjukkan bahwa fenomena semacam itu tidak perlu diperlakukan sebagai anomali ad hoc dari pembaruan keyakinan. Mereka dapat muncul secara alami begitu persepsi dan pemrosesan internal dimodelkan secara eksplisit.</p>
+
+  <p>Brocas, Alonso, dan Carrillo (2014) menunjukkan bahwa sumber daya kognitif itu sendiri langka dan harus dialokasikan di berbagai tugas dan proses, menjadikan kelangkaan sumber daya internal sebagai bagian eksplisit dari model daripada intuisi informal. Makalah ini menghasilkan beberapa implikasi. Kinerja dapat sempurna ketika tugas cukup sederhana, sehingga keterbatasan tidak perlu muncul secara seragam di semua lingkungan; keterbatasan muncul secara endogen ketika tuntutan melebihi sumber daya yang tersedia. Aturan alokasi dinamis yang optimal menunjukkan inersia, dalam arti alokasi saat ini meningkat seiring kebutuhan masa lalu. Tugas kognitif yang berbeda dilakukan oleh sistem yang berbeda hanya ketika tugas-tugas itu cukup penting, menyiratkan bahwa spesialisasi itu sendiri adalah respons endogen terhadap kendala daripada fitur arsitektur yang tetap. Secara lebih luas, makalah ini memberikan dasar formal untuk memahami atensi terbatas, trade-off kinerja, pemrosesan selektif, dan fakta bahwa individu mungkin tampak mengabaikan informasi yang relevan, bukan karena mereka gagal mengoptimalkan tetapi karena optimisasi itu sendiri berlangsung di bawah kelangkaan internal.</p>
+
+  <p>Brocas dan Carrillo (2016) memodelkan pengambilan memori sebagai proses endogen, menekankan bahwa apa yang dapat diingat pada saat pilihan bukanlah hal trivial atau eksogen. Dua implikasi sangat penting dalam hal ini. Pertama, keputusan lebih dekat dengan pengalaman asli ketika memori deklaratif digunakan. Kedua, memori deklaratif lebih mungkin digunakan ketika pentingnya mengingat informasi secara akurat meningkat. Hasil ini membantu menjelaskan mengapa perilaku bergantung pada pengalaman masa lalu mana yang dapat diakses pada saat pilihan, mengapa individu yang sama mungkin lebih mengandalkan jejak langsung pengalaman sebelumnya dalam beberapa pengaturan daripada yang lain, dan mengapa ketidakstabilan atau ketergantungan konteks yang tampak tidak perlu mencerminkan preferensi yang tidak stabil. Sebaliknya, mereka mungkin mencerminkan variasi dalam apakah dan bagaimana sistem memori dilibatkan.</p>
+
+  <p>Brocas dan Carrillo (2021) memperluas logika ini ke pengendalian diri dengan memperlakukannya bukan sebagai pergulatan moral sederhana antara impuls dan kehendak, melainkan sebagai masalah optimisasi berkendala. Dalam kerangka ini, serangkaian fenomena luas dapat dipahami di bawah payung yang sama: inkonsistensi waktu, pengendalian diri yang bergantung konteks, aturan kaku yang menopang kekuatan kehendak, dan pola yang lebih ekstrem atau disfungsional seperti kecanduan dan gangguan makan. Gagasan sentralnya adalah bahwa otak menimbang imbalan langsung terhadap biaya masa depan dengan tunduk pada kendala komputasional dan regulasi internal. Apa yang dari luar tampak irasional, merugikan diri sendiri, atau patologis karena itu mungkin merupakan solusi yang konsisten secara internal untuk masalah optimisasi yang lebih terkendala. Ini juga mengapa perilaku semacam itu sulit dibatalkan melalui intervensi: mereka bukan kegagalan pilihan yang acak tetapi respons koheren yang dihasilkan oleh sistem yang beroperasi di bawah kendala yang lebih ketat atau berubah.</p>
+
+  <p>Pesan umum di seluruh makalah ini adalah bahwa otak mengoptimalkan di bawah kendala, dan bahwa perilaku yang diamati sering merupakan respons terbaik yang layak yang diizinkan oleh arsitektur sistem, bahkan ketika tampak membingungkan, maladaptif, atau abnormal bagi pengamat. Biologi tidak hanya membantu menjelaskan perilaku pilihan standar; ia juga menyediakan bahasa terpadu untuk memahami kekakuan, disfungsi, dan heterogenitas perilaku sebagai hasil dari logika dasar yang sama.</p>
+
+  <p>Pelajaran metodologis ini penting di luar aplikasi apa pun. Biologi tidak perlu masuk ke ekonomi hanya melalui bukti korelasional yang menunjukkan bahwa satu wilayah otak aktif selama satu tugas atau tugas lainnya. Ia dapat masuk melalui teori, dan proses otak dapat dimodelkan sebagai proses ekonomi: mereka mengalokasikan sumber daya yang langka, menghadapi trade-off, menghasilkan kendala endogen, dan mengubah input menjadi tindakan. Begitu langkah itu diambil, perbedaan antara teori ekonomi dan mekanisme biologis menjadi kurang kaku daripada yang tampak pada awalnya.</p>
+
+  <p>Pendekatan ini konsisten dengan literatur neuroekonomi yang lebih luas yang menekankan bahwa pilihan bergantung pada sistem saraf yang menghitung nilai subjektif, mengintegrasikan atribut yang bersaing, dan memodulasi nilai-nilai itu di hadapan tujuan jangka panjang atau tuntutan pengendalian diri (Kable &amp; Glimcher, 2007; Fehr &amp; Rangel, 2011; Hare et al., 2009). Dalam Hare et al. (2009), pengendalian diri yang berhasil dikaitkan bukan hanya dengan penekanan godaan tetapi dengan modulasi sistem valuasi itu sendiri. Wawasan ini cocok secara alami dengan model ekonomi tentang pengendalian diri sebagai optimisasi berkendala, karena ia menunjukkan bahwa konflik tidak berada di luar komputasi nilai tetapi tertanam di dalamnya.</p>
+
+  <p>Cara berpikir ini juga mengubah bagaimana kita menafsirkan variabilitas perilaku. Jika pilihan yang diamati bergantung pada atensi, pengambilan, salience, modulasi, dan kontrol, maka ketidakstabilan bukan lagi sekadar kesalahan di sekitar parameter preferensi laten—ia mungkin mencerminkan variasi yang sah dalam fungsi sistem-sistem ini. Individu yang sama dapat berperilaku berbeda di berbagai situasi bukan hanya karena preferensi bergeser tetapi karena memori berbeda diambil, isyarat berbeda menangkap atensi, emosi berbeda dipicu, atau sumber daya internal berbeda tersedia. Teori yang memungkinkan mekanisme semacam itu bukanlah kurang ekonomis; ia lebih realistis.</p>
+
+  <p>Ia juga membantu menjembatani domain yang biasanya dipelajari secara terpisah. Memori memengaruhi kesabaran karena representasi masa depan sebagian bergantung pada apa yang dapat diambil dan disimulasikan. Pengendalian diri memengaruhi pengambilan risiko karena valuasi afektif dan regulasi membentuk kesediaan mengejar imbalan yang menonjol tetapi tidak pasti. Atensi membentuk perilaku sosial karena isyarat yang diperhatikan orang pada orang lain menentukan apakah mereka mempersepsikan ancaman, keadilan, kemurahan hati, atau kerentanan. Begitu persepsi, memori, valuasi, afek, dan kontrol diperlakukan sebagai komponen bersama, fragmentasi pengambilan keputusan ke dalam literatur yang terpisah mulai tampak semakin artifisial.</p>
+
+  <!-- ============ WHAT BIOLOGY ADDS ============ -->
+  <h2>Apa yang Ditambahkan Biologi di Luar Prediksi Bentuk Tereduksi</h2>
+
+  <p>Keberatan yang wajar adalah bahwa ekonom sudah memiliki bahasa yang kuat untuk perilaku. Jika seorang individu berperilaku seolah-olah ia mendiskonto masa depan secara curam, menghindari ambiguitas, atau menghargai keadilan, mengapa tidak sekadar memodelkan pola itu sebagai preferensi? Dalam banyak kasus, itu justru hal yang benar untuk dilakukan. Model preferensi bentuk tereduksi berharga ketika mereka mengorganisasi data secara hemat, memprediksi perilaku secara andal, dan mendukung analisis kesejahteraan yang jelas. Ekonomi yang berbasis biologi tidak mengharuskan meninggalkan kerangka ini.</p>
+
+  <p>Keuntungan muncul ketika ekonom mengajukan pertanyaan yang tidak dapat dijawab dengan baik oleh preferensi bentuk tereduksi saja. <em>Pertama</em>, mekanisme membantu menjelaskan transportabilitas. Kebijakan yang diperkirakan berhasil di satu pengaturan mungkin gagal di tempat lain jika perilaku lahiriah yang sama dihasilkan oleh kendala internal yang berbeda. <em>Kedua</em>, mekanisme membantu mengidentifikasi heterogenitas perlakuan. Individu yang tampak serupa dalam pilihan mereka mungkin berbeda dalam proses yang menghasilkan pilihan itu dan karena itu merespons intervensi yang sama secara berbeda. <em>Ketiga</em>, mekanisme memperjelas waktu. Sistem perkembangan dan biologis berbeda dalam plastisitas, sehingga intervensi yang efektif pada anak usia dini, remaja, atau usia lanjut mungkin tidak memiliki efek yang sama pada tahap kehidupan lain. <em>Keempat</em>, mekanisme meningkatkan interpretasi kesejahteraan. Pilihan yang dibuat di bawah preferensi yang stabil tidak memiliki makna normatif yang sama dengan pilihan yang dibuat di bawah kompulsi, ketakutan, kelebihan beban kognitif, atau kapasitas yang sangat terbatas untuk mensimulasikan masa depan.</p>
+
+  <p>Poin-poin ini juga memperjelas peran preferensi dalam argumen. Preferensi tidak salah. Mereka tidak lengkap ketika diperlakukan sebagai penyebab bukan ringkasan, dan mereka dapat ditafsirkan sebagai ekspresi lahiriah dari proses biologis dan kognitif yang mendasarinya, meskipun interpretasi ini menjadi berguna hanya jika kita bertanya proses mana yang terlibat. Dalam pengertian ini, proposalnya bukan untuk menjauh dari pemodelan berbasis preferensi secara umum, melainkan untuk mengetahui kapan representasi preferensi sudah cukup dan kapan ia menutupi mekanisme yang justru perlu ditargetkan oleh kebijakan.</p>
+
+  <!-- ============ GENES ============ -->
+  <h2>Gen, Lingkungan, dan Perkembangan Heterogenitas</h2>
+
+  <p>Ekonomi yang berbasis biologi juga harus mengambil heterogenitas lebih serius daripada yang biasanya dilakukan bidang ini. Perbedaan antar individu sering diperlakukan sebagai variasi residual atau sebagai heterogenitas preferensi yang stabil, tetapi banyak perbedaan semacam itu kemungkinan muncul dari interaksi antara disposisi yang diwariskan dan lingkungan sepanjang perkembangan.</p>
+
+  <p>Penelitian dalam genetika perilaku menunjukkan bahwa kemampuan kognitif dan ciri kepribadian sebagian diwariskan (Deary et al., 2009; Plomin et al., 2016). Ini tidak berarti mereka tetap. Sebaliknya, poin yang relevan secara ekonomi adalah bahwa gen menetapkan potensi dan kendala yang ekspresinya sangat bergantung pada lingkungan. Anak yang sama dapat berkembang secara berbeda tergantung pada nutrisi, pengasuhan, paparan stres kronis, kualitas tidur, stabilitas lingkungan, sekolah, atau trauma. Sistem biologis tidak berkembang dalam ruang hampa.</p>
+
+  <p>Perspektif ini juga terhubung secara alami dengan Pendahuluan Ulrike Malmendier dalam edisi tahun ini, yang menekankan peran pengalaman hidup dalam membentuk keyakinan dan keputusan ekonomi. Diskusinya tentang 'efek pengalaman' menunjukkan bahwa paparan terhadap inflasi, resesi, pasar keuangan, risiko perumahan, dan lingkungan ekonomi lainnya dapat meninggalkan jejak yang bertahan dalam ekspektasi dan perilaku. Poin ini sangat selaras dengan argumen yang diajukan di sini: lingkungan tidak hanya memberikan informasi atau mengubah insentif, tetapi juga membentuk sistem biologis dan kognitif melalui mana pilihan masa depan dipersepsikan, dinilai, diingat, dan ditindaklanjuti. Gambar 4 merangkum logika perkembangan ini. Endowmen biologis dan paparan lingkungan bersama-sama membentuk sistem yang mendasari pengambilan keputusan, yang berarti bahwa heterogenitas yang diamati bukan sekadar noise residual atau variasi preferensi yang tetap.</p>
+
+  <figure>
+    <img src="figure4-brocas.jpg" alt="Faktor biologis dan lingkungan yang membentuk fungsi otak dan pengambilan keputusan.">
+    <figcaption><strong>Gambar 4:</strong> Faktor biologis dan lingkungan yang membentuk fungsi otak dan pengambilan keputusan sepanjang perkembangan dan perjalanan hidup. Perbedaan individu dalam perilaku ekonomi muncul dari interaksi antara endowmen biologis, proses perkembangan, dan paparan lingkungan seperti stres, nutrisi, tidur, pendidikan, keamanan, dan stabilitas sosial. Faktor-faktor ini membentuk sistem kognitif, afektif, dan regulasi melalui mana pilihan dibuat.</figcaption>
+  </figure>
+
+  <p>Hal ini sangat penting karena lingkungan yang paling relevan bagi ekonomi sering juga merupakan lingkungan yang paling relevan bagi biologi. Kemiskinan bukan hanya himpunan anggaran yang lebih rendah—ia sering dikaitkan dengan stres kronis, ketidakpastian, nutrisi buruk, gangguan tidur, akses berkurang ke stimulasi kognitif, dan ancaman sosial. Kondisi ini dapat membentuk atensi, regulasi emosi, memori, fungsi eksekutif, dan bahkan ekspresi gen. Dengan kata lain, ketidaksetaraan sosial menjadi tertanam secara biologis (Shonkoff et al., 2009; Lupien, McEwen, Gunnar, &amp; Heim, 2009).</p>
+
+  <p>Jika demikian, perbedaan perilaku yang kemudian diamati dalam pendidikan, penawaran tenaga kerja, tabungan, perilaku kesehatan, atau interaksi strategis tidak dapat sepenuhnya dipahami sebagai pilihan kontemporer saja. Mereka mungkin mencerminkan jalur perkembangan di mana lingkungan telah mengubah arsitektur pengambilan keputusan. Seorang anak yang tumbuh di lingkungan yang tidak stabil, misalnya, mungkin secara rasional belajar bahwa masa depan sulit diprediksi, bahwa imbalan langsung lebih dapat diandalkan daripada imbalan tertunda, atau bahwa kewaspadaan lebih berguna daripada eksplorasi yang sabar. Perilaku dewasa yang kemudian diukur sebagai ketidaksabaran, ketidakpercayaan, atau investasi rendah karena itu mungkin sebagian merupakan ekspresi dari sejarah perkembangan yang adaptif, bukan sekadar parameter preferensi yang stabil.</p>
+
+  <p>Pandangan perkembangan ini sangat penting. Orang dewasa tidak masuk ke model ekonomi sebagai agen yang sudah terbentuk sepenuhnya dengan ciri-ciri yang tak lekang waktu. Sistem yang mendasari kesabaran, kontrol impuls, sensitivitas sosial, penalaran strategis, dan regulasi emosi berkembang seiring waktu dan sering tidak merata. Remaja adalah contoh yang sangat mencolok: sensitivitas hadiah, orientasi teman sebaya, intensitas afektif, dan proses kontrol semuanya mengalami perubahan besar selama periode ini, yang membantu menjelaskan mengapa perilaku bisa lebih eksploratif, volatil, atau bergantung sosial (Casey et al., 2008; Crone &amp; van der Molen, 2004).</p>
+
+  <p>Biologi pengambilan keputusan juga terus berubah sepanjang siklus hidup penuh. Individu yang sama tidak dilengkapi dengan arsitektur saraf yang sama pada usia 15, 40, dan 80. Penuaan memengaruhi sistem otak yang terlibat dalam pemrosesan hadiah, memori, regulasi afektif dan motivasional, dan kontrol kognitif, dan perubahan ini dapat membentuk kembali bagaimana individu merespons ketidakpastian, mengevaluasi keuntungan dan kerugian, belajar dari umpan balik, dan menyeimbangkan hasil langsung versus tertunda (Samanez-Larkin &amp; Knutson, 2015). Pergeseran terkait usia dalam pengambilan keputusan karena itu harus diperlakukan bukan sekadar sebagai penyimpangan dari tolok ukur dewasa yang stabil, tetapi juga sebagai bagian dari biologi pilihan itu sendiri.</p>
+
+  <p>Logika yang sama berlaku untuk gangguan perkembangan saraf dan perilaku. Kondisi seperti ADHD dan autisme bukan sekadar label yang ditambahkan pada pemilih yang sebaliknya standar; mereka terkait dengan perbedaan dalam sistem yang mengatur atensi, pembelajaran penguatan, pemrosesan ketidakpastian, fleksibilitas kognitif, dan inferensi sosial. Dalam ADHD, karya terbaru menunjukkan pembelajaran hadiah yang berubah, sensitivitas penguatan yang tumpul, dan pergantian pilihan yang lebih besar, menunjukkan perbedaan dalam bagaimana umpan balik digunakan untuk menstabilkan atau merevisi perilaku seiring waktu (Aster et al., 2024). Dalam autisme, tinjauan terbaru menunjukkan pola khas dalam metakognisi, pilihan berbasis nilai, dan kesulitan pengambilan keputusan kehidupan nyata, dengan atipikalitas sering muncul lebih jelas ketika orang diminta melaporkan atau merefleksikan keyakinan internal (van der Plas et al., 2023). Pelajaran yang lebih luas bukan hanya bahwa beberapa kelompok memutuskan secara berbeda; tetapi bahwa variasi dalam arsitektur biologis, baik yang terkait dengan usia, perkembangan, atau gangguan, dapat menghasilkan pola perilaku yang berbeda tetapi koheren secara internal.</p>
+
+  <p>Secara lebih luas, ekonomi yang berbasis biologi harus dapat berbicara dengan bahasa yang sama tentang perkembangan tipikal, penuaan, dan patologi. Tujuannya bukan untuk menggabungkan kondisi-kondisi ini menjadi satu sama lain tetapi untuk mengakui bahwa semuanya melibatkan perilaku yang muncul dari sistem yang beroperasi di bawah arsitektur, kendala, dan lintasan perkembangan tertentu. Yang berbeda bukanlah apakah perilaku dihasilkan oleh optimisasi berkendala tetapi kendala mana yang ada, seberapa parah, bagaimana mereka berinteraksi, dan seberapa besar ruang untuk kompensasi atau adaptasi.</p>
+
+  <!-- ============ EMOTION ============ -->
+  <h2>Emosi, Kepribadian, dan Primasi Palsu Kognisi Murni</h2>
+
+  <p>Ekonomi semakin bersedia mengakui bahwa kognisi terbatas. Namun, bidang ini masih cenderung mengistimewakan kognisi di atas afek, seolah-olah cerita sentral pengambilan keputusan adalah tentang pemrosesan informasi dan segala sesuatu yang lain bersifat sekunder. Hierarki ini keliru.</p>
+
+  <p>Pengambilan keputusan tidak hanya dibatasi oleh kognisi yang terbatas; ia juga dibentuk oleh proses afektif dan emosional. Emosi menentukan apa yang terasa mendesak, apa yang terasa mengancam, apa yang terasa memberi imbalan, dan apa yang layak mendapat atensi. Ia membentuk bagaimana orang menafsirkan ambiguitas, seberapa besar ketidakpastian yang mereka toleransi, seberapa hidup mereka membayangkan hasil masa depan, dan seberapa kuat mereka bereaksi terhadap isyarat sosial seperti rasa tidak hormat, pengucilan, pengkhianatan, kekaguman, atau kepercayaan. Dalam pengertian itu, afek bukanlah gangguan eksternal terhadap mesin pilihan; ia adalah bagian dari mesin itu sendiri.</p>
+
+  <p>Gagasan ini berakar dalam pada neurosains. Hipotesis penanda somatik, yang terkait dengan Damasio dan dikembangkan secara empiris dalam karya Bechara dan rekan, mengusulkan bahwa sinyal emosional yang terkait dengan hasil masa lalu membantu membimbing perilaku dengan menandai beberapa opsi sebagai lebih menonjol, berbahaya, atau menarik daripada yang lain (Damasio, 1994, 1996; Bechara et al., 1997). Pentingnya kontribusi ini bukanlah bahwa ekonom harus mengganti preferensi dengan penanda somatik sebagai label bentuk tereduksi lain. Jika digunakan seperti itu, konstruk emosional akan mereproduksi masalah yang sama. Nilainya terletak pada mengidentifikasi proses di mana pengalaman masa lalu, keadaan tubuh, penilaian afektif, dan valuasi berinteraksi untuk membentuk tindakan. Kontribusi yang relevan bersifat mekanistik, bukan sekadar terminologis.</p>
+
+  <p>Hal yang sama berlaku untuk kepribadian. Ciri kepribadian sering diperlakukan sebagai ringkasan luas dengan relevansi terbatas untuk pemodelan ekonomi, tetapi ciri seperti neurotisisme, keterbukaan, impulsivitas, fleksibilitas, ketekunan, atau dominasi sosial bukan hanya label untuk perilaku, tetapi juga mencerminkan perbedaan sistematis dalam bagaimana orang memproses informasi, bereaksi secara emosional, mengalokasikan usaha, merepresentasikan orang lain, dan meregulasi diri. Dua individu dengan insentif yang sama dan informasi yang sama tetap dapat berperilaku berbeda karena mereka tidak memproses situasi dengan cara yang sama. Kepribadian membantu menjelaskan mengapa.</p>
+
+  <p>Ini adalah alasan lain mengapa perilaku ekonomi tidak dapat dibagi secara rapi ke dalam domain preferensi yang terpisah. Reaktivitas emosional dapat memengaruhi risiko, kepercayaan, hukuman, pembelajaran, dan penundaan. Kepribadian dapat membentuk penawaran tenaga kerja, investasi pendidikan, kecanggihan strategis, konsumsi, pilihan sosial, dan kesehatan mental sekaligus. Sekali lagi, apa yang tampak terfragmentasi pada tingkat perilaku mungkin bersatu pada tingkat proses.</p>
+
+  <p>Ini memiliki implikasi metodologis. Ekonom sering mencari identifikasi yang bersih dengan menghilangkan kekayaan kontekstual, tetapi dengan melakukan itu mereka kadang menghilangkan saluran tempat kepribadian dan afek beroperasi. Tugas minimalis berguna, tetapi mereka dapat menciptakan ilusi bahwa pengambilan keputusan lebih modular daripada dalam kehidupan. Akun perilaku yang lebih kaya harus memungkinkan pemrosesan informasi, emosi, memori, dan kepribadian berinteraksi secara dinamis daripada tiba secara terpisah pada saat pilihan.</p>
+
+  <!-- ============ WHY THIS MATTERS ============ -->
+  <h2>Mengapa Ini Penting untuk Pemodelan dan Kebijakan</h2>
+
+  <p>Implikasi kebijakan dari perspektif ini substansial. Ekonom sangat peduli pada perilaku, karena perilaku berada di pusat pendidikan, kesehatan, keuangan, tenaga kerja, ketidaksetaraan, dan kebijakan publik yang lebih luas. Tetapi jika perilaku dihasilkan oleh sistem berbasis biologi yang dibentuk oleh perkembangan dan konteks, maka himpunan tuas kebijakan yang relevan lebih luas daripada yang sering diasumsikan ekonom.</p>
+
+  <p>Kebijakan tidak hanya bekerja pada harga dan kendala, tetapi juga pada stres, prediktabilitas, tidur, nutrisi, beban kognitif, ancaman sosial, dan stabilitas ekspektasi. Faktor-faktor ini penting karena mereka membentuk sistem melalui mana orang mempersepsikan opsi, mengambil memori, meregulasi impuls, membayangkan masa depan, dan bertindak. Nudge mungkin gagal bukan karena logikanya salah tetapi karena ia menargetkan mekanisme yang salah. Intervensi informasi mungkin berkinerja di bawah harapan bukan karena informasi tidak penting tetapi karena hambatan yang relevan terletak pada kelebihan beban emosional, ketidakpercayaan, atau deplesi kognitif. Program tabungan mungkin meleset jika hambatan utamanya bukan preferensi waktu yang dipahami secara sempit tetapi ketidakpastian tentang apakah masa depan cukup dapat diandalkan untuk direncanakan.</p>
+
+  <blockquote class="pullquote">Nudge mungkin gagal bukan karena logikanya salah tetapi karena ia menargetkan mekanisme yang salah.</blockquote>
+
+  <h3>Kasus Ilustratif 1: Tabungan, Kelangkaan, dan Beban Kognitif</h3>
+
+  <p>Interpretasi bentuk tereduksi standar mungkin memperlakukan tabungan rendah sebagai ekspresi tingkat diskonto yang tinggi. Diagnosis berbasis biologi bertanya apakah orang tersebut tidak sabar dalam pengertian yang stabil atau apakah perencanaan terganggu oleh stres, volatilitas pendapatan, ketidakpercayaan, kelangkaan atensi, atau ketidakpastian tentang apakah imbalan tertunda akan terwujud. Implikasi kebijakannya berbeda. Jika kendala yang mengikat adalah atensi, pengingat atau pendaftaran yang disederhanakan mungkin berhasil. Jika kendala yang mengikat adalah volatilitas dan ketidakpercayaan, pengingat mungkin tidak banyak membantu; alat yang lebih efektif mungkin termasuk buffer likuiditas, waktu transfer yang dapat diprediksi, institusi yang dipercaya, atau perangkat komitmen yang mengurangi ketergantungan pada pengendalian diri dari momen ke momen.</p>
+
+  <p>Poinnya bukan bahwa biologi menyediakan satu jawaban kebijakan tunggal tetapi bahwa ia mengubah urutan diagnostik. Alih-alih menyimpulkan preferensi yang dalam untuk masa kini dari perilaku saja, ia bertanya kendala internal dan lingkungan mana yang menghasilkan pilihan yang diamati, dan mana di antara kendala itu yang dapat diubah.</p>
+
+  <h3>Kasus Ilustratif 2: Pengambilan Risiko Remaja dan Konteks Sosial</h3>
+
+  <p>Model standar mungkin memperlakukan pengambilan risiko remaja sebagai preferensi yang stabil untuk risiko atau biaya rendah dari bahaya masa depan. Akun perkembangan menunjukkan mekanisme yang lebih spesifik: sensitivitas hadiah, salience teman sebaya, intensitas afektif, dan sistem kontrol yang masih berkembang yang berinteraksi secara berbeda pada masa remaja daripada pada masa dewasa. Diagnosis ini mengarah pada desain kebijakan yang berbeda. Kampanye informasi tentang bahaya masa depan mungkin lemah jika mekanisme yang mengikat adalah salience teman sebaya pada saat tindakan. Selain itu, kebijakan yang mengubah pengaturan sosial, mengurangi insentif kinerja publik, mengubah waktu, atau menyediakan imbalan alternatif langsung mungkin lebih efektif daripada kebijakan yang hanya mengulang risiko jangka panjang.</p>
+
+  <p>Di sini lagi, pendekatan berbasis biologi tidak menggantikan insentif; ia memperjelas kapan insentif harus langsung daripada tertunda, privat daripada publik, lingkungan daripada sekadar informasi, dan ditargetkan pada tahap perkembangan pengambil keputusan.</p>
+
+  <h3>Kasus Ilustratif 3: Kebijakan Pendidikan dan Sistem Pembelajaran yang Heterogen</h3>
+
+  <p>Kebijakan pendidikan menggambarkan mengapa pendekatan berbasis biologi tidak boleh berhenti pada bertanya apakah suatu intervensi berhasil secara rata-rata. Pertimbangkan program sekolah yang menawarkan bimbingan tambahan, insentif kehadiran, dan pemantauan pekerjaan rumah untuk meningkatkan prestasi. Evaluasi standar mungkin memperkirakan efek rata-rata program, tetapi siswa dapat merespons secara berbeda karena kendala yang membatasi pembelajaran berbeda di antara anak-anak.</p>
+
+  <p>Bagi satu siswa, masalah utamanya mungkin konten akademik yang hilang, sehingga bimbingan efektif. Bagi siswa lain, kendala yang mengikat mungkin memori kerja atau atensi, sehingga instruksi yang lebih lama tidak banyak membantu kecuali materi dipecah menjadi langkah-langkah lebih pendek dengan umpan balik langsung. Bagi siswa dengan kecemasan, insentif berisiko tinggi dapat meningkatkan stres dan mengurangi kinerja. Bagi siswa dengan ADHD, dukungan mungkin perlu mencakup struktur, jeda gerak, dan penguatan. Bagi anak yang terpapar gangguan tidur, kerawanan pangan, atau stres kronis, dukungan akademik mungkin perlu dikombinasikan dengan stabilisasi lingkungan sebelum pembelajaran dapat meningkat.</p>
+
+  <p>Poinnya bukan bahwa biologi menetapkan siswa ke dalam tipe; sebaliknya, disposisi genetik, kemampuan kognitif, gangguan perilaku, dan lingkungan berinteraksi untuk membentuk atensi, memori, motivasi, dan pengaturan diri. Kebijakan pendidikan yang berbasis biologi karena itu akan bertanya bukan hanya "Apakah intervensi ini berhasil?" tetapi juga "Untuk siapa ia berhasil, melalui mekanisme apa, dan dalam kondisi apa?" Ini menggeser kebijakan dari perlakuan satu-ukuran-untuk-semua menuju dukungan yang disesuaikan yang menargetkan kendala yang benar-benar membatasi pembelajaran setiap siswa.</p>
+
+  <h3>Kasus Ilustratif 4: COVID-19, Kepribadian, dan Respons Kebijakan yang Heterogen</h3>
+
+  <p>Pandemi COVID-19 memberikan contoh jelas mengapa kebijakan tidak dapat mengasumsikan bahwa individu merespons secara seragam terhadap lingkungan yang sama. Lockdown, penutupan sekolah, jarak sosial, dan ketidakpastian menciptakan guncangan bersama, tetapi efek psikologis dari guncangan itu sangat bervariasi di antara individu. Proto dan Zhang menunjukkan bahwa penurunan kesehatan mental selama COVID-19 berbeda sejalan dengan ciri kepribadian: individu yang lebih tinggi dalam keterbukaan dan ekstraversi lebih terpengaruh secara negatif, sementara mereka yang lebih tinggi dalam keramahan relatif terlindungi.</p>
+
+  <p>Ini penting untuk kebijakan karena intervensi yang sama dapat menimbulkan biaya berbeda, tergantung pada sistem biologis dan psikologis melalui mana individu meregulasi stres, kebutuhan sosial, ketidakpastian, dan isolasi. Bagi remaja yang ekstrover, misalnya, pembatasan sosial dapat secara langsung merusak sumber hadiah dan regulasi emosional. Bagi individu yang terbuka, kurungan dan berkurangnya kebaruan mungkin sangat mahal. Bagi individu yang sangat cemas, pesan ancaman berulang dapat meningkatkan kewaspadaan dan distress daripada mendorong perilaku adaptif. Bagi yang lain, aturan yang jelas dan tuntutan sosial yang berkurang mungkin protektif.</p>
+
+  <p>Kebijakan yang berbasis biologi karena itu akan bertanya bukan hanya apakah lockdown atau pesan kesehatan publik berhasil secara rata-rata, tetapi juga siapa yang menanggung biaya kognitif, emosional, dan perilaku terbesar—dan bagaimana biaya itu dapat dimitigasi. Ini mungkin menyiratkan dukungan yang berbeda: menjaga kontak sosial yang aman untuk anak dan remaja, menyesuaikan komunikasi kesehatan publik untuk menghindari amplifikasi ancaman yang berlebihan, menyediakan sumber daya kesehatan mental bagi kelompok yang paling rentan terhadap isolasi, dan merancang pembatasan yang mempertahankan rutinitas, tidur, dan koneksi sosial bila memungkinkan. Poinnya bukan bahwa kepribadian menentukan perilaku tetapi bahwa kepribadian, kognisi, dan lingkungan berinteraksi untuk membentuk bagaimana orang mengalami dan merespons kebijakan yang sama.</p>
+
+  <!-- ============ TOWARD INTEGRATED ============ -->
+  <h2>Menuju Ekonomi Perilaku Manusia yang Lebih Terintegrasi</h2>
+
+  <p>Jika ekonomi ingin mengambil langkah berikutnya dalam memahami pengambilan keputusan, ia harus menjadi lebih terintegrasi baik dalam teori maupun bukti, yang berarti tidak hanya meminjam temuan dari neurosains atau genetika, tetapi juga memungkinkan biologi membentuk kembali bagaimana pertanyaan diajukan. Pertanyaan pentingnya bukan apakah disiplin ini harus mempertahankan konstruk tradisionalnya atau menggantinya dengan konstruk biologis, tetapi apakah kita bersedia mengakui bahwa konstruk kita sering merupakan ringkasan fenomenologis daripada mekanisme.</p>
+
+  <p>Ekonomi yang lebih terintegrasi akan memperlakukan persepsi, memori, valuasi, kontrol, afek, dan pemilihan tindakan sebagai komponen bersama yang memotong lintas domain perilaku. Ia akan menafsirkan heterogenitas secara perkembangan. Ia akan mengambil kepribadian dan regulasi emosional secara serius sebagai bagian dari arsitektur pilihan. Ia akan memandang ketidakstabilan perilaku bukan hanya sebagai noise, tetapi juga, kadang-kadang, sebagai konsekuensi yang dapat diprediksi dari keadaan internal yang berfluktuasi atau sumber daya internal yang terkendala. Dan ia akan menghubungkan kebijakan secara lebih eksplisit dengan mekanisme biologis melalui mana lingkungan membentuk pengambilan keputusan.</p>
+
+  <p>Agenda ini tidak dapat direduksi menjadi neuroekonomi dalam pengertian sempit. Ia lebih luas. Ia mencakup genetika, ilmu perkembangan, endokrinologi, ilmu afektif, psikiatri, kognisi komparatif, dan pemodelan formal kendala sumber daya internal. Karena itu, yang dibutuhkan bukan hanya subbidang baru tetapi pergeseran orientasi. Tujuannya bukan menempelkan biologi ke ekonomi sebagai pengayaan opsional; tujuannya adalah mengakui bahwa ekonomi telah mencapai titik di mana menjelaskan perilaku membutuhkan akun yang lebih serius tentang organisme yang menghasilkannya.</p>
+
+  <p>Pergeseran ini juga akan membuat ekonomi lebih berguna bagi praktisi, yang sering bekerja di lingkungan di mana perilaku tidak stabil, insentif berinteraksi dengan kelelahan dan stres, kepercayaan rapuh, dan konteks penting. Kerangka yang memperlakukan fitur-fitur ini sebagai periferal akan cenderung menggeneralisasi secara berlebihan dari tugas yang bersih dan efek rata-rata. Kerangka yang memperlakukannya sebagai bagian dari arsitektur pilihan dapat menghasilkan diagnosis yang lebih baik, penargetan yang lebih baik, dan ekspektasi yang lebih realistis tentang apa yang dapat dicapai intervensi.</p>
+
+  <p>Ekonomi selalu paling kuat ketika ia mengidentifikasi kendala tersembunyi dan melacak konsekuensinya. Kendala kognitif dan biologis internal termasuk dalam tradisi itu. Mereka tidak membuat ekonomi kurang ketat—mereka memberi disiplin ini akun yang lebih kaya tentang kendala di mana manusia benar-benar memilih.</p>
+
+  <!-- ============ CONCLUSION ============ -->
+  <h2>Kesimpulan</h2>
+
+  <p>Ekonomi telah belajar banyak dengan mempelajari perilaku pada tingkat pilihan, tetapi ada batas seberapa jauh kita dapat melangkah jika kita terus memperlakukan risiko, waktu, pengendalian diri, memori, perilaku sosial, dan kognisi sebagai domain yang sebagian besar terpisah. Bukti semakin mengarah ke tempat lain. Perilaku dihasilkan oleh sistem biologis yang saling berinteraksi yang mengubah persepsi menjadi tindakan di bawah kondisi kelangkaan, regulasi, perkembangan, afek, dan pengaruh lingkungan.</p>
+
+  <blockquote class="pullquote">Heterogenitas bukanlah istilah gangguan; ia adalah fakta sentral yang sering mencerminkan perbedaan biologis yang dibentuk secara perkembangan.</blockquote>
+
+  <p>Begitu poin itu diambil serius, beberapa hal mengikuti. Kategori ekonomi tradisional tetap berguna, tetapi mereka tidak boleh disalahartikan sebagai partisi alami pikiran. Preferensi tetap menjadi alat bentuk tereduksi yang berharga, tetapi mereka tidak selalu cukup sebagai penjelasan. Heterogenitas bukanlah istilah gangguan; ia adalah fakta sentral yang sering mencerminkan perbedaan biologis yang dibentuk secara perkembangan. Kebijakan harus lebih memperhatikan mekanisme melalui mana lingkungan membentuk pengambilan keputusan. Dan biologi bukan hanya sumber korelasi. Ia dapat menjadi sumber teori.</p>
+
+  <blockquote class="pullquote">Ilmu pengambilan keputusan yang mengabaikan arsitektur biologis pemilih akan tetap tidak lengkap.</blockquote>
+
+  <p>Ambisi yang lebih besar bukanlah membiologikan ekonomi dalam pengertian reduktif. Ini adalah membuat ekonomi lebih benar-benar menjelaskan. Ilmu pengambilan keputusan yang mengabaikan arsitektur biologis pemilih akan tetap tidak lengkap. Ilmu yang mengintegrasikan arsitektur itu memiliki peluang lebih baik untuk menjelaskan siapa kita, mengapa kita berbeda, dan bagaimana lingkungan dapat mengubah lintasan perilaku.</p>
+
+  <!-- ============ AUTHOR BIO ============ -->
+  <div class="author-bio">
+    <h3>Tentang Penulis</h3>
+    <p>Isabelle Brocas adalah Professor of Economics di University of Southern California, di mana ia memimpin Los Angeles Behavioral Economics Laboratory (LABEL) dan Theoretical Research in Neuroeconomic Decision-making (TREND) Institute. Ia juga berafiliasi dengan Institute for Advanced Study in Toulouse (IAST) dan Centre for Economic Policy Research (CEPR). Penelitiannya mengembangkan pendekatan teoretis dan eksperimental terhadap pengambilan keputusan, dengan penekanan khusus pada landasan biologis, kognitif, dan perkembangan perilaku ekonomi. Karyanya mempelajari bagaimana persepsi, memori, atensi, pengendalian diri, interaksi sosial, dan kendala internal membentuk pilihan lintas individu dan konteks. Ia telah banyak menerbitkan dalam ekonomi perilaku, neuroekonomi, dan ekonomi eksperimental.</p>
+  </div>
+
+  <!-- ============ REFERENCES ============ -->
+  <div class="refs">
+    <h2>Referensi</h2>
+    <ul>
+      <li>Aster, H. C., Waltmann, M., Busch, A., Romanos, M., Gamer, M., van Noort, B. M., ... &amp; Deserno, L. (2024). Impaired flexible reward learning in ADHD patients is associated with blunted reinforcement sensitivity and neural signals in ventral striatum and parietal cortex. <em>NeuroImage: Clinical, 42</em>, 103588. https://doi.org/10.1016/j.nicl.2024.103588</li>
+      <li>Bechara, A., Damasio, H., Tranel, D., &amp; Damasio, A. R. (1997). Deciding advantageously before knowing the advantageous strategy. <em>Science, 275</em>(5304), 1293–1295. https://doi.org/10.1126/science.275.5304.1293</li>
+      <li>Brocas, I., Alonso, R., &amp; Carrillo, J. D. (2014). Resource allocation in the brain. <em>Review of Economic Studies, 81</em>(2), 501–534. https://doi.org/10.1093/restud/rdt043</li>
+      <li>Brocas, I., &amp; Carrillo, J. D. (2012). From perception to action: An economic model of brain processes. <em>Games and Economic Behavior, 75</em>(1), 81–103. https://doi.org/10.1016/j.geb.2011.10.001</li>
+      <li>Brocas, I., &amp; Carrillo, J. D. (2016). A neuroeconomic theory of memory retrieval. <em>Journal of Economic Behavior &amp; Organization, 130</em>, 198–205. https://doi.org/10.1016/j.jebo.2016.07.009</li>
+      <li>Brocas, I., &amp; Carrillo, J. D. (2021). Value computation and modulation: A neuroeconomic theory of self-control as constrained optimization. <em>Journal of Economic Theory, 198</em>, 105366. https://doi.org/10.1016/j.jet.2021.105366</li>
+      <li>Camerer, C. F., Loewenstein, G., &amp; Prelec, D. (2005). Neuroeconomics: How neuroscience can inform economics. <em>Journal of Economic Literature, 43</em>(1), 9–64. https://doi.org/10.1257/0022051053737843</li>
+      <li>Casey, B. J., Getz, S., &amp; Galvan, A. (2008). The adolescent brain. <em>Developmental Review, 28</em>(1), 62–77. https://doi.org/10.1016/j.dr.2007.08.003</li>
+      <li>Crone, E. A., &amp; van der Molen, M. W. (2004). Developmental changes in real-life decision making: Performance on a gambling task previously shown to depend on the ventromedial prefrontal cortex. <em>Developmental Neuropsychology, 25</em>(3), 251–279. https://doi.org/10.1207/s15326942dn2503_2</li>
+      <li>Damasio, A. R. (1994). <em>Descartes' error: Emotion, reason, and the human brain</em>. Putnam.</li>
+      <li>Damasio, A. R. (1996). The somatic marker hypothesis and the possible functions of the prefrontal cortex. <em>Philosophical Transactions of the Royal Society B: Biological Sciences, 351</em>(1346), 1413–1420. https://doi.org/10.1098/rstb.1996.0125</li>
+      <li>Deary, I. J., Johnson, W., &amp; Houlihan, L. M. (2009). Genetic foundations of human intelligence. <em>Human Genetics, 126</em>(1), 215–232. https://doi.org/10.1007/s00439-009-0655-4</li>
+      <li>Fehr, E., &amp; Rangel, A. (2011). Neuroeconomic foundations of economic choice—Recent advances. <em>Journal of Economic Perspectives, 25</em>(4), 3–30. https://doi.org/10.1257/jep.25.4.3</li>
+      <li>Hare, T. A., Camerer, C. F., &amp; Rangel, A. (2009). Self-control in decision-making involves modulation of the vmPFC valuation system. <em>Science, 324</em>(5927), 646–648. https://doi.org/10.1126/science.1168450</li>
+      <li>Heckman, J. J. (2006). Skill formation and the economics of investing in disadvantaged children. <em>Science, 312</em>(5782), 1900–1902. https://doi.org/10.1126/science.1128898</li>
+      <li>Kable, J. W., &amp; Glimcher, P. W. (2007). The neural correlates of subjective value during intertemporal choice. <em>Nature Neuroscience, 10</em>(12), 1625–1633. https://doi.org/10.1038/nn2007</li>
+      <li>Lupien, S. J., McEwen, B. S., Gunnar, M. R., &amp; Heim, C. (2009). Effects of stress throughout the lifespan on the brain, behaviour and cognition. <em>Nature Reviews Neuroscience, 10</em>(6), 434–445. https://doi.org/10.1038/nrn2639</li>
+      <li>Plomin, R., DeFries, J. C., Knopik, V. S., &amp; Neiderhiser, J. M. (2016). Top 10 replicated findings from behavioral genetics. <em>Perspectives on Psychological Science, 11</em>(1), 3–23. https://doi.org/10.1177/1745691615617439</li>
+      <li>Proto, E., &amp; Zhang, A. (2021). COVID-19 and mental health of individuals with different personalities. <em>Proceedings of the National Academy of Sciences, 118</em>(37), e2109282118. https://doi.org/10.1073/pnas.2109282118</li>
+      <li>Rangel, A., Camerer, C. F., &amp; Montague, P. R. (2008). A framework for studying the neurobiology of value-based decision making. <em>Nature Reviews Neuroscience, 9</em>(7), 545–556. https://doi.org/10.1038/nrn2357</li>
+      <li>Samanez-Larkin, G. R., &amp; Knutson, B. (2015). Decision making in the ageing brain: Changes in affective and motivational circuits. <em>Nature Reviews Neuroscience, 16</em>(5), 278–289. https://doi.org/10.1038/nrn3917</li>
+      <li>Schultz, W. (2015). Neuronal reward and decision signals: From theories to data. <em>Physiological Reviews, 95</em>(3), 853–951. https://doi.org/10.1152/physrev.00023.2014</li>
+      <li>Shonkoff, J. P., Boyce, W. T., &amp; McEwen, B. S. (2009). Neuroscience, molecular biology, and the childhood roots of health disparities. <em>JAMA, 301</em>(21), 2252–2259. https://doi.org/10.1001/jama.2009.754</li>
+      <li>Tversky, A., &amp; Kahneman, D. (1974). Judgment under uncertainty: Heuristics and biases. <em>Science, 185</em>(4157), 1124–1131. https://doi.org/10.1126/science.185.4157.1124</li>
+      <li>van der Plas, E., Mason, D., &amp; Happé, F. (2023). Decision-making in autism: A narrative review. <em>Autism, 27</em>(6), 1532–1546. https://doi.org/10.1177/13623613221148010</li>
+    </ul>
+  </div>
+
+  <div class="end-mark">• • •</div>
+
+</div>
+</body>
+</html>

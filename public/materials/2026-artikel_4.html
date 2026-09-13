@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Partisipan Sintetis: Untuk Apa Mereka dalam Bisnis dan Bagaimana Kita Dapat Membuatnya Lebih Baik?</title>
+<style>
+  :root {
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #2c5f7c;
+    --rule: #ccc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
+    background: #fafaf7;
+    margin: 0;
+    padding: 0;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.06);
+  }
+  .article-header {
+    border-bottom: 3px double var(--rule);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+  .article-number {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .author {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+  .affiliation {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin: 4px 0 0;
+  }
+  h2 {
+    font-size: 22px;
+    margin: 42px 0 16px;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 18px;
+    margin: 30px 0 12px;
+  }
+  p { margin: 0 0 16px; text-align: justify; hyphens: auto; }
+  p.lead { font-size: 18px; }
+  .abstract {
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 22px 26px;
+    margin: 28px 0 36px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .abstract p:last-child { margin-bottom: 0; }
+  .pullquote {
+    font-size: 21px;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding: 6px 0 6px 22px;
+    margin: 30px 0;
+    font-weight: 600;
+  }
+  .pullquote::before { content: "\201C"; }
+  .pullquote::after { content: "\201D"; }
+  figure {
+    margin: 32px 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  figure img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+  }
+  figcaption {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 10px;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .qr-note {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 14px 18px;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .qr-note .qr-box {
+    width: 48px; height: 48px;
+    background: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0/12px 12px;
+    border: 1px solid #999;
+    flex-shrink: 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  table th {
+    background: #2c5f7c;
+    color: #fff;
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+  }
+  table td {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 12px;
+    vertical-align: top;
+  }
+  table tr:nth-child(even) td {
+    background: #f7f9fa;
+  }
+  .table-note {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: -12px 0 24px;
+  }
+  .refs {
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .refs h2 { font-size: 20px; }
+  .refs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    column-count: 2;
+    column-gap: 36px;
+  }
+  .refs li {
+    margin-bottom: 14px;
+    break-inside: avoid;
+    padding-left: 22px;
+    text-indent: -22px;
+  }
+  .author-bio {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 40px 0 24px;
+    font-size: 15.5px;
+  }
+  .author-bio h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  .author-bio p { text-align: left; }
+  .end-mark {
+    text-align: center;
+    color: var(--muted);
+    letter-spacing: 6px;
+    margin: 40px 0;
+  }
+  @media (max-width: 640px) {
+    .page { padding: 30px 20px; }
+    .refs ul { column-count: 1; }
+    h1 { font-size: 24px; }
+    table { font-size: 11.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ HEADER ============ -->
+  <header class="article-header">
+    <div class="article-number">Aplikasi</div>
+    <h1>Partisipan Sintetis: Untuk Apa Mereka dalam Bisnis dan Bagaimana Kita Dapat Membuatnya Lebih Baik?</h1>
+    <p class="author">Paola Schietekat, María López, dan Juan de Rus</p>
+    <p class="affiliation">Neovantas</p>
+    <p class="author" style="margin-top:14px;">Dario Krpan</p>
+    <p class="affiliation">London School of Economics and Political Science</p>
+  </header>
+
+  <div class="qr-note">
+    <div class="qr-box"></div>
+    <div>Pindai kode QR untuk menonton ringkasan video</div>
+  </div>
+
+  <!-- ============ ABSTRACT ============ -->
+  <div class="abstract">
+    <p>Partisipan sintetis, yang umumnya didefinisikan sebagai profil yang dibuat secara artifisial yang mensimulasikan respons, perilaku, dan keputusan manusia, semakin banyak digunakan sebagai alat pelengkap untuk metode penelitian tradisional. Meskipun adopsinya terus berkembang, kemampuan, keterbatasan, dan aplikasi yang tepat masih kurang tersistematisasi. Artikel ini mengembangkan kerangka terstruktur untuk memahami dan menyebarkan partisipan sintetis dalam konteks bisnis. <em>Pertama</em>, artikel ini memperkenalkan klasifikasi fungsional berdasarkan tujuan utama: model deklaratif (berbasis niat), perilaku (berbasis tindakan), dan percakapan (multi-agen). <em>Kedua</em>, artikel ini meninjau studi-studi kunci dalam setiap kategori, mengidentifikasi pola kinerja umum dan aplikasi praktis. <em>Ketiga</em>, artikel ini mengusulkan pendekatan metodologis yang berbeda yang didasarkan pada perspektif kuantitatif-pertama, mengintegrasikan ekonomi perilaku melalui perpustakaan terstruktur dan menyesuaikan model dengan kasus penggunaan tertentu. Dengan menggunakan replikasi eksperimen terkontrol, makalah ini menunjukkan bahwa partisipan sintetis dapat mendekati data manusia dalam kondisi terstruktur.</p>
+  </div>
+
+  <!-- ============ INTRODUCTION ============ -->
+  <h2>Pendahuluan</h2>
+
+  <p>Proliferasi cepat partisipan sintetis menunjukkan potensi pergeseran dalam cara riset pasar dilakukan, menawarkan keuntungan jelas dalam skalabilitas, kecepatan, dan kemampuan melakukan riset dalam konteks yang jika tidak akan tidak dapat diakses. Namun, meskipun menjanjikan, lanskap saat ini menghadirkan tantangan penting.</p>
+
+  <p><em>Pertama</em>, dalam konteks bisnis, kami telah mendengar banyak pendekatan yang sangat bergantung pada generasi partisipan sintetis dari input kualitatif, seperti deskripsi persona pembeli tingkat tinggi yang berasal dari wawancara skala kecil dan didasarkan pada data deskriptif yang dilaporkan sendiri. Selain itu, output kadang-kadang dievaluasi melalui penilaian ahli subjektif daripada metrik kuantitatif terstandarisasi. Misalnya, Schramowski et al. (2022) menilai responden berbasis GPT-3 terutama dengan menggunakan penilaian kualitatif tentang plausibilitas. Hal ini penting karena keputusan yang dibuat berdasarkan output yang tampak masuk akal tetapi salah terkalibrasi membawa risiko bisnis yang substansial. <em>Kedua</em>, ada integrasi terbatas konstruk psikologis dan ekonomi perilaku, yang mungkin merupakan keterbatasan signifikan, karena sistem AI berjuang untuk mereproduksi bias kognitif, heuristik, dan preferensi yang bergantung konteks tanpa arahan eksplisit. Hal ini didukung oleh temuan yang menunjukkan bahwa LLM hanya menunjukkan aversi kerugian dan keadilan yang menyerupai manusia ketika mekanisme ini tertanam dalam desain tugas sebagai kamus perilaku atau basis pengetahuan.</p>
+
+  <p><em>Ketiga</em>, banyak solusi panel sintetis dibangun sebagai alat umum yang mengutamakan kemudahan penggunaan daripada pendekatan yang ketat, khusus, dan terkonseptualisasi. Hal ini membuat output mereka sulit dibedakan dari yang diperoleh melalui generasi berbasis prompt ad hoc dengan LLM serbaguna.</p>
+
+  <p>Keuntungan signifikan yang diantisipasi secara luas, digabungkan dengan tantangan-tantangan ini dan terbatasnya studi kasus bisnis yang tersedia untuk publik di luar akademisi, berkontribusi pada campuran antusiasme dan skeptisisme di antara organisasi yang mempertimbangkan adopsinya.</p>
+
+  <!-- ============ TYPES ============ -->
+  <h2>Jenis Partisipan Sintetis Apa yang Ada, dan Apa Aplikasi Bisnis Potensialnya?</h2>
+
+  <p>Artikel ini bertujuan memberikan klasifikasi sederhana tentang jenis-jenis partisipan sintetis yang dapat dikembangkan, bersama dengan bidang bisnis di mana mereka dapat diterapkan (lihat Tabel 1).</p>
+
+  <p>Klasifikasi ini dapat berkembang seiring perkembangan bidang dan munculnya kasus penggunaan baru. Namun untuk saat ini, kami percaya ia menawarkan kerangka praktis yang membantu peneliti dan praktisi memahami keragaman dan tujuan khusus partisipan sintetis.</p>
+
+  <p><strong>Tabel 1: Jenis Partisipan Sintetis: Tujuan dan Aplikasi Bisnis</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Jenis</th>
+        <th>Tujuan</th>
+        <th>Aplikasi Bisnis Utama</th>
+        <th>Keuntungan</th>
+        <th>Tantangan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Model Deklaratif (Berbasis Niat)</strong></td>
+        <td>Mensimulasikan respons terhadap instrumen survei terstruktur atau semi-terstruktur. Saat ini mencakup sebagian besar aplikasi yang dipublikasikan.</td>
+        <td>Riset pasar, Pengalaman Pelanggan</td>
+        <td>Prototipe survei yang dapat diskalakan, akses ke populasi yang sulit dijangkau, pengujian skenario kontrafaktual, pendekatan hibrida meningkatkan kedalaman dan efisiensi.</td>
+        <td>Ukuran efek yang meningkat, distribusi respons yang terkompresi, sensitivitas tinggi terhadap pembingkaian prompt, kesenjangan niat-perilaku yang melekat.</td>
+      </tr>
+      <tr>
+        <td><strong>Model Perilaku (Berbasis Tindakan)</strong></td>
+        <td>Mereplikasi reaksi atau perilaku spesifik sebagai respons terhadap stimulus, bukan niat yang dinyatakan.</td>
+        <td>Riset UX, Penetapan Harga, Pemasaran</td>
+        <td>Dapat menyamai atau melampaui kinerja spesialis manusia pada tugas kegunaan, tanpa kelelahan, log interaksi terperinci dalam skala besar, simulasi perjalanan yang selaras dengan persona.</td>
+        <td>Variabilitas yang terkompresi, gagal mereplikasi inersia kognitif atau atensi terbatas, diperlukan perancah perilaku eksplisit untuk perilaku yang realistis.</td>
+      </tr>
+      <tr>
+        <td><strong>Model Percakapan (Multi-Agen)</strong></td>
+        <td>Mensimulasikan percakapan antara dua atau lebih agen menggunakan arsitektur multi-agen yang dipandu oleh skrip atau instruksi terstruktur.</td>
+        <td>Penjualan, Layanan Pelanggan</td>
+        <td>Memungkinkan pengujian skrip penjualan dan strategi komunikasi dalam skala besar, memungkinkan studi dinamika opini dan difusi informasi.</td>
+        <td>Risiko antropomorfisme, bias budaya yang berpusat pada WEIRD, penguncian nilai, output yang tampak masuk akal mungkin menutupi kognisi yang secara mekanistik berbeda.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ============ LITERATURE ============ -->
+  <h2>Apa yang Literatur Katakan tentang Kinerja Partisipan Sintetis?</h2>
+
+  <h3>Partisipan Sintetis Deklaratif</h3>
+
+  <p>Partisipan sintetis deklaratif, atau berbasis niat, dirancang untuk memberikan respons seperti survei. Mereka dapat menghasilkan volume respons yang besar dengan cepat dan mendukung pembuatan prototipe kuesioner dan desain eksperimen yang cepat sebelum penyebaran ke manusia (Aher et al., 2023; Arora et al., 2025; Doudkin et al., 2025; Park et al., 2023; MRS, 2024). Di luar efisiensi, model-model ini membantu mengeksplorasi skenario kontrafaktual dan populasi yang sulit dijangkau (Aher et al., 2023; Lin &amp; Dia, 2025).</p>
+
+  <p>Studi oleh Arora et al. (2025), di mana pendekatan hibrida manusia-LLM pada akhirnya menghasilkan keuntungan efisiensi dan efektivitas dalam evaluasi kuantitatif dan kualitatif sebuah perusahaan makanan, menunjukkan aplikasi bisnis yang jelas. Hasilnya menunjukkan bahwa respons yang dihasilkan LLM secara kualitatif lebih unggul dalam kedalaman dan wawasan.</p>
+
+  <p>Namun, penelitian secara konsisten menunjukkan bahwa model deklaratif menggelembungkan ukuran efek, dengan nilai z Fisher dan efek terstandarisasi sering dua hingga tiga kali lebih besar daripada yang diamati pada sampel manusia, dan menghasilkan distribusi respons yang lebih sempit dan lebih halus, kurang mewakili heterogenitas populasi (Dillion et al., 2023; Doudkin et al., 2025; Maier et al., 2025; Stamatogiannakis et al., 2025; Ustiyanovych &amp; Krpan, 2025). Mereka juga sangat sensitif terhadap pembingkaian prompt, dengan perubahan kecil secara signifikan mengubah sikap atau preferensi yang dilaporkan (Gao et al., 2024; Tjuatja et al., 2024).</p>
+
+  <p>Selain itu, meskipun sangat berguna untuk mempercepat riset pasar, baik perusahaan swasta maupun lembaga publik harus tetap menyadari bahwa setiap metode penelitian deklaratif, baik berbasis manusia nyata maupun partisipan sintetis, akan menunjukkan kesenjangan relatif terhadap perilaku aktual, seperti yang ditunjukkan dalam meta-analisis Sheeran, di mana niat hanya menjelaskan sekitar 28% varians dalam perilaku dunia nyata (Sheeran, 2002). Hal ini terutama karena metode ini bergantung pada laporan diri tentang pandangan, sikap, dan niat orang (misalnya, "Saya ingin menabung setiap bulan"), yang dapat menyimpang dari perilaku aktual karena faktor kontekstual atau emosional, kebiasaan, atau pergeseran prioritas pada saat pengambilan keputusan (misalnya, gagal menabung karena pengeluaran tak terduga).</p>
+
+  <blockquote class="pullquote">Setiap metode penelitian deklaratif, baik berbasis manusia nyata maupun partisipan sintetis, akan menunjukkan kesenjangan relatif terhadap perilaku aktual.</blockquote>
+
+  <h3>Partisipan Sintetis Perilaku</h3>
+
+  <p>Partisipan sintetis perilaku—atau berbasis tindakan—berfokus pada apa yang dilakukan agen daripada apa yang mereka katakan, mensimulasikan interaksi konkret dengan antarmuka, produk, atau lingkungan keputusan.</p>
+
+  <p>Dalam riset UX, mereka dapat menjalankan urutan interaksi yang panjang tanpa kelelahan, mengidentifikasi masalah kegunaan, dan memberikan umpan balik terperinci dalam skala besar (Lu et al., 2025; Zhong et al., 2024). Misalnya, Zhong et al. (2024) melaporkan bahwa GPT-4, yang digunakan sebagai evaluator ahli terhadap tangkapan layar antarmuka, mendeteksi 73–77% masalah kegunaan versus 57–63% untuk spesialis manusia, menunjukkan bahwa agen perilaku dapat menyamai atau melampaui kinerja manusia dalam beberapa metrik.</p>
+
+  <p>Partisipan sintetis perilaku telah berkembang di luar UX. Studi oleh Mansour et al. (2025), misalnya, terdiri dari penambangan data e-niaga historis untuk membangun Persona Aligned Agentic Retail Shoppers (PAARSs), yang digunakan untuk mensimulasikan perjalanan yang dipersonalisasi dari penemuan produk hingga pembelian.</p>
+
+  <p>Namun, keterbatasan tetap ada. Partisipan sintetis perilaku sering menegaskan variabilitas yang terkompresi, efek perlakuan yang meningkat, dan pola stereotip, gagal menangkap noise dunia nyata, inersia kognitif, atau atensi terbatas (Doudkin et al., 2025; Stamatogiannakis et al., 2025; Ustiyanovych &amp; Krpan, 2025). Menanamkan konstruk psikologis dan ekonomi perilaku, seperti heuristik, aversi kerugian, norma sosial, atau preferensi yang bergantung konteks, menantang, membutuhkan perancah eksplisit untuk mendekati perilaku yang realistis (Aher et al., 2023; Maier et al., 2025). Perlindungan teknis, seperti penilaian kesamaan semantik, retrieval-augmented generation, dan kalibrasi iteratif terhadap tolok ukur manusia, dapat membantu memitigasi bias dan kesimpulan yang terlalu percaya diri (Cui et al., 2024; Maier et al., 2025; Suh et al., 2025).</p>
+
+  <h3>Partisipan Sintetis Percakapan</h3>
+
+  <p>Model percakapan mensimulasikan dialog antar agen. Mereka sangat berguna untuk menguji skrip penjualan, interaksi layanan pelanggan, dan strategi komunikasi (Lu et al., 2025), tetapi mereka juga memungkinkan studi dinamika opini dan difusi informasi, seperti yang ditunjukkan Park et al. (2023) dan Qu dan Wang (2024).</p>
+
+  <p>Namun, model-model ini menimbulkan kekhawatiran epistemologis yang penting, karena mereka dapat menghasilkan percakapan yang sangat masuk akal sambil mengandalkan mekanisme yang fundamentalnya berbeda dari kognisi manusia (Shanahan et al., 2023). Ini menciptakan risiko antropomorfisme, di mana output disalahartikan sebagai pemahaman yang benar-benar menyerupai manusia (Mitchell &amp; Krakauer, 2023; Vallor, 2024).</p>
+
+  <p>Selain itu, model percakapan sangat rentan terhadap bias budaya dan penguncian nilai. Mereka sering mereproduksi perspektif yang berpusat pada WEIRD, yang mengarah pada misrepresentasi sistematis kelompok non-Barat atau yang kurang terwakili (Agnew et al., 2024; Amini, 2025; Santurkar et al., 2023).</p>
+
+  <!-- ============ OUR APPROACH ============ -->
+  <h2>Pendekatan Kami terhadap Partisipan Sintetis</h2>
+
+  <h3>Visi Kami</h3>
+
+  <p>Ketika tim kami di Neovantas mulai mengeksplorasi partisipan sintetis, kami dengan cepat menjadi yakin bahwa mengintegrasikannya sebagai alat ke dalam metodologi penelitian dan eksperimen perusahaan dapat memberikan keunggulan kompetitif jangka pendek yang jelas.</p>
+
+  <p>Ketika kami mulai bekerja pada proyek-proyek nyata, segera menjadi jelas bahwa pendekatan 'satu-ukuran-untuk-semua' kemungkinan akan suboptimal. Model partisipan sintetis deklaratif, yang dirancang untuk menjawab survei, secara fundamental berbeda dari model perilaku, yang dirancang untuk mensimulasikan tindakan konkret dalam hal konfigurasi, prompting, input, dan output. Selain itu, bahkan dalam kategori-kategori ini, tujuan bisnis, apakah UX, penetapan harga, atau penagihan utang, membutuhkan pendekatan yang sama sekali berbeda. Dalam praktiknya, kami mengembangkan model partisipan sintetis yang spesifik dan khusus, masing-masing dengan logikanya sendiri, disesuaikan dengan setiap kasus penggunaan sesuai kebutuhan bisnis. Selain itu, kami menerapkan pendekatan kuantitatif, baik dalam menyiapkan input model maupun dalam memvalidasi hasil.</p>
+
+  <p>Selain itu, kami berhipotesis bahwa memperkaya input partisipan sintetis dengan konteks yang diambil dari ekonomi perilaku dan psikologi, melalui perpustakaan pengetahuan terstruktur, akan membantu respons dan perilaku partisipan sintetis lebih menyerupai realitas manusia. Ini akan memungkinkan kalibrasi output yang lebih baik dan memperkaya penalaran di balik jawaban atau keputusan partisipan.</p>
+
+  <blockquote class="pullquote">Kami mengembangkan model partisipan sintetis yang spesifik dan khusus, masing-masing dengan logikanya sendiri, disesuaikan dengan setiap kasus penggunaan sesuai kebutuhan bisnis.</blockquote>
+
+  <h3>Mengujinya</h3>
+
+  <p>Untuk menguji hipotesis ini, kami melakukan latihan yang sama dengan partisipan sintetis deklaratif, membandingkan hasil dengan dan tanpa input yang diperkaya dari perpustakaan. Latihan asli yang kami pilih adalah uji coba terkontrol acak yang dilakukan pada 2017 dengan 199 orang dewasa pekerja Spanyol berusia 35 hingga 65 tahun, yang disurvei tentang kesediaan mereka untuk menabung (WTS) untuk pensiun dan impulsivitas mereka. Studi ini bertujuan mengevaluasi apakah mengekspos kelompok perlakuan ke kalkulator pensiun akan meningkatkan WTS mereka dengan membuat manfaat menabung lebih nyata. Intervensi tersebut menghasilkan peningkatan WTS yang signifikan secara statistik sebesar 25% (p = 0,044).</p>
+
+  <p>Tujuan kami adalah melihat apakah mengekspos 199 partisipan sintetis, yang dicocokkan dengan populasi asli dalam karakteristik sosiodemografis seperti usia dan jenis kelamin, dan atribut keuangan seperti pendapatan dan literasi keuangan, ke stimulus kalkulator pensiun yang sama akan menghasilkan hasil yang serupa, dengan WTS sebagai hasil. Kami juga bertujuan menilai apakah memperkaya input dengan perpustakaan pengetahuan terstruktur tentang prinsip ekonomi perilaku dan psikologi yang paling relevan untuk keputusan menabung akan membawa hasil lebih dekat ke hasil asli.</p>
+
+  <p>Untuk mencapai ini, kami membuat dua perpustakaan:</p>
+
+  <p><strong>Perpustakaan perilaku.</strong> Kamus ini mendeskripsikan setiap bias, mekanismenya, dan manifestasinya dalam konteks WTS, interaksinya di seluruh variabel sosiodemografis dan di bawah perlakuan salience menabung. Aturan interaksi memandu arah dan intensitas aktivasi. Setiap bias diambil dari penelitian tentang ekonomi perilaku dan perilaku keuangan.</p>
+
+  <p><strong>Perpustakaan impulsivitas.</strong> Skor impulsivitas dihasilkan untuk setiap partisipan sintetis menggunakan Barratt Impulsiveness Scale, BIS-11, instrumen 30 item. Respons diambil sampel dari distribusi empiris yang diamati dalam dataset asli, dan skor total dihitung sesuai.</p>
+
+  <p>Dalam hal ini, kedua perpustakaan dibuat sebagai file JSON dan diambil oleh model melalui prompting.</p>
+
+  <figure>
+    <img src="figure1-neovantas.jpg" alt="Perbandingan antara model sintetis yang dihasilkan tanpa kamus (atas) dan dengan kamus perilaku dan impulsivitas (bawah).">
+    <figcaption><strong>Gambar 1:</strong> Perbandingan antara model sintetis yang dihasilkan tanpa kamus (atas) dan dengan kamus perilaku dan impulsivitas (bawah).</figcaption>
+  </figure>
+
+  <p>Solusi 'dasar', yang terdiri dari partisipan sintetis yang dihasilkan tanpa basis pengetahuan perilaku, menghasilkan kecocokan distribusi paling lemah. Statistik KS dalam kondisi ini berkisar dari 0,82 hingga 0,83, dan distribusi nyata menyimpang secara substansial di hampir seluruh rentang hasil. Pola ini konsisten dengan literatur, di mana model generatif 'satu-ukuran-untuk-semua' cenderung menghasilkan estimasi WTS yang lebih seragam dan lebih terkonsentrasi di sekitar pusat skala daripada data nyata, sehingga kurang mewakili penyebaran alami distribusi manusia.</p>
+
+  <p>Memperkenalkan perpustakaan perilaku menghasilkan peningkatan yang berarti. Model GPT-5.4-mini mencapai statistik KS 0,70 dalam kondisi hanya-perpustakaan, yang mewakili pengurangan divergensi distribusional sekitar 15% relatif terhadap baseline (meskipun masih menunjukkan divergensi residual yang berarti). Memasukkan perpustakaan Impulsivitas menghasilkan statistik KS 0,54 dengan konfigurasi prompt standar, mencerminkan perolehan substansial (lihat Gambar 1).</p>
+
+  <p>Meskipun ada temuan ini, kecenderungan sistematis untuk melebih-lebihkan WTS tetap ada, terutama karena outlier bernilai tinggi yang kadang-kadang mendistorsi ekor atas distribusi. Ini menunjukkan kesalahan inheren dalam model generatif, yaitu, mereka tidak dapat secara alami mereproduksi inersia yang mencirikan perilaku menabung nyata.</p>
+
+  <p>Karena pengguna sintetis masih dalam tahap embrionik, latihan yang didasarkan pada distribusi manusia yang diketahui sangat penting untuk menilai kesetiaan. Untuk transparansi, hasil eksperimen asli tidak digunakan sebagai input atau prompt model, sehingga menghindari potensi bias. Sebaliknya, perpustakaan perilaku dibangun dari tinjauan komprehensif literatur akademis, memodelkan efek stimulus seperti kalkulator pada WTS.</p>
+
+  <blockquote class="pullquote">Perpustakaan perilaku dibangun dari tinjauan komprehensif literatur akademis, memodelkan efek stimulus seperti kalkulator pada WTS.</blockquote>
+
+  <p>Meskipun pendekatan ini inovatif, ia membutuhkan validasi lebih lanjut. Karena itu kami mengejar dua langkah berikutnya: mereplikasi studi dengan sampel baru dan populasi sintetis untuk menguji konsistensi, dan menggunakan hasil yang diketahui untuk mengembangkan pedoman untuk membangun partisipan sintetis yang dapat diandalkan ketika data referensi manusia tidak tersedia.</p>
+
+  <!-- ============ CONCLUSION ============ -->
+  <h2>Kesimpulan</h2>
+
+  <p>Hasil ini mendukung pendekatan yang terdiferensiasi dan modular untuk membangun partisipan sintetis dengan memisahkan pembentukan sosiodemografis (siapa partisipannya) dari perpustakaan perilaku (prinsip kognitif apa yang kemungkinan aktif, dan seberapa kuat). Banyak solusi menawarkan model sintetis yang cepat dan dapat disesuaikan yang mencakup data sosiodemografis tetapi mengabaikan pembuatan profil perilaku dan kontekstualisasi. Keterbatasan pendekatan ini telah banyak dibahas dalam literatur, bahkan sebelum pengembangan model AI; pembuatan profil dan segmentasi demografis tanpa lapisan perilaku sering melukiskan gambaran yang tidak lengkap tentang subjek penelitian, terutama ketika mengukur hasil perilaku.</p>
+
+  <p>Partisipan sintetis paling cocok untuk konteks di mana output akan digunakan untuk menginformasikan daripada menggantikan penilaian manusia. Mereka paling dapat dipertahankan sebagai alat augmentasi yang berguna untuk pembuatan hipotesis, pembuatan prototipe cepat, dan pengujian skenario, dan mereka paling tidak cocok untuk situasi yang melibatkan kompleksitas emosional tinggi, perilaku spesifik budaya, atau populasi yang kurang terwakili. Menanamkan konstruk ekonomi perilaku dimungkinkan ketika lingkungan keputusan yang relevan cukup dipahami, sementara bias dapat dioperasionalkan sebagai perpustakaan pengetahuan terstruktur yang memodulasi bagaimana partisipan sintetis merespons di berbagai profil dan kondisi—seperti yang ditunjukkan eksperimen kami. Logika yang sama berlaku untuk adaptasi dari waktu ke waktu: seiring kondisi ekonomi, norma sosial, dan perilaku digital berkembang, perpustakaan statis akan menyimpang dari realitas. Kalibrasi ulang berkala terhadap data referensi manusia karena itu bukan penyempurnaan opsional melainkan persyaratan struktural.</p>
+
+  <p>Partisipan sintetis semakin berguna sebagai alat untuk tugas-tugas spesifik yang terdefinisi dengan baik ketika konstruksinya didasarkan pada data empiris, teori psikologis eksplisit, dan prosedur kalibrasi yang transparan. Kerangka yang diusulkan dalam artikel ini ditawarkan sebagai titik awal untuk penyebaran yang bertanggung jawab semacam itu: kerangka yang memperlakukan keterbatasan partisipan sintetis sebagai parameter desain yang harus dikelola daripada sebagai hambatan yang harus diminimalkan.</p>
+
+  <blockquote class="pullquote">Menanamkan konstruk ekonomi perilaku dimungkinkan ketika lingkungan keputusan yang relevan cukup dipahami, sementara bias dapat dioperasionalkan sebagai perpustakaan pengetahuan terstruktur yang memodulasi bagaimana partisipan sintetis merespons.</blockquote>
+
+  <p>Tiga implikasi praktis menonjol bagi praktisi. <em>Pertama</em>, kalibrasi kuantitatif terhadap distribusi tolok ukur manusia harus diperlakukan sebagai pemeriksaan penting, karena metrik kecocokan distribusional membuat penyimpangan terlihat sebelum memengaruhi keputusan. <em>Kedua</em>, menjangkarkan output sintetis ke basis pengetahuan yang didasarkan secara empiris, melalui perpustakaan terstruktur atau pendekatan retrieval-augmented, dapat mengurangi bias idealisasi yang ditunjukkan oleh model generatif yang tidak terkendala. <em>Ketiga</em>, pertanyaan tentang untuk apa partisipan sintetis sebenarnya berguna harus tetap menjadi pusat keputusan penyebaran. Digunakan dalam batas-batas yang disebutkan di atas, mereka adalah tambahan yang kuat untuk perangkat peneliti perilaku; digunakan di luar batas itu, mereka membawa risiko yang terdokumentasi dengan baik dan dapat dihindari.</p>
+
+  <!-- ============ AUTHOR BIOS ============ -->
+  <div class="author-bio">
+    <h3>Tentang Para Penulis</h3>
+    <p><strong>María López</strong> adalah manajer ekonomi perilaku dan Head of Innovation di Neovantas. Ia memegang University Expert in Behavioral Economics dari Behavior &amp; Law dan UDIMA, Spanyol. Di Neovantas, María memimpin proyek-proyek internasional yang berfokus pada penciptaan model partisipan sintetis khusus yang diperkaya dengan input perilaku. Ia juga bekerja pada desain produk baru yang mengintegrasikan AI dengan wawasan ilmu perilaku.</p>
+    <p><strong>Paola Schietekat</strong> adalah konsultan ekonomi perilaku senior di Neovantas. Ia memegang gelar master dalam Public Policy dari Oxford University, di mana ia berspesialisasi dalam Behavioural Science and Economic Development. Di Neovantas, ia bekerja pada integrasi wawasan ilmu perilaku ke dalam solusi AI.</p>
+    <p><strong>Juan de Rus</strong> adalah managing partner di Neovantas. Ia memegang MSc in Behavioural Science dengan Distinction dari London School of Economics &amp; Political Science (LSE), MBA dari Universidad Carlos III de Madrid, dan Master of Arts dengan Distinction dari University of Dundee (UK). Ia juga menjabat sebagai profesor adjunct dalam Behavioural Science and Marketing di IE Business School, Universidad Carlos III, dan University of Barcelona.</p>
+    <p><strong>Dario Krpan</strong> adalah Associate Professor of Behavioural Science di London School of Economics and Political Science. Penelitiannya memeriksa kekuatan transformatif ilmu perilaku di era AI dan teknologi baru. Dalam konteks ini, ia mengeksplorasi persimpangan ilmu perilaku dan AI, dengan penekanan khusus pada partisipan sintetis sebagai alat untuk mensimulasikan perilaku dan pengambilan keputusan manusia. Dario juga merupakan penasihat senior Neovantas, di mana ia berkontribusi membentuk strategi AI dan data-driven yang bertujuan mentransformasi organisasi melalui penggunaan data perilaku.</p>
+  </div>
+
+  <!-- ============ REFERENCES ============ -->
+  <div class="refs">
+    <h2>Referensi</h2>
+    <ul>
+      <li>Agnew, W., Bergman, A. S., Chien, J., Díaz, M., El-Sayed, S., Pittman, J., Mohamed, S., &amp; McKee, K. R. (2024). The illusion of artificial inclusion. <em>Proceedings of the CHI Conference on Human Factors in Computing Systems (CHI '24)</em>, 286. https://doi.org/10.1145/3613904.3642703</li>
+      <li>Aher, G., Arriaga, R. I., &amp; Kalai, A. T. (2023). Using large language models to simulate multiple humans and replicate human subject studies. <em>Proceedings of the 40th International Conference on Machine Learning, 202</em>, 337–371. https://proceedings.mlr.press/v202/aher23a.html</li>
+      <li>Amini, A. (2025). Survey transfer learning: Recycling data with silicon responses. arXiv. https://arxiv.org/abs/2501.06577</li>
+      <li>Arora, N., Chakraborty, I., &amp; Nishimura, Y. (2025). AI-human hybrids for marketing research: Leveraging large language models as collaborators. <em>Journal of Marketing, 89</em>(2), 43–70. https://doi.org/10.1177/00222429241276529</li>
+      <li>Argyle, L. P., Busby, E. C., Fulda, N., Gubler, J. R., Rytting, C., &amp; Wingate, D. (2023). Out of one, many: Using language models to simulate human samples. <em>Political Analysis, 31</em>(3), 337–355. https://doi.org/10.1017/pan.2023.2</li>
+      <li>Bisbee, J., Clinton, J. D., Dorff, C., Kenkel, B., &amp; Larson, J. M. (2024). Synthetic replacements for human survey data? The perils of large language models. <em>Political Analysis, 32</em>(4), 401–416. https://doi.org/10.1017/pan.2024.5</li>
+      <li>Caliskan, A., Bryson, J. J., &amp; Narayanan, A. (2017). Semantics derived automatically from language corpora contain human-like biases. <em>Science, 356</em>(6334), 183–186. https://doi.org/10.1126/science.aal4230</li>
+      <li>Cui, Z., Li, N., &amp; Zhou, H. (2024). Can large language models replace human subjects? A large-scale replication of scenario-based experiments. arXiv. https://arxiv.org/abs/2409.00128</li>
+      <li>Dillion, D., Tandon, N., Gu, Y., &amp; Gray, K. (2023). Can AI language models replace human participants? <em>Trends in Cognitive Sciences, 27</em>(7), 597–600. https://doi.org/10.1016/j.tics.2023.04.008</li>
+      <li>Doudkin, A., Pataranutaporn, P., &amp; Maes, P. (2025a). AI persuading AI vs. AI persuading humans: Differential effectiveness in promoting pro-environmental behavior. arXiv. https://arxiv.org/abs/2503.02067</li>
+      <li>Doudkin, A., Pataranutaporn, P., &amp; Maes, P. (2025b). From synthetic to human: The gap between AI-predicted and actual behavior change after chatbot persuasion. <em>Proceedings of the ACM Conference on Conversational User Interfaces (CUI '25)</em>, 71. https://doi.org/10.1145/3719160.3736610</li>
+      <li>Gao, Y., Lee, D., Burtch, G., &amp; Fazelpour, S. (2024). Take caution in using LLMs as human surrogates: Scylla ex machina. arXiv. https://arxiv.org/abs/2410.19599</li>
+      <li>Gonzalez-Bustamante, B., Verelst, N., &amp; Cisternas, C. (2025). Emulating public opinion: Synthetic survey responses for the Chilean case. arXiv. https://arxiv.org/abs/2509.09871</li>
+      <li>Haider, S. A., Borna, S., Trabilsky, M., Bagaria, S., &amp; Forte, A. J. (2025). Synthetic patient-physician conversations simulated by large language models. <em>Sensors, 25</em>(14), 4305. https://doi.org/10.3390/s25144305</li>
+      <li>Lin, Z. (2025). Six fallacies in substituting large language models for human participants. <em>Advances in Methods and Practices in Psychological Science, 8</em>(3), 1–19. https://doi.org/10.1177/25152459251357566</li>
+      <li>Lin, Z., &amp; Dai, Y. (2025). Fostering epistemic insights into AI ethics through a constructionist pedagogy: An interdisciplinary approach to AI literacy. <em>Proceedings of the AAAI Conference on Artificial Intelligence, 39</em>, 29171–29177. https://doi.org/10.1609/aaai.v39i28.35190</li>
+      <li>Lu, Y., Yao, B., Gu, H., Huang, J., Wang, J., Li, Y., Gesi, J., He, Q., Li, T. J.-J., &amp; Wang, D. (2025). UXAgent: An LLM agent-based usability testing framework. arXiv. https://arxiv.org/abs/2502.12561</li>
+      <li>Maier, B. F., Aslak, U., Fletcher, K., Rismal, N., Dow, R., Pappas, K., Fiaschi, L., Luhmann, C. C., &amp; Wiecki, T. V. (2025). LLMs reproduce human purchase intent via semantic similarity elicitation. arXiv. https://arxiv.org/abs/2510.08338</li>
+      <li>Mansour, S., Perelli, L., Mainetti, L., Davidson, G., &amp; D'Amato, S. (2025). PAARS: Persona-aligned agentic retail shoppers. arXiv. https://arxiv.org/abs/2503.24228</li>
+      <li>Market Research Society Delphi Group. (2024). <em>Using synthetic participants for market research: Part two of the BEST framework for generative AI</em>. MRS Evidence Matters. https://www.mrs.org.uk/pdf/MRS_Delphi_synthetic.pdf</li>
+      <li>Mitchell, M., &amp; Krakauer, D. C. (2023). The debate over understanding in AI's large language models. <em>Proceedings of the National Academy of Sciences, 120</em>(13), e2215907120. https://doi.org/10.1073/pnas.2215907120</li>
+      <li>O'Grady, C. (2024). AI-generated "participants" can lead social science experiments astray. <em>Science, 383</em>(6674), 830–832. https://www.science.org/doi/10.1126/science.aec9020</li>
+      <li>Park, J. S., O'Brien, J. C., Cai, C. J., Morris, M. R., Liang, P., &amp; Bernstein, M. S. (2023). Generative agents: Interactive simulacra of human behavior. arXiv. https://arxiv.org/abs/2304.03442</li>
+      <li>Qu, Y., &amp; Wang, J. (2024). Performance and biases of large language models in public opinion simulation. <em>Humanities and Social Sciences Communications, 11</em>, 1095. https://doi.org/10.1057/s41599-024-03609-x</li>
+      <li>Raisch, S., &amp; Krakowski, S. (2021). Artificial intelligence and management: The automation-augmentation paradox. <em>Academy of Management Review, 46</em>(1), 192–210. https://doi.org/10.5465/amr.2018.0072</li>
+      <li>Santurkar, S., Durmus, E., Ladhak, F., Lee, C., Liang, P., &amp; Hashimoto, T. (2023). Whose opinions do language models reflect? <em>Proceedings of the 40th International Conference on Machine Learning, 202</em>, 29971–30004. https://proceedings.mlr.press/v202/santurkar23a.html</li>
+      <li>Shanahan, M., McDonell, K., &amp; Reynolds, L. (2023). Role play with large language models. <em>Nature, 623</em>(7987), 493–498. https://doi.org/10.1038/s41586-023-06647-8</li>
+      <li>Sheeran, P. (2002). Intention-behavior relations: A conceptual and empirical review. <em>European Review of Social Psychology, 12</em>(1), 1–36. https://doi.org/10.1080/14792772143000003</li>
+      <li>Shrestha, P., Krpan, D., Koalk, F., Schnider, R., Sayess, D., &amp; Binbaz, M. S. (2025). Beyond WEIRD: Can synthetic participants substitute for humans in global policy research? <em>Behavioral Science &amp; Policy, 10</em>(2), 26–45.</li>
+    </ul>
+  </div>
+
+  <div class="end-mark">• • •</div>
+
+</div>
+</body>
+</html>

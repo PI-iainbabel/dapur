@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Tinjauan Diperluas: Misinformasi dalam Ekonomi Atensi</title>
+<style>
+  :root {
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #2c5f7c;
+    --rule: #ccc;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
+    background: #fafaf7;
+    margin: 0;
+    padding: 0;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.06);
+  }
+  .article-header {
+    border-bottom: 3px double var(--rule);
+    padding-bottom: 28px;
+    margin-bottom: 36px;
+  }
+  .article-number {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0 0 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .author {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+  .affiliation {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin: 4px 0 0;
+  }
+  h2 {
+    font-size: 22px;
+    margin: 42px 0 16px;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  h3 {
+    font-size: 18px;
+    margin: 30px 0 12px;
+  }
+  p { margin: 0 0 16px; text-align: justify; hyphens: auto; }
+  p.lead { font-size: 18px; }
+  .abstract {
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 22px 26px;
+    margin: 28px 0 36px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .abstract p:last-child { margin-bottom: 0; }
+  .pullquote {
+    font-size: 21px;
+    font-style: italic;
+    line-height: 1.45;
+    color: var(--accent);
+    border-left: 4px solid var(--accent);
+    padding: 6px 0 6px 22px;
+    margin: 30px 0;
+    font-weight: 600;
+  }
+  .pullquote::before { content: "\201C"; }
+  .pullquote::after { content: "\201D"; }
+  figure {
+    margin: 32px 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+  figure img {
+    max-width: 100%;
+    border: 1px solid #ddd;
+  }
+  figcaption {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 10px;
+    text-align: left;
+    line-height: 1.5;
+  }
+  .qr-note {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #f4f7f9;
+    border: 1px solid #d8e2e8;
+    padding: 14px 18px;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .qr-note .qr-box {
+    width: 48px; height: 48px;
+    background: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0/12px 12px;
+    border: 1px solid #999;
+    flex-shrink: 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  table th {
+    background: #2c5f7c;
+    color: #fff;
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+  }
+  table td {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 12px;
+    vertical-align: top;
+  }
+  table tr:nth-child(even) td {
+    background: #f7f9fa;
+  }
+  .table-note {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: -12px 0 24px;
+  }
+  .pledge {
+    background: #f6f8f9;
+    border: 2px solid var(--accent);
+    padding: 24px 28px;
+    margin: 32px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .pledge h4 {
+    font-family: Georgia, serif;
+    font-size: 17px;
+    text-align: center;
+    margin: 0 0 16px;
+    color: var(--accent);
+  }
+  .pledge ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .pledge li {
+    margin-bottom: 12px;
+    padding-left: 22px;
+    position: relative;
+  }
+  .pledge li::before {
+    content: "•";
+    position: absolute;
+    left: 6px;
+    color: var(--accent);
+    font-weight: bold;
+  }
+  .pledge .sign {
+    border-top: 1px solid #333;
+    margin-top: 24px;
+    padding-top: 8px;
+    font-size: 12px;
+    width: 180px;
+  }
+  .refs {
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .refs h2 { font-size: 20px; }
+  .refs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    column-count: 2;
+    column-gap: 36px;
+  }
+  .refs li {
+    margin-bottom: 14px;
+    break-inside: avoid;
+    padding-left: 22px;
+    text-indent: -22px;
+  }
+  .author-bio {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 40px 0 24px;
+    font-size: 15.5px;
+  }
+  .author-bio h3 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  .author-bio p { text-align: left; margin-bottom: 0; }
+  .end-mark {
+    text-align: center;
+    color: var(--muted);
+    letter-spacing: 6px;
+    margin: 40px 0;
+  }
+  @media (max-width: 640px) {
+    .page { padding: 30px 20px; }
+    .refs ul { column-count: 1; }
+    h1 { font-size: 24px; }
+    table { font-size: 10.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ HEADER ============ -->
+  <header class="article-header">
+    <div class="article-number">Tinjauan Diperluas</div>
+    <h1>Misinformasi dalam Ekonomi Atensi</h1>
+    <p class="author">Liza Bergman-Geonie</p>
+    <p class="affiliation">The Chicago School</p>
+  </header>
+
+  <div class="qr-note">
+    <div class="qr-box"></div>
+    <div>Pindai kode QR untuk menonton ringkasan video</div>
+  </div>
+
+  <!-- ============ ABSTRACT ============ -->
+  <div class="abstract">
+    <p>Misinformasi menyebar dan bertahan sebagian karena lingkungan digital dirancang untuk mengutamakan keterlibatan daripada akurasi. Platform media sosial mempromosikan konten yang memicu reaksi cepat, seringkali memperkuat materi yang menarik secara emosional, baru, atau selaras dengan keyakinan, tanpa memandang kredibilitasnya. Dalam pengaturan ini, berbagi itu cepat dan mudah serta cenderung menghasilkan umpan balik langsung, sementara memverifikasi informasi membutuhkan lebih banyak usaha dan sering kali membawa konsekuensi langsung yang lebih sedikit. Penelitian menunjukkan bahwa informasi palsu dapat menyebar lebih jauh dan lebih cepat daripada informasi benar, dan proses seperti pengulangan serta ketergantungan pada jalan pintas mental berkontribusi pada persistensinya seiring waktu. Meskipun strategi seperti pelatihan literasi digital dan pemeriksaan fakta dapat meningkatkan kemampuan orang untuk mengevaluasi informasi, mereka tidak selalu menghasilkan perubahan pada apa yang dibagikan orang. Mengatasi misinformasi memerlukan perubahan pada lingkungan di mana berbagi terjadi, termasuk membuat verifikasi lebih mudah dan meningkatkan visibilitas serta penguatan informasi yang akurat.</p>
+  </div>
+
+  <!-- ============ INTRODUCTION ============ -->
+  <h2>Pendahuluan</h2>
+
+  <p>Menurut studi Pew Research tahun 2025, 54% orang dewasa AS mendapatkan berita dari media sosial, dengan angka serupa dilaporkan di Inggris (Milmo, 2025). Angka-angka ini menggarisbawahi peran media sosial yang semakin besar dalam membentuk bagaimana berita dan informasi dikonsumsi—pergeseran yang telah dikaitkan dengan menurunnya kepercayaan pada jurnalisme dan pelaporan investigatif (Suherman, 2025). Kemajuan terbaru dalam kecerdasan buatan telah memperkuat kekhawatiran ini, karena deepfake dan konten lain yang dihasilkan komputer semakin sulit dibedakan dari media asli (Giansiracusa, 2021). Bersama-sama, perkembangan ini telah menciptakan kondisi di mana misinformasi menyebar dengan cepat di seluruh platform digital (Vosoughi et al., 2018).</p>
+
+  <p>Peneliti mendefinisikan misinformasi sebagai penyebaran informasi palsu yang tidak disengaja, sedangkan disinformasi adalah konten yang menyesatkan secara sengaja (Diepeveen &amp; Pinet, 2022; McKay &amp; Tenove, 2020). Meskipun misinformasi bukan hal baru, kondisi di mana ia menyebar telah berubah secara substansial dalam beberapa waktu terakhir; sebelum internet, televisi, surat kabar, dan radio membentuk bagaimana informasi diproduksi dan didistribusikan, dan meskipun konten sensasional memang ada, penyebarannya dibatasi oleh waktu, biaya, dan akses. Perkembangan sejarah seperti mesin cetak dan kebangkitan penny press memperluas akses ke informasi sambil juga meningkatkan sirkulasi konten sensasional dan menyesatkan (Soll, 2016; Watson, 2018). Namun, sistem ini memberlakukan gesekan struktural, termasuk pengawasan editorial, saluran distribusi terbatas, kendala produksi fisik, dan partisipasi audiens yang terbatas, yang semuanya memperlambat penyebaran misinformasi (Posetti &amp; Matthews, 2018). Media sosial telah menghilangkan banyak kendala ini, memungkinkan individu mempublikasikan dan mendistribusikan konten secara global dengan usaha minimal (Epstein et al., 2023). Perbedaan ini penting, tetapi baik misinformasi maupun disinformasi menyebar dalam lingkungan yang sama yang membentuk bagaimana informasi dibagikan dan diperkuat.</p>
+
+  <p>Misinformasi, bersama dengan konsep terkait seperti disinformasi dan malinformasi—yang didefinisikan sebagai penggunaan informasi yang benar secara sengaja dengan cara yang menyesatkan (Santos-d'Amorim &amp; Fernandes de Oliveira Miranda, 2021)—telah menjadi fokus penelitian sentral. Karya teoretis awal mengantisipasi kondisi saat ini. Arendt (1972), misalnya, mendeskripsikan "defaktualisasi" sebagai erosi batas antara fakta dan fiksi, sementara Rothkopf (2003) menciptakan istilah "infodemic" untuk menangkap penyebaran cepat informasi berkualitas campuran selama krisis kesehatan publik. Pola-pola ini sekarang diperkuat di lingkungan digital, di mana informasi beredar dengan cepat di seluruh jaringan yang saling terhubung dengan sedikit hambatan untuk berbagi. Pengguna menemukan volume besar konten yang bersaing, termasuk materi yang bermuatan emosional dan non-berita, membuatnya lebih sulit membedakan informasi yang kredibel dari misinformasi (Epstein et al., 2023). Misalnya, seorang pengguna dapat menemukan judul yang menarik, langsung membagikannya, dan menerima umpan balik instan melalui suka atau balasan sebelum verifikasi apa pun terjadi. Platform ini juga menumbuhkan ruang gema, di mana pengguna lebih cenderung menemukan konten yang konsisten dengan keyakinan, sehingga mengurangi peluang verifikasi dan meningkatkan kerentanan terhadap informasi yang menyesatkan (Adams et al., 2023). Pada saat yang sama, fitur desain platform seperti amplifikasi algoritmik, kemudahan pembuatan konten, dan konektivitas global meningkatkan visibilitas konten yang menarik tanpa memandang akurasi (Posetti &amp; Matthews, 2018). Dalam beberapa kasus, verifikasi telah bergeser dari sistem terpusat ke pendekatan terdesentralisasi, di mana koreksi hanya terjadi setelah konten sudah menyebar luas, sehingga membatasi efektivitasnya (Lewandowsky et al., 2012; Epstein et al., 2023). Selain itu, selama peristiwa berita terkini, klaim yang tidak akurat dapat beredar dengan cepat sebelum verifikasi selesai, membatasi dampak koreksi di kemudian hari dan berkontribusi pada ketidakpercayaan yang berkelanjutan pada sumber berita.</p>
+
+  <p>Pola-pola ini beroperasi dalam "ekonomi atensi" (Browne &amp; Watzl, 2026), yang berfungsi sebagai konteks yang lebih luas yang membentuk bagaimana informasi dipilih, diperkuat, dan dibagikan. Platform digital dirancang untuk menangkap dan mempertahankan atensi dengan memprioritaskan konten berdasarkan sinyal keterlibatan seperti suka, bagikan, komentar, dan waktu menonton. Fitur seperti infinite scrolling, notifikasi push, dan lingkaran umpan balik sosial terus menarik atensi ke konten baru, dan karena atensi dimonetisasi, konten yang menghasilkan keterlibatan yang cepat dan berkelanjutan lebih mungkin dipromosikan. Dalam kondisi ini, misinformasi diposisikan dengan baik untuk menyebar; terlebih lagi, konten yang baru, menarik secara emosional, atau selaras dengan keyakinan lebih mungkin menarik atensi dan dibagikan dengan cepat. Akibatnya, lingkungan digital secara sistematis lebih menyukai konten yang berusaha rendah dan menarik perhatian daripada akurasi. Dalam sistem ini, perilaku yang menghasilkan keterlibatan langsung secara konsisten dipilih, sementara perilaku berbasis akurasi yang lebih berusaha lebih kecil kemungkinannya terjadi. Temuan ini menunjukkan bahwa misinformasi bukanlah kegagalan penilaian individu melainkan hasil yang dapat diprediksi dari lingkungan yang memberi penghargaan pada kecepatan, keterlibatan, dan respons berusaha rendah di atas akurasi.</p>
+
+  <!-- ============ WHY IT SPREADS ============ -->
+  <h2>Mengapa Misinformasi Menyebar</h2>
+
+  <p>Misinformasi menyebar dengan cepat online karena selaras dengan bagaimana orang memproses, membagikan, dan memperkuat informasi. Di lingkungan digital, pengguna terus-menerus terpapar pada aliran konten yang bergerak cepat, mendorong keputusan cepat tentang apa yang harus diperhatikan dan apa yang harus diabaikan. Untuk mengelola volume ini, individu mengandalkan jalan pintas mental, atau heuristik (Chen et al., 2021). Jalan pintas ini mengutamakan kecepatan di atas akurasi, meningkatkan sensitivitas terhadap isyarat seperti pengulangan, konsensus sosial, dan daya tarik emosional. Pada saat yang sama, platform digital terstruktur untuk memberi penghargaan pada keterlibatan. Algoritma memprioritaskan konten yang menghasilkan suka, bagikan, komentar, dan waktu menonton yang lebih lama, menciptakan lingkungan di mana visibilitas ditentukan oleh interaksi daripada akurasi.</p>
+
+  <figure>
+    <img src="figure1-bergl.jpg" alt="Konsumsi berita berdasarkan platform media sosial di antara orang dewasa AS (2020–2025).">
+    <figcaption><strong>Gambar 1:</strong> Konsumsi berita berdasarkan platform media sosial di antara orang dewasa AS (2020–2025). Proporsi orang dewasa yang terus bertambah melaporkan secara teratur memperoleh berita dari media sosial, terutama di Facebook, YouTube, dan TikTok (Atske, 2025). Pergeseran ini mencerminkan peran lingkungan yang digerakkan oleh keterlibatan yang semakin besar dalam membentuk bagaimana informasi ditemui, menempatkan konsumsi berita dalam sistem yang memprioritaskan kecepatan, visibilitas, dan interaksi pengguna di atas verifikasi. Sumber: Pew Research Center (2025).</figcaption>
+  </figure>
+
+  <p>Seperti yang ditunjukkan pada Gambar 1, sebagian besar orang dewasa secara teratur mendapatkan berita dari platform media sosial seperti Facebook, YouTube, dan TikTok, mencerminkan pergeseran yang lebih luas dalam bagaimana informasi ditemui di lingkungan digital (Atske, 2025). Pergeseran ini menempatkan konsumsi berita dalam sistem yang memberi penghargaan pada keterlibatan cepat, di mana konten yang menonjol secara emosional dan mudah diproses lebih mungkin dibagikan daripada informasi yang dievaluasi dengan hati-hati. Akibatnya, lingkungan yang sama yang menyusun penggunaan informasi sehari-hari juga menciptakan kondisi yang memfasilitasi penyebaran misinformasi.</p>
+
+  <blockquote class="pullquote">Di lingkungan digital, pengguna terus-menerus terpapar pada aliran konten yang bergerak cepat, mendorong keputusan cepat tentang apa yang harus diperhatikan dan apa yang harus diabaikan.</blockquote>
+
+  <p>Karena misinformasi seringkali baru, menarik secara emosional, atau selaras dengan keyakinan yang ada, ia diposisikan dengan baik untuk menangkap atensi dan menyebar dengan cepat. Dalam beberapa kasus, konten sengaja dirancang untuk memprovokasi reaksi kuat, terutama kemarahan—strategi yang sering disebut "rage-baiting" (Washburn, 2024). Penting, keterlibatan tidak memerlukan persetujuan. Konten yang menantang atau bertentangan dengan keyakinan tetap dapat menghasilkan tingkat interaksi yang tinggi saat pengguna merespons dengan kritik, koreksi, atau ketidaksetujuan. Respons ini berfungsi sebagai sinyal keterlibatan, meningkatkan visibilitas dalam algoritma platform. Seperti diilustrasikan pada Gambar 2, ini menciptakan lingkaran penguatan di mana keterlibatan meningkatkan visibilitas, dan visibilitas yang meningkat menghasilkan keterlibatan lebih lanjut. Pola ini terlihat dalam kasus dunia nyata. Selama penyebaran teori konspirasi "Pizzagate", misalnya, klaim sensasional beredar dengan cepat di forum online dan media sosial. Pengguna membagikan konten secara luas dan menerima penguatan sosial langsung melalui suka, komentar, dan penyebaran berkelanjutan, sementara kecepatan dan volume interaksi ini memungkinkan klaim beredar luas sebelum verifikasi dapat terjadi. Dalam kasus ini, konsekuensinya melampaui keterlibatan online, memuncak pada seorang individu yang memasuki restoran dengan senapan untuk menyelidiki klaim, menunjukkan bagaimana misinformasi yang diperkuat dengan cepat dapat berterjemahan menjadi perilaku dunia nyata (Robb &amp; Robb, 2017).</p>
+
+  <p>Penelitian empiris mendukung pola-pola ini. Vosoughi et al. (2018) menemukan bahwa informasi palsu menyebar lebih jauh, lebih cepat, dan lebih luas daripada informasi benar, didorong sebagian oleh kebaruan dan keterlibatan emosional. Pengguna juga sering terlibat dengan judul daripada artikel lengkap—pola yang dikenal sebagai "sharing without clicks," di mana konten dibagikan berdasarkan isyarat superfisial daripada pemahaman yang terverifikasi (Sundar et al., 2024). Selain itu, memutuskan apakah akan membagikan konten dapat mengurangi atensi terhadap akurasi. Epstein et al. (2023) menemukan bahwa individu kurang mampu membedakan informasi benar dari palsu ketika membuat keputusan berbagi daripada ketika secara eksplisit mengevaluasi akurasi. Pergeseran atensi ini menuju fitur terkait keterlibatan meningkatkan kemungkinan konten yang menyesatkan akan dibagikan. Dinamika emosional dan sosial lebih lanjut mempercepat proses ini. Selain itu, konten yang membangkitkan reaksi kuat, seperti ketakutan, kemarahan, atau humor, lebih mungkin dibagikan sebagai bentuk ekspresi identitas dan koneksi sosial. Pola-pola ini diperkuat dalam jaringan, terutama ketika konten selaras dengan norma atau keyakinan kelompok. Sistem algoritmik memperkuat efek ini dengan mempromosikan konten yang sangat menarik ke audiens yang lebih luas, sehingga memperluas jangkauannya. Pada saat yang sama, proses kognitif berkontribusi pada persistensi. Individu cenderung menyukai informasi yang konsisten dengan keyakinan dan mengabaikan bukti yang bertentangan (Westerwick et al., 2017; Zhou &amp; Shen, 2021), pengulangan meningkatkan kebenaran yang dipersepsikan melalui efek kebenaran ilusi, dan misinformasi dapat terus memengaruhi penalaran bahkan setelah koreksi—fenomena yang dikenal sebagai "continued influence effect" (Swire-Thompson et al., 2021).</p>
+
+  <figure>
+    <img src="figure2-bergl.jpg" alt="Lingkaran penguatan berbagi informasi di lingkungan digital.">
+    <figcaption><strong>Gambar 2:</strong> Lingkaran penguatan berbagi informasi di lingkungan digital. Paparan terhadap konten mengarah pada evaluasi cepat berbasis heuristik, diikuti oleh perilaku keterlibatan seperti berbagi dan bereaksi. Perilaku ini menghasilkan penguatan sosial dan algoritmik langsung, meningkatkan visibilitas dan paparan, dan menciptakan siklus yang memperkuat diri di mana keterlibatan diprioritaskan di atas akurasi.</figcaption>
+  </figure>
+
+  <p>Pada tingkat struktural, misinformasi seringkali lebih mudah diproduksi daripada informasi yang akurat. Hambatan masuk dalam media digital rendah, memungkinkan individu membuat dan mendistribusikan konten dengan cepat tanpa pemeriksaan fakta atau pengawasan editorial (Allcott &amp; Gentzkow, 2017). Konten yang menyesatkan dapat dihasilkan dengan memodifikasi judul, membesar-besarkan klaim, atau menyajikan opini sebagai fakta. Taktik ini sering membutuhkan waktu dan keahlian minimal sambil mempertahankan penampilan kredibilitas. Strategi amplifikasi terkoordinasi, seperti menggunakan beberapa akun untuk mempromosikan pesan yang sama, dapat lebih memperluas jangkauan tanpa meningkatkan usaha produksi. Kemajuan dalam teknologi generatif tambahan telah mengurangi usaha produksi dengan memungkinkan pembuatan teks, gambar, dan video yang realistis tetapi palsu dengan cepat (Arribas et al., 2025; Waldrop, 2023). Sebaliknya, menghasilkan informasi yang akurat biasanya membutuhkan lebih banyak waktu, keahlian, dan sumber daya. Perbedaan dalam usaha dan penguatan ini membentuk perilaku. Berbagi konten membutuhkan usaha minimal dan menghasilkan umpan balik langsung yang terlihat, sedangkan memverifikasi akurasi menuntut waktu dan sumber daya kognitif tambahan dan menawarkan penguatan yang kurang langsung. Akibatnya, berbagi lebih mungkin daripada evaluasi yang cermat. Akhirnya, lingkungan digital memprioritaskan kecepatan, keterlibatan, dan dampak emosional, menciptakan kondisi di mana berbagi secara konsisten diperkuat di atas akurasi. Proses yang dirangkum dalam Tabel 1 beroperasi dalam dan memperkuat siklus penguatan yang ditunjukkan pada Gambar 2.</p>
+
+  <!-- ============ WHY IT STICKS ============ -->
+  <h2>Mengapa Misinformasi Melekat</h2>
+
+  <p>Mengoreksi misinformasi lebih menantang daripada sekadar memberikan fakta yang akurat. Bahkan setelah koreksi, misinformasi sering bertahan karena ia tertanam dalam bagaimana orang memproses dan mengingat informasi, diperkuat oleh jalan pintas mental dan paparan berulang. Contoh mapan dari persistensi ini adalah continued influence effect. Penelitian menunjukkan bahwa individu sering terus mengandalkan misinformasi bahkan setelah dikoreksi (Lewandowsky et al., 2012; Swire-Thompson et al., 2021), dalam arti bahwa begitu informasi menjadi bagian dari model mental seseorang tentang suatu peristiwa, ia terus membentuk penalaran dan interpretasi. Misalnya, pesan kesehatan publik awal menekankan lemak makanan sebagai penyebab utama penyakit kardiovaskular. Meskipun bukti selanjutnya menyoroti peran gula dan karbohidrat olahan, penjelasan awal terus memengaruhi pemahaman dan perilaku publik (Kearns et al., 2016). Ini mengilustrasikan bagaimana informasi awal dapat bertahan dalam model mental dan terus memandu interpretasi bahkan setelah koreksi.</p>
+
+  <p>Proses lain yang menopang misinformasi adalah efek kebenaran ilusi. Paparan berulang terhadap klaim meningkatkan kemungkinan bahwa klaim itu akan dipersepsikan sebagai benar (Fazio et al., 2015). Otak menggunakan kelancaran pemrosesan sebagai heuristik, sehingga informasi yang terasa familiar atau mudah diproses lebih mungkin dinilai sebagai akurat. Misalnya, klaim berulang yang menghubungkan konsumsi telur dengan risiko kardiovaskular berkontribusi pada keyakinan publik yang luas, meskipun penelitian selanjutnya menunjukkan efek yang lebih terbatas untuk sebagian besar individu (Rong et al., 2013). Pola ini menunjukkan bahwa pengulangan saja dapat meningkatkan akurasi yang dipersepsikan, bahkan tanpa adanya bukti pendukung yang kuat.</p>
+
+  <p>Penilaian kredibilitas sering dibentuk oleh isyarat tingkat permukaan ini, terutama ketika individu mengandalkan heuristik daripada evaluasi terperinci. Yang penting, pengetahuan saja tidak sepenuhnya melindungi terhadap efek ini, dan penelitian mengungkapkan bahwa bahkan individu dengan keahlian domain tetap rentan terhadap misinformasi berulang, kemungkinan karena keakraban dan kelancaran dapat mengesampingkan pemrosesan analitis (Fazio et al., 2015). Efek-efek ini diperkuat di lingkungan digital, di mana algoritma, ruang gema, dan pengguliran terus-menerus meningkatkan paparan berulang terhadap klaim yang sama, sehingga memperkuat keakraban dan kredibilitas yang dipersepsikan.</p>
+
+  <p>Dinamika ini juga membentuk bagaimana individu mengandalkan informasi eksternal. Orang mungkin bergantung pada informasi yang dihasilkan atau diringkas oleh sistem otomatis tanpa verifikasi independen—pola yang konsisten dengan automation bias (Dorrell &amp; Heal, 2024). Ketika informasi disajikan dalam format yang terkait dengan keahlian, seperti tulisan ilmiah atau output AI yang berwibawa, kredibilitas yang dipersepsikan dapat meningkat, mencerminkan authority bias. Contoh terkini mengilustrasikan proses ini. Almira Osmanovic Thunstrom menciptakan kondisi medis fiktif, "Bixonmania," dan memperkenalkannya ke ruang online dan akademis (Stokel-Walker, 2026). Sistem AI kemudian menghasilkan respons yang memperlakukan kondisi itu sebagai sah, dan output ini kemudian dikutip dalam penelitian peer-review. Kasus ini menunjukkan bagaimana ketergantungan pada sistem otomatis sebagai sumber otoritatif dapat menyebabkan reproduksi dan penyebaran informasi palsu di seluruh saluran yang dihasilkan AI dan ilmiah. Dengan cara ini, automation bias dan isyarat otoritas berkontribusi pada persistensi misinformasi dengan memperkuat kepercayaan pada output sistem, bahkan ketika output itu tidak akurat.</p>
+
+  <p>Secara bersama-sama, proses-proses ini mencerminkan serangkaian mekanisme kognitif dan perilaku yang menopang misinformasi seiring waktu. Seperti yang dirangkum dalam Tabel 1, mereka berinteraksi dengan fitur platform dan struktur penguatan, membentuk bagaimana informasi dievaluasi, diterima, dan dipertahankan di lingkungan digital.</p>
+
+  <p><strong>Tabel 1: Proses Kognitif dan Perilaku yang Berkontribusi pada Penyebaran dan Persistensi Misinformasi di Lingkungan Digital</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Proses</th>
+        <th>Apa yang Dilakukan</th>
+        <th>Di Mana Muncul di Lingkungan Digital</th>
+        <th>Efek pada Misinformasi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Confirmation bias</td>
+        <td>Memiringkan atensi ke arah informasi yang konsisten dengan keyakinan</td>
+        <td>Ruang gema, paparan selektif, konten yang selaras kelompok</td>
+        <td>Meningkatkan penerimaan dan berbagi misinformasi yang konsisten dengan keyakinan</td>
+      </tr>
+      <tr>
+        <td>Efek kebenaran ilusi</td>
+        <td>Meningkatkan akurasi yang dipersepsikan melalui pengulangan</td>
+        <td>Pengulangan algoritmik, reposting viral, feed terus-menerus</td>
+        <td>Misinformasi yang familiar dinilai lebih kredibel</td>
+      </tr>
+      <tr>
+        <td>Continued influence effect</td>
+        <td>Mempertahankan pengaruh misinformasi setelah koreksi</td>
+        <td>Koreksi tertunda, paparan berkelanjutan, retraksi lemah</td>
+        <td>Informasi palsu terus membentuk penalaran</td>
+      </tr>
+      <tr>
+        <td>Pemrosesan heuristik</td>
+        <td>Mendorong penilaian cepat berusaha rendah di atas evaluasi hati-hati</td>
+        <td>Feed bervolume tinggi, tekanan waktu, pemindaian judul</td>
+        <td>Mengurangi atensi terhadap akurasi dan meningkatkan kerentanan terhadap konten menyesatkan</td>
+      </tr>
+      <tr>
+        <td>Automation bias</td>
+        <td>Menggeser kepercayaan ke arah output otomatis atau AI</td>
+        <td>Ringkasan AI, mesin pencari, konten yang dihasilkan</td>
+        <td>Pengguna menerima informasi yang tidak akurat tanpa verifikasi</td>
+      </tr>
+      <tr>
+        <td>Authority bias</td>
+        <td>Meningkatkan ketergantungan pada keahlian atau isyarat kredibilitas yang dipersepsikan</td>
+        <td>Nada ilmiah, format profesional, output AI</td>
+        <td>Meningkatkan penerimaan informasi yang menyesatkan</td>
+      </tr>
+      <tr>
+        <td>Penguatan sosial</td>
+        <td>Memperkuat berbagi melalui umpan balik sosial langsung</td>
+        <td>Suka, bagikan, komentar, metrik visibilitas</td>
+        <td>Mendorong berbagi yang berkelanjutan tanpa memandang akurasi</td>
+      </tr>
+      <tr>
+        <td>Amplifikasi algoritmik</td>
+        <td>Meningkatkan paparan berdasarkan sinyal keterlibatan</td>
+        <td>Sistem peringkat, mesin rekomendasi</td>
+        <td>Memperluas jangkauan misinformasi dengan keterlibatan tinggi</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="table-note"><em>Catatan:</em> Proses-proses ini berinteraksi dengan fitur platform dan struktur penguatan untuk membentuk bagaimana informasi dievaluasi, dibagikan, dan dipertahankan di lingkungan digital.</p>
+
+  <!-- ============ EVIDENCE ============ -->
+  <h2>Bukti dari Riset Terapan</h2>
+
+  <p>Riset terapan tentang penyebaran misinformasi di platform media sosial masih terbatas, terutama dalam literatur analitik perilaku. Intervensi seperti strategi pra-komitmen dan instruksi langsung dalam literasi digital bertujuan mempromosikan berbagi yang bertanggung jawab dengan meningkatkan kesadaran, memperkuat aturan, dan meningkatkan keterampilan evaluasi. Meskipun pendekatan ini dapat memengaruhi perilaku tertentu, dampaknya seringkali dibatasi oleh lingkungan di mana mereka diterapkan.</p>
+
+  <p>Studi yang dilakukan di Facebook (Bergman-Geonie et al., 2025) mengharuskan peserta untuk terlibat dengan media sosial dengan cara yang mempromosikan verifikasi akurasi saat berbagi konten berita. Komponen pra-komitmen, yang diadaptasi dari Pro-Truth Pledge Gleb Tsipursky dan ditunjukkan pada Gambar 3, mengharuskan peserta untuk berjanji memverifikasi informasi sebelum memposting (Tsipursky et al., 2018). Komponen instruksi langsung menyediakan pelatihan eksplisit dalam mengevaluasi sumber menggunakan strategi terstruktur.</p>
+
+  <div class="pledge">
+    <h4>Precommitment Pledge:</h4>
+    <p>Saya berjanji mengerahkan upaya terbaik saya untuk menyebarkan kebenaran dengan:</p>
+    <ul>
+      <li><strong>Memverifikasi:</strong> memeriksa fakta informasi untuk memastikan itu benar sebelum menerima dan membagikannya</li>
+      <li><strong>Menyeimbangkan:</strong> membagikan seluruh kebenaran, bahkan jika beberapa aspek tidak mendukung pendapat saya</li>
+      <li><strong>Mengutip:</strong> membagikan sumber saya agar orang lain dapat memverifikasi informasi saya</li>
+      <li><strong>Mengklarifikasi:</strong> membedakan antara pendapat saya dan fakta</li>
+    </ul>
+    <div class="sign">Tanda Tangan</div>
+  </div>
+
+  <p>Intervensi ini menargetkan perilaku berbasis aturan dan bertujuan meningkatkan kemungkinan peserta akan memilih dan membagikan informasi yang lebih bereputasi. Desain garis dasar berganda non-konkuren di antara peserta digunakan untuk memeriksa perubahan dalam perilaku memposting di seluruh fase garis dasar, pra-komitmen, pelatihan, pasca-pelatihan, dan tindak lanjut. Fase instruksi langsung, yang ditunjukkan pada Gambar 4, mencakup program pelatihan lima modul berdasarkan metode SIFT—Stop, Investigate, Find, dan Trace—yang mendorong pengguna untuk berhenti, mengevaluasi sumber, mencari cakupan yang lebih baik, dan melacak klaim kembali ke konteks aslinya sebelum berbagi (Caulfield, 2019; Brodsky et al., 2021).</p>
+
+  <p>Hasil menunjukkan bahwa instruksi langsung meningkatkan kemampuan peserta untuk membedakan antara sumber berkualitas lebih tinggi dan lebih rendah, menunjukkan perolehan keterampilan evaluasi. Peserta juga melaporkan peningkatan kepercayaan diri dalam mengidentifikasi sumber yang bereputasi, yang tercermin dalam peringkat validitas sosial yang konsisten tinggi; namun, peningkatan ini tidak berterjemahan menjadi perubahan dalam perilaku memposting yang sebenarnya, dan mereka terus membagikan konten sejalan dengan pola keterlibatan tipikal mereka, meskipun mereka dapat mengidentifikasi informasi yang lebih kredibel. Posting yang bereputasi hanya mewakili sebagian kecil dari total posting, dengan peningkatan kecil dan variabel di seluruh fase. Demikian pula, strategi pra-komitmen tidak menghasilkan perubahan perilaku yang konsisten. Meskipun peserta setuju untuk mengikuti aturan berbasis akurasi, komitmen ini tidak cukup untuk mengesampingkan konsekuensi langsung dan memperkuat penggunaan media sosial yang tipikal. Fase pra-komitmen menghasilkan pergeseran jangka pendek yang moderat dalam perilaku memposting, tetapi efek ini tidak bertahan. Fase instruksi langsung juga dikaitkan dengan penurunan posting secara keseluruhan dan tidak meningkatkan proporsi konten bereputasi yang dibagikan.</p>
+
+  <blockquote class="pullquote">Individu dapat belajar mengevaluasi informasi secara akurat dan mendukung aturan yang mendukung berbagi yang bertanggung jawab, namun mereka tetap gagal bertindak berdasarkan aturan itu ketika lingkungan terus memperkuat perilaku berusaha rendah dan berinteraksi tinggi.</blockquote>
+
+  <p>Temuan ini menyoroti kesenjangan yang jelas antara diskriminasi dan kinerja. Peserta belajar mengevaluasi informasi dan menyatakan niat untuk berbagi secara bertanggung jawab, namun perilaku mereka sebagian besar tidak berubah dalam pengaturan dunia nyata. Salah satu penjelasannya adalah bahwa intervensi tidak mengubah kontingensi lingkungan yang mengelilingi berbagi. Mengevaluasi sumber membutuhkan langkah tambahan, sedangkan berbagi menghasilkan penguatan sosial dan algoritmik langsung. Dalam kondisi ini, perilaku terus menyukai respons cepat di atas akurasi. Secara lebih luas, temuan ini menyoroti kesenjangan antara pengetahuan dan tindakan. Individu dapat belajar mengevaluasi informasi secara akurat dan mendukung aturan yang mendukung berbagi yang bertanggung jawab, namun mereka tetap gagal bertindak berdasarkan aturan itu ketika lingkungan terus memperkuat perilaku berusaha rendah dan berinteraksi tinggi. Dalam sistem digital, suka, visibilitas, dan umpan balik sosial berfungsi sebagai penguat langsung, sementara konsekuensi berbagi informasi yang tidak akurat tertunda atau kurang menonjol. Akibatnya, penguatan berbasis keterlibatan mengalahkan hasil berbasis akurasi, membuat berbagi cepat lebih mungkin daripada evaluasi yang cermat.</p>
+
+  <p>Riset terapan menunjukkan bahwa intervensi yang berfokus pada pengetahuan, aturan, atau komitmen kemungkinan tidak akan menghasilkan perubahan perilaku yang bertahan lama kecuali mereka juga memodifikasi lingkungan pengambilan keputusan. Ini termasuk fitur platform seperti fungsi berbagi yang mudah diakses, metrik keterlibatan yang terlihat, dan feed konten yang terus-menerus. Perolehan dalam pengetahuan dan kepatuhan aturan tidak secara konsisten berterjemahan menjadi perubahan perilaku yang berkelanjutan ketika fitur-fitur ini terus memperkuat berbagi cepat. Penelitian lebih lanjut menunjukkan bahwa konteks media sosial itu sendiri dapat mengganggu penilaian akurasi, karena atensi tertuju pada fitur terkait keterlibatan daripada evaluasi (Epstein et al., 2023). Elemen desain seperti infinite scrolling dan sistem algoritmik yang memprioritaskan konten yang sangat menarik meningkatkan paparan terhadap materi yang menarik perhatian, tanpa memandang akurasi, sementara membatasi peluang untuk refleksi atau verifikasi (Pennycook et al., 2020).</p>
+
+  <!-- ============ BREAKDOWN ============ -->
+  <h2>Ketika Strategi Gagal</h2>
+
+  <p>Banyak strategi yang direkomendasikan untuk mengurangi misinformasi berfokus pada peningkatan pengambilan keputusan individu untuk mempromosikan pemrosesan yang lebih deliberatif dan penilaian kredibilitas yang lebih baik. Meskipun pendekatan ini efektif dalam pengaturan terkontrol, dampaknya sering berkurang di lingkungan digital dunia nyata, di mana kondisi menyukai respons cepat dan berusaha rendah.</p>
+
+  <p>Salah satu alasan strategi ini sering gagal adalah usaha yang mereka butuhkan. Mengevaluasi informasi melibatkan langkah tambahan, seperti membuka sumber baru, menyilangkan referensi klaim, dan membaca di luar judul (Brodsky et al., 2021). Sebaliknya, berbagi konten membutuhkan usaha minimal dan dapat dilakukan dengan satu klik. Penelitian menunjukkan bahwa perilaku yang membutuhkan usaha lebih besar lebih kecil kemungkinannya terjadi, terutama ketika alternatif yang lebih mudah tersedia (Friman &amp; Poling, 1995; Perry &amp; Fisher, 2001; Wilder et al., 2020). Di media sosial, pengguna sering memproses konten secara superfisial, dengan lebih dari 75% posting yang dibagikan didistribusikan tanpa mengklik untuk membaca artikel lengkap (Sundar et al., 2024). Dalam lingkungan ini, strategi berbasis akurasi harus bersaing dengan respons yang lebih cepat dan berusaha lebih rendah.</p>
+
+  <p>Faktor kedua adalah waktu dan kekuatan konsekuensi. Berbagi konten menghasilkan penguatan langsung melalui suka, bagikan, dan komentar, sedangkan evaluasi yang akurat menghasilkan hasil yang tertunda atau kurang terlihat. Ketidakseimbangan ini menyukai perilaku yang menghasilkan umpan balik langsung. Fitur platform seperti lingkaran umpan balik sosial, notifikasi push, dan infinite scrolling lebih lanjut memperkuat pola ini dengan terus mendorong keterlibatan (Giansiracusa, 2021). Dalam ekonomi atensi yang memberi penghargaan pada kecepatan, visibilitas, dan reaksi, akurasi menjadi opsi yang kurang diperkuat.</p>
+
+  <p>Keterbatasan ketiga menyangkut daya tahan strategi berbasis aturan. Instruksi seperti "verifikasi sebelum berbagi" berfungsi sebagai aturan yang memandu perilaku, tetapi pengaruhnya melemah ketika mereka bersaing dengan respons yang secara konsisten diperkuat. Penelitian menunjukkan bahwa aturan awal dapat bertahan bahkan ketika aturan yang lebih akurat diperkenalkan, terutama ketika aturan itu didukung oleh penguatan sosial (Dixon et al., 2000; Harte et al., 2020). Di lingkungan online, konten yang konsisten dengan keyakinan diperkuat berulang kali, meningkatkan kemungkinan individu mengikuti pola yang didukung sosial daripada aturan berbasis akurasi. Dinamika ini beroperasi dalam siklus penguatan yang ditunjukkan pada Gambar 2, di mana umpan balik langsung dan amplifikasi algoritmik memperkuat respons cepat di atas akurasi.</p>
+
+  <p>Pola-pola ini tertanam dalam sistem platform yang lebih luas, di mana algoritma memprioritaskan metrik keterlibatan seperti klik, bagikan, dan waktu menonton. Akibatnya, konten yang menarik secara emosional atau konsisten dengan keyakinan diperkuat tanpa memandang akurasi (Ahadzadeh et al., 2021; Bourne, 2023). Solusi yang efektif karena itu melampaui pengguna individu dan memerlukan perubahan pada desain platform, praktik industri, dan kerangka kebijakan yang membentuk kontingensi penguatan ini. Selain itu, karena sistem ini sengaja dirancang dan dipelihara oleh perusahaan media sosial, tanggung jawab untuk perubahan yang bermakna sebagian besar terletak pada mereka yang mengendalikan struktur lingkungan ini dan pada pembuat kebijakan yang membentuk kendala regulasi (Lazer et al., 2018; Pennycook &amp; Rand, 2022). Tanpa modifikasi pada kondisi lingkungan ini, intervensi yang menargetkan perilaku individu saja kemungkinan tidak akan menghasilkan efek yang berkelanjutan, terutama mengingat bukti bahwa konteks platform dapat mengganggu penilaian berbasis akurasi (Epstein et al., 2023).</p>
+
+  <p>Bahkan intervensi tingkat platform menunjukkan efek terbatas ketika diterapkan tanpa perubahan yang lebih luas pada struktur keterlibatan yang mendasarinya. Program pemeriksaan fakta pihak ketiga, termasuk yang sebelumnya digunakan oleh Meta, dapat mengurangi kepercayaan pada informasi palsu dalam kondisi tertentu tetapi memiliki efek yang lebih terbatas dan tidak konsisten pada perilaku berbagi dalam lingkungan skala besar (Nyhan &amp; Reifler, 2015; Pennycook et al., 2020). Pendekatan yang lebih baru, seperti sistem berbasis kerumunan seperti Community Notes di X (sebelumnya Twitter), bertujuan memberikan koreksi kontekstual di dalam platform. Penelitian menunjukkan bahwa input pengguna yang teragregasi dapat secara andal mengidentifikasi konten yang menyesatkan dan mengurangi kredibilitas yang dipersepsikan (Allen et al., 2024). Namun, intervensi ini menghasilkan efek yang lebih terbatas dan bergantung konteks pada perilaku, termasuk berbagi, karena kendala terkait visibilitas, waktu, dan lingkungan platform yang lebih luas (Allen et al., 2024; Pennycook et al., 2020; Epstein et al., 2023). Bersama-sama, temuan ini menunjukkan bahwa meskipun intervensi semacam itu dapat memengaruhi evaluasi, mereka tidak secara konsisten mengubah perilaku ketika struktur penguatan terus memprioritaskan keterlibatan.</p>
+
+  <p>Dalam kondisi beban kognitif tinggi, tekanan waktu, dan rangsangan emosional, individu lebih cenderung mengandalkan respons cepat dan berusaha rendah daripada evaluasi yang cermat. Dan bahkan ketika individu memiliki keterampilan untuk menilai informasi, perilaku ini harus bersaing dengan alternatif yang lebih cepat dan lebih kuat diperkuat. Platform media sosial, yang dirancang untuk interaksi terus-menerus, sering digunakan secara pasif dan dalam kerangka waktu terbatas, lebih lanjut meningkatkan ketergantungan pada respons cepat. Akibatnya, strategi yang bergantung pada pemrosesan deliberatif lebih kecil kemungkinannya diterapkan secara konsisten dalam pengaturan dunia nyata.</p>
+
+  <p>Pola ini selaras dengan formulasi Lewin (1951) tentang perilaku sebagai fungsi dari individu dan lingkungan (B = f(P,E)). Model Lewin menekankan bahwa perilaku muncul dari interaksi antara kemampuan pribadi dan kondisi lingkungan pada saat tindakan. Di lingkungan digital, perilaku dibentuk oleh isyarat yang tertanam seperti notifikasi, peringatan, indikator pesan, dan prompt yang diwaktu algoritmik yang berfungsi sebagai pemicu langsung untuk keterlibatan. Bahkan ketika individu dapat secara akurat mengevaluasi informasi, perilaku ini harus bersaing dengan aliran isyarat yang menonjol dan berusaha rendah yang terus-menerus memprioritaskan kecepatan dan interaksi. Dalam kondisi ini, variabel lingkungan memberikan kontrol yang kuat atas perilaku, seringkali mengalahkan respons yang lebih berusaha dan berorientasi akurasi. Tanpa perubahan pada kondisi lingkungan ini, perubahan perilaku yang berkelanjutan tidak mungkin terjadi.</p>
+
+  <blockquote class="pullquote">Dalam kondisi beban kognitif tinggi, tekanan waktu, dan rangsangan emosional, individu lebih cenderung mengandalkan respons cepat dan berusaha rendah daripada evaluasi yang cermat.</blockquote>
+
+  <!-- ============ SOCIAL REINFORCEMENT ============ -->
+  <h2>Penguatan Sosial dan Identitas</h2>
+
+  <p>Penguatan sosial memainkan peran sentral dalam penyebaran misinformasi, terutama di lingkungan digital di mana umpan balik teman sebaya dan dinamika kelompok terus membentuk perilaku. Di media sosial, tindakan seperti memposting, menyukai, berbagi, dan berkomentar menghasilkan efek sosial langsung, termasuk persetujuan, visibilitas, dan validasi. Efek-efek ini diperkuat oleh fitur desain platform yang memprioritaskan keterlibatan, serta oleh strategi konten yang digunakan oleh pembuat, influencer, dan outlet media untuk menarik dan mempertahankan atensi. Misalnya, posting sering disusun untuk meningkatkan interaksi dengan menggunakan informasi yang ambigu atau tidak lengkap, bahasa yang bermuatan emosional, atau pemformatan yang membutuhkan usaha tambahan untuk ditafsirkan. Strategi ini meningkatkan waktu yang dihabiskan pada konten dan kemungkinan keterlibatan. Akibatnya, keterlibatan tidak hanya didorong oleh preferensi pengguna tetapi secara aktif dibentuk oleh desain platform dan praktik konten yang mempromosikan interaksi, kadang-kadang dengan mengorbankan akurasi atau kejelasan. Proses-proses ini beroperasi dalam siklus penguatan yang ditunjukkan pada Gambar 2, di mana umpan balik sosial dan amplifikasi algoritmik meningkatkan visibilitas konten yang sangat menarik.</p>
+
+  <p>Sistem algoritmik lebih lanjut memperkuat pola-pola ini dengan mempromosikan konten yang mendorong keterlibatan tinggi. Posting yang memprovokasi reaksi kuat, terutama yang membangkitkan emosi, lebih mungkin ditingkatkan dan dibagikan dengan audiens yang lebih luas (Ahadzadeh et al., 2021), yang menciptakan lingkaran umpan balik di mana konten yang diperkuat sosial mendapatkan visibilitas, yang mengarah pada penguatan lebih lanjut saat paparan meningkat. Data platform internal mengilustrasikan efek ini. Misalnya, pengenalan fitur reaksi Facebook seperti "love," "wow," dan "angry" meningkatkan pembobotan algoritmik dari keterlibatan yang bermuatan emosional, yang berkontribusi pada penyebaran konten yang memecah belah dan berkualitas lebih rendah (Oremus et al., 2021; Bakir &amp; McStay, 2023). Bentuk keterlibatan ini berfungsi sebagai sinyal penguatan dalam sistem, meningkatkan visibilitas dan paparan lebih lanjut (lihat Gambar 2).</p>
+
+  <p>Dinamika ini mengintensifkan dalam komunitas yang selaras dengan keyakinan, di mana keterlibatan dibentuk oleh preferensi pengguna dan amplifikasi tingkat platform. Meskipun individu mungkin kurang cenderung secara sengaja mencari informasi yang bertentangan dengan keyakinan mereka, mereka sering terpapar konten semacam itu melalui distribusi algoritmik dan struktur jaringan. Yang penting, paparan tidak memerlukan persetujuan untuk menghasilkan interaksi; pengguna sering terlibat dengan konten yang berlawanan melalui komentar, bagikan, atau reaksi seperti kemarahan, yang semuanya meningkatkan visibilitas tanpa memandang akurasi (Westerwick et al., 2017; Zhou &amp; Shen, 2021). Dalam jaringan ini, paparan berulang meningkatkan kredibilitas yang dipersepsikan, sementara sinyal sosial menunjukkan bahwa konten diterima dan didukung oleh orang lain. Seiring waktu, pola-pola ini memperkuat norma kelompok dan mengurangi kemungkinan sudut pandang alternatif akan dipertimbangkan. Mereka juga memperkuat ekspresi identitas, karena sinyal keterlibatan menunjukkan keyakinan dan posisi mana yang didukung dalam suatu kelompok.</p>
+
+  <p>Pada skala yang lebih luas, proses-proses ini menghasilkan efek tingkat jaringan di mana penguatan yang digerakkan oleh keterlibatan meningkatkan visibilitas konten yang konsisten dengan keyakinan sementara membatasi penyebaran sudut pandang yang berlawanan. Akibatnya, konten yang selaras dengan norma kelompok menerima lebih banyak interaksi dan amplifikasi, sehingga berkontribusi pada polarisasi dan penyebaran misinformasi yang berkelanjutan di seluruh jaringan digital.</p>
+
+  <!-- ============ DESIGNING ============ -->
+  <h2>Merancang Sistem yang Lebih Baik</h2>
+
+  <p>Misinformasi bertahan karena lingkungan digital memperkuat berbagi cepat, salience emosional, dan sinyal identitas lebih andal daripada pemeriksaan akurasi (Vosoughi et al., 2018; Pennycook &amp; Rand, 2019). Dalam kondisi ini, intervensi yang hanya mengandalkan kesadaran atau instruksi bersaing dengan sistem yang memberi penghargaan pada kecepatan dan keterlibatan. Sistem ini memprioritaskan klik, bagikan, dan komentar, memperkuat konten yang menonjol secara emosional dan baru tanpa memandang akurasi (Vosoughi et al., 2018; Lewandowsky et al., 2017). Ketika keterlibatan adalah sinyal penguatan utama, berbagi berusaha rendah menjadi perilaku yang efisien dalam ekonomi atensi (Simon, 1971; Bago et al., 2020).</p>
+
+  <p>Seperti diilustrasikan pada Gambar 5, pendekatan yang efektif harus mengubah kontingensi yang mengelilingi keputusan berbagi dengan mengurangi usaha yang dibutuhkan untuk memverifikasi, meningkatkan salience isyarat kredibilitas, dan memperkenalkan konsekuensi yang lebih langsung untuk respons yang berorientasi akurasi (Pennycook et al., 2021; Ecker et al., 2022). Implikasi ini berlaku langsung pada arsitektur platform, di mana memodifikasi usaha, umpan balik, dan visibilitas dapat menggeser perilaku dari berbagi cepat ke penggunaan informasi yang lebih akurat.</p>
+
+  <figure>
+    <img src="figure5-bergl.jpg" alt="Sistem yang digerakkan oleh keterlibatan versus yang mendukung akurasi.">
+    <figcaption><strong>Gambar 5:</strong> Sistem yang digerakkan oleh keterlibatan versus yang mendukung akurasi. Lingkungan yang digerakkan oleh keterlibatan mempromosikan berbagi cepat berusaha rendah, sedangkan perubahan tingkat sistem yang menyesuaikan usaha, umpan balik, dan visibilitas dapat membuat verifikasi lebih mudah dan meningkatkan akurasi berbagi.</figcaption>
+  </figure>
+
+  <p>Platform dapat mendukung respons yang berfokus pada akurasi dengan menerapkan pengamanan sebelum berbagi, mempromosikan evaluasi sumber, dan menekankan indikator kredibilitas. Setelah peristiwa politik besar seperti pemilihan presiden AS 2016 dan referendum Brexit, platform seperti Meta (Facebook dan Instagram) menerapkan dan memperluas layanan pemeriksaan fakta pihak ketiga di tengah meningkatnya tekanan untuk mengatasi misinformasi (Lazer et al., 2018; Swire-Thompson &amp; Lazer, 2020). Sebagai respons, perusahaan memperkenalkan label peringatan, disclaimer, tautan ke verifikasi pihak ketiga, dan penghapusan konten yang jelas palsu. Upaya ini awalnya menunjukkan bahwa pemeriksaan fakta dapat menjadi fitur sentral platform utama; namun, mereka menghasilkan efek yang campuran dan sering berumur pendek. Kekhawatiran tentang sensor, bias yang dipersepsikan, dan tata kelola platform memicu resistensi, dan fokus secara bertahap bergeser dari pemeriksaan fakta terpusat ke evaluasi yang digerakkan pengguna dan koreksi yang dimediasi algoritma, yang berpuncak pada keputusan Meta Januari 2025 untuk mengakhiri kemitraan pemeriksaan fakta pihak ketiga (Marshall, 2025). Bahkan sebelum perubahan ini, intervensi pemeriksaan fakta memiliki efek yang lebih kuat pada akurasi keyakinan daripada pada perilaku berbagi. Volume dan kecepatan konten online seringkali melebihi kapasitas pemeriksa fakta profesional, memungkinkan klaim palsu menyebar luas sebelum koreksi terjadi. Selain itu, ketidakpercayaan pada sumber verifikasi pihak ketiga dan kekhawatiran tentang bias lebih lanjut membatasi efektivitasnya.</p>
+
+  <p>Akibatnya, platform telah bergeser ke arah model terdistribusi yang mengandalkan input pengguna dan sistem algoritmik untuk membentuk aliran informasi. Contohnya termasuk Community Notes di X (sebelumnya Twitter), sistem peringkat, dan penyesuaian visibilitas yang memasukkan evaluasi yang bersumber dari kerumunan. Pendekatan ini memberikan koreksi kontekstual langsung di platform dan menarik pada penilaian pengguna yang teragregasi. Bukti awal menunjukkan mereka dapat mengurangi kredibilitas yang dipersepsikan dari konten yang menyesatkan ketika terlihat, tetapi efeknya pada perilaku berbagi tetap terbatas dan bergantung pada faktor seperti waktu, visibilitas, dan keterlibatan pengguna (Allen et al., 2024; Pennycook et al., 2020). Pola-pola ini menyoroti pengaruh berkelanjutan dari struktur penguatan pada perilaku berbagi informasi. Reposting cepat dapat dikurangi dengan menunda tampilan metrik keterlibatan atau dengan memprioritaskan informasi terverifikasi dalam sistem peringkat. Proses umpan balik sosial juga dapat disesuaikan untuk menekankan sinyal kredibilitas, menggeser keunggulan relatif ke arah perilaku verifikasi (Pennycook &amp; Rand, 2019; Ecker et al., 2022). Ketika isyarat kredibilitas lemah atau tidak konsisten, hasil yang digerakkan oleh keterlibatan terus mendominasi, dan konten yang menyesatkan tetap sangat diperkuat.</p>
+
+  <p>Perubahan tingkat sistem mengubah kondisi di mana informasi dievaluasi dan dibagikan. Misalnya, Gupta et al. (2026) memeriksa intervensi real-time yang terintegrasi tubuh yang memberikan isyarat verifikasi langsung ketika pengguna menemukan klaim yang berpotensi menyesatkan. Sistem yang dapat dikenakan mereka menggunakan umpan balik haptic halus yang dipasangkan dengan penjelasan singkat untuk mendorong pertimbangan ulang. Intervensi ini memperkenalkan konsekuensi langsung untuk pemrosesan misinformasi dan mengurangi usaha yang dibutuhkan untuk memverifikasi, sehingga mengganggu respons otomatis dan mendorong evaluasi yang lebih deliberatif. Temuan empiris menunjukkan bahwa nudge real-time semacam itu dapat meningkatkan diskresi kebenaran dan meningkatkan perilaku verifikasi tanpa secara substansial meningkatkan beban kognitif, meskipun mereka juga membawa risiko ketergantungan berlebih ketika umpan balik sistem tidak akurat. Ketika akurasi didukung oleh usaha yang dikurangi, umpan balik langsung, dan penguatan yang konsisten, ia menjadi lebih kompetitif dengan respons cepat yang digerakkan oleh keterlibatan. Selain itu, sistem yang menyelaraskan insentif dengan kredibilitas lebih mungkin mengurangi misinformasi daripada pendekatan yang hanya mengandalkan motivasi atau pendidikan individu.</p>
+
+  <!-- ============ CONCLUSION ============ -->
+  <h2>Kesimpulan</h2>
+
+  <p>Misinformasi terus menyebar karena platform digital dirancang untuk memprioritaskan dan memonetisasi keterlibatan melalui komentar, suka, dan reaksi, bukan akurasi dan verifikasi, yang membutuhkan lebih banyak waktu dan usaha. Situs media sosial menangkap dan mempertahankan atensi dengan mempromosikan konten yang mendorong keterlibatan melalui kecepatan, daya tarik emosional, dan relevansi sosial (Ahadzadeh et al., 2021; Bourne, 2023). Dalam lingkungan ini, berbagi itu mudah, langsung, dan secara konsisten diperkuat, sementara memastikan akurasi menuntut usaha tambahan dan sering menghasilkan hasil yang tertunda atau kurang terlihat. Ketidakseimbangan ini menciptakan pola yang dapat diprediksi di mana misinformasi menyebar dengan cepat dan bertahan seiring waktu. Penelitian lintas bidang mendukung pola ini, dan informasi palsu menyebar lebih jauh dan lebih cepat daripada informasi benar, sebagian karena kebaruan dan dampak emosionalnya (Vosoughi et al., 2018). Individu mengandalkan strategi pemrosesan berusaha rendah dalam lingkungan informasi bervolume tinggi, meningkatkan kerentanan terhadap konten yang menyesatkan (Chen et al., 2021). Pada saat yang sama, penguatan sosial dan algoritmik dari informasi yang konsisten dengan keyakinan berkontribusi pada polarisasi dan persistensi misinformasi dalam jaringan (Westerwick et al., 2017; Zhou &amp; Shen, 2021; Ecker et al., 2024).</p>
+
+  <blockquote class="pullquote">Misinformasi terus menyebar karena platform digital dirancang untuk memprioritaskan dan memonetisasi keterlibatan melalui komentar, suka, dan reaksi, bukan akurasi dan verifikasi, yang membutuhkan lebih banyak waktu dan usaha.</blockquote>
+
+  <p>Sistem informasi sebelumnya memberlakukan kendala yang memperlambat penyebaran misinformasi. Pengawasan editorial, saluran distribusi terbatas, hambatan produksi fisik, dan partisipasi audiens yang terbatas menciptakan gesekan yang memperlambat aliran informasi dan memberi lebih banyak waktu untuk verifikasi. Meskipun misinformasi masih terjadi, kendala struktural ini membatasi jangkauannya dan mengurangi kemungkinan penyebaran cepat berskala besar (Posetti &amp; Matthews, 2018). Sebaliknya, lingkungan digital kontemporer telah menghilangkan banyak kendala ini, dan dengan demikian informasi sekarang dapat dibuat, dibagikan, dan diperkuat secara instan di seluruh platform global dengan usaha minimal. Sistem algoritmik meningkatkan visibilitas konten yang menarik, menurunkan hambatan untuk pembuatan konten, dan memperkuat berbagi cepat (Giansiracusa, 2021). Dalam lingkungan berkecepatan tinggi ini, verifikasi telah bergeser dari sistem terpusat ke sistem terdesentralisasi, seperti koreksi yang digerakkan komunitas, yang sering terjadi setelah konten sudah beredar luas. Akibatnya, informasi korektif bersaing dengan pola berbagi yang ada daripada mencegah penyebaran awal.</p>
+
+  <p>Respons tradisional berfokus pada peningkatan pengambilan keputusan individu melalui literasi digital, pemeriksaan fakta, dan strategi yang berfokus pada akurasi. Meskipun pendekatan ini dapat meningkatkan pengetahuan dan keterampilan evaluasi, mereka sering gagal menghasilkan perubahan perilaku yang berkelanjutan. Individu dapat mengenali informasi yang kredibel namun tetap membagikan konten berkualitas lebih rendah ketika lingkungan memprioritaskan kecepatan dan keterlibatan. Ini mengungkapkan kesenjangan yang persisten antara pengetahuan dan perilaku. Mengatasi misinformasi, karena itu, memerlukan pergeseran dari solusi tingkat individu ke perubahan desain tingkat sistem. Pergeseran tingkat sistem ini diilustrasikan pada Gambar 5, yang menunjukkan bagaimana memodifikasi usaha, umpan balik, dan visibilitas dapat menggeser perilaku dari berbagi cepat ke penggunaan informasi yang lebih akurat. Intervensi yang mengurangi usaha yang dibutuhkan untuk memverifikasi informasi, meningkatkan salience isyarat kredibilitas, dan memperkenalkan konsekuensi yang lebih langsung untuk perilaku yang berorientasi akurasi dapat mengubah kondisi di mana informasi dibagikan. Misalnya, mengharuskan interaksi dengan konten sebelum berbagi atau menampilkan indikator kredibilitas dapat memperkenalkan kembali gesekan yang sebelumnya tertanam dalam sistem informasi tradisional sambil mempertahankan akses luas ke informasi.</p>
+
+  <p>Misinformasi bertahan karena sistem penguatan digital lebih menyukai berbagi cepat di atas akurasi, memperkuat atensi, memperkuat konten yang selaras dengan identitas, dan memprioritaskan keterlibatan. Ketika lingkungan disusun sehingga akurasi didukung oleh usaha rendah, umpan balik langsung, dan konsekuensi yang terlihat, perilaku berbagi yang lebih andal lebih mungkin terjadi. Merancang sistem yang membuat berbagi akurat lebih mudah dan lebih kuat diperkuat menawarkan jalur praktis untuk mengurangi penyebaran misinformasi. Tanpa perubahan ini, informasi yang akurat akan terus bersaing dengan insentif yang lebih kuat dan lebih langsung untuk berbagi. Dalam ekonomi atensi, seleksi menyukai apa yang paling menarik; ketika usaha dan penguatan tetap tidak selaras, akurasi secara sistematis kalah bersaing, dan penyebaran misinformasi menjadi hasil yang diharapkan daripada pengecualian.</p>
+
+  <!-- ============ AUTHOR BIO ============ -->
+  <div class="author-bio">
+    <h3>Tentang Penulis</h3>
+    <p>Liza Bergman-Geonie adalah Board Certified Behavior Analyst tingkat doktoral dengan lebih dari 25 tahun pengalaman. Ia memegang PhD dalam Behavior Analysis dari Chicago School dan telah mempresentasikan secara internasional tentang topik-topik di persimpangan ilmu perilaku, literasi digital, dan misinformasi. Disertasinya menyelidiki bagaimana individu terlibat dengan dan membagikan informasi di media sosial, dengan fokus pada faktor perilaku dan lingkungan yang memengaruhi penyebaran misinformasi. Karya ini mengungkapkan batas intervensi tingkat individu dan menggarisbawahi pentingnya pengaruh tingkat sistem, termasuk desain platform, usaha respons, dan penguatan, dalam membentuk perilaku online. Ia bersemangat untuk memperluas peran analis perilaku di luar pengaturan tradisional dan membekali praktisi dengan alat untuk menavigasi dan mengatasi misinformasi—terutama di bidang berisiko tinggi seperti berita, politik, kesehatan, dan pendidikan.</p>
+  </div>
+
+  <!-- ============ REFERENCES ============ -->
+  <div class="refs">
+    <h2>Referensi</h2>
+    <ul>
+      <li>Adams, Z., Osman, M., Bechlivanidis, C., &amp; Meder, B. (2023, 16 Februari). (Why) is misinformation a problem? <em>Perspectives on Psychological Science, 18</em>(6), 1436–1463. https://doi.org/10.1177/17456916221141344</li>
+      <li>Ahadzadeh, A., Ong, F., &amp; Wu, S. (2021). Social media skepticism and belief in conspiracy theories about COVID-19: The moderating role of the dark triad. <em>Current Psychology, 42</em>, 8874–8886. https://doi.org/10.1007/s12144-021-02198-1</li>
+      <li>Allcott, H., &amp; Gentzkow, M. (2017). Social media and fake news in the 2016 election. <em>Journal of Economic Perspectives, 31</em>(2), 211–236. https://doi.org/10.1257/jep.31.2.211</li>
+      <li>Allen, J., Arechar, A. A., Pennycook, G., &amp; Rand, D. G. (2021). Scaling up fact-checking using the wisdom of crowds. <em>Science Advances, 7</em>(36), Article eabf4393. https://doi.org/10.1126/sciadv.abf4393</li>
+      <li>Arendt, H. (1972). Lying in politics: Reflections on the pentagon papers. <em>The New York Review of Books</em>. https://www.nybooks.com/articles/1971/11/18/lying-in-politics-reflections-on-the-pentagon-page/</li>
+      <li>Arribas, C. M., Gertrudix, M., &amp; Arcos, R. (2025). Preventive strategies against disinformation: A study on digital and information literacy activities led by fact-checking organisations. <em>Open Research Europe, 5</em>, 122. https://doi.org/10.12688/openresearch.20160.1</li>
+      <li>Atske, S. (2025, 25 September). Social media and news fact sheet. Pew Research Center. https://www.pewresearch.org/journalism/fact-sheet/social-media-and-news-fact-sheet/</li>
+      <li>Bago, B., Rand, D. G., &amp; Pennycook, G. (2020). Fake news, fast and slow: Deliberation reduces belief in false (but not true) news headlines. <em>Journal of Experimental Psychology, 149</em>(8), 1608–1613. https://doi.org/10.1037/xge0000729</li>
+      <li>Bakir, V., &amp; McStay, A. (2023). Core incubators of false information online. In <em>Optimising emotions, incubating falsehoods</em> (pp. 29–52). Springer International Publishing. https://doi.org/10.1007/978-3-031-13551-4_2</li>
+      <li>Bergman-Geonie, L., Ré, T., Griffith, A., &amp; Flynn, S. (2025). Implementation of precommitment and direct instruction and its effect on sharing news stories and information on social media (31769221) [Disertasi doktoral, The Chicago School]. ProQuest.</li>
+      <li>Bourne, P. (2023). Social media use, power, and money: Influence and economic implications. <em>International Journal on Transformations of Media, Journalism &amp; Mass Communication, 10</em>(2), 15–29.</li>
+      <li>Brodsky, J. E., Brooks, P. J., Scimeca, D., Galati, P., Todorova, R., &amp; Caulfield, M. (2021). Associations between online instruction in lateral reading strategies and fact-checking covid-19 news among college students. <em>AERA Open, 7</em>, 233285842110389. https://doi.org/10.1177/23328584211038937</li>
+      <li>Browne, K., &amp; Watzl, S. (2026, Januari). The attention market—and what is wrong with it. <em>Philosophical Studies, 183</em>(1), 227–257. https://doi.org/10.1007/s11098-025-02436-3</li>
+      <li>Caulfield, M. (2019, 19 Juni). SIFT (the four moves). Hapgood. https://hapgood.us/2019/06/19/sift-the-four-moves/</li>
+      <li>Chen, S., Xiao, L., &amp; Mao, J. (2021). Persuasion strategies of misinformation-containing posts in the social media. <em>Information Processing &amp; Management, 58</em>(5), 102665. https://doi.org/10.1016/j.ipm.2021.102665</li>
+      <li>Diepeveen, S., &amp; Pinet, M. (2022). User perspectives on digital literacy as a response to misinformation. <em>Development Policy Review, 40</em>(S2). https://doi.org/10.1111/dpr.12671</li>
+      <li>Dorrell, D., &amp; Heal, S. (2024, Juli). Responsible generative AI: Both humans and algorithms have biases. Frontier Economics. https://www.frontier-economics.com/uk/en/news-and-insights/articles/article-i20814-responsible-generative-ai-both-humans-and-algorithms-have-biases/</li>
+      <li>Ecker, U. K. H., Lewandowsky, S., Cook, J., Schmid, P., Fazio, L. K., Brashier, N., Kendeou, P., Vraga, E. K., &amp; Amazeen, M. A. (2022, 12 Januari). The psychological drivers of misinformation belief and its resistance to correction. <em>Nature Reviews Psychology, 1</em>(1), 13–29. https://doi.org/10.1038/s44159-021-00006-y</li>
+      <li>Ecker, U. K. H., Tay, L., Rozenbeek, J., Linden, S. V. D., Cook, J., Oreskes, N., &amp; Lewandowsky, S. (2024). Why misinformation must not be ignored. <em>American Psychologist, 80</em>(6), 867–878. https://doi.org/10.1037/amp0001448</li>
+      <li>Epstein, Z., Sirlin, N., Arechar, A., Pennycook, G., &amp; Rand, D. (2023). The social media context interferes with truth discernment. <em>Science Advances, 9</em>(9). https://doi.org/10.1126/sciadv.abo6169</li>
+      <li>Fazio, L. K., Brashier, N. M., Payne, B. K., &amp; Marsh, E. J. (2015). Knowledge does not protect against illusory truth. <em>Journal of Experimental Psychology: General, 144</em>(5), 993–1002. https://doi.org/10.1037/xge0000098</li>
+      <li>Giansiracusa, N. (2021). <em>How algorithms create and prevent fake news</em>. Apress. https://doi.org/10.1007/978-1-4842-7155-1</li>
+      <li>Gupta, C., Aritonang, N. V., Rajendran, D. P. D., Danry, V., Maes, P., &amp; Nanayakarra, S. (2026). Feeling the facts: Real-time wearable fact-checkers can use nudges to reduce user belief in false information. <em>CHI '26: Proceedings of the 2026 CHI Conference on Human Factors in Computing Systems</em>. https://doi.org/10.1145/3772318.3791679</li>
+      <li>Kearns, C. E., Schmidt, L. A., &amp; Glantz, S. A. (2016). Sugar industry and coronary heart disease research: A historical analysis of internal industry documents. <em>JAMA Internal Medicine, 176</em>(11), 1680. https://doi.org/10.1001/jamainternmed.2016.5394</li>
+      <li>Lazer, D. M. J., Baum, M. A., Benkler, Y., Berinsky, A. J., Greenhill, K. M., Menczer, F., Metzger, M. J., Nyhan, B., Pennycook, G., Rothschild, D., Schudson, M., Sloman, S. A., Sunstein, C. R., Thorson, E. A., Watts, D. J., &amp; Zittrain, J. L. (2018). The science of fake news. <em>Science, 359</em>(6380), 1094–1096. https://doi.org/10.1126/science.aao2998</li>
+      <li>Lewandowsky, S., Ecker, U. H., &amp; Cook, J. (2017). Beyond misinformation: Understanding and coping with the "post-truth" era. <em>Journal of Applied Research in Memory and Cognition, 6</em>(4), 353–369. https://doi.org/10.1016/j.jarmac.2017.07.008</li>
+      <li>Lewin, K. (1951). <em>Field theory in social science: Selected theoretical papers</em> (diedit oleh Dorwin Cartwright). Harpers.</li>
+      <li>Marshall, L. (2025, 10 Januari). Why Meta fired its fact-checkers and what you can do about it. CU Boulder Today. https://www.colorado.edu/today/2025/01/10/why-meta-fired-its-fact-checkers-and-what-you-can-do-about-it</li>
+      <li>McKay, S., &amp; Tenove, C. (2020). Disinformation as a threat to deliberative democracy. <em>Political Research Quarterly, 74</em>(3), 703–717. https://doi.org/10.1177/1065912920938143</li>
+      <li>Milmo, D. (2025, 2 April). Internet replaces TV as UK's most popular news source for first time. <em>The Guardian</em>.</li>
+      <li>Nyhan, B., &amp; Reifler, J. (2015). Estimating fact-checking's effects: Evidence from a long-term experiment during campaign 2014. American Press Institute.</li>
+      <li>Oremus, W., Alcantara, C., Merrill, J. B., &amp; Galocha, A. (2021, 26 Oktober). How Facebook shapes your feed. <em>Washington Post</em>.</li>
+      <li>Pennycook, G., McPhetres, J., Zhang, Y., Lu, J. G., &amp; Rand, D. G. (2020). Fighting COVID-19 misinformation on social media: Experimental evidence for a scalable accuracy-nudge intervention. <em>Psychological Science, 31</em>(7), 770–780. https://doi.org/10.1177/0956797620939054</li>
+      <li>Pennycook, G., &amp; Rand, D. G. (2019). Lazy, not biased: Susceptibility to partisan fake news is better explained by lack of reasoning than by motivated reasoning. <em>Cognition, 188</em>, 39–50. https://doi.org/10.1016/j.cognition.2018.06.011</li>
+      <li>Pew Research Center. (2025, 20 November). Social media fact sheet. https://www.pewresearch.org/internet/fact-sheet/social-media/</li>
+      <li>Posetti, J., &amp; Matthews, A. (2018, Juli). <em>A short guide to the history of 'fake news' and disinformation</em>. International Center for Journalists.</li>
+      <li>Robb, A., &amp; Robb, A. (2017, 16 November). Pizzagate: Anatomy of a fake news scandal. <em>Rolling Stone</em>.</li>
+      <li>Rong, Y., Chen, L., Zhu, T., Song, Y., Yu, M., Shan, Z., Sands, A., Hu, F. B., &amp; Liu, L. (2013). Egg consumption and risk of coronary heart disease and stroke: Dose-response meta-analysis of prospective cohort studies. <em>BMJ, 346</em>, e8539. https://doi.org/10.1136/bmj.e8539</li>
+      <li>Rothkopf, D. J. (2003, 11 Mei). When the buzz bites back. <em>Washington Post</em>.</li>
+      <li>Santos-d'Amorim, K., &amp; Fernandes de Oliveira Miranda, M. (2021). Informação incorreta, desinformação e má informação: Esclarecendo definições e exemplos em tempos de desinfodemia. <em>Encontros Bibli, 26</em>, 01–23. https://doi.org/10.5007/1518-2924.2021.e76900</li>
+      <li>Soll, J. (2016, 18 Desember). The long and brutal history of fake news. <em>Politico Magazine</em>.</li>
+      <li>Stokel-Walker, C. (2026, 6 April). Scientists invented a fake disease. AI told people it was real. <em>Nature</em>.</li>
+      <li>Suherman, A. (2025, 11 Juli). The algorithmic trap: How social media monetization undermines investigative journalism in local media. <em>Frontiers in Communication, 10</em>, Article 1619367. https://doi.org/10.3389/fcomm.2025.1619367</li>
+      <li>Sundar, S., Snyder, E., Liao, M., Yin, J., Wang, J., &amp; Chi, G. (2024). Sharing without clicking on news in social media. <em>Nature Human Behaviour, 9</em>, 156–168. https://doi.org/10.1038/s41562-024-02067-4</li>
+      <li>Swire-Thompson, B., Cook, J., Butler, L. H., Sanderson, J. A., Lewandowsky, S., &amp; Ecker, U. K. H. (2021, Desember). Correction format has a limited role when debunking misinformation. <em>Cognitive Research: Principles and Implications, 6</em>(1), Article 83. https://doi.org/10.1186/s41235-021-00346-6</li>
+      <li>Tsipursky, G., Votta, F., &amp; Mulick, J. A. (2018). A psychological approach to promoting truth in politics: The pro-truth pledge. <em>Journal of Social and Political Psychology, 6</em>(2), 271–290. https://doi.org/10.5964/jspp.v6i2.856</li>
+      <li>Vosoughi, S., Roy, D., &amp; Aral, S. (2018). The spread of true and false news online. <em>Science, 359</em>(6380), 1146–1151. https://doi.org/10.1126/science.aap9559</li>
+      <li>Washburn, E. (2024, 9 Agustus). Don't fall for social media rage-bait: Here's what to look out for. Daily Citizen.</li>
+      <li>Watson, C. A. (2018). Information literacy in a fake/false news world: An overview of the characteristics of fake news and its historical development. <em>International Journal of Legal Information, 46</em>(2), 93–96. https://doi.org/10.1017/jli.2018.25</li>
+      <li>Westerwick, A., Johnson, B. K., &amp; Knobloch-Westerwick, S. (2017). Confirmation biases in selective exposure to political online information: Source bias vs. content bias. <em>Communication Monographs, 84</em>(3), 343–364. https://doi.org/10.1080/03637751.2016.1272761</li>
+      <li>Zhou, Y., &amp; Shen, L. (2021). Confirmation bias and the persistence of misinformation on climate change. <em>Communication Research</em>. https://doi.org/10.1177/00936502211028049</li>
+    </ul>
+  </div>
+
+  <div class="end-mark">• • •</div>
+
+</div>
+</body>
+</html>

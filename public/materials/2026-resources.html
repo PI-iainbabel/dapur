@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Sumber Daya — Program Pascasarjana</title>
+<style>
+  :root {
+    --text: #1a1a1a;
+    --muted: #555;
+    --accent: #2c5f7c;
+    --rule: #ccc;
+    --green: #3a6b4a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
+    background: #fafaf7;
+    margin: 0;
+    padding: 0;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 40px;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0,0,0,0.06);
+  }
+  .part-header {
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 4px solid var(--accent);
+    border-bottom: 4px solid var(--accent);
+    margin-bottom: 48px;
+  }
+  .part-header .part-label {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .part-header h1 {
+    font-size: 36px;
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: var(--text);
+  }
+  .program {
+    border-top: 3px solid var(--accent);
+    padding-top: 36px;
+    margin: 60px 0 40px;
+  }
+  .program:first-of-type {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+  .institution {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  h2 {
+    font-size: 28px;
+    line-height: 1.2;
+    margin: 0 0 14px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  h3 {
+    font-size: 18px;
+    margin: 30px 0 12px;
+    color: var(--text);
+  }
+  p { margin: 0 0 16px; text-align: justify; hyphens: auto; }
+  p.tagline {
+    font-size: 19px;
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0 24px;
+  }
+  ul { padding-left: 24px; margin: 0 0 20px; }
+  ul li { margin-bottom: 8px; }
+  .key-facts {
+    background: #f6f8f9;
+    border-left: 4px solid var(--accent);
+    padding: 20px 24px;
+    margin: 28px 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .key-facts h4 {
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 12px;
+  }
+  .key-facts dl {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 8px 16px;
+  }
+  .key-facts dt { font-weight: 600; color: var(--muted); }
+  .key-facts dd { margin: 0; }
+  .testimonials {
+    margin: 28px 0;
+  }
+  .testimonial {
+    background: #f9fafb;
+    border-left: 3px solid var(--accent);
+    padding: 16px 22px;
+    margin-bottom: 18px;
+    font-style: italic;
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: #333;
+  }
+  .testimonial .attr {
+    display: block;
+    margin-top: 10px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-size: 12.5px;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+  }
+  .highlights {
+    background: #f6f8f9;
+    border: 1px solid #d8e2e8;
+    padding: 22px 26px;
+    margin: 28px 0;
+  }
+  .highlights h4 {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14px;
+  }
+  .highlights ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .highlights li {
+    padding-left: 24px;
+    position: relative;
+    margin-bottom: 10px;
+    font-size: 15.5px;
+  }
+  .highlights li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+  }
+  .stat-box {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 24px 0;
+  }
+  .stat-box .stat {
+    background: var(--accent);
+    color: #fff;
+    padding: 16px 12px;
+    text-align: center;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+  .stat-box .stat .value {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .stat-box .stat .label {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    line-height: 1.3;
+  }
+  .contact {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #e0e0e0;
+  }
+  .contact a { color: var(--accent); text-decoration: none; }
+  .other-resources {
+    text-align: center;
+    padding: 40px 20px;
+    background: #f6f8f9;
+    border: 1px solid #d8e2e8;
+    margin: 60px 0;
+  }
+  .other-resources h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+  .other-resources p {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .resource-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .resource-links span {
+    background: #fff;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 8px 16px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    border-radius: 20px;
+  }
+  .logo-mark {
+    text-align: center;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -1px;
+    margin-bottom: 14px;
+  }
+  .end-mark {
+    text-align: center;
+    color: var(--muted);
+    letter-spacing: 6px;
+    margin: 60px 0 20px;
+  }
+  @media (max-width: 640px) {
+    .page { padding: 30px 20px; }
+    h2 { font-size: 22px; }
+    .part-header h1 { font-size: 26px; }
+    .key-facts dl { grid-template-columns: 1fr; gap: 4px; }
+    .stat-box { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ PART HEADER ============ -->
+  <div class="part-header">
+    <div class="part-label">Bagian III</div>
+    <h1>Sumber Daya</h1>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- LSE -->
+  <!-- ============================================================ -->
+  <section class="program">
+    <div class="institution">London School of Economics and Political Science</div>
+    <h2>Executive MSc Behavioural Science</h2>
+    <p class="tagline">Memahami Perilaku di Dunia yang Berubah</p>
+
+    <p>Dirancang untuk profesional yang bekerja di berbagai sektor, Executive MSc Behavioural Science LSE menggabungkan pelatihan akademis yang ketat dengan wawasan praktis.</p>
+
+    <p>Diajarkan oleh para ahli dan praktisi terkemuka dunia, Anda akan mempelajari cara menerapkan wawasan perilaku untuk memecahkan tantangan kebijakan, bisnis, organisasi, dan sosial.</p>
+
+    <p>Baik Anda bekerja di sektor publik, swasta, atau ketiga, Anda akan membangun pengetahuan spesialis dan menemukan aplikasi praktis yang dapat membuka peluang profesional baru di bidang yang berkembang pesat ini.</p>
+
+    <h3>Program yang Dirancang di Sekitar Karier Anda</h3>
+
+    <p>Executive MSc dirancang agar sesuai dengan karier yang sibuk. Program ini menawarkan kesempatan bagi para profesional penuh waktu dari mana saja di dunia untuk belajar secara fleksibel sambil terus bekerja.</p>
+
+    <p>Program 16 bulan ini dimulai setiap September dan disampaikan melalui tiga sesi pengajaran intensif dua minggu di kampus LSE di London, dengan studi mandiri dan tugas di antara sesi. Di luar blok pengajaran, Anda dapat terus tinggal dan bekerja di Inggris atau di luar negeri. Setelah komponen pengajaran selesai, Anda akan menyelesaikan disertasi tentang topik pilihan Anda, dengan dukungan dari supervisor akademis.</p>
+
+    <p>Kurikulumnya mencakup berbagai kursus, termasuk:</p>
+    <ul>
+      <li>Behavioural Science and Policy</li>
+      <li>Behavioural Decision Science</li>
+      <li>Research Methods for Behavioural Science</li>
+      <li>Frontiers in Behavioural Science Methods</li>
+      <li>Policy Appraisal and Ethics</li>
+      <li>Behavioural Science in an Age of AI and New Technology</li>
+      <li>Corporate Behaviour and Decision Making</li>
+      <li>The Science of Time at Work</li>
+      <li>Beyond Nudging: The Frontiers of Behavioural Science in a Complex World</li>
+    </ul>
+
+    <p><em>Harap dicatat bahwa, meskipun informasi ini benar pada saat penerbitan, Sekolah mungkin kadang-kadang perlu mengubah, menangguhkan, atau menarik kursus.</em></p>
+
+    <h3>Komunitas Profesional Global</h3>
+
+    <p>Mahasiswa kami berasal dari berbagai latar belakang profesional, akademis, dan geografis, menciptakan kohort internasional yang beragam. Mereka membawa perspektif dari berbagai sektor, disiplin ilmu, dan tahap karier, memperkaya diskusi sepanjang program. Dipersatukan oleh minat bersama pada ilmu perilaku dan penerapan dunianya yang nyata, mereka juga menjadi bagian dari jaringan global rekan dan alumni yang melampaui ruang kelas.</p>
+
+    <div class="testimonials">
+      <div class="testimonial">
+        "Ini adalah pengalaman yang benar-benar bermanfaat, dengan kohort global yang fantastis, yang terus membawa nilai nyata bagi pekerjaan sehari-hari saya."
+        <span class="attr">— Sarah, lulusan 2025</span>
+      </div>
+      <div class="testimonial">
+        "Program ini telah memberi saya kepercayaan diri untuk menantang cara-cara di mana hal-hal biasanya dilakukan untuk mencapai hasil yang lebih bermakna dan berdampak."
+        <span class="attr">— Lucy, lulusan 2024</span>
+      </div>
+      <div class="testimonial">
+        "Executive MSc in Behavioural Science menggabungkan dinamisme lingkungan belajar LSE dengan kurikulum yang menarik dan beragam, semuanya di bawah bimbingan akademisi kelas dunia."
+        <span class="attr">— Mike, lulusan 2025</span>
+      </div>
+      <div class="testimonial">
+        "Executive MSc in Behavioural Science telah menjadi pengubah permainan bagi saya. Dengan memperdalam pemahaman saya tentang perilaku manusia, saya sekarang dapat merancang dan menerapkan inisiatif berbasis bukti yang berdampak dan mendorong perubahan transformasional."
+        <span class="attr">— Fadzi, lulusan 2024</span>
+      </div>
+      <div class="testimonial">
+        "Saya telah memperoleh pemahaman yang lebih dalam tentang cara merancang intervensi yang bertarget dan berbasis bukti yang menghasilkan pergeseran perilaku yang nyata dan berkelanjutan."
+        <span class="attr">— Kele, lulusan 2025</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- UCD -->
+  <!-- ============================================================ -->
+  <section class="program">
+    <div class="institution">UCD School of Economics — Scoil na hEacnamaíochta UCD</div>
+    <h2>MSc in Behavioural Economics di University College Dublin</h2>
+
+    <p>UCD School of Economics adalah departemen Ekonomi terkemuka di Irlandia, dan MSc in Behavioural Economics kami diajarkan oleh tim peneliti dan praktisi perilaku yang dinamis.</p>
+
+    <p>Kami menyediakan pelatihan mendalam dalam konsep dan teori inti ekonomi perilaku, dengan fokus pada cara menerapkan alat-alat ini di bidang seperti kesehatan, regulasi, tenaga kerja, ekonomi lingkungan, dan pendidikan. Anda dapat memilih dari berbagai kelas tentang metodologi empiris untuk melakukan berbagai jenis eksperimen terkontrol (lapangan, laboratorium, dan online).</p>
+
+    <p>Anda memiliki kesempatan untuk merancang dan melakukan eksperimen Anda sendiri di UCD Experimental Social Sciences Lab. Anda juga dapat memilih untuk menulis tesis atau melakukan magang musim panas di organisasi pilihan Anda.</p>
+
+    <p>Mahasiswa MSc kami adalah bagian integral dari budaya penelitian yang kuat di UCD dan menghadiri seminar oleh peneliti internasional dan lokakarya yang diselenggarakan oleh UCD Behavioural Science and Policy Group.</p>
+
+    <div class="testimonial">
+      "MSc ini menyediakan berbagai modul sambil diajarkan oleh beberapa yang terbaik di industri. Meningkatkan keterampilan saya dalam Ekonometrika dan Mikroekonomi adalah sorotan MSc, tetapi juga mengambil modul seperti Energy Economics benar-benar memperluas perspektif saya tentang di mana Ekonomi paling berdampak. Kemampuan untuk menjalankan eksperimen saya sendiri memungkinkan saya melakukan tesis di bidang yang saya sukai. Sepanjang program, Anda dilengkapi dengan keterampilan yang akan Anda gunakan di industri apa pun yang Anda pilih. Saya saat ini bekerja sebagai Analis di 2K Games Dublin! Saya tidak bisa merekomendasikan MSc ini cukup."
+    </div>
+
+    <div class="highlights">
+      <h4>Sorotan Program</h4>
+      <ul>
+        <li>Pelatihan ketat dalam teori dan metode inti untuk penelitian fundamental, serta kebijakan berbasis bukti.</li>
+        <li>Fokus kebijakan yang kuat dan peluang untuk berinteraksi dengan pembuat kebijakan.</li>
+        <li>Ukuran kelas kecil dan supervisi penelitian satu-satu yang berdedikasi.</li>
+        <li>Lokasi strategis Irlandia sebagai pusat Eropa bagi banyak perusahaan multinasional besar membuka pintu ke peluang global. Pemberi kerja terkemuka termasuk perusahaan teknologi, farmasi, dan jasa keuangan besar.</li>
+        <li>Jalur karier yang beragam di kebijakan publik, sektor swasta, dan jalur PhD ke akademisi.</li>
+        <li>Lulusan kami telah menemukan pekerjaan di tempat-tempat seperti: Behavioural Insights Team, Kellanova, Irish Government Economic and Evaluation Service, Grant Thornton, McKinsey, KPMG, Accenture, Novartis, Deloitte, Central Statistics Office, Central Bank of Ireland, European Central Bank, Economic and Social Research Institute, Competition and Consumer Protection Commission, AIB Bank, European Commission, dan organisasi nasional dan internasional terkemuka lainnya.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- GLASGOW -->
+  <!-- ============================================================ -->
+  <section class="program">
+    <div class="institution">University of Glasgow — Adam Smith Business School</div>
+    <h2>MSc Behavioural Science</h2>
+    <p class="tagline">Kuasai Perilaku, Bentuk Bisnis, Berdampak pada Masyarakat</p>
+
+    <p>Program unik ini adalah kolaborasi antara Adam Smith Business School dan School of Psychology &amp; Neuroscience. Program ini menggabungkan pengetahuan dari Ekonomi, Bisnis, Keuangan, Psikologi, dan Neurosains untuk mengembangkan ilmuwan perilaku masa depan. Anda akan memiliki akses ke metode mutakhir, fasilitas laboratorium modern, dan kemitraan industri yang kuat.</p>
+
+    <div class="key-facts">
+      <h4>Fakta Kunci</h4>
+      <dl>
+        <dt>Durasi</dt><dd>12 bulan penuh waktu</dd>
+        <dt>Penyampaian</dt><dd>Tatap muka</dd>
+        <dt>Pengajaran dimulai</dt><dd>September</dd>
+        <dt>Kontak akademis</dt><dd>business-recruitment@glasgow.ac.uk</dd>
+      </dl>
+    </div>
+
+    <h3>Mengapa Memilih MSc Behavioural Science di Adam Smith Business School?</h3>
+
+    <div class="highlights">
+      <h4>Keunggulan Program</h4>
+      <ul>
+        <li><strong>Pendekatan Multi-Disiplin:</strong> Program pengambilan keputusan unik yang menggabungkan wawasan dari Ekonomi, Manajemen, Keuangan, Psikologi, dan Neurosains.</li>
+        <li><strong>Jalur Sains dan Bisnis:</strong> Fondasi terpadu untuk kedua jalur menjamin konsistensi sekaligus memberikan keterampilan khusus yang disesuaikan dengan jalur yang Anda pilih.</li>
+        <li><strong>Pembelajaran Teoretis &amp; Praktis:</strong> Pelajari teori bersama metode penelitian kuantitatif, empiris, dan berbasis pasar.</li>
+        <li><strong>Akses Lab Mutakhir:</strong> Gunakan laboratorium perilaku baru kami untuk eksperimen dunia nyata, termasuk penelitian disertasi.</li>
+        <li><strong>Keterlibatan Industri:</strong> Ikuti proyek industri kompetitif berbasis prestasi dengan perusahaan nyata. Selesaikan tantangan bisnis nyata, dapatkan pengalaman, dan kembangkan jaringan profesional Anda.</li>
+      </ul>
+    </div>
+
+    <h3>Setelah Lulus: Pekerjaan Apa yang Bisa Anda Dapatkan dengan Gelar Ini?</h3>
+
+    <p>Program ini bertujuan untuk menumbuhkan ilmuwan perilaku yang serbaguna yang dilengkapi dengan berbagai keterampilan, memberikan peluang karier yang luar biasa di berbagai sektor. Anda akan memiliki opsi untuk memilih antara dua jalur karier:</p>
+
+    <p><strong>Jalur Sains</strong><br>
+    Membekali lulusan dengan keterampilan neuro-saintifik dan keahlian interdisipliner dalam Ilmu Perilaku, ideal untuk mengejar PhD atau peran penelitian di berbagai sektor.</p>
+
+    <p><strong>Jalur Bisnis</strong><br>
+    Mempersiapkan lulusan untuk karier di kebijakan atau bisnis, dengan fokus pada ilmu keputusan untuk aplikasi praktis di berbagai industri dan sistem pasar.</p>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- PENN -->
+  <!-- ============================================================ -->
+  <section class="program">
+    <div class="institution">University of Pennsylvania</div>
+    <h2>Master of Behavioral and Decision Sciences (MBDS)</h2>
+    <p class="tagline">Pelajari teori, terapkan alat, dan buat perbedaan</p>
+
+    <p>Program Master of Behavioral and Decision Sciences (MBDS) Penn membekali mahasiswa dengan alat teoretis dan praktis untuk memahami bagaimana individu dan kelompok membuat keputusan, bagaimana memengaruhi keputusan tersebut, dan bagaimana norma sosial berperan dalam memotivasi dan mengubah perilaku sosial. Dipimpin oleh fakultas, peneliti, dan praktisi terkemuka dunia, program MBDS menciptakan peluang unik bagi mahasiswa untuk terlibat dengan dewan penasihat yang luar biasa, menerapkan alat dan pengetahuan dalam Design Challenge tahunan kami, dan mengejar penelitian independen lintas disiplin di seluruh Penn.</p>
+
+    <h3>Temui Alumni Kami</h3>
+
+    <div class="testimonials">
+      <div class="testimonial">
+        "Saya menyukai mempelajari alat dan teknik untuk mengevaluasi apa yang dikatakan orang dan menerjemahkannya menjadi peluang bagi klien. [Capstone] adalah proyek yang benar-benar menarik. Saya belum pernah bekerja di ruang kesehatan mental digital sebelumnya. Memiliki peluang untuk mendapatkan wawasan tentang berbagai industri telah membantu saya menjadi bunglon dan belajar berbicara bahasa klien yang berbeda."
+        <span class="attr">— Kathryn Ambroze, MBDS '22, VP, UX Research Lead — Trust and Security, JPMorgan Chase &amp; Co.</span>
+      </div>
+      <div class="testimonial">
+        "Ketika saya diterima di MBDS, itu adalah momen yang seharusnya terjadi. Saya merasa ada kaitan antara saya dan program ini. Saya bisa meluangkan waktu untuk menjelajahi ilmu perilaku dalam pengaturan akademis. Beberapa orang menyukai ruang komersial, beberapa ingin masuk ke konsultasi, beberapa sangat menyukai penelitian. Saya menyadari kesehatan dan hasil kesehatan pasti apa yang saya minati, secara pribadi dan dalam karier saya."
+        <span class="attr">— Yuzhen (Valerie) Guo, MBDS '22, Behavioral Designer, Lirio, LLC</span>
+      </div>
+      <div class="testimonial">
+        "Salah satu hal yang menakjubkan tentang Penn adalah bahwa fakultas yang Anda ajak bekerja sangat terlibat dalam penelitian—mereka sangat berada di garis depan bidangnya, sehingga Anda dapat mengambil bagian dalam banyak penelitian jika Anda mau. Begitu saya selesai dengan proyek pertama, ada profesor lain yang membutuhkan bantuan dengan proyek yang berbeda."
+        <span class="attr">— Max Spohn, MBDS '20, Kandidat PhD, Harvard Kennedy School of Government</span>
+      </div>
+    </div>
+
+    <h3>Temui Direktur Pendiri Program MBDS</h3>
+
+    <p><strong>Cristina Bicchieri</strong><br>
+    S. J. P. Harvie Professor of Social Thought and Comparative Ethics; Professor of Legal Studies and Business Ethics, Wharton; Direktur, Center for Social Norms and Behavioral Dynamics; Faculty Director, Master of Behavioral and Decision Sciences and Philosophy, Politics, and Economics; University of Pennsylvania.</p>
+
+    <div class="testimonial">
+      "Di mana pun ada kelompok manusia, di situ ada norma sosial."
+      <span class="attr">— Cristina Bicchieri</span>
+    </div>
+
+    <p>Cristina Bicchieri adalah otoritas dunia dalam norma sosial dan telah berkonsultasi dengan UNICEF, Bank Dunia, Gates Foundation, Departemen Pembangunan Internasional Inggris, dan banyak organisasi lain. Ia adalah pendiri program Master of Behavioral and Decision Sciences dan Center for Social Norms and Behavioral Dynamics, pusat penelitian utama di Penn yang bertujuan mendukung perilaku positif dalam skala global. Cristina adalah penulis lebih dari 100 artikel dan tujuh buku.</p>
+
+    <h3>Koneksi yang Tak Tertandingi, Peluang yang Luar Biasa</h3>
+
+    <p>Fitur yang menentukan dari program Master of Behavioral and Decision Sciences (MBDS) University of Pennsylvania adalah jaringan mitra industri dan penelitiannya yang luar biasa yang membantu memberikan pengalaman praktis yang luar biasa kepada mahasiswa.</p>
+
+    <div class="highlights">
+      <h4>Afiliasi Industri Design Challenge MBDS</h4>
+      <p style="font-family: Helvetica, Arial, sans-serif; font-size: 13.5px; line-height: 1.8; text-align: left; margin: 0;">
+        Accenture · AIR Company · BEESY · Be Kind Network · BuenTrip Ventures · ComplexChaos · Cowry Consulting · Dia Diagnostics · Deloitte · EY · Flourish · Free People · Huron · IDB · ideas42 · JPMorgan · Ipsos · MakeltLab · MIDA · Newristics · OECD · Oxford Energy · Pensión · Precision Healthcare Ecosystem · Project INSPIRE · Seidman Research · Tech4Pets · Tenova Advanced Technologies · The Energy Efficiency Institute · The World Bank · Vanguard
+      </p>
+    </div>
+
+    <h3>Pengalaman Capstone—Design Challenge</h3>
+
+    <p>Pengalaman Capstone—Design Challenge terdiri dari dua semester berturut-turut di mana mahasiswa diundang untuk terlibat dalam dialog dengan industri untuk memahami cara menggunakan alat yang dipelajari dalam program Master of Behavioral and Decision Sciences (MBDS) untuk mengatasi masalah perilaku tertentu. Pada semester musim gugur, mahasiswa berfokus pada pembelajaran teknik dan teori desain perilaku sambil mengasah keterampilan menghadapi klien. Mereka terlibat dalam percakapan dengan pemimpin akademis dan industri yang memberi mereka pengetahuan langsung tentang a) bagaimana dan mengapa ilmu perilaku diterapkan di organisasi di berbagai domain, dan b) apa yang dapat diharapkan lulusan MBDS ketika mereka memasuki pasar kerja. Pada semester kedua, mahasiswa membawa pengetahuan mereka ke klien nyata dalam Design Challenge, kursus 14 minggu di mana tim mahasiswa menyelesaikan pertanyaan perilaku yang diajukan oleh Afiliasi Industri MBDS. Tujuan utama adalah mempersiapkan mahasiswa untuk terlibat dengan beragam industri dan organisasi global segera setelah mereka menyelesaikan program.</p>
+
+    <div class="testimonial">
+      "Design Challenge adalah peluang yang sangat berharga bagi mahasiswa kami untuk menerapkan pendidikan MBDS mereka menuju pengembangan solusi praktis sambil mendapatkan pengalaman dunia nyata."
+    </div>
+
+    <p>Setiap musim semi, sebagai bagian dari kursus Capstone Experience yang diwajibkan, program MBDS menyelenggarakan Design Challenge, di mana mahasiswa kami bermitra dengan Afiliasi Industri MBDS untuk menerapkan pengetahuan mutakhir dari bidang ekonomi perilaku, ilmu keputusan, ilmu data, analisis jaringan, dan kebijakan publik untuk memecahkan masalah kehidupan nyata. Kami menyambut klien terkemuka dunia di industri seperti keuangan, perawatan kesehatan, konsultasi, keberlanjutan, integrasi teknologi dalam pemasaran, dan keuangan untuk berkolaborasi dengan mahasiswa kami dan memberikan panduan tentang memecahkan tantangan mereka.</p>
+
+    <p>Dalam Design Challenge, mahasiswa MBDS bekerja untuk menerjemahkan penelitian akademis dan kerangka kerja terapan menjadi wawasan yang dapat ditindaklanjuti menuju masalah yang berfokus pada klien. Pada akhir Design Challenge, mahasiswa mempresentasikan solusi yang diusulkan kepada manajemen senior dan kepemimpinan klien.</p>
+
+    <div class="contact">
+      Pelajari lebih lanjut tentang bagaimana MBDS menghubungkan mahasiswa dan industri di: <a href="https://www.upenn.edu/mbds">www.upenn.edu/mbds</a>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- STIRLING -->
+  <!-- ============================================================ -->
+  <section class="program">
+    <div class="institution">University of Stirling</div>
+    <h2>MSc Behavioural Science</h2>
+    <p class="tagline">Di mana sains bertemu dengan dampak dunia nyata</p>
+
+    <div class="stat-box">
+      <div class="stat">
+        <span class="value">Est. 2013</span>
+        <span class="label">Berdiri. Disempurnakan. Terpercaya.</span>
+      </div>
+      <div class="stat">
+        <span class="value">100%</span>
+        <span class="label">Kepuasan Mahasiswa — PTES 2025</span>
+      </div>
+      <div class="stat">
+        <span class="value">FT / PT</span>
+        <span class="label">Opsi Penuh Waktu atau Paruh Waktu</span>
+      </div>
+    </div>
+
+    <p>Program terakreditasi ESRC 1+3 yang ditawarkan sejak 2013 dan terus disempurnakan selama lebih dari satu dekade. Diajarkan oleh peneliti aktif yang menerbitkan di jurnal terkemuka dunia dalam manajemen, ekonomi, kedokteran, dan psikologi, program ini membekali Anda dengan keterampilan konseptual, metodologis, dan terapan untuk memahami dan mengubah perilaku secara efektif dan etis dalam bisnis, pemerintahan, atau masyarakat sipil.</p>
+
+    <div class="highlights">
+      <h4>Sorotan Program</h4>
+      <ul>
+        <li><strong>Behavioural Economics: Concepts &amp; Theories</strong> — Studi penting yang dikontekstualisasikan untuk membangun perangkat untuk menavigasi tantangan perilaku dunia nyata.</li>
+        <li><strong>Applying Behavioural Insights to Business &amp; Policy</strong> — Nudge, boost, sludge, dan kerangka etika FORGOOD — mengembangkan intervensi yang bertanggung jawab dan melibatkan pemangku kepentingan.</li>
+        <li><strong>Evidence-Based Decision Making</strong> — Desain eksperimental, inferensi kausal, dan penilaian kritis — termasuk merancang dan menjalankan eksperimen kelas.</li>
+        <li><strong>Statistics and Data Communication with R</strong> — Dari dasar hingga proyek penelitian independen menggunakan standar open-source di bidang ini.</li>
+        <li><strong>Survey Measurement &amp; Analysis</strong> — Desain survei, kualitas data, dan penarikan kesimpulan yang bermakna dari dataset besar.</li>
+        <li><strong>Decision Making in Organisations</strong> — Lensa perilaku tentang rekrutmen, motivasi, kesejahteraan, dan manajemen perubahan.</li>
+      </ul>
+    </div>
+
+    <p><em>Tema penelitian: Nudges | Sludge | Perilaku konsumen | Etika pengaruh perilaku | Kesejahteraan subjektif | Peramalan kebahagiaan | Desain eksperimental | Risiko dan ketidakpastian | Keterlibatan pemangku kepentingan | Penilaian non-pasar | Rekonstruksi hari.</em></p>
+
+    <div class="testimonial">
+      "Lulusan MSc Behavioural Science Stirling datang kepada kami dengan persiapan yang sangat baik. Pengetahuan teknis dan keluasan pengetahuan mereka tentang cara menerapkan ilmu perilaku dalam praktik berarti mereka secara teratur berada di urutan teratas daftar kandidat kami ketika kami merekrut."
+      <span class="attr">— Jez Groom, Pendiri Cowry Consulting dan Small Wonder Consultancy</span>
+    </div>
+
+    <h3>Program yang Terhubung dengan Dunia</h3>
+
+    <p>Mahasiswa kami mendapat manfaat dari koneksi dengan HMRC, Ofcom, Ofgem, Cowry Consulting, CMA, Siemens, NHS, Department of Health Irlandia, Glasgow Film Theatre, Keep Scotland Beautiful, jurnal eLife, Iceland's Cancer Detection Clinic, dan banyak lagi.</p>
+
+    <p><strong>Terapkan pembelajaran Anda pada:</strong> pengambilan keputusan keuangan · kesehatan mental &amp; kesejahteraan · perilaku lingkungan · perjudian · penggunaan media &amp; perilaku digital · konsumsi makanan · transportasi &amp; mobilitas · kesehatan &amp; kesehatan publik · perilaku tempat kerja · perilaku konsumen · dan banyak lagi.</p>
+
+    <h3>Peran Lulusan</h3>
+
+    <p><strong>Tim Behavioral Insight</strong> pemerintah nasional &amp; lokal · <strong>Konsultan</strong> arsitek perilaku, profesional wawasan · <strong>Akademisi</strong> jalur PhD — MSc terakreditasi SSRC 1+3 · <strong>Badan regulator</strong> Ofcom, Ofgem, CMA, UN Food &amp; HMRC · <strong>Korporasi besar</strong> ilmuwan perilaku utama, manajer riset · <strong>Amal &amp; LSM</strong> analis kebijakan, spesialis perubahan perilaku.</p>
+
+    <h3>Hasil Karier</h3>
+
+    <p>Rata-rata gaji Inggris £42.877 untuk ilmuwan perilaku (Glassdoor, 2025).</p>
+
+    <div class="highlights">
+      <h4>Moneyball Karier Anda</h4>
+      <ul>
+        <li>Diajarkan oleh peneliti yang menerbitkan di <em>Nature, NEJM, Management Science</em>, dan <em>Behavioural Public Policy</em> — pengetahuan mutakhir yang langsung menginformasikan pembelajaran Anda.</li>
+        <li>Terakreditasi AACSB — sebuah keunggulan yang hanya dimiliki oleh 6% sekolah bisnis di seluruh dunia.</li>
+        <li>100% kepuasan mahasiswa dalam survei PTES 2025.</li>
+        <li>Lulusan di posisi senior di HMRC, Ofcom, Behavioural Insights Team, Cowry Consulting, pemerintah nasional, dan konsultan terkemuka di seluruh dunia.</li>
+        <li>Jaringan aktif yang menghubungkan Anda dengan HMRC, Ofcom, Ofgem, Siemens, NHS, Cowry Consulting, CMA, dan banyak lagi — sejak hari pertama.</li>
+        <li>Prinsip yang dapat dialihkan yang dapat Anda terapkan pada bidang yang paling penting bagi Anda: pengambilan keputusan keuangan, kesehatan mental, perilaku lingkungan, perjudian, penggunaan media, makanan, transportasi, atau lebih.</li>
+      </ul>
+    </div>
+
+    <h3>Beasiswa Tersedia</h3>
+
+    <p>Postgraduate Merit Scholarship · Be the Difference International Scholarship · EU Postgraduate Scholarship · Stirling Alumni Scholarship · Postgraduate India Scholarship · Postgraduate Pakistan Scholarship.</p>
+
+    <p>Semua ini hadir dengan biaya kuliah yang sangat kompetitif dibandingkan program MSc yang setara di seluruh Inggris — menjadikan Stirling proposisi paling bijaksana dalam pendidikan ilmu perilaku.</p>
+
+    <div class="testimonials">
+      <div class="testimonial">
+        "Bimbingan yang ditawarkan dalam mempersiapkan topik disertasi kami sangat luar biasa. Fakultas memberikan dukungan yang hebat. Ini membantu saya memikirkan bagaimana proyek saya dapat berdampak di dunia nyata."
+        <span class="attr">— Dannish Odongo, Lulusan 2026</span>
+      </div>
+      <div class="testimonial">
+        "Saya suka bagaimana program ini membawa saya ke dalam jaringan ilmuwan perilaku yang lebih luas yang terkait dengan kelompok di Stirling. Seorang lulusan yang sekarang bekerja di OFCOM memberi saya panduan tentang disertasi saya. Bahkan sebelum lulus, saya direkrut untuk proyek yang didanai untuk melakukan desludging pada penerbitan ilmiah."
+        <span class="attr">— Paola Goggi, Lulusan 2025</span>
+      </div>
+      <div class="testimonial">
+        "Kursus ini sangat merangsang — ini mendorong saya untuk mempelajari keterampilan baru dan berpikir dengan cara yang mendalam dan terstruktur. Diajarkan oleh para ahli terkemuka dunia benar-benar memperluas perspektif saya."
+        <span class="attr">— Morgan Reed, Lulusan 2025</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- WARWICK -->
+  <!-- ============================================================ -->
+  <section class="program">
+    <div class="institution">University of Warwick</div>
+    <h2>MSc in Behavioural and Economic Science</h2>
+
+    <p class="tagline">Apakah Anda ingin memahami pilihan yang dibuat orang, mengapa mereka membuatnya, dan apa yang memengaruhi perilaku mereka?</p>
+
+    <p>MSc in Behavioural Science and Economics di University of Warwick menggabungkan keahlian multidisiplin dari departemen Psikologi, Ekonomi, dan Warwick Business School, yang penting untuk memahami bagaimana memengaruhi perilaku orang.</p>
+
+    <h3>Mengapa Belajar Behavioural and Economic Science di University of Warwick?</h3>
+
+    <div class="highlights">
+      <h4>Keunggulan Program</h4>
+      <ul>
+        <li>Program unik dan inovatif dengan modul yang diambil dari Psikologi, Ekonomi, dan Business School, memberikan landasan menyeluruh baik teori maupun aplikasi dunia nyata ilmu perilaku.</li>
+        <li>Modul inti yang ketat yang meletakkan fondasi untuk bidang ini, termasuk ekonomi mikro perilaku, isu inti dalam ilmu psikologi, serta metode penelitian dan statistik tingkat lanjut.</li>
+        <li>Berbagai modul opsional, yang mencakup topik yang dapat meliputi kebijakan publik perilaku, nudge dan perubahan perilaku, ekonomi eksperimental, etika perilaku, statistik Bayesian, pemodelan kognitif, dan neuroekonomi.</li>
+        <li>Diajarkan oleh para ahli ilmu perilaku terkemuka di ketiga disiplin.</li>
+        <li>Jaringan alumni yang menarik dari lebih dari 15 tahun kohort MSc, di salah satu kursus ilmu perilaku paling mapan di dunia.</li>
+        <li>Peluang untuk menciptakan karya penelitian asli yang substantif dalam kolaborasi dengan supervisor melalui proyek musim panas.</li>
+      </ul>
+    </div>
+
+    <div class="key-facts">
+      <h4>Fakta Kunci</h4>
+      <dl>
+        <dt>Kode kursus</dt><dd>P-C8P7</dd>
+        <dt>Kualifikasi</dt><dd>MSc</dd>
+        <dt>Tanggal mulai</dt><dd>28 September 2026</dd>
+        <dt>Dipimpin oleh</dt><dd>Psychology</dd>
+        <dt>Durasi</dt><dd>1 tahun penuh waktu</dd>
+        <dt>Lokasi</dt><dd>University of Warwick</dd>
+      </dl>
+    </div>
+
+    <h3>Testimoni Alumni</h3>
+
+    <div class="testimonials">
+      <div class="testimonial">
+        "Pendekatan yang kami ambil di kelas Behavioural and Economic Science — mengandalkan data untuk mengajukan teori, menggunakan metode ilmiah untuk menguji hipotesis, dan standar penelitian &amp; analisis yang tinggi — telah menjadi sesuatu yang saya bawa ke pekerjaan saya saat ini. Kami melakukan banyak eksperimen mini dan menguji untuk mengetahui dengan tepat apa yang paling berhasil, mengapa berhasil, dan kemudian bagaimana cara terbaik meluncurkannya ke kelompok yang lebih luas."
+        <span class="attr">— Biswajit Chaki, MSc Behavioural and Economic Science (Science Track), 2019</span>
+      </div>
+      <div class="testimonial">
+        "Waktu saya di Warwick sangat penting dalam mempersiapkan saya untuk kehidupan setelah universitas. Lingkungan akademis yang ketat menantang saya untuk berpikir kritis dan kreatif, membekali saya dengan keterampilan analitis penting yang saya terapkan setiap hari. Penekanan Warwick pada pengalaman praktis sangat bermanfaat. Melalui lokakarya, seminar, dan acara jejaring, saya mendapatkan pengalaman langsung dalam kewirausahaan dan pengembangan bisnis."
+        <span class="attr">— Donal Connelly, MSc Behavioural and Economic Science (Science Track), 2023</span>
+      </div>
+    </div>
+
+    <h3>Mengapa Warwick?</h3>
+
+    <p>University of Warwick secara konsisten diperingkatkan tinggi baik dalam tabel liga Inggris maupun Internasional.</p>
+    <ul>
+      <li><strong>Peringkat ke-7</strong> dalam tabel liga universitas Inggris (The Guardian University Guide 2026)</li>
+      <li><strong>Peringkat ke-5 di Inggris untuk Ekonomi</strong> (The QS World University Rankings by Subject 2026)</li>
+      <li><strong>Universitas ke-4 yang paling banyak ditargetkan</strong> oleh 100 pemberi kerja lulusan teratas Inggris (The Graduate Market in 2025, High Fliers Research Ltd).</li>
+    </ul>
+
+    <p>Dengan belajar di Warwick, Anda akan menjadi bagian dari komunitas global mahasiswa dan alumni dari berbagai latar belakang dari seluruh dunia. Lulusan kami telah mengejar berbagai karier yang sukses di seluruh akademisi, pemerintahan, perawatan kesehatan, konsultasi, dan sektor publik, menerapkan ilmu perilaku untuk membentuk kebijakan, meningkatkan layanan publik, dan memengaruhi pengambilan keputusan di berbagai industri.</p>
+
+    <div class="contact">
+      Detail lebih lanjut: psychologyPG@warwick.ac.uk | +44 (0)24765 23096 | warwick.ac.uk/bes
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- OTHER RESOURCES -->
+  <!-- ============================================================ -->
+  <div class="other-resources">
+    <div class="logo-mark">BE</div>
+    <h2>Sumber Daya Lainnya</h2>
+    <p>Untuk sumber daya ilmu perilaku yang paling mutakhir, silakan kunjungi</p>
+    <p><strong style="font-size: 20px; color: var(--accent);">BehavioralEconomics.com</strong></p>
+    <div class="resource-links">
+      <span>Program Pascasarjana (daftar lengkap)</span>
+      <span>Grup LinkedIn</span>
+      <span>Papan Lowongan Kerja</span>
+      <span>Ensiklopedia</span>
+      <span>Buku dan lainnya</span>
+    </div>
+  </div>
+
+  <div class="end-mark">• • •</div>
+
+</div>
+</body>
+</html>
