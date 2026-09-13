@@ -1,49 +1,399 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dari Intensi ke Aksi — BE × Maqashid Syariah × AI</title>
-<style>
-  :root {
-    --bg: #0a0e1a;
-    --text: #e8eef7;
-    --accent: #22d3ee;
-    --gold: #fbbf24;
-  }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: system-ui, -apple-system, sans-serif;
-    padding: 40px 20px;
-    max-width: 900px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-  h1 { font-size: 2.2rem; color: var(--gold); }
-  .box {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(34,211,238,0.2);
-    border-radius: 12px;
-    padding: 24px;
-    margin: 20px 0;
-  }
-  .tag { background: var(--accent); color: #000; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
+    <title>Pengantar Behavioral Economics & Psikologi Bisnis Islam · PIBI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #1e3a8a;
+            --primary-accent: #3b82f6;
+            --pi-navy: #152c54;
+            --gold: #f59e0b;
+            --bg-dark: #091322;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+        body {
+            background: radial-gradient(circle at 50% 0%, #152c54 0%, #08101d 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+        }
+        .tab-btn {
+            transition: all 0.2s ease;
+        }
+        .tab-btn.active {
+            background: rgba(59, 130, 246, 0.25);
+            border-color: rgba(59, 130, 246, 0.4);
+            color: #93c5fd;
+        }
+    </style>
 </head>
-<body>
-  <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
-    <img src="./Logo-pi.png" onerror="this.onerror=null; this.src='./Logo-pi.svg'" alt="Logo Psikologi Islam" style="width: 52px; height: 52px; border-radius: 50%; object-fit: contain; background: #152c54; border: 2px solid rgba(34,211,238,0.4);" />
-    <div>
-      <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); font-weight: bold;">Program Studi Psikologi Islam</div>
-      <h1 style="margin: 0; font-size: 1.8rem;">Dari Intensi ke Aksi: BE × Maqashid Syariah × AI</h1>
+<body class="p-3 md:p-6 text-slate-200 antialiased selection:bg-blue-600 selection:text-white">
+
+    <div class="max-w-6xl mx-auto flex flex-col min-h-[92vh]">
+        
+        <!-- ACADEMIC HEADER WITH OFFICIAL PSIKOLOGI ISLAM LOGO -->
+        <header class="glass-card p-4 mb-5 flex flex-wrap items-center justify-between gap-4 border border-blue-900/40 bg-slate-900/60 shadow-xl">
+            <div class="flex items-center gap-3.5">
+                <!-- Official Logo: logo-pi.png -->
+                <div class="relative group">
+                    <img src="./logo-pi.png" alt="Logo Psikologi Islam" 
+                        class="w-12 h-12 rounded-full border-2 border-blue-400/40 shadow-lg object-contain bg-[#152c54] p-0.5 transition-transform group-hover:scale-105"
+                    />
+                    <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-slate-900 flex items-center justify-center text-[9px] text-white">
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-blue-400 font-mono">Program Studi Psikologi Islam</span>
+                        <span class="text-[10px] px-2 py-0.5 bg-blue-950/80 text-blue-300 border border-blue-800/60 rounded-full">PIBI Course</span>
+                    </div>
+                    <h1 class="text-lg md:text-xl font-bold text-white tracking-tight flex items-center gap-2">
+                        Pengantar Behavioral Economics & Psikologi Bisnis Islam
+                    </h1>
+                    <p class="text-xs text-slate-400">
+                        Dokumen Modul Interaktif Perkuliahan · Kode Modul: <code class="text-blue-300">PIBI-INTRO-BE-2026</code>
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 text-xs text-slate-400 border-t md:border-t-0 pt-2 md:pt-0 border-slate-800 w-full md:w-auto justify-between md:justify-end">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-chalkboard-user text-amber-400 text-sm"></i>
+                    <div>
+                        <p class="text-[10px] uppercase tracking-wider text-slate-500">Dosen Pengampu</p>
+                        <p class="font-semibold text-slate-200">Oktarizal Drianus, M.Psi.</p>
+                    </div>
+                </div>
+                <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 text-xs font-medium transition flex items-center gap-1.5">
+                    <i class="fas fa-print"></i> Cetak / Simpan PDF
+                </button>
+            </div>
+        </header>
+
+        <!-- NAVIGATION TABS -->
+        <nav class="flex flex-wrap gap-2 mb-4">
+            <button onclick="switchTab('tab-fondasi')" id="btn-tab-fondasi" class="tab-btn active px-4 py-2 rounded-xl text-xs md:text-sm font-semibold border border-transparent bg-slate-900/40 text-slate-300 hover:text-white flex items-center gap-2">
+                <i class="fas fa-book-open"></i> 1. Fondasi BE & Realitas Manusia
+            </button>
+            <button onclick="switchTab('tab-dual')" id="btn-tab-dual" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-semibold border border-transparent bg-slate-900/40 text-slate-300 hover:text-white flex items-center gap-2">
+                <i class="fas fa-brain"></i> 2. Teori Sistem Ganda (System 1 & 2)
+            </button>
+            <button onclick="switchTab('tab-nudge')" id="btn-tab-nudge" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-semibold border border-transparent bg-slate-900/40 text-slate-300 hover:text-white flex items-center gap-2">
+                <i class="fas fa-hand-pointer"></i> 3. Nudge vs Sludge Syariah
+            </button>
+            <button onclick="switchTab('tab-kuis')" id="btn-tab-kuis" class="tab-btn px-4 py-2 rounded-xl text-xs md:text-sm font-semibold border border-transparent bg-slate-900/40 text-slate-300 hover:text-white flex items-center gap-2">
+                <i class="fas fa-vial"></i> 4. Mini Lab Diagnostik Bias
+            </button>
+        </nav>
+
+        <!-- TAB CONTENT 1: FONDASI BE -->
+        <main id="tab-fondasi" class="tab-content flex-1 space-y-4">
+            <div class="glass-card p-6 border-l-4 border-blue-500">
+                <div class="flex items-center gap-2 text-blue-400 text-xs font-bold uppercase tracking-wider mb-1">
+                    <i class="fas fa-compass"></i> Mengapa Behavioral Economics Penting untuk Psikologi Islam?
+                </div>
+                <h2 class="text-xl md:text-2xl font-bold text-white mb-3">
+                    Menggugat Mitos <span class="text-amber-400">Homo Economicus</span> dengan Realitas Manusia
+                </h2>
+                <p class="text-sm md:text-base text-slate-300 leading-relaxed mb-4">
+                    Selama berabad-abad, teori ekonomi neoklasik berasumsi bahwa manusia adalah <em>Homo Economicus</em>—makhluk rasional sempurna yang selalu menghitung probabilitas matematis, konsisten sepanjang waktu, dan tidak pernah tergoda oleh emosi. Namun, psikologi membuktikan sebaliknya: <strong>manusia adalah makhluk yang memiliki keterbatasan kognitif (*bounded rationality*), rentan terpengaruh lingkungan, dan sarat bias mental.</strong>
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-4 mt-6">
+                    <div class="p-4 rounded-xl bg-red-950/20 border border-red-800/30">
+                        <div class="flex items-center gap-2 text-red-400 font-bold text-sm mb-2">
+                            <i class="fas fa-times-circle"></i> Asumsi Lama (Ekonomi Klasik)
+                        </div>
+                        <ul class="text-xs space-y-2 text-slate-300">
+                            <li>• Manusia memiliki kapasitas memori dan komputasi tanpa batas.</li>
+                            <li>• Pilihan selalu konsisten di mana pun dan kapan pun disajikan.</li>
+                            <li>• Informasi lengkap selalu berujung pada tindakan yang benar.</li>
+                            <li>• Egoisme murni adalah satu-satunya penggerak utilitas.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-emerald-950/20 border border-emerald-800/30">
+                        <div class="flex items-center gap-2 text-emerald-400 font-bold text-sm mb-2">
+                            <i class="fas fa-check-circle"></i> Realitas Nyata (Psikologi & PIBI)
+                        </div>
+                        <ul class="text-xs space-y-2 text-slate-300">
+                            <li>• Otak menghemat energi menggunakan jalan pintas (*heuristik*).</li>
+                            <li>• Cara pilihan dibingkai (*framing*) menentukan 80% keputusan.</li>
+                            <li>• Tahu tidak sama dengan mau: niat baik sering terganjal *friction/sludge*.</li>
+                            <li>• Nilai moral, ukhuwah, dan maslahah syariah mempengaruhi kepuasan jiwa (*falah*).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intervensi Maqashid Syariah -->
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="glass-card p-4">
+                    <div class="w-8 h-8 rounded-lg bg-blue-900/60 text-blue-300 flex items-center justify-center mb-3">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+                    <h3 class="text-sm font-bold text-white mb-1">Hifz al-Din & Aql</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Melindungi akal sehat nasabah dan konsumen dari tipu daya skema keuangan spekulatif (*maysir*) dan ketidakjelasan (*gharar*).
+                    </p>
+                </div>
+                <div class="glass-card p-4">
+                    <div class="w-8 h-8 rounded-lg bg-amber-900/60 text-amber-300 flex items-center justify-center mb-3">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3 class="text-sm font-bold text-white mb-1">Hifz al-Mal</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Mencegah pemborosan (*israf*) dan penimbunan harta (*ihtikar*) lewat arsitektur pilihan tabungan otomatis dan sedekah terencana.
+                    </p>
+                </div>
+                <div class="glass-card p-4">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-900/60 text-emerald-300 flex items-center justify-center mb-3">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="text-sm font-bold text-white mb-1">Hifz al-Bi'ah & Nafs</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Mendorong konsumsi hijau yang halal lagi baik (*thayyib*), meminimalisir limbah makanan, dan menjaga integritas jiwa manusia.
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <!-- TAB CONTENT 2: DUAL SYSTEM -->
+        <main id="tab-dual" class="tab-content hidden flex-1 space-y-4">
+            <div class="glass-card p-6">
+                <h2 class="text-xl font-bold text-white mb-2">Anatomi Keputusan: Sistem 1 vs Sistem 2 (Daniel Kahneman)</h2>
+                <p class="text-xs text-slate-300 mb-6">
+                    Dalam kitab <em>Thinking, Fast and Slow</em>, Daniel Kahneman membagi proses berpikir manusia ke dalam dua sistem operasi kognitif.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="p-5 rounded-xl bg-amber-950/20 border border-amber-800/40">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-2.5 py-1 bg-amber-500/20 text-amber-300 rounded-full text-[11px] font-bold">SISTEM 1 (Cepat / Impulsif)</span>
+                            <span class="text-xs text-amber-400 font-mono">95% Aktivitas Harian</span>
+                        </div>
+                        <ul class="text-xs space-y-2.5 text-slate-300">
+                            <li>⚡ <strong>Otomatis & Tanpa Usaha:</strong> Menghindar saat ada bola melayang, membaca tulisan baliho besar.</li>
+                            <li>⚡ <strong>Didorong Emosi & Kebiasaan:</strong> Merasa lapar saat mencium aroma gorengan, checkout kilat saat diskon.</li>
+                            <li>⚡ <strong>Mudah Kena Bias:</strong> Menilai probabilitas hanya berdasarkan ingatan yang paling segar (*Availability*).</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-5 rounded-xl bg-blue-950/20 border border-blue-800/40">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="px-2.5 py-1 bg-blue-500/20 text-blue-300 rounded-full text-[11px] font-bold">SISTEM 2 (Lambat / Reflektif)</span>
+                            <span class="text-xs text-blue-400 font-mono">5% Aktivitas Kognitif</span>
+                        </div>
+                        <ul class="text-xs space-y-2.5 text-slate-300">
+                            <li>🧠 <strong>Butuh Konsentrasi Berat:</strong> Menghitung 17 × 24, membaca akad murabahah 12 halaman.</li>
+                            <li>🧠 <strong>Cepat Lelah (*Ego Depletion*):</strong> Jika energi kognitif habis, kendali langsung diserahkan ke Sistem 1.</li>
+                            <li>🧠 <strong>Sumber Kebijaksanaan:</strong> Mengoreksi asumsi impulsif, menimbang konsekuensi akhirat dan maslahah jangka panjang.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Interactive Dual Test -->
+                <div class="mt-6 p-4 rounded-xl bg-slate-900/80 border border-slate-700">
+                    <p class="text-xs font-bold text-blue-400 uppercase tracking-wider mb-1">Uji Coba Langsung di Kelas:</p>
+                    <p class="text-sm font-semibold text-white mb-2">
+                        "Sebuah bat pemukul dan bola berharga total Rp 110.000. Harga bat lebih mahal Rp 100.000 daripada harga bola. Berapa harga bola?"
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        <button onclick="checkTest(10000)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600">Rp 10.000</button>
+                        <button onclick="checkTest(5000)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600">Rp 5.000</button>
+                        <button onclick="checkTest(1000)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600">Rp 1.000</button>
+                    </div>
+                    <div id="test-feedback" class="mt-3 text-xs p-2.5 rounded-lg hidden"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- TAB CONTENT 3: NUDGE VS SLUDGE -->
+        <main id="tab-nudge" class="tab-content hidden flex-1 space-y-4">
+            <div class="glass-card p-6">
+                <h2 class="text-xl font-bold text-white mb-2">Desain Arsitektur Pilihan: Nudge vs Sludge</h2>
+                <p class="text-xs text-slate-300 mb-6">
+                    Dalam dunia industri syariah, cara kita mendesain formulir, aplikasi perbankan, dan regulasi menentukan apakah masyarakat terbantu atau terhambat.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="p-4 rounded-xl bg-emerald-950/20 border border-emerald-700/30">
+                        <h3 class="text-sm font-bold text-emerald-400 flex items-center gap-2 mb-2">
+                            <i class="fas fa-seedling"></i> Nudge (Dorongan Maslahah)
+                        </h3>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Modifikasi lingkungan pilihan yang mempermudah orang mengambil keputusan terbaik untuk dirinya tanpa melarang pilihan lain.
+                        </p>
+                        <div class="p-3 bg-black/30 rounded-lg text-xs space-y-1.5 text-slate-300">
+                            <p class="font-semibold text-emerald-300">Contoh Nyata Syariah:</p>
+                            <p>• Pilihan default autodebet qurban bulanan di awal gajian.</p>
+                            <p>• Notifikasi pengingat akad tabungan haji saat menerima bonus tahunan.</p>
+                            <p>• Penempatan makanan sehat bersertifikat halal setinggi pandangan mata.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-rose-950/20 border border-rose-700/30">
+                        <h3 class="text-sm font-bold text-rose-400 flex items-center gap-2 mb-2">
+                            <i class="fas fa-triangle-exclamation"></i> Sludge (Lumpur Hambatan)
+                        </h3>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Friksi, kerumitan birokrasi, atau formulir berbelit-belit yang memicu kelelahan kognitif sehingga orang menyerah.
+                        </p>
+                        <div class="p-3 bg-black/30 rounded-lg text-xs space-y-1.5 text-slate-300">
+                            <p class="font-semibold text-rose-300">Contoh Nyata Lapangan:</p>
+                            <p>• UMKM gagal sertifikasi halal karena portal online meminta 14 dokumen fisik yang membingungkan.</p>
+                            <p>• Donatur membatalkan zakat digital karena tombol checkout mengharuskan isi 8 kolom tidak perlu.</p>
+                            <p>• Syarat penutupan rekening ribawi yang dibuat sengaja dipersulit 5 tahapan.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Framework EAST Summary -->
+                <div class="mt-6 p-4 rounded-xl bg-blue-950/30 border border-blue-800/40">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-blue-400 mb-2">Prinsip Desain Intervensi EAST (BIT UK):</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-center text-xs">
+                        <div class="p-2.5 rounded-lg bg-slate-900/60 border border-slate-700">
+                            <div class="font-bold text-blue-300">E · Easy</div>
+                            <div class="text-[11px] text-slate-400 mt-1">Hapus friksi, jadikan opsi syariah sebagai default</div>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-slate-900/60 border border-slate-700">
+                            <div class="font-bold text-amber-300">A · Attractive</div>
+                            <div class="text-[11px] text-slate-400 mt-1">Tarik perhatian dengan visual & pesan bernilai maslahah</div>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-slate-900/60 border border-slate-700">
+                            <div class="font-bold text-emerald-300">S · Social</div>
+                            <div class="text-[11px] text-slate-400 mt-1">Gunakan norma sosial positif & keteladanan jamaah</div>
+                        </div>
+                        <div class="p-2.5 rounded-lg bg-slate-900/60 border border-slate-700">
+                            <div class="font-bold text-purple-300">T · Timely</div>
+                            <div class="text-[11px] text-slate-400 mt-1">Ingatkan pada momen yang tepat (gajian, awal Ramadan)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- TAB CONTENT 4: MINI LAB -->
+        <main id="tab-kuis" class="tab-content hidden flex-1 space-y-4">
+            <div class="glass-card p-6">
+                <h2 class="text-xl font-bold text-white mb-2">Laboratorium Diagnostik Bias Kognitif Konsumen</h2>
+                <p class="text-xs text-slate-300 mb-4">
+                    Pilih skenario kasus di bawah ini untuk melihat bias kognitif yang sedang bekerja dan solusi intervensinya:
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-3 mb-4">
+                    <button onclick="showBiasDetail('present')" class="p-3 rounded-xl bg-slate-900/60 hover:bg-slate-800/80 border border-slate-700 text-left transition">
+                        <p class="text-xs font-bold text-amber-400">Kasus 1: Tabungan Haji</p>
+                        <p class="text-[11px] text-slate-400 mt-1">"Nanti aja daftar hajinya pas umur 45, sekarang masih banyak kebutuhan gaya hidup."</p>
+                    </button>
+                    <button onclick="showBiasDetail('anchor')" class="p-3 rounded-xl bg-slate-900/60 hover:bg-slate-800/80 border border-slate-700 text-left transition">
+                        <p class="text-xs font-bold text-blue-400">Kasus 2: Diskon Flash Sale</p>
+                        <p class="text-[11px] text-slate-400 mt-1">"Coretan dari Rp 2.000.000 jadi Rp 499.000, langsung beli padahal gak butuh!"</p>
+                    </button>
+                    <button onclick="showBiasDetail('moral')" class="p-3 rounded-xl bg-slate-900/60 hover:bg-slate-800/80 border border-slate-700 text-left transition">
+                        <p class="text-xs font-bold text-emerald-400">Kasus 3: Halal Paradox</p>
+                        <p class="text-[11px] text-slate-400 mt-1">"Makan camilan bersertifikat halal 5 bungkus berturut-turut karena merasa aman dan berkah."</p>
+                    </button>
+                </div>
+
+                <div id="bias-result-box" class="p-4 rounded-xl bg-blue-950/20 border border-blue-800/40 text-xs leading-relaxed">
+                    <p class="text-slate-400 italic">Klik salah satu kasus di atas untuk mengaktifkan analisis psikologis dan rekomendasi intervensi...</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="mt-8 pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
+            <div class="flex items-center gap-2">
+                <img src="./logo-pi.png" alt="Logo PI" class="w-5 h-5 rounded-full object-contain" />
+                <span>Program Studi Psikologi Islam · Fakultas Psikologi</span>
+            </div>
+            <div>
+                <span>Modul Pendamping Perkuliahan PIBI · Universitas / Perguruan Tinggi Islam</span>
+            </div>
+        </footer>
+
     </div>
-  </div>
-  <p><strong>Oleh:</strong> Oktarizal Drianus (Psychosophia Behavioral Lab)</p>
-  <div class="box">
-    <span class="tag">SLIDE PRESENTASI UTAMA</span>
-    <h2>Intensi vs Aksi dalam Perilaku Keuangan Syariah</h2>
-    <p>Sintesis Behavioral Economics, Maqashid Syariah, dan AI dalam Desain Intervensi. Menghubungkan <em>Jalb al-Mashalih</em> dengan Motivasi, <em>Fath al-Dzara'i</em> dengan Opportunity, dan <em>Dar' al-Mafasid</em> dengan Capability.</p>
-  </div>
+
+    <!-- TAB & INTERACTIVITY SCRIPT -->
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            const target = document.getElementById(tabId);
+            if (target) target.classList.remove('hidden');
+            
+            const btn = document.getElementById('btn-' + tabId);
+            if (btn) btn.classList.add('active');
+        }
+
+        function checkTest(answer) {
+            const feedback = document.getElementById('test-feedback');
+            feedback.classList.remove('hidden');
+            if (answer === 5000) {
+                feedback.className = 'mt-3 text-xs p-3 rounded-lg bg-emerald-950/40 border border-emerald-600 text-emerald-300';
+                feedback.innerHTML = '<strong>Tepat Sekali! (Jawaban Sistem 2)</strong><br/>Bat = Rp 105.000, Bola = Rp 5.000. Total = Rp 110.000. Selisih bat dan bola = Rp 100.000. Otak Sistem 2 kamu berhasil mengoreksi jebakan spontan!';
+            } else if (answer === 10000) {
+                feedback.className = 'mt-3 text-xs p-3 rounded-lg bg-amber-950/40 border border-amber-600 text-amber-300';
+                feedback.innerHTML = '<strong>Terjebak Sistem 1! (Jawaban Spontan)</strong><br/>Jika bola Rp 10.000 dan bat lebih mahal Rp 100.000, maka bat berharga Rp 110.000, sehingga totalnya jadi Rp 120.000! Lebih dari 50% mahasiswa Harvard & MIT terjebak di soal ini karena Sistem 1 yang malas.';
+            } else {
+                feedback.className = 'mt-3 text-xs p-3 rounded-lg bg-rose-950/40 border border-rose-600 text-rose-300';
+                feedback.innerHTML = 'Kurang tepat. Coba hitung selisih harga bat dan bola secara matematis.';
+            }
+        }
+
+        function showBiasDetail(type) {
+            const box = document.getElementById('bias-result-box');
+            if (type === 'present') {
+                box.innerHTML = `
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">Present Bias & Hyperbolic Discounting</span>
+                        </div>
+                        <p class="text-slate-200"><strong>Akar Masalah:</strong> Otak menilai kepuasan hari ini (beli kopi/gadget) jauh lebih bernilai daripada kepuasan di masa depan (ibadah haji 20 tahun lagi), meski masa depan itu krusial.</p>
+                        <p class="text-emerald-300"><strong>Intervensi Nudge:</strong> Terapkan skema <em>Commitment Device</em> dan autodebet bertahap <em>Save More Tomorrow (SMarT)</em>—dana tabungan haji otomatis didebet tiap tanggal gajian sebelum sempat dibelanjakan.</p>
+                    </div>
+                `;
+            } else if (type === 'anchor') {
+                box.innerHTML = `
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold">Anchoring Effect & Decoy Illusion</span>
+                        </div>
+                        <p class="text-slate-200"><strong>Akar Masalah:</strong> Otak mengunci angka pertama yang dilihat (Rp 2.000.000) sebagai tolok ukur nilai, sehingga harga diskon terasa seperti "keberuntungan" dan bukan pengeluaran.</p>
+                        <p class="text-emerald-300"><strong>Intervensi Nudge:</strong> Wajibkan transparansi riwayat harga rata-rata 30 hari terakhir (*Sludge reduction*) dan sediakan refleksi jeda 24 jam sebelum checkout untuk barang non-primer.</p>
+                    </div>
+                `;
+            } else if (type === 'moral') {
+                box.innerHTML = `
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">Moral Licensing & Halal Paradox</span>
+                        </div>
+                        <p class="text-slate-200"><strong>Akar Masalah:</strong> Ketika produk diberi label "Halal" atau "Berkah", konsumen merasa telah melakukan kebaikan sehingga tanpa sadar memberi lisensi pada dirinya sendiri untuk mengonsumsi secara berlebihan (*israf*).</p>
+                        <p class="text-emerald-300"><strong>Intervensi Nudge:</strong> Sertakan pesan kesadaran *Anti-Tabdzir* dan integrasikan konsep *Thayyib* (kandungan nutrisi seimbang, batas porsi) mendampingi logo halal.</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
 </body>
 </html>
