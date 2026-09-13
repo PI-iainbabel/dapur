@@ -1,6 +1,6 @@
 {
-  "name": "Menu Behavioral Economics",
-  "description": "Dashboard publik materi edukasi bertema parodi menu cepat saji untuk berkas Behavioral Economics dan Nudge",
+  "name": "Dapur MBE dan PIBI",
+  "description": "Dashboard publik materi edukasi parodi cepat saji Behavioral Economics dan Perkuliahan Psikologi Industri dan Bisnis Islam (PIBI)",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

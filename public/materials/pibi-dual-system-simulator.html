@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PIBI — Simulator Dual-System & Bias Konsumsi Syariah</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        pibi: {
+                            dark: '#1e3a5f',
+                            main: '#1d4ed8',
+                            light: '#eff6ff',
+                            border: '#bfdbfe',
+                            accent: '#2563eb',
+                            gold: '#d97706',
+                            rose: '#e11d48',
+                            emerald: '#059669'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f0f6fe; color: #1e293b; }
+        .card-custom { background: #ffffff; border: 1px solid #bfdbfe; border-radius: 1rem; }
+        .badge-pibi { background: #1d4ed8; color: white; border-radius: 9999px; padding: 0.2rem 0.6rem; font-size: 0.75rem; font-weight: 600; }
+        .slider-pibi { accent-color: #1d4ed8; }
+        .slider-danger { accent-color: #e11d48; }
+        .slider-success { accent-color: #059669; }
+    </style>
+</head>
+<body class="p-3 md:p-6 font-sans">
+
+    <div class="max-w-7xl mx-auto space-y-6">
+
+        <!-- HEADER -->
+        <header class="bg-pibi-dark text-white p-5 md:p-6 rounded-2xl shadow-md flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div class="flex items-center gap-4">
+                <img src="./Logo-pi.png" onerror="this.onerror=null; this.src='./Logo-pi.svg'" alt="Logo Psikologi Islam" class="w-12 h-12 rounded-xl object-contain bg-[#152c54] border border-blue-400/40 p-1 shadow-md" />
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="badge-pibi">PIBI Behavioral Lab</span>
+                        <span class="text-xs text-blue-200">Fase 1 & 2 — Materi 1, 2, 3 & 4</span>
+                    </div>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-tight mt-1">Simulator Dual-System & Bias Konsumsi Syariah</h1>
+                    <p class="text-xs md:text-sm text-blue-200">Model Pemrosesan Kognitif Sistem 1 (Impulsif) vs Sistem 2 (Analitis Syariah) & De-biasing Nudge</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <button onclick="resetDefaults()" class="bg-blue-800/80 hover:bg-blue-700 text-white text-xs px-3 py-2 rounded-lg transition border border-blue-400/30 flex items-center gap-1.5">
+                    <i class="fas fa-undo"></i> Reset Default
+                </button>
+            </div>
+        </header>
+
+        <!-- PANDUAN RINGKAS TEORI -->
+        <div class="card-custom p-4 bg-blue-50/50 flex flex-col md:flex-row gap-4 items-start text-xs text-slate-700">
+            <div class="p-2 bg-blue-600 text-white rounded-lg flex-shrink-0">
+                <i class="fas fa-info-circle text-lg"></i>
+            </div>
+            <div class="space-y-1">
+                <p class="font-bold text-pibi-dark text-sm">Landasan Kognitif Dual-System (Kahneman & Tversky):</p>
+                <p>• <strong>Sistem 1 (Cepat, Otomatis, Emosional):</strong> Rentan terpengaruh diskon semu (Anchoring), tekanan waktu, dan kepanikan modal. Rentan menjerumuskan ke transaksi <em>Gharar</em> (tidak jelas) atau <em>Riba/Pinjol Instan</em>.</p>
+                <p>• <strong>Sistem 2 (Reflektif, Lambat, Analitis):</strong> Diperlukan untuk verifikasi kehalalan produk, evaluasi nisbah bagi hasil, transparansi akad, dan orientasi kemaslahatan panjang.</p>
+            </div>
+        </div>
+
+        <!-- GRID UTAMA SIMULATOR -->
+        <div class="grid lg:grid-cols-12 gap-6">
+
+            <!-- KIRI: KONTROL KONDISI PSIKOLOGIS & BIAS (6 COLS) -->
+            <div class="lg:col-span-6 card-custom p-5 space-y-5">
+                
+                <div class="flex justify-between items-center border-b pb-3">
+                    <h2 class="text-base font-bold text-pibi-dark flex items-center gap-2">
+                        <i class="fas fa-sliders text-pibi-main"></i>
+                        Parameter Kondisi Keputusan Konsumen
+                    </h2>
+                    
+                    <!-- Preset Scenario Dropdown -->
+                    <select id="presetScenario" onchange="applyPresetScenario(this.value)" class="text-xs bg-slate-100 border rounded-lg px-2.5 py-1.5 text-slate-700 font-semibold focus:ring-2 focus:ring-blue-500">
+                        <option value="custom">-- Pilih Skenario Studi Kasus --</option>
+                        <option value="pinjol_instan">1. Pinjol Paylater "Syariah" Instan (Tekanan Tinggi)</option>
+                        <option value="flash_sale_halal">2. Flash Sale Kosmetik Halal (Anchoring & Social Proof)</option>
+                        <option value="panic_market_sukuk">3. Panic Selling Reksadana Sukuk (Loss Aversion)</option>
+                        <option value="ideal_rational">4. Konsumen Terliterasi (Kondisi Ideal Sistem 2)</option>
+                    </select>
+                </div>
+
+                <div class="space-y-4 text-xs">
+                    
+                    <!-- Slider 1: Tekanan Waktu -->
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1.5">
+                        <div class="flex justify-between font-bold">
+                            <span class="text-slate-700"><i class="fas fa-stopwatch text-rose-500 mr-1"></i> 1. Tekanan Waktu Keputusan (Time Pressure)</span>
+                            <span id="valTimePressure" class="font-mono bg-white px-2 py-0.5 rounded border text-rose-600 font-bold">80%</span>
+                        </div>
+                        <input type="range" id="sliderTimePressure" min="0" max="100" value="80" class="w-full slider-danger cursor-pointer" oninput="updateSimulation()">
+                        <div class="flex justify-between text-[10px] text-slate-400">
+                            <span>Santai / Banyak Waktu (0%)</span>
+                            <span>Sangat Terburu-buru / Flash Sale (100%)</span>
+                        </div>
+                    </div>
+
+                    <!-- Slider 2: Beban Kognitif / Kelelahan Mental -->
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1.5">
+                        <div class="flex justify-between font-bold">
+                            <span class="text-slate-700"><i class="fas fa-brain text-amber-500 mr-1"></i> 2. Beban Kognitif & Kelelahan (Cognitive Load / Stress)</span>
+                            <span id="valCognitiveLoad" class="font-mono bg-white px-2 py-0.5 rounded border text-amber-600 font-bold">75%</span>
+                        </div>
+                        <input type="range" id="sliderCognitiveLoad" min="0" max="100" value="75" class="w-full slider-pibi cursor-pointer" oninput="updateSimulation()">
+                        <div class="flex justify-between text-[10px] text-slate-400">
+                            <span>Pikiran Jernih / Fokus (0%)</span>
+                            <span>Sangat Lelah / Stress (100%)</span>
+                        </div>
+                    </div>
+
+                    <!-- Slider 3: Sensitivitas Iming-iming Promo (Anchoring) -->
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1.5">
+                        <div class="flex justify-between font-bold">
+                            <span class="text-slate-700"><i class="fas fa-tags text-pibi-main mr-1"></i> 3. Sensitivitas Promo / Iming-Iming (Anchoring Bias)</span>
+                            <span id="valAnchoring" class="font-mono bg-white px-2 py-0.5 rounded border text-pibi-main font-bold">85%</span>
+                        </div>
+                        <input type="range" id="sliderAnchoring" min="0" max="100" value="85" class="w-full slider-pibi cursor-pointer" oninput="updateSimulation()">
+                        <div class="flex justify-between text-[10px] text-slate-400">
+                            <span>Kritis Nilai Asli (0%)</span>
+                            <span>Sangat Mudah Tergiur Diskon (100%)</span>
+                        </div>
+                    </div>
+
+                    <!-- Slider 4: Kompleksitas & Ambiguitas Akad Syariah -->
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1.5">
+                        <div class="flex justify-between font-bold">
+                            <span class="text-slate-700"><i class="fas fa-file-contract text-purple-600 mr-1"></i> 4. Kompleksitas Teks Akad / Sludge Informasi</span>
+                            <span id="valAkadComplexity" class="font-mono bg-white px-2 py-0.5 rounded border text-purple-600 font-bold">70%</span>
+                        </div>
+                        <input type="range" id="sliderAkadComplexity" min="0" max="100" value="70" class="w-full slider-pibi cursor-pointer" oninput="updateSimulation()">
+                        <div class="flex justify-between text-[10px] text-slate-400">
+                            <span>Ringkas & Transparan (0%)</span>
+                            <span>Rumit, Bahasa Panjang (100%)</span>
+                        </div>
+                    </div>
+
+                    <!-- SEKSI INTERVENSI NUDGE (BEHAVIORAL DESIGN) -->
+                    <div class="pt-3 border-t border-slate-200 space-y-2">
+                        <label class="block font-bold text-pibi-dark text-xs flex items-center justify-between">
+                            <span><i class="fas fa-wand-magic-sparkles text-pibi-gold mr-1"></i> Intervensi Behavioral Nudge (De-Biasing Tool)</span>
+                            <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">Pemicu Sistem 2</span>
+                        </label>
+                        
+                        <div class="grid grid-cols-2 gap-2 text-[11px]">
+                            <label class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-50">
+                                <input type="checkbox" id="nudgeCoolingOff" onchange="updateSimulation()" class="rounded text-pibi-main">
+                                <span>Cooling-off Period (Jeda 5 Mnt)</span>
+                            </label>
+                            
+                            <label class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-50">
+                                <input type="checkbox" id="nudgeVisualSalience" onchange="updateSimulation()" class="rounded text-pibi-main">
+                                <span>Visual Salience Label Halal</span>
+                            </label>
+
+                            <label class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-50">
+                                <input type="checkbox" id="nudgeSocialProof" onchange="updateSimulation()" class="rounded text-pibi-main">
+                                <span>Social Proof Ulasan Santri</span>
+                            </label>
+
+                            <label class="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-50">
+                                <input type="checkbox" id="nudgeSimplifiedAkad" onchange="updateSimulation()" class="rounded text-pibi-main">
+                                <span>Simplifikasi Teks Akad (Infografis)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- KANAN: GAUGE SISTEM 1 VS SISTEM 2 & AUDIT SYARIAH (6 COLS) -->
+            <div class="lg:col-span-6 space-y-6">
+
+                <!-- CARD METER DOMINASI SISTEM KOGNITIF -->
+                <div class="card-custom p-5 space-y-4">
+                    <div class="flex justify-between items-center border-b pb-2">
+                        <h3 class="text-sm font-bold text-pibi-dark flex items-center gap-2">
+                            <i class="fas fa-balance-scale-right text-pibi-main"></i>
+                            Aktivasi Sistem Kognitif
+                        </h3>
+                        <span id="dominantSystemBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-300">
+                            Sistem 1 Dominan (Impulsif)
+                        </span>
+                    </div>
+
+                    <!-- Progress Bar Dua Warna (Sistem 1 vs Sistem 2) -->
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-xs font-bold">
+                            <span class="text-rose-600"><i class="fas fa-bolt mr-1"></i> Sistem 1 (Cepat/Impulsif): <span id="sys1Pct">78%</span></span>
+                            <span class="text-emerald-600"><i class="fas fa-microscope mr-1"></i> Sistem 2 (Reflektif): <span id="sys2Pct">22%</span></span>
+                        </div>
+                        <div class="w-full h-4 bg-slate-200 rounded-full overflow-hidden flex p-0.5 border border-slate-300">
+                            <div id="sys1Bar" class="h-full bg-rose-500 rounded-l-full transition-all duration-300" style="width: 78%;"></div>
+                            <div id="sys2Bar" class="h-full bg-emerald-500 rounded-r-full transition-all duration-300" style="width: 22%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="relative h-44">
+                        <canvas id="systemDoughnutChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- CARD DIAGNOSTIK RISIKO PELANGGARAN SYARIAH -->
+                <div id="syariahAuditCard" class="card-custom p-5 border-2 space-y-3 transition-all">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xs font-bold text-pibi-dark uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fas fa-shield-halved text-pibi-gold"></i> Diagnostic Risk: Kepatuhan Syariah & Maslahah
+                        </h3>
+                        <span id="syariahRiskBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-300">
+                            Tinggi Risiko Pelanggaran
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 text-xs pt-1">
+                        <div class="bg-white p-2.5 rounded-xl border border-slate-200">
+                            <span class="text-slate-500 text-[10px] block font-semibold">Risiko Terjebak Gharar / Riba</span>
+                            <span id="riskGhararScore" class="font-mono font-black text-rose-600 text-base">82%</span>
+                        </div>
+                        <div class="bg-white p-2.5 rounded-xl border border-slate-200">
+                            <span class="text-slate-500 text-[10px] block font-semibold">Skor Keputusan Thayyib/Kemaslahatan</span>
+                            <span id="maslahahScore" class="font-mono font-black text-pibi-main text-base">35 / 100</span>
+                        </div>
+                    </div>
+
+                    <p id="syariahAuditDesc" class="text-xs leading-relaxed text-slate-600 italic">
+                        "Akibat dominasi Sistem 1 dan kompleksnya akad, konsumen cenderung langsung mengklik persetujuan tanpa membaca transparansi biaya (Risiko Gharar tinggi)."
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- SIMULASI POPULASI 100 MAHASISWA / KONSUMEN -->
+        <div class="card-custom p-5 space-y-4">
+            <div class="flex flex-col md:flex-row justify-between md:items-center gap-2 border-b pb-3">
+                <div>
+                    <h3 class="text-sm font-bold text-pibi-dark flex items-center gap-2">
+                        <i class="fas fa-users-viewfinder text-pibi-main"></i>
+                        Simulasi Populasi 100 Konsumen (Dampak Intervensi Nudge)
+                    </h3>
+                    <p class="text-xs text-slate-500">Proyeksi rasio konsumen yang terhindar dari keputusan impulsif non-syariah setelah diberikan Nudge.</p>
+                </div>
+                <button onclick="runPopulationSimulation()" class="bg-pibi-main hover:bg-pibi-dark text-white text-xs px-3.5 py-2 rounded-lg transition font-semibold flex items-center gap-1.5 shadow">
+                    <i class="fas fa-play"></i> Simulasikan 100 Konsumen
+                </button>
+            </div>
+
+            <div class="grid md:grid-cols-12 gap-6 items-center">
+                <div class="md:col-span-4 space-y-2 text-xs">
+                    <div class="flex justify-between p-2 bg-rose-50 rounded-lg border border-rose-200">
+                        <span class="text-rose-900 font-semibold">Terjebak Bias / Impulsif:</span>
+                        <span id="popImpulsiveCount" class="font-mono font-bold text-rose-700">75 Mahasiswa</span>
+                    </div>
+                    <div class="flex justify-between p-2 bg-emerald-50 rounded-lg border border-emerald-200">
+                        <span class="text-emerald-900 font-semibold">Berhasil Reflektif Syariah:</span>
+                        <span id="popReflectiveCount" class="font-mono font-bold text-emerald-700">25 Mahasiswa</span>
+                    </div>
+                    <p class="text-[10px] text-slate-400 italic mt-1">
+                        *Disimulasikan menggunakan kurva probabilitas keputusan berdasarkan parameter yang aktif saat ini.
+                    </p>
+                </div>
+
+                <div class="md:col-span-8 relative h-48">
+                    <canvas id="populationBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIKA KOGNITIF & SIMULATOR -->
+    <script>
+        let doughnutChart = null;
+        let popBarChart = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            updateSimulation();
+            runPopulationSimulation();
+        });
+
+        // Event Listener untuk Update Simulator
+        function updateSimulation() {
+            // Read Slider Values
+            const timePressure = parseInt(document.getElementById('sliderTimePressure').value);
+            const cognitiveLoad = parseInt(document.getElementById('sliderCognitiveLoad').value);
+            const anchoring = parseInt(document.getElementById('sliderAnchoring').value);
+            const akadComplexity = parseInt(document.getElementById('sliderAkadComplexity').value);
+
+            // Display Values
+            document.getElementById('valTimePressure').innerText = timePressure + '%';
+            document.getElementById('valCognitiveLoad').innerText = cognitiveLoad + '%';
+            document.getElementById('valAnchoring').innerText = anchoring + '%';
+            document.getElementById('valAkadComplexity').innerText = akadComplexity + '%';
+
+            // Read Nudge Checkboxes
+            const nCooling = document.getElementById('nudgeCoolingOff').checked;
+            const nSalience = document.getElementById('nudgeVisualSalience').checked;
+            const nSocial = document.getElementById('nudgeSocialProof').checked;
+            const nSimplified = document.getElementById('nudgeSimplifiedAkad').checked;
+
+            // Calculate Base System 1 Impulse Score
+            let rawSys1 = (timePressure * 0.35) + (cognitiveLoad * 0.30) + (anchoring * 0.20) + (akadComplexity * 0.15);
+            
+            // Calculate Nudge Mitigation Effect
+            let nudgeBonusSys2 = 0;
+            if (nCooling) nudgeBonusSys2 += 30;    // Cooling off significantly drops time pressure impact
+            if (nSalience) nudgeBonusSys2 += 15;   // Visual label increases awareness
+            if (nSocial) nudgeBonusSys2 += 10;     // Peer endorsement reduces ambiguity
+            if (nSimplified) nudgeBonusSys2 += 25; // Simplifying contract drops complexity barrier
+
+            // Calculate Final Percentages
+            let finalSys1 = Math.max(10, Math.min(95, Math.round(rawSys1 - (nudgeBonusSys2 * 0.75))));
+            let finalSys2 = 100 - finalSys1;
+
+            // Calculate Risks & Maslahah Score
+            let ghararRisk = Math.min(98, Math.max(5, Math.round((finalSys1 * 0.7) + (akadComplexity * 0.3) - (nSimplified ? 20 : 0))));
+            let maslahahScore = Math.min(100, Math.max(10, Math.round((finalSys2 * 0.85) + (nSalience ? 10 : 0) + (nSimplified ? 10 : 0))));
+
+            // Update UI Elements
+            updateUI(finalSys1, finalSys2, ghararRisk, maslahahScore);
+        }
+
+        function updateUI(sys1, sys2, ghararRisk, maslahahScore) {
+            document.getElementById('sys1Pct').innerText = sys1 + '%';
+            document.getElementById('sys2Pct').innerText = sys2 + '%';
+
+            document.getElementById('sys1Bar').style.width = sys1 + '%';
+            document.getElementById('sys2Bar').style.width = sys2 + '%';
+
+            const sysBadge = document.getElementById('dominantSystemBadge');
+            if (sys1 > 60) {
+                sysBadge.className = "px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-300";
+                sysBadge.innerText = "Sistem 1 Dominan (Impulsif / Rentan Bias)";
+            } else if (sys2 > 60) {
+                sysBadge.className = "px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300";
+                sysBadge.innerText = "Sistem 2 Dominan (Reflektif / Syariah Checked)";
+            } else {
+                sysBadge.className = "px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300";
+                sysBadge.innerText = "Keseimbangan Kognitif (Moderat)";
+            }
+
+            // Update Syariah Risk Card
+            document.getElementById('riskGhararScore').innerText = ghararRisk + '%';
+            document.getElementById('maslahahScore').innerText = maslahahScore + ' / 100';
+
+            const card = document.getElementById('syariahAuditCard');
+            const riskBadge = document.getElementById('syariahRiskBadge');
+            const desc = document.getElementById('syariahAuditDesc');
+
+            if (ghararRisk >= 65) {
+                card.className = "card-custom p-5 border-2 border-rose-300 bg-rose-50/30 space-y-3 transition-all";
+                riskBadge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-300";
+                riskBadge.innerText = "Tinggi Risiko Gharar / Riba";
+                desc.innerText = "⚠️ Akibat dorongan Sistem 1 dan rumitnya informasi, konsumen cenderung tidak mengecek legalitas akad, tergiur bunga/diskon semu, dan mengabaikan kehalalan.";
+            } else if (ghararRisk >= 35) {
+                card.className = "card-custom p-5 border-2 border-amber-300 bg-amber-50/30 space-y-3 transition-all";
+                riskBadge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300";
+                riskBadge.innerText = "Risiko Sedang";
+                desc.innerText = "⚡ Sebagian konsumen mulai menggunakan kognisi reflektif, namun masih ada potensi keraguan pada transparansi biaya.";
+            } else {
+                card.className = "card-custom p-5 border-2 border-emerald-300 bg-emerald-50/30 space-y-3 transition-all";
+                riskBadge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300";
+                riskBadge.innerText = "Aman / Sesuai Maslahah";
+                desc.innerText = "✅ Berhasil! Intervensi Nudge mengaktifkan Sistem 2. Konsumen mampu mengevaluasi akad secara objektif, menghindari riba, dan memilih produk thayyib.";
+            }
+
+            // Update Doughnut Chart
+            if (doughnutChart) {
+                doughnutChart.data.datasets[0].data = [sys1, sys2];
+                doughnutChart.update();
+            }
+        }
+
+        function initCharts() {
+            // Doughnut Chart System 1 vs System 2
+            const ctxD = document.getElementById('systemDoughnutChart').getContext('2d');
+            doughnutChart = new Chart(ctxD, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Sistem 1 (Impulsif)', 'Sistem 2 (Reflektif)'],
+                    datasets: [{
+                        data: [78, 22],
+                        backgroundColor: ['#f43f5e', '#10b981'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+
+            // Population Bar Chart
+            const ctxB = document.getElementById('populationBarChart').getContext('2d');
+            popBarChart = new Chart(ctxB, {
+                type: 'bar',
+                data: {
+                    labels: ['Tanpa Nudge', 'Dengan Intervensi Nudge Aktif'],
+                    datasets: [
+                        { label: 'Terjebak Bias / Impulsif', data: [80, 35], backgroundColor: '#f43f5e', borderRadius: 6 },
+                        { label: 'Reflektif & Syariah Compliant', data: [20, 65], backgroundColor: '#10b981', borderRadius: 6 }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { min: 0, max: 100, ticks: { callback: v => v + ' Mhs' } } }
+                }
+            });
+        }
+
+        function runPopulationSimulation() {
+            const sys1 = parseInt(document.getElementById('sys1Pct').innerText);
+            
+            // Simulasikan 100 keputusan konsumen berbasis tingkat Sistem 1 saat ini
+            let impulsiveCount = Math.round(sys1 * 0.95);
+            let reflectiveCount = 100 - impulsiveCount;
+
+            document.getElementById('popImpulsiveCount').innerText = `${impulsiveCount} Mahasiswa`;
+            document.getElementById('popReflectiveCount').innerText = `${reflectiveCount} Mahasiswa`;
+
+            if (popBarChart) {
+                popBarChart.data.datasets[0].data[1] = impulsiveCount;
+                popBarChart.data.datasets[1].data[1] = reflectiveCount;
+                popBarChart.update();
+            }
+        }
+
+        // Preset Scenario Handler
+        function applyPresetScenario(key) {
+            const tp = document.getElementById('sliderTimePressure');
+            const cl = document.getElementById('sliderCognitiveLoad');
+            const anc = document.getElementById('sliderAnchoring');
+            const akd = document.getElementById('sliderAkadComplexity');
+
+            const nCool = document.getElementById('nudgeCoolingOff');
+            const nSal = document.getElementById('nudgeVisualSalience');
+            const nSoc = document.getElementById('nudgeSocialProof');
+            const nSimp = document.getElementById('nudgeSimplifiedAkad');
+
+            // Reset Checkboxes
+            nCool.checked = false; nSal.checked = false; nSoc.checked = false; nSimp.checked = false;
+
+            if (key === 'pinjol_instan') {
+                tp.value = 95; cl.value = 85; anc.value = 90; akd.value = 85;
+            } else if (key === 'flash_sale_halal') {
+                tp.value = 90; cl.value = 60; anc.value = 95; akd.value = 40;
+                nSoc.checked = true;
+            } else if (key === 'panic_market_sukuk') {
+                tp.value = 85; cl.value = 90; anc.value = 75; akd.value = 65;
+            } else if (key === 'ideal_rational') {
+                tp.value = 15; cl.value = 20; anc.value = 25; akd.value = 20;
+                nCool.checked = true; nSal.checked = true; nSimp.checked = true;
+            }
+
+            updateSimulation();
+            runPopulationSimulation();
+        }
+
+        function resetDefaults() {
+            document.getElementById('presetScenario').value = 'custom';
+            document.getElementById('sliderTimePressure').value = 80;
+            document.getElementById('sliderCognitiveLoad').value = 75;
+            document.getElementById('sliderAnchoring').value = 85;
+            document.getElementById('sliderAkadComplexity').value = 70;
+
+            document.getElementById('nudgeCoolingOff').checked = false;
+            document.getElementById('nudgeVisualSalience').checked = false;
+            document.getElementById('nudgeSocialProof').checked = false;
+            document.getElementById('nudgeSimplifiedAkad').checked = false;
+
+            updateSimulation();
+            runPopulationSimulation();
+        }
+    </script>
+</body>
+</html>

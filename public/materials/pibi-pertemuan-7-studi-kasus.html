@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
+    <title>PIBI · Pertemuan 7 — Studi Kasus Terapan & Pitching Proposal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
+        :root {
+            --primary: #1d4ed8;
+            --primary-dark: #1e3a5f;
+            --primary-light: #dbeafe;
+            --accent: #f59e0b;
+            --bg-start: #0a1628;
+            --bg-end: #132347;
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+        }
+        body { background: linear-gradient(145deg, var(--bg-start), var(--bg-end)); color: var(--text-primary); min-height: 100vh; }
+        .slide-container { max-width: 1100px; margin: 0 auto; padding: 0.75rem; min-height: 100vh; display: flex; flex-direction: column; }
+        .glass { background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 1.25rem; padding: 1.5rem; }
+        .tab-header { display: flex; gap: 0.5rem; flex-wrap: wrap; border-bottom: 1px solid rgba(255, 255, 255, 0.06); padding-bottom: 0.5rem; margin-bottom: 1.25rem; }
+        .tab-btn { background: transparent; border: none; padding: 0.6rem 1.2rem; border-radius: 0.75rem; color: var(--text-secondary); font-weight: 600; font-size: 0.8rem; cursor: pointer; }
+        .tab-btn.active { background: rgba(29, 78, 216, 0.25); color: #93c5fd; border: 1px solid rgba(29, 78, 216, 0.3); }
+        .sub-tabs { display: flex; gap: 0.25rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+        .sub-tab-btn { background: transparent; border: none; padding: 0.4rem 0.9rem; border-radius: 0.5rem; color: var(--text-secondary); font-size: 0.7rem; cursor: pointer; }
+        .sub-tab-btn.active { background: rgba(29, 78, 216, 0.2); color: #93c5fd; }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+        .sub-panel { display: none; }
+        .sub-panel.active { display: block; }
+        .slide-title { font-size: clamp(1.5rem, 3.5vw, 2.4rem); font-weight: 800; }
+        .slide-subtitle { font-size: 0.9rem; color: var(--text-secondary); }
+        .chart-wrapper { position: relative; height: 200px; width: 100%; }
+        .nav-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 0.75rem; cursor: pointer; font-size: 0.75rem; }
+        .nav-btn.primary { background: var(--primary); color: white; }
+        .progress-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, 0.08); border: none; cursor: pointer; }
+        .progress-dot.active { background: var(--primary); width: 22px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- Header -->
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+                <img src="./Logo-pi.png" onerror="this.onerror=null; this.src='./Logo-pi.svg'" alt="Logo Psikologi Islam" class="w-9 h-9 rounded-full object-contain bg-[#152c54] border border-blue-400/40 p-0.5 shadow-sm" />
+                <div>
+                    <h1 class="text-base font-bold">PIBI · Pertemuan 7</h1>
+                    <p class="text-[10px] opacity-50 -mt-0.5">Studi Kasus Terapan & Pitching Proposal</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass flex-1 flex flex-col">
+            <div class="tab-header">
+                <button class="tab-btn active" data-tab="section1">1. Bank Syariah</button>
+                <button class="tab-btn" data-tab="section2">2. Fintech Syariah</button>
+                <button class="tab-btn" data-tab="section3">3. Lembaga Zakat</button>
+                <button class="tab-btn" data-tab="section4">4. Rubrik Pitching</button>
+            </div>
+
+            <!-- SECTION 1 -->
+            <div class="tab-panel active" id="panel-section1">
+                <div class="sub-tabs">
+                    <button class="sub-tab-btn active" data-sub="s1-1">1.1 Kasus Penolakan Akad</button>
+                    <button class="sub-tab-btn" data-sub="s1-2">1.2 Re-framing Akad Murabahah</button>
+                </div>
+
+                <div class="sub-panel active" id="sub-s1-1">
+                    <h2 class="slide-title">🏦 Studi Kasus: Penolakan Akad Murabahah</h2>
+                    <p class="slide-subtitle mt-1">Mengapa calon nasabah sering menganggap margin murabahah 'sama saja dengan bunga'?</p>
+                    <div class="chart-wrapper mt-4">
+                        <canvas id="chartMurabahah"></canvas>
+                    </div>
+                </div>
+
+                <div class="sub-panel" id="sub-s1-2">
+                    <h2 class="slide-title">🔄 Solusi Behavioral Re-Framing</h2>
+                    <p class="slide-subtitle mt-1">Mengubah framing dari 'biaya margin bulanan' menjadi 'kepemilikan aset riil transparan dan bagi hasil risiko'.</p>
+                </div>
+            </div>
+
+            <!-- SECTION 2 -->
+            <div class="tab-panel" id="panel-section2">
+                <div class="sub-tabs">
+                    <button class="sub-tab-btn active" data-sub="s2-1">2.1 Gagal Bayar Crowdfunding</button>
+                    <button class="sub-tab-btn" data-sub="s2-2">2.2 Nudge Komitmen P2P</button>
+                </div>
+
+                <div class="sub-panel active" id="sub-s2-1">
+                    <h2 class="slide-title">💻 Kasus Gagal Bayar Fintech Syariah</h2>
+                    <p class="slide-subtitle mt-1">Moral hazard dan penundaan pembayaran akibat minimnya rasa akuntabilitas sosial.</p>
+                </div>
+
+                <div class="sub-panel" id="sub-s2-2">
+                    <h2 class="slide-title">🤝 Peer Accountability Nudge</h2>
+                    <p class="slide-subtitle mt-1">Pemanfaatan tanda tangan ikrar amanah di awal dan notifikasi transparansi komunitas.</p>
+                </div>
+            </div>
+
+            <!-- SECTION 3 -->
+            <div class="tab-panel" id="panel-section3">
+                <div class="sub-tabs">
+                    <button class="sub-tab-btn active" data-sub="s3-1">3.1 Rendahnya Wakaf Tunai</button>
+                    <button class="sub-tab-btn" data-sub="s3-2">3.2 Desain UI/UX Wakaf Milenial</button>
+                </div>
+
+                <div class="sub-panel active" id="sub-s3-1">
+                    <h2 class="slide-title">📉 Rendahnya Realisasi Wakaf Uang</h2>
+                    <p class="slide-subtitle mt-1">Masyarakat masih mengira wakaf harus berbentuk tanah luas atau kuburan (Status Quo Bias).</p>
+                    <div class="chart-wrapper mt-4">
+                        <canvas id="chartWakaf"></canvas>
+                    </div>
+                </div>
+
+                <div class="sub-panel" id="sub-s3-2">
+                    <h2 class="slide-title">📱 Redesain UI/UX Wakaf Berkelanjutan</h2>
+                    <p class="slide-subtitle mt-1">Pilihan nominal mikro (Rp 10.000/bulan) dan visualisasi dampak langsung pembangunan rumah sakit.</p>
+                </div>
+            </div>
+
+            <!-- SECTION 4 -->
+            <div class="tab-panel" id="panel-section4">
+                <div class="sub-tabs">
+                    <button class="sub-tab-btn active" data-sub="s4-1">4.1 Kriteria Penilaian</button>
+                    <button class="sub-tab-btn" data-sub="s4-2">4.2 Format Presentasi 5-Menit</button>
+                </div>
+
+                <div class="sub-panel active" id="sub-s4-1">
+                    <h2 class="slide-title">🎯 Rubrik Penilaian Pitching Proposal</h2>
+                    <p class="slide-subtitle mt-1">Ketepatan Diagnosis COM-B (25%), Kesesuaian Maqashid (25%), Kreativitas Nudge EAST (25%), Kelayakan Eksperimen RCT (25%).</p>
+                </div>
+
+                <div class="sub-panel" id="sub-s4-2">
+                    <h2 class="slide-title">⏱️ Panduan Pitching 5 Menit</h2>
+                    <p class="slide-subtitle mt-1">1 Menit Masalah Perilaku ➔ 1 Menit Diagnosis Kognitif ➔ 2 Menit Solusi Prototipe Nudge ➔ 1 Menit Desain Uji RCT.</p>
+                </div>
+            </div>
+
+            <!-- NAVIGASI -->
+            <div class="flex flex-wrap items-center justify-between gap-2 mt-4 pt-3 border-t border-white/5">
+                <div class="flex items-center gap-1" id="progressDots"></div>
+                <div class="flex items-center gap-2">
+                    <button class="nav-btn" id="prevBtn">Sebelum</button>
+                    <button class="nav-btn primary" id="nextBtn">Selanjutnya</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const slides = [
+            { section: 'section1', sub: 's1-1' },
+            { section: 'section1', sub: 's1-2' },
+            { section: 'section2', sub: 's2-1' },
+            { section: 'section2', sub: 's2-2' },
+            { section: 'section3', sub: 's3-1' },
+            { section: 'section3', sub: 's3-2' },
+            { section: 'section4', sub: 's4-1' },
+            { section: 'section4', sub: 's4-2' },
+        ];
+        let currentIndex = 0;
+
+        function goToSlide(index) {
+            if (index < 0) index = 0;
+            if (index >= slides.length) index = slides.length - 1;
+            currentIndex = index;
+
+            const slide = slides[index];
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === slide.section));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('panel-' + slide.section)?.classList.add('active');
+
+            const panel = document.getElementById('panel-' + slide.section);
+            if (panel) {
+                panel.querySelectorAll('.sub-tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.sub === slide.sub));
+                panel.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+                document.getElementById('sub-' + slide.sub)?.classList.add('active');
+            }
+            updateDots();
+        }
+
+        function updateDots() {
+            const container = document.getElementById('progressDots');
+            container.innerHTML = '';
+            slides.forEach((_, i) => {
+                const dot = document.createElement('button');
+                dot.className = 'progress-dot' + (i === currentIndex ? ' active' : '');
+                dot.addEventListener('click', () => goToSlide(i));
+                container.appendChild(dot);
+            });
+        }
+
+        document.getElementById('prevBtn').addEventListener('click', () => goToSlide(currentIndex - 1));
+        document.getElementById('nextBtn').addEventListener('click', () => goToSlide(currentIndex + 1));
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const section = this.dataset.tab;
+                const first = slides.findIndex(s => s.section === section);
+                if (first !== -1) goToSlide(first);
+            });
+        });
+        document.querySelectorAll('.sub-tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const sub = this.dataset.sub;
+                const idx = slides.findIndex(s => s.sub === sub);
+                if (idx !== -1) goToSlide(idx);
+            });
+        });
+
+        function initCharts() {
+            const ctx1 = document.getElementById('chartMurabahah')?.getContext('2d');
+            if (ctx1) {
+                new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Framing Konvensional', 'Framing Syariah Ritel', 'Framing Maqashid Edukatif'],
+                        datasets: [{ label: 'Tingkat Kepercayaan (%)', data: [34, 52, 81], backgroundColor: '#3b82f6' }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            const ctx2 = document.getElementById('chartWakaf')?.getContext('2d');
+            if (ctx2) {
+                new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Metode Konvensional (Brosur)', 'Platform Digital Tanpa Nudge', 'Digital + Default Nudge Rp10k'],
+                        datasets: [{ label: 'Konversi Donatur (%)', data: [4, 11, 38], backgroundColor: '#10b981' }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            goToSlide(0);
+        });
+    </script>
+</body>
+</html>

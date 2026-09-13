@@ -74,6 +74,7 @@ export default function App() {
   const categoryCounts = useMemo(() => {
     const counts: Record<CategoryId, number> = {
       all: menuItems.length,
+      pibi: menuItems.filter((m) => m.categoryId === 'pibi').length,
       combo: menuItems.filter((m) => m.categoryId === 'combo').length,
       decks: menuItems.filter((m) => m.categoryId === 'decks').length,
       visuals: menuItems.filter((m) => m.categoryId === 'visuals').length,

@@ -66,15 +66,15 @@ export const ParodyLogo: React.FC<ParodyLogoProps> = ({
         <div className="flex flex-col">
           <div className="flex items-center gap-1.5">
             <span className={`font-extrabold tracking-tight text-red-600 font-['Space_Grotesk'] leading-none ${sizeMap[size].text}`}>
-              Menu<span className="text-amber-500">.</span>Behavioral
+              Dapur MBE <span className="text-amber-500">&amp;</span> PIBI
             </span>
             <span className="bg-amber-400 text-red-950 font-black text-[10px] tracking-wider px-1.5 py-0.5 rounded uppercase font-mono shadow-xs">
-              PARODI
+              RESTO ILMU
             </span>
           </div>
           <span className="text-[11px] font-medium text-amber-700 tracking-wide flex items-center gap-1 font-sans">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-red-500"></span>
-            I&apos;m Nudgin&apos; It™ · Restoran Cepat Saji Wawasan
+            Behavioral Economics &amp; Psikologi Bisnis Islam · Drive-Thru Wawasan
           </span>
         </div>
       )}

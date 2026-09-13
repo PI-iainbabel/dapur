@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PIBI — Simulator Weighting Maqashid Syariah (AHP Saaty)</title>
+    <!-- Font & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        pibi: {
+                            dark: '#1e3a5f',
+                            main: '#1d4ed8',
+                            light: '#eff6ff',
+                            border: '#bfdbfe',
+                            accent: '#2563eb',
+                            gold: '#d97706'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f0f6fe; color: #1e293b; }
+        .card-custom { background: #ffffff; border: 1px solid #bfdbfe; border-radius: 1rem; }
+        .badge-pibi { background: #1d4ed8; color: white; border-radius: 9999px; padding: 0.2rem 0.6rem; font-size: 0.75rem; font-weight: 600; }
+        .slider-saaty { accent-color: #1d4ed8; }
+        .table-ahp th, .table-ahp td { border: 1px solid #cbd5e1; text-align: center; padding: 0.5rem; font-size: 0.85rem; }
+        .table-ahp th { background-color: #1e3a5f; color: white; }
+    </style>
+</head>
+<body class="p-3 md:p-6 font-sans">
+
+    <div class="max-w-7xl mx-auto space-y-6">
+
+        <!-- HEADER -->
+        <header class="bg-pibi-dark text-white p-5 md:p-6 rounded-2xl shadow-md flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div class="flex items-center gap-4">
+                <img src="./Logo-pi.png" onerror="this.onerror=null; this.src='./Logo-pi.svg'" alt="Logo Psikologi Islam" class="w-12 h-12 rounded-xl object-contain bg-[#152c54] border border-blue-400/40 p-1 shadow-md" />
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="badge-pibi">PIBI Behavioral Lab</span>
+                        <span class="text-xs text-blue-200">Fase 2 — Materi 8</span>
+                    </div>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-tight mt-1">Simulator Weighting Maqashid Syariah (AHP Saaty)</h1>
+                    <p class="text-xs md:text-sm text-blue-200">Matriks Perbandingan Berpasangan 5 Dharuriyat & Real-Time Audit Consistency Ratio (CR)</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <button onclick="resetToDefault()" class="bg-blue-800/80 hover:bg-blue-700 text-white text-xs px-3 py-2 rounded-lg transition border border-blue-400/30 flex items-center gap-1.5">
+                    <i class="fas fa-undo"></i> Reset Default
+                </button>
+            </div>
+        </header>
+
+        <!-- PANDUAN RINGKAS TEORI -->
+        <div class="card-custom p-4 bg-blue-50/50 flex flex-col md:flex-row gap-4 items-start text-xs text-slate-700">
+            <div class="p-2 bg-blue-600 text-white rounded-lg flex-shrink-0">
+                <i class="fas fa-lightbulb text-lg"></i>
+            </div>
+            <div class="space-y-1">
+                <p class="font-bold text-pibi-dark text-sm">Cara Kerja Simulator Analytic Hierarchy Process (AHP):</p>
+                <p>1. Geser slider perbandingan berpasangan (Skala 1–9 Saaty) untuk menentukan prioritas relatif antara 5 <em>Dharuriyat</em>.</p>
+                <p>2. Amati kalkulasi otomatis <strong>Matriks Normalisasi</strong>, <strong>Eigenvector (Bobot Prioritas %)</strong>, serta <strong>Consistency Ratio (CR)</strong>.</p>
+                <p>3. Jika <span class="text-emerald-700 font-bold">CR &lt; 0.10 (10%)</span>, penilaian pakar dianggap <strong>Konsisten / Valid</strong>. Jika <span class="text-rose-700 font-bold">CR &ge; 0.10</span>, mahasiswa harus merevisi perbandingan karena terjadi inkonsistensi jawaban.</p>
+            </div>
+        </div>
+
+        <!-- GRID UTAMA SIMULATOR -->
+        <div class="grid lg:grid-cols-12 gap-6">
+
+            <!-- KIRI: SLIDER PAIRWISE COMPARISON (7 COLS) -->
+            <div class="lg:col-span-7 card-custom p-5 space-y-5">
+                
+                <div class="flex justify-between items-center border-b pb-3">
+                    <h2 class="text-base font-bold text-pibi-dark flex items-center gap-2">
+                        <i class="fas fa-sliders text-pibi-main"></i>
+                        Matriks Perbandingan Berpasangan (Pairwise Sliders)
+                    </h2>
+                    <!-- Preset Scenario Dropdown -->
+                    <select id="presetScenario" onchange="applyPreset(this.value)" class="text-xs bg-slate-100 border rounded-lg px-2.5 py-1.5 text-slate-700 font-semibold focus:ring-2 focus:ring-blue-500">
+                        <option value="custom">-- Pilih Preset Pakar --</option>
+                        <option value="pakar_keuangan">Pakar Keuangan Syariah (Fokus Hifz al-Mal & Din)</option>
+                        <option value="pakar_kesehatan">Pakar Halal Food & Kesehatan (Fokus Hifz al-Nafs)</option>
+                        <option value="pakar_edukasi">Pakar Literasi & Pendidikan (Fokus Hifz al-Aql)</option>
+                        <option value="inkonsisten">Contoh Penilaian Inkonsisten (CR &ge; 0.10)</option>
+                    </select>
+                </div>
+
+                <!-- 10 PAIRWISE SLIDERS -->
+                <div id="slidersContainer" class="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+                    <!-- Dynamic Generated Sliders -->
+                </div>
+
+            </div>
+
+            <!-- KANAN: STATUS KONSISTENSI & BOBOT PRIORITAS (5 COLS) -->
+            <div class="lg:col-span-5 space-y-6">
+
+                <!-- WIDGET AUDIT KONSISTENSI (CR) -->
+                <div id="crAuditCard" class="card-custom p-5 transition-all duration-300 border-2">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Audit Konsistensi AHP</span>
+                        <span id="crBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                            Valid / Konsisten
+                        </span>
+                    </div>
+
+                    <div class="flex items-baseline gap-2 mt-1">
+                        <span class="text-xs text-slate-600">Consistency Ratio (CR):</span>
+                        <span id="crValueDisplay" class="text-2xl font-black font-mono text-pibi-dark">0.035</span>
+                        <span class="text-xs text-slate-400 font-medium">(Maks: 0.100)</span>
+                    </div>
+
+                    <!-- Progress Bar CR -->
+                    <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden mt-2">
+                        <div id="crProgressBar" class="h-full bg-emerald-500 transition-all duration-300" style="width: 35%;"></div>
+                    </div>
+
+                    <p id="crMessage" class="text-xs mt-3 leading-relaxed text-slate-600 font-medium italic">
+                        "Penilaian perbandingan berpasangan logis dan konsisten (CR &lt; 10%). Hasil bobot siap digunakan!"
+                    </p>
+                </div>
+
+                <!-- HASIL BOBOT PRIORITAS (EIGENVECTOR) CHART & LIST -->
+                <div class="card-custom p-5 space-y-4">
+                    <h3 class="text-sm font-bold text-pibi-dark flex items-center justify-between border-b pb-2">
+                        <span><i class="fas fa-chart-pie text-pibi-main mr-1"></i> Bobot Prioritas Maqashid (%)</span>
+                        <span class="text-[10px] bg-blue-100 text-pibi-main font-bold px-2 py-0.5 rounded">Total: 100%</span>
+                    </h3>
+
+                    <div class="relative h-48">
+                        <canvas id="ahpWeightsChart"></canvas>
+                    </div>
+
+                    <div id="weightsList" class="space-y-2 text-xs pt-2">
+                        <!-- Dynamic Weight Items -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- SEKSI DETIL TEKNIS: MATRIKS AHP & SCORECARD EVALUASI PRODUK SYARIAH -->
+        <div class="grid lg:grid-cols-12 gap-6">
+
+            <!-- MATRIKS PERBANDINGAN BERPASANGAN & NORMALISASI (7 COLS) -->
+            <div class="lg:col-span-7 card-custom p-5 space-y-4">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-sm font-bold text-pibi-dark">
+                        <i class="fas fa-table text-pibi-main mr-1"></i> Matriks Perbandingan Berpasangan (5x5)
+                    </h3>
+                    <span class="text-xs text-slate-500 font-mono" id="lambdaMaxDisplay">&lambda;<sub>max</sub> = 5.156 | CI = 0.039</span>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full table-ahp">
+                        <thead>
+                            <tr>
+                                <th>Kriteria</th>
+                                <th>Din</th>
+                                <th>Nafs</th>
+                                <th>Aql</th>
+                                <th>Nasl</th>
+                                <th>Mal</th>
+                                <th class="bg-blue-900 text-amber-300">Bobot ($w_i$)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="matrixTableBody">
+                            <!-- Dynamic Table Matrix -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SCORECARD EVALUASI PRODUK BISNIS SYARIAH (5 COLS) -->
+            <div class="lg:col-span-5 card-custom p-5 space-y-4">
+                <h3 class="text-sm font-bold text-pibi-dark border-b pb-2 flex items-center gap-1.5">
+                    <i class="fas fa-box-open text-pibi-gold"></i> Evaluasi Produk Bisnis Syariah
+                </h3>
+
+                <div class="space-y-3 text-xs">
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-700">Pilih Objek Produk untuk Dievaluasi:</label>
+                        <select id="selectedProduct" onchange="evaluateProduct()" class="w-full p-2 border rounded-lg bg-slate-50 font-bold text-pibi-dark">
+                            <option value="wakaf">1. Produk Tabungan Wakaf Produktif (Maslahah Tinggi)</option>
+                            <option value="pinjol">2. Fintech Pinjol Syariah High-Margin (Risiko Riba/Gharar)</option>
+                            <option value="reksadana">3. Reksadana Sukuk Syariah (Keseimbangan Mal & Din)</option>
+                            <option value="halal_food">4. Kuliner Halal Organik UMKM (Fokus Nafs & Din)</option>
+                        </select>
+                    </div>
+
+                    <!-- Visual Total Score Product -->
+                    <div class="p-3 bg-blue-50 rounded-xl border border-blue-200 flex items-center justify-between">
+                        <div>
+                            <span class="text-[11px] text-slate-500 font-bold uppercase block">Skor Kelayakan Maqashid</span>
+                            <span id="productScoreText" class="text-2xl font-black text-pibi-main">84.5 / 100</span>
+                        </div>
+                        <span id="productStatusBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
+                            Sangat Layak
+                        </span>
+                    </div>
+
+                    <p id="productEvaluationDesc" class="text-slate-600 text-[11px] leading-relaxed italic">
+                        "Produk ini memberikan kontribusi seimbang terhadap perlindungan Agama (Din) dan Harta (Mal) sesuai bobot prioritas AHP yang telah disusun."
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT LOGIKA AHP SAATY -->
+    <script>
+        // 5 Dharuriyat Definition
+        const CRITERIA = [
+            { id: 0, key: 'din', name: 'Hifz al-Din', label: 'Agama', color: '#1d4ed8' },
+            { id: 1, key: 'nafs', name: 'Hifz al-Nafs', label: 'Jiwa', color: '#059669' },
+            { id: 2, key: 'aql', name: 'Hifz al-Aql', label: 'Akal', color: '#d97706' },
+            { id: 3, key: 'nasl', name: 'Hifz al-Nasl', label: 'Keturunan', color: '#7c3aed' },
+            { id: 4, key: 'mal', name: 'Hifz al-Mal', label: 'Harta', color: '#dc2626' }
+        ];
+
+        // Random Index (RI) Saaty for N=5
+        const RI_N5 = 1.12;
+
+        // Pairwise Combinations (10 Sliders for N=5)
+        const PAIRS = [];
+        for (let i = 0; i < 5; i++) {
+            for (let j = i + 1; j < 5; j++) {
+                PAIRS.push({ row: i, col: j });
+            }
+        }
+
+        // Current Pairwise Matrix (5x5)
+        let matrix = [
+            [1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1]
+        ];
+
+        let weights = [0.2, 0.2, 0.2, 0.2, 0.2];
+        let ahpChart = null;
+
+        // Sample Product Ratings for 5 Dharuriyat (Scale 1 - 100)
+        const PRODUCTS = {
+            wakaf: { name: 'Tabungan Wakaf Produktif', scores: [95, 80, 85, 75, 88], desc: "Unggul tinggi pada Hifz al-Din (95) dan Hifz al-Mal (88) melalui investasi sosial produktif." },
+            pinjol: { name: 'Pinjol Syariah High-Margin', scores: [45, 50, 40, 60, 30], desc: "Beresiko rendah pada Hifz al-Mal (30) dan Hifz al-Aql (40) akibat potensi beban biaya tersembunyi/sludge." },
+            reksadana: { name: 'Reksadana Sukuk Syariah', scores: [85, 70, 75, 70, 92], desc: "Sangat kuat dalam menjaga Hifz al-Mal (92) dengan tingkat kepatuhan syariah tinggi (Din 85)." },
+            halal_food: { name: 'Kuliner Halal Organik UMKM', scores: [90, 95, 80, 85, 70], desc: "Menjamin keselamatan jiwa & kesehatan konsumen (Nafs 95) serta kepastian halal (Din 90)." }
+        };
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSliders();
+            initChart();
+            applyPreset('pakar_keuangan');
+        });
+
+        // Render 10 Sliders
+        function renderSliders() {
+            const container = document.getElementById('slidersContainer');
+            container.innerHTML = '';
+
+            PAIRS.forEach((pair, idx) => {
+                const c1 = CRITERIA[pair.row];
+                const c2 = CRITERIA[pair.col];
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs space-y-1.5';
+                wrapper.innerHTML = `
+                    <div class="flex justify-between font-bold text-slate-700">
+                        <span style="color: ${c1.color}">${c1.name} (${c1.label})</span>
+                        <span id="sliderValueText_${idx}" class="font-mono bg-white px-2 py-0.5 rounded border text-pibi-main font-bold">1 : 1</span>
+                        <span style="color: ${c2.color}">${c2.name} (${c2.label})</span>
+                    </div>
+                    <input type="range" id="slider_${idx}" min="-8" max="8" value="0" step="1" 
+                           class="w-full slider-saaty cursor-pointer" 
+                           oninput="onSliderChange(${idx}, ${pair.row}, ${pair.col}, this.value)">
+                    <div class="flex justify-between text-[10px] text-slate-400">
+                        <span>← Lebih Penting ${c1.label} (9:1)</span>
+                        <span>Sama (1:1)</span>
+                        <span>Lebih Penting ${c2.label} (1:9) →</span>
+                    </div>
+                `;
+                container.appendChild(wrapper);
+            });
+        }
+
+        // Convert Slider Scale (-8 to 8) to Saaty Value (1/9 to 9)
+        function sliderToSaaty(val) {
+            val = parseInt(val);
+            if (val === 0) return 1;
+            if (val > 0) return val + 1; // 1 to 9
+            return 1 / (Math.abs(val) + 1); // 1/2 to 1/9
+        }
+
+        function saatyToSlider(saatyVal) {
+            if (saatyVal === 1) return 0;
+            if (saatyVal > 1) return saatyVal - 1;
+            return -(Math.round(1 / saatyVal) - 1);
+        }
+
+        // Slider Change Event
+        function onSliderChange(idx, r, c, val) {
+            const saatyVal = sliderToSaaty(val);
+            matrix[r][c] = saatyVal;
+            matrix[c][r] = 1 / saatyVal;
+
+            // Update Label text
+            const textElem = document.getElementById(`sliderValueText_${idx}`);
+            if (val == 0) textElem.innerText = "1 : 1 (Sama)";
+            else if (val > 0) textElem.innerText = `${parseInt(val)+1} : 1`;
+            else textElem.innerText = `1 : ${Math.abs(parseInt(val))+1}`;
+
+            recalculateAHP();
+        }
+
+        // Core AHP Calculation Engine
+        function recalculateAHP() {
+            // 1. Column Sums
+            const colSums = [0, 0, 0, 0, 0];
+            for (let j = 0; j < 5; j++) {
+                for (let i = 0; i < 5; i++) {
+                    colSums[j] += matrix[i][j];
+                }
+            }
+
+            // 2. Normalized Matrix & Weights Calculation
+            const normMatrix = Array.from({ length: 5 }, () => Array(5).fill(0));
+            weights = [0, 0, 0, 0, 0];
+
+            for (let i = 0; i < 5; i++) {
+                let rowSum = 0;
+                for (let j = 0; j < 5; j++) {
+                    normMatrix[i][j] = matrix[i][j] / colSums[j];
+                    rowSum += normMatrix[i][j];
+                }
+                weights[i] = rowSum / 5; // Priority Weight
+            }
+
+            // 3. Lambda Max Calculation: A * W / W
+            let lambdaMax = 0;
+            for (let i = 0; i < 5; i++) {
+                let aw_i = 0;
+                for (let j = 0; j < 5; j++) {
+                    aw_i += matrix[i][j] * weights[j];
+                }
+                lambdaMax += aw_i / weights[i];
+            }
+            lambdaMax = lambdaMax / 5;
+
+            // 4. Consistency Index (CI) & Consistency Ratio (CR)
+            const CI = (lambdaMax - 5) / 4;
+            const CR = CI / RI_N5;
+
+            // Update UI Elements
+            updateUI(lambdaMax, CI, CR);
+        }
+
+        function updateUI(lambdaMax, CI, CR) {
+            // Update CR Display
+            const crValElem = document.getElementById('crValueDisplay');
+            const crBadge = document.getElementById('crBadge');
+            const crBar = document.getElementById('crProgressBar');
+            const crMsg = document.getElementById('crMessage');
+            const crCard = document.getElementById('crAuditCard');
+
+            crValElem.innerText = CR.toFixed(3);
+            const percentWidth = Math.min(100, Math.max(5, (CR / 0.20) * 100));
+            crBar.style.width = percentWidth + '%';
+
+            if (CR < 0.10) {
+                crBadge.className = "px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300";
+                crBadge.innerText = "Valid / Konsisten";
+                crBar.className = "h-full bg-emerald-500 transition-all duration-300";
+                crCard.className = "card-custom p-5 transition-all duration-300 border-2 border-emerald-200 bg-emerald-50/20";
+                crMsg.innerText = "✅ Penilaian perbandingan berpasangan logis dan konsisten (CR < 10%). Hasil bobot siap digunakan!";
+            } else {
+                crBadge.className = "px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-300";
+                crBadge.innerText = "⚠️ Inkonsisten (Revisi)";
+                crBar.className = "h-full bg-rose-500 transition-all duration-300";
+                crCard.className = "card-custom p-5 transition-all duration-300 border-2 border-rose-300 bg-rose-50/30";
+                crMsg.innerText = "⚠️ Terjadi Inkonsistensi Jawaban (CR ≥ 10%)! Mahasiswa disarankan menggeser slider kembali agar jawaban logis.";
+            }
+
+            // Display Lambda Max & CI
+            document.getElementById('lambdaMaxDisplay').innerHTML = `&lambda;<sub>max</sub> = ${lambdaMax.toFixed(3)} | CI = ${CI.toFixed(3)}`;
+
+            // Update Chart
+            if (ahpChart) {
+                ahpChart.data.datasets[0].data = weights.map(w => (w * 100).toFixed(1));
+                ahpChart.update();
+            }
+
+            // Update Weights List
+            const listElem = document.getElementById('weightsList');
+            listElem.innerHTML = '';
+            CRITERIA.forEach((crit, idx) => {
+                const wPct = (weights[idx] * 100).toFixed(1);
+                const item = document.createElement('div');
+                item.className = 'flex justify-between items-center p-2 rounded-lg bg-slate-50 border border-slate-200';
+                item.innerHTML = `
+                    <span class="font-semibold text-slate-700 flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full" style="background-color:${crit.color}"></span>
+                        ${crit.name} (${crit.label})
+                    </span>
+                    <span class="font-mono font-bold text-pibi-dark">${wPct}%</span>
+                `;
+                listElem.appendChild(item);
+            });
+
+            // Update 5x5 Matrix Table
+            renderMatrixTable();
+
+            // Re-evaluate Selected Product
+            evaluateProduct();
+        }
+
+        function renderMatrixTable() {
+            const tbody = document.getElementById('matrixTableBody');
+            tbody.innerHTML = '';
+
+            for (let i = 0; i < 5; i++) {
+                const tr = document.createElement('tr');
+                let rowHTML = `<td class="font-bold text-left bg-slate-100">${CRITERIA[i].name}</td>`;
+                for (let j = 0; j < 5; j++) {
+                    const val = matrix[i][j];
+                    const formatted = val >= 1 ? val.toFixed(1) : `1/${Math.round(1/val)}`;
+                    rowHTML += `<td class="${i === j ? 'bg-slate-200 font-bold' : ''}">${formatted}</td>`;
+                }
+                const weightPct = (weights[i] * 100).toFixed(1) + '%';
+                rowHTML += `<td class="font-bold bg-blue-50 text-pibi-main">${weightPct}</td>`;
+                tr.innerHTML = rowHTML;
+                tbody.appendChild(tr);
+            }
+        }
+
+        // Evaluate Product Suitability
+        function evaluateProduct() {
+            const prodKey = document.getElementById('selectedProduct').value;
+            const product = PRODUCTS[prodKey];
+            if (!product) return;
+
+            let totalWeightedScore = 0;
+            for (let i = 0; i < 5; i++) {
+                totalWeightedScore += weights[i] * product.scores[i];
+            }
+
+            document.getElementById('productScoreText').innerText = `${totalWeightedScore.toFixed(1)} / 100`;
+            document.getElementById('productEvaluationDesc').innerText = `"${product.desc}"`;
+
+            const badge = document.getElementById('productStatusBadge');
+            if (totalWeightedScore >= 80) {
+                badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300";
+                badge.innerText = "Sangat Layak Syariah";
+            } else if (totalWeightedScore >= 60) {
+                badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300";
+                badge.innerText = "Cukup Layak (Perlu Evaluasi)";
+            } else {
+                badge.className = "px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-800 border border-rose-300";
+                badge.innerText = "Tidak Direkomendasikan";
+            }
+        }
+
+        // Initialize Chart.js
+        function initChart() {
+            const ctx = document.getElementById('ahpWeightsChart').getContext('2d');
+            ahpChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: CRITERIA.map(c => c.label),
+                    datasets: [{
+                        label: 'Bobot Prioritas (%)',
+                        data: [20, 20, 20, 20, 20],
+                        backgroundColor: CRITERIA.map(c => c.color),
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { min: 0, max: 60, ticks: { callback: v => v + '%' } }
+                    }
+                }
+            });
+        }
+
+        // Presets Handler
+        function applyPreset(presetKey) {
+            let values = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+            if (presetKey === 'pakar_keuangan') {
+                // Din & Mal Paling Utama
+                // Din vs Nafs (3), Din vs Aql (2), Din vs Nasl (4), Din vs Mal (0.5)
+                values = [2, 1, 3, -1, 2, 3, -2, 1, -2, -3];
+            } else if (presetKey === 'pakar_kesehatan') {
+                // Nafs Paling Utama
+                values = [-2, -1, -3, 1, 3, 2, 2, -1, -1, -2];
+            } else if (presetKey === 'pakar_edukasi') {
+                // Aql Paling Utama
+                values = [-1, -3, -2, 1, 3, -1, 2, -2, 1, -2];
+            } else if (presetKey === 'inkonsisten') {
+                // Jawaban Kontradiktif yang memicu CR >= 0.10
+                values = [7, -7, 6, -8, 5, -6, 7, -5, 6, -7];
+            }
+
+            PAIRS.forEach((pair, idx) => {
+                const slider = document.getElementById(`slider_${idx}`);
+                if (slider) {
+                    slider.value = values[idx];
+                    onSliderChange(idx, pair.row, pair.col, values[idx]);
+                }
+            });
+        }
+
+        function resetToDefault() {
+            document.getElementById('presetScenario').value = 'custom';
+            PAIRS.forEach((pair, idx) => {
+                const slider = document.getElementById(`slider_${idx}`);
+                if (slider) {
+                    slider.value = 0;
+                    onSliderChange(idx, pair.row, pair.col, 0);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

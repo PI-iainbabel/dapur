@@ -1,4 +1,4 @@
-export type CategoryId = 'all' | 'combo' | 'decks' | 'visuals' | 'engines' | 'snacks';
+export type CategoryId = 'all' | 'combo' | 'decks' | 'visuals' | 'engines' | 'snacks' | 'pibi';
 
 export interface PortionOption {
   id: 'regular' | 'medium' | 'jumbo';

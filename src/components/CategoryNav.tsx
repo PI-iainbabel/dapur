@@ -16,6 +16,7 @@ interface CategoryItem {
 
 const CATEGORIES: CategoryItem[] = [
   { id: 'all', label: 'Semua Menu', sublabel: 'Daftar Lengkap', emoji: '🍽️' },
+  { id: 'pibi', label: 'Kuliah PIBI', sublabel: 'Psikologi Bisnis Islam', emoji: '🎓' },
   { id: 'combo', label: 'Paket Hemat Combo', sublabel: 'Decoy Bundling', emoji: '🍔' },
   { id: 'decks', label: 'Slide & Deck Utama', sublabel: 'Presentasi', emoji: '🥪' },
   { id: 'visuals', label: 'Pustaka SVG Renyah', sublabel: '42 Diagram', emoji: '🍟' },

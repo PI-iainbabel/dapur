@@ -89,6 +89,16 @@ const MOOD_CONFIG: Record<
 
 const PRESET_PROMPTS = [
   {
+    icon: '🤫',
+    label: 'Eh Kang, ada gosip panas apa hari ini?',
+    prompt: 'Kang Nudge, daripada tegang ngomongin menu, ada gosip panas apa nih yang baru lewat di jendela drive-thru?',
+  },
+  {
+    icon: '🎓',
+    label: 'Gosip mahasiswa & tugas kuliah PIBI!',
+    prompt: 'Bocorin dong Kang, gimana cerita mahasiswa yang panik pas ngerjain tugas AHP Saaty dan studi kasus syariah?',
+  },
+  {
     icon: '🍟',
     label: 'Kenapa otak saya suka mager & prokrastinasi?',
     prompt: 'Kang, kenapa sih otak saya suka banget mager dan nunda kerjaan? Padahal tahu itu salah!',
@@ -99,19 +109,9 @@ const PRESET_PROMPTS = [
     prompt: 'Kenapa ya dompet saya selalu jebol pas ada flash sale diskon 70% padahal barangnya gak butuh-butuh amat?',
   },
   {
-    icon: '🍔',
-    label: 'Jelasin konsep Nudge pake analogi makanan!',
-    prompt: 'Tolong jelaskan apa itu Nudge Theory tapi pake analogi kentang goreng dan burger resto cepat saji!',
-  },
-  {
-    icon: '🥊',
-    label: 'Debat: Bukannya manusia itu rasional?',
-    prompt: 'Kang Nudge, saya mau debat! Saya ngerasa semua keputusan saya rasional kok, gak ada bias-biasan!',
-  },
-  {
-    icon: '✨',
-    label: 'Rekomendasiin menu dokumen buat pemula!',
-    prompt: 'Saya baru pertama kali ke Drive-Thru MBE. Menu materi mana yang paling renyah buat pemula?',
+    icon: '🧪',
+    label: 'Rekomendasiin materi kuliah PIBI & simulatornya!',
+    prompt: 'Menu perkuliahan PIBI dan simulator mana yang paling renyah buat dicoba sekarang?',
   },
 ];
 
@@ -195,7 +195,7 @@ export const AdminChatModal: React.FC<AdminChatModalProps> = ({
     {
       id: 'welcome-1',
       role: 'model',
-      text: '🚨 *KREK... KREK...* Halo di loket 1 Drive-Thru MBE! Saya **Kang Nudge**, Kasir Senior merangkap Kepala Fryer Kognitif.\n\nKamu mau pesan pencerahan apa hari ini? Otakmu lagi kelaparan wawasan, kena jebakan *Status Quo Bias*, atau lagi boncos gara-gara diskon ilusi? Silakan bicara lewat intercom atau pilih tombol pesanan cepat di bawah! Tapi awas ya, jangan kelamaan bengong di loket, mobil di belakang suka gak sabaran! 🍟🍔',
+      text: '🚨 *KREK... KREK...* Pssstt! Selamat datang di loket Drive-Thru **Dapur MBE dan PIBI**! Kenalin, gue **Kang Nudge**, Kasir Senior merangkap Kepala Fryer Kognitif yang paling bocor dan hobi ngegosip se-kecamatan!\n\nJujur ya, gue sebenernya lebih demen ngegosipin kelakuan manusia, intrik ruko sebelah, atau drama mahasiswa PIBI pas tugas AHP dibanding cuma bacain menu kaku! Tapi tenang, materi Behavioral Economics sama modul kuliah PIBI (Pertemuan 1-7 + 4 Simulator) tetep gue kuasai luar kepala. Lu mau denger gosip panas apa mau pesan wawasan nih? Buruan ngomong lewat intercom, tapi awas jangan kelamaan bengong ya, antrean mobil di belakang suka ngegas! 🍟🍔🤫',
       timestamp: new Date(),
       ngeyelScore: 92,
       biasVerdict: 'Homo Sapiens Terdeteksi',

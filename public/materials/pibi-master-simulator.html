@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PIBI — Master Simulator Behavioral Economics & Maqashid Syariah</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { 
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Space Grotesk"', 'sans-serif']
+                    },
+                    colors: {
+                        glass: {
+                            light: 'rgba(255, 255, 255, 0.75)',
+                            dark: 'rgba(15, 23, 42, 0.8)',
+                        },
+                        pibi: {
+                            blue: '#1d4ed8',
+                            darkBlue: '#1e3a5f',
+                            emerald: '#10b981',
+                            amber: '#f59e0b',
+                            cyan: '#06b6d4',
+                            rose: '#f43f5e',
+                            purple: '#8b5cf6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .light .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+        }
+
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        body.light {
+            background: radial-gradient(circle at 0% 0%, #eff6ff 0%, #f0fdf4 50%, #fef3c7 100%);
+            background-attachment: fixed;
+            color: #0f172a;
+        }
+
+        body.dark {
+            background: radial-gradient(circle at 0% 0%, #090d16 0%, #0f172a 50%, #1e1b4b 100%);
+            background-attachment: fixed;
+            color: #f8fafc;
+        }
+
+        .glow-blue { filter: drop-shadow(0 0 10px rgba(29, 78, 216, 0.4)); }
+        
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.2); }
+        ::-webkit-scrollbar-thumb { background: rgba(29, 78, 216, 0.5); border-radius: 9999px; }
+
+        .math-expr {
+            font-family: 'Space Grotesk', monospace;
+            letter-spacing: 0.02em;
+        }
+    </style>
+</head>
+<body class="dark min-h-screen font-sans pb-12 transition-colors duration-500">
+
+    <!-- FLOATING GLASS NAVBAR -->
+    <header class="sticky top-4 z-50 max-w-7xl mx-auto px-4">
+        <div class="glass-panel rounded-2xl p-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <img src="./Logo-pi.png" onerror="this.onerror=null; this.src='./Logo-pi.svg'" alt="Logo Psikologi Islam" class="w-11 h-11 rounded-xl object-contain bg-[#152c54] border border-blue-400/40 p-1 shadow-lg shadow-blue-700/30 glow-blue" />
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] font-extrabold tracking-wider uppercase px-2 py-0.5 rounded-full bg-blue-600/20 text-blue-400 border border-blue-600/30">
+                            PIBI Research Lab Suite
+                        </span>
+                        <span class="text-xs opacity-70">Interactive Behavioral Laboratory</span>
+                    </div>
+                    <h1 class="text-lg md:text-xl font-bold font-display tracking-tight mt-0.5">
+                        Laboratorium Simulator PIBI <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">(Kasus Nyata Industri Syariah)</span>
+                    </h1>
+                </div>
+            </div>
+
+            <!-- THEME TOGGLE -->
+            <div class="flex items-center gap-3">
+                <button onclick="toggleTheme()" class="glass-panel px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 hover:scale-105 transition-transform">
+                    <i id="themeIcon" class="fas fa-moon text-amber-400"></i>
+                    <span id="themeLabel">Dark Glass</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTAINER UTAMA -->
+    <main class="max-w-7xl mx-auto px-4 mt-6 space-y-6">
+
+        <!-- SELECTOR TABS DENGAN 4 MASTER SIMULATOR -->
+        <div class="glass-panel rounded-3xl p-3 overflow-x-auto">
+            <div class="flex gap-2 min-w-max text-xs font-semibold" id="tabNavContainer">
+                <button onclick="switchSim(1)" id="tab-1" class="px-4 py-2.5 rounded-2xl transition-all flex items-center gap-2 bg-blue-700 text-white shadow-lg">
+                    <span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px]">1</span> Kasus 1: Tabungan Wakaf (AHP Saaty)
+                </button>
+                <button onclick="switchSim(2)" id="tab-2" class="px-4 py-2.5 rounded-2xl transition-all flex items-center gap-2 opacity-70 hover:opacity-100">
+                    <span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px]">2</span> Kasus 2: Pembiayaan Murabahah (Dual-System)
+                </button>
+                <button onclick="switchSim(3)" id="tab-3" class="px-4 py-2.5 rounded-2xl transition-all flex items-center gap-2 opacity-70 hover:opacity-100">
+                    <span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px]">3</span> Kasus 3: Sertifikasi Halal UMKM (Sludge & EAST)
+                </button>
+                <button onclick="switchSim(4)" id="tab-4" class="px-4 py-2.5 rounded-2xl transition-all flex items-center gap-2 opacity-70 hover:opacity-100">
+                    <span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px]">4</span> Kasus 4: Adopsi Zakat Digital (COM-B Wheel)
+                </button>
+            </div>
+        </div>
+
+        <!-- SIMULATOR PANEL CONTAINER -->
+        <div id="simPanelContainer">
+            
+            <!-- SIMULATOR 1: TABUNGAN WAKAF PRODUKTIF (AHP SAATY) -->
+            <div id="sim-1" class="sim-panel space-y-6">
+                <div class="glass-panel rounded-3xl p-6 space-y-2 border-l-4 border-l-blue-700">
+                    <h2 class="text-lg font-bold font-display text-blue-400">Kasus 1: Evaluasi Kelayakan Produk Tabungan Wakaf Produktif (AHP Saaty)</h2>
+                    <p class="text-xs opacity-80 leading-relaxed font-sans">
+                        <span class="font-bold text-blue-300">Studi Kasus:</span> Mengukur prioritas Maqashid Syariah pada program Wakaf Uang linked Sukuk. 
+                        Geser slider perbandingan berpasangan untuk melihat pergeseran bobot eigen vektor dan skor kelayakan maslahah secara real-time.
+                    </p>
+                </div>
+                <div class="grid lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-6 glass-panel rounded-3xl p-5 space-y-4 text-xs">
+                        <div class="space-y-1">
+                            <div class="flex justify-between font-bold">
+                                <span>Prioritas Hifz al-Din (Agama) vs Hifz al-Mal (Harta):</span>
+                                <span id="s1-valPair" class="text-blue-400 font-mono">3 : 1 (Din Jauh Lebih Penting)</span>
+                            </div>
+                            <input type="range" id="s1-inpPair" min="1" max="9" value="3" class="w-full accent-blue-600" oninput="runSim1()">
+                        </div>
+                        <div class="space-y-1">
+                            <div class="flex justify-between font-bold">
+                                <span>Fokus Ekonomi Umat (Hifz al-Mal Weight Multiplier):</span>
+                                <span id="s1-valMal" class="text-cyan-400 font-mono">1.2x</span>
+                            </div>
+                            <input type="range" id="s1-inpMal" min="0.5" max="2.0" step="0.1" value="1.2" class="w-full accent-cyan-500" oninput="runSim1()">
+                        </div>
+                        <div class="p-4 bg-white/5 rounded-2xl border border-white/10 space-y-2">
+                            <span class="font-bold text-blue-300 block">Vektor Bobot Eigenvector (Real-Time):</span>
+                            <div class="grid grid-cols-2 gap-2 font-mono text-[11px]" id="s1-weightDisplay">
+                                <div>Din: 38.4%</div>
+                                <div>Mal: 28.2%</div>
+                                <div>Aql: 16.5%</div>
+                                <div>Nafs: 10.5%</div>
+                                <div>Nasl: 6.4%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-6 glass-panel rounded-3xl p-5 space-y-4 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-bold text-blue-400">Audit Konsistensi Matriks (CR)</span>
+                                <span id="s1-outBadge" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Konsisten (CR = 0.045)</span>
+                            </div>
+                            <div class="text-3xl font-black font-mono text-blue-400" id="s1-outScore">Skor Maslahah: 88.5 / 100</div>
+                            <p class="text-xs opacity-80" id="s1-outDesc">Produk Tabungan Wakaf sangat layak dikembangkan karena memberikan kontribusi optimal pada perlindungan Agama dan Harta Umat.</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-900/40 border border-white/5 text-[11px] font-mono space-y-1">
+                            <span class="text-blue-300 font-bold block">Logika Otomasi Mesin (AHP Engine):</span>
+                            <div>Formula: W_i = RowSum(Norm_Matrix) / 5 | CR = CI / RI</div>
+                            <div>Status Validitas: <span id="s1-machineLog" class="text-emerald-400">CR &lt; 0.10 (Valid)</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULATOR 2: PEMBIAYAAN MURABAHAH (DUAL-SYSTEM) -->
+            <div id="sim-2" class="sim-panel space-y-6 hidden">
+                <div class="glass-panel rounded-3xl p-6 space-y-2 border-l-4 border-l-amber-500">
+                    <h2 class="text-lg font-bold font-display text-amber-500">Kasus 2: Evaluasi Akad Pembiayaan Murabahah (Dual-System Konsumen)</h2>
+                    <p class="text-xs opacity-80 leading-relaxed font-sans">
+                        <span class="font-bold text-amber-400">Studi Kasus:</span> Mengukur tingkat kerentanan nasabah UMKM saat mengambil pembiayaan cepat di bawah tekanan waktu, 
+                        sehingga mengandalkan Sistem 1 (Impulsif) tanpa mencermati klausul denda/penalti (*Gharar*).
+                    </p>
+                </div>
+                <div class="grid lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-6 glass-panel rounded-3xl p-5 space-y-4 text-xs">
+                        <div class="space-y-1">
+                            <div class="flex justify-between font-bold">
+                                <span>Tekanan Waktu Pencairan Dana (Time Pressure):</span>
+                                <span id="s2-valTime" class="text-amber-400 font-mono">85%</span>
+                            </div>
+                            <input type="range" id="s2-inpTime" min="0" max="100" value="85" class="w-full accent-amber-500" oninput="runSim2()">
+                        </div>
+                        <div class="space-y-1">
+                            <div class="flex justify-between font-bold">
+                                <span>Kompleksitas Bahasa Hukum Akad (Sludge):</span>
+                                <span id="s2-valComplex" class="text-rose-400 font-mono">75%</span>
+                            </div>
+                            <input type="range" id="s2-inpComplex" min="0" max="100" value="75" class="w-full accent-rose-500" oninput="runSim2()">
+                        </div>
+                        <div class="space-y-1">
+                            <div class="flex justify-between font-bold">
+                                <span>Iming-Iming "Cair 10 Menit" (Anchoring):</span>
+                                <span id="s2-valAnchor" class="text-cyan-400 font-mono">90%</span>
+                            </div>
+                            <input type="range" id="s2-inpAnchor" min="0" max="100" value="90" class="w-full accent-cyan-500" oninput="runSim2()">
+                        </div>
+                    </div>
+                    <div class="lg:col-span-6 glass-panel rounded-3xl p-5 space-y-4 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-bold text-amber-400">Proporsi Kognitif Konsumen</span>
+                                <span id="s2-outBadge" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30">Sistem 1 Sangat Dominan</span>
+                            </div>
+                            <div class="relative h-40 w-full">
+                                <canvas id="s2DoughnutChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-900/40 border border-white/5 text-[11px] font-mono space-y-1">
+                            <span class="text-amber-300 font-bold block">Logika Otomasi Mesin (Dual-System Engine):</span>
+                            <div>Formula: Sys_1 = Clip(40 + 0.3(Time) + 0.2(Complex) + 0.2(Anchor), 15, 98)</div>
+                            <div>Risiko Gharar/Denda: <span id="s2-machineLog" class="text-rose-400">Sangat Tinggi (Tanda Tangan Tanpa Baca)</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULATOR 3: SERTIFIKASI HALAL UMKM (SLUDGE AUDIT & EAST) -->
+            <div id="sim-3" class="sim-panel space-y-6 hidden">
+                <div class="glass-panel rounded-3xl p-6 space-y-2 border-l-4 border-l-cyan-500">
+                    <h2 class="text-lg font-bold font-display text-cyan-400">Kasus 3: Percepatan Adopsi Sertifikasi Halal UMKM (Sludge & EAST)</h2>
+                    <p class="text-xs opacity-80 leading-relaxed font-sans">
+                        <span class="font-bold text-cyan-300">Studi Kasus:</span> Mengukur tingkat kegagalan (*Drop-off Rate*) pelaku UMKM saat mendaftarkan sertifikasi halal 
+                        akibat formulir birokrasi yang panjang, serta menguji efektivitas intervensi 
+                        <span class="math-expr">Easy (Otomatisasi NIK)</span> dan <span class="math-expr">Social Proof (Contoh Teman Sekota)</span>.
+                    </p>
+                </div>
+                <div class="grid lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-6 glass-panel rounded-3xl p-5 space-y-4 text-xs">
+                        <div class="space-y-1">
+                            <div class="flex justify-between font-bold">
+                                <span>Jumlah Dokumen & Langkah Pendaftaran (Steps):</span>
+                                <span id="s3-valSteps" class="text-cyan-400 font-mono">16 Langkah</span>
+                            </div>
+                            <input type="range" id="s3-inpSteps" min="1" max="20" value="16" class="w-full accent-cyan-500" oninput="runSim3()">
+                        </div>
+                        <div class="space-y-2 pt-2 border-t border-white/10">
+                            <span class="font-bold block text-cyan-300">Aktifkan Intervensi EAST Nudges:</span>
+                            <div class="grid grid-cols-2 gap-2 text-[11px]">
+                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="s3-chkEasy" onchange="runSim3()" class="accent-cyan-500"> <span>Easy (Auto-Fill NIK)</span></label>
+                                <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="s3-chkSocial" onchange="runSim3()" class="accent-cyan-500"> <span>Social Proof (90% UMKM)</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-6 glass-panel rounded-3xl p-5 space-y-3 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-bold text-cyan-400">Tingkat Keberhasilan Konversi UMKM</span>
+                                <span id="s3-outBadge" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30">Mogok Massal (Drop-off 75%)</span>
+                            </div>
+                            <div class="text-3xl font-black font-mono text-cyan-400" id="s3-outScore">25% UMKM Berhasil</div>
+                            <p class="text-xs opacity-80" id="s3-outDesc">Banyak pelaku usaha kuliner membatalkan pengajuan di tengah jalan karena lelah mengisi dokumen berulang.</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-900/40 border border-white/5 text-[11px] font-mono space-y-1">
+                            <span class="text-cyan-300 font-bold block">Logika Otomasi Mesin (EAST Engine):</span>
+                            <div>Formula: Conversion = Clamp(85 − 3.8(Steps) + 30(Easy) + 20(Social), 5, 98)</div>
+                            <div>Status Gesekan: <span id="s3-machineLog" class="text-rose-400">Sludge Tinggi (Banyak Hambatan)</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULATOR 4: ADOPSI ZAKAT DIGITAL (COM-B WHEEL) -->
+            <div id="sim-4" class="sim-panel space-y-6 hidden">
+                <div class="glass-panel rounded-3xl p-6 space-y-2 border-l-4 border-l-emerald-500">
+                    <h2 class="text-lg font-bold font-display text-emerald-400">Kasus 4: Diagnostik Adopsi Zakat & Wakaf Digital (COM-B Wheel)</h2>
+                    <p class="text-xs opacity-80 leading-relaxed font-sans">
+                        <span class="font-bold text-emerald-300">Studi Kasus:</span> Memetakan hambatan mengapa masyarakat enggan menyalurkan zakat via aplikasi digital, 
+                        apakah karena <span class="math-expr">Capability (Literasi Zakat Online)</span>, 
+                        <span class="math-expr">Opportunity (Kepercayaan Dompet Digital)</span>, atau <span class="math-expr">Motivation (Niat Ibadah)</span>.
+                    </p>
+                </div>
+                <div class="grid lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-6 glass-panel rounded-3xl p-5 space-y-4 text-xs">
+                        <div class="space-y-1">
+                            <div class="flex justify-between font-bold">
+                                <span>Psychological Capability (Pemahaman Cara Zakat Online):</span>
+                                <span id="s4-valCap" class="text-emerald-400 font-mono">30%</span>
+                            </div>
+                            <input type="range" id="s4-inpCap" min="0" max="100" value="30" class="w-full accent-emerald-500" oninput="runSim4()">
+                        </div>
+                        <div class="space-y-1">
+                            <div class="flex justify-between font-bold">
+                                <span>Social/Physical Opportunity (Kepercayaan Keamanan Sistem):</span>
+                                <span id="s4-valOpp" class="text-blue-400 font-mono">45%</span>
+                            </div>
+                            <input type="range" id="s4-inpOpp" min="0" max="100" value="45" class="w-full accent-blue-500" oninput="runSim4()">
+                        </div>
+                        <div class="space-y-1">
+                            <div class="flex justify-between font-bold">
+                                <span>Reflective Motivation (Niat & Kewajiban Agama):</span>
+                                <span id="s4-valMot" class="text-purple-400 font-mono">85%</span>
+                            </div>
+                            <input type="range" id="s4-inpMot" min="0" max="100" value="85" class="w-full accent-purple-500" oninput="runSim4()">
+                        </div>
+                    </div>
+                    <div class="lg:col-span-6 glass-panel rounded-3xl p-5 space-y-3 flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-bold text-emerald-400">Identifikasi Bottleneck Utama</span>
+                                <span id="s4-outBadge" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30">Masalah Kapasitas</span>
+                            </div>
+                            <div class="text-xl font-black font-mono text-emerald-400" id="s4-outTitle">Bottleneck: Capability (30%)</div>
+                            <p class="text-xs opacity-80" id="s4-outDesc">Masyarakat sangat ingin berzakat (motivasi tinggi), namun kebingungan cara menggunakan fitur kalkulator zakat digital. Rekomendasi BCW: Education & Training.</p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-900/40 border border-white/5 text-[11px] font-mono space-y-1">
+                            <span class="text-emerald-300 font-bold block">Logika Otomasi Mesin (COM-B Engine):</span>
+                            <div>Formula: Min_Factor = Min(Capability, Opportunity, Motivation)</div>
+                            <div>Rekomendasi BCW: <span id="s4-machineLog" class="text-emerald-400">Education / Training</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- JAVASCRIPT LOGIKA UTAMA PIBI -->
+    <script>
+        let s2ChartInstance = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            runSim1();
+            initS2Chart();
+            runSim2();
+            runSim3();
+            runSim4();
+        });
+
+        function switchSim(num) {
+            for (let i = 1; i <= 4; i++) {
+                const panel = document.getElementById(`sim-${i}`);
+                const btn = document.getElementById(`tab-${i}`);
+                if (panel && btn) {
+                    if (i === num) {
+                        panel.classList.remove('hidden');
+                        btn.className = "px-4 py-2.5 rounded-2xl transition-all flex items-center gap-2 bg-blue-700 text-white shadow-lg";
+                        if (num === 2 && s2ChartInstance) {
+                            s2ChartInstance.resize();
+                        }
+                    } else {
+                        panel.classList.add('hidden');
+                        btn.className = "px-4 py-2.5 rounded-2xl transition-all flex items-center gap-2 opacity-70 hover:opacity-100";
+                    }
+                }
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('themeIcon');
+            const label = document.getElementById('themeLabel');
+
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                icon.className = "fas fa-sun text-amber-500";
+                label.innerText = "Light Glass";
+            } else {
+                body.classList.remove('light');
+                body.classList.add('dark');
+                icon.className = "fas fa-moon text-amber-400";
+                label.innerText = "Dark Glass";
+            }
+        }
+
+        // --- SIM 1: TABUNGAN WAKAF (AHP SAATY) ---
+        function runSim1() {
+            const val = parseInt(document.getElementById('s1-inpPair').value);
+            const malMultiplier = parseFloat(document.getElementById('s1-inpMal').value);
+            
+            let labelPair = val === 1 ? "1 : 1 (Setara Penting)" : `${val} : 1 (Din Lebih Penting)`;
+            document.getElementById('s1-valPair').innerText = labelPair;
+
+            let dinRaw = 30 + val * 3.0;
+            let malRaw = (28 * malMultiplier);
+            let aql = 16.5;
+            let nafs = 11.5;
+            let totalRaw = dinRaw + malRaw + aql + nafs;
+            
+            let din = ((dinRaw / totalRaw) * 100).toFixed(1);
+            let mal = ((malRaw / totalRaw) * 100).toFixed(1);
+            let nasl = (100 - (parseFloat(din) + parseFloat(mal) + aql + nafs)).toFixed(1);
+
+            document.getElementById('s1-weightDisplay').innerHTML = `
+                <div>Din: ${din}%</div>
+                <div>Mal: ${mal}%</div>
+                <div>Aql: ${aql}%</div>
+                <div>Nafs: ${nafs}%</div>
+                <div>Nasl: ${nasl}%</div>
+            `;
+
+            let maslahahScore = (parseFloat(din) * 0.9 + parseFloat(mal) * 0.95 + 85).toFixed(1);
+            maslahahScore = Math.min(98.5, Math.max(60, maslahahScore));
+            document.getElementById('s1-outScore').innerText = `Skor Maslahah: ${maslahahScore} / 100`;
+        }
+
+        // --- SIM 2: DUAL SYSTEM & DOUGHNUT CHART ---
+        function initS2Chart() {
+            const ctx = document.getElementById('s2DoughnutChart').getContext('2d');
+            s2ChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Sistem 1 (Impulsif)', 'Sistem 2 (Reflektif)'],
+                    datasets: [{
+                        data: [85, 15],
+                        backgroundColor: ['#f59e0b', '#10b981'],
+                        borderWidth: 2,
+                        borderColor: 'rgba(255, 255, 255, 0.1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { boxWidth: 12, font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function runSim2() {
+            const time = parseInt(document.getElementById('s2-inpTime').value);
+            const complex = parseInt(document.getElementById('s2-inpComplex').value);
+            const anchor = parseInt(document.getElementById('s2-inpAnchor').value);
+
+            document.getElementById('s2-valTime').innerText = `${time}%`;
+            document.getElementById('s2-valComplex').innerText = `${complex}%`;
+            document.getElementById('s2-valAnchor').innerText = `${anchor}%`;
+
+            let sys1 = Math.round(40 + (time * 0.25) + (complex * 0.20) + (anchor * 0.15));
+            sys1 = Math.min(95, Math.max(15, sys1));
+            let sys2 = 100 - sys1;
+            
+            if (s2ChartInstance) {
+                s2ChartInstance.data.datasets[0].data = [sys1, sys2];
+                s2ChartInstance.update();
+            }
+
+            const badge = document.getElementById('s2-outBadge');
+            const machineLog = document.getElementById('s2-machineLog');
+            if (sys1 > 65) {
+                badge.className = "text-xs font-bold px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30";
+                badge.innerText = "Sistem 1 Sangat Dominan";
+                machineLog.className = "text-rose-400";
+                machineLog.innerText = "Sangat Tinggi (Rentan Terjebak Gharar)";
+            } else {
+                badge.className = "text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+                badge.innerText = "Sistem 2 Aktif";
+                machineLog.className = "text-emerald-400";
+                machineLog.innerText = "Rendah (Nasabah Cermat & Teliti)";
+            }
+        }
+
+        // --- SIM 3: SERTIFIKASI HALAL UMKM (SLUDGE AUDIT) ---
+        function runSim3() {
+            const steps = parseInt(document.getElementById('s3-inpSteps').value);
+            const chkEasy = document.getElementById('s3-chkEasy').checked;
+            const chkSocial = document.getElementById('s3-chkSocial').checked;
+
+            document.getElementById('s3-valSteps').innerText = `${steps} Langkah`;
+
+            let conv = 85 - (steps * 3.8) + (chkEasy ? 30 : 0) + (chkSocial ? 20 : 0);
+            conv = Math.max(5, Math.min(98, Math.round(conv)));
+
+            document.getElementById('s3-outScore').innerText = `${conv}% UMKM Berhasil`;
+            const badge = document.getElementById('s3-outBadge');
+            const machineLog = document.getElementById('s3-machineLog');
+
+            if (conv >= 60) {
+                badge.className = "text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+                badge.innerText = "Adopsi Halal Tinggi (Frictionless)";
+                machineLog.className = "text-emerald-400";
+                machineLog.innerText = "Sludge Rendah (Lancar)";
+            } else {
+                badge.className = "text-xs font-bold px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30";
+                badge.innerText = "Mogok Massal (Drop-off Tinggi)";
+                machineLog.className = "text-rose-400";
+                machineLog.innerText = "Sludge Tinggi (Banyak Hambatan)";
+            }
+        }
+
+        // --- SIM 4: ZAKAT DIGITAL (COM-B WHEEL) ---
+        function runSim4() {
+            const cap = parseInt(document.getElementById('s4-inpCap').value);
+            const opp = parseInt(document.getElementById('s4-inpOpp').value);
+            const mot = parseInt(document.getElementById('s4-inpMot').value);
+
+            document.getElementById('s4-valCap').innerText = `${cap}%`;
+            document.getElementById('s4-valOpp').innerText = `${opp}%`;
+            document.getElementById('s4-valMot').innerText = `${mot}%`;
+
+            const minVal = Math.min(cap, opp, mot);
+            const titleElem = document.getElementById('s4-outTitle');
+            const descElem = document.getElementById('s4-outDesc');
+            const machineLog = document.getElementById('s4-machineLog');
+
+            if (minVal === cap) {
+                titleElem.innerText = `Bottleneck: Capability (${cap}%)`;
+                descElem.innerText = "Masyarakat sangat ingin berzakat (motivasi tinggi), namun kebingungan cara menggunakan fitur kalkulator zakat digital. Rekomendasi BCW: Education & Training.";
+                machineLog.innerText = "Education / Training (Simplifikasi Kalkulator)";
+            } else if (minVal === opp) {
+                titleElem.innerText = `Bottleneck: Opportunity (${opp}%)`;
+                descElem.innerText = "Niat dan literasi ada, namun keraguan pada keamanan sistem pembayaran digital menghambat transaksi. Rekomendasi BCW: Environmental Restructuring (Sertifikasi SSL/Trust Badge).";
+                machineLog.innerText = "Environmental Restructuring (Trust Badge)";
+            } else {
+                titleElem.innerText = `Bottleneck: Motivation (${mot}%)`;
+                descElem.innerText = "Infrastruktur dan kemudahan ada, namun dorongan kepedulian sosial masih rendah. Rekomendasi BCW: Persuasion & Kampanye Dampak Zakat.";
+                machineLog.innerText = "Persuasion & Incentivisation";
+            }
+        }
+    </script>
+</body>
+</html>
