@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framework Behavioral Insights — Pelengkap Diskusi</title>
+<style>
+  :root {
+    --bg-deep: #0a0e1a;
+    --bg-mid: #131a2e;
+    --bg-panel: rgba(20, 28, 48, 0.72);
+    --border: rgba(120, 160, 200, 0.15);
+    --text: #e8eef7;
+    --text-dim: #94a3b8;
+    --accent: #22d3ee;
+    --accent-2: #38bdf8;
+    --gold: #fbbf24;
+    --green: #34d399;
+    --red: #f87171;
+    --purple: #a78bfa;
+    --pink: #f472b6;
+    --gradient-1: linear-gradient(135deg, #22d3ee 0%, #3b82f6 50%, #a855f7 100%);
+    --gradient-2: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
+    --gradient-3: linear-gradient(135deg, #34d399 0%, #22d3ee 100%);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  #bg-canvas {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0; opacity: 0.5;
+  }
+  .deck { position: relative; width: 100%; height: 100%; z-index: 1; }
+  .slide {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    padding: 80px 100px;
+    opacity: 0; visibility: hidden;
+    transform: scale(0.98) translateY(20px);
+    transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s;
+    pointer-events: none; overflow: hidden;
+  }
+  .slide.active {
+    opacity: 1; visibility: visible;
+    transform: scale(1) translateY(0); pointer-events: auto;
+  }
+  .slide.prev { transform: scale(1.02) translateY(-10px); }
+  .slide-inner { width: 100%; max-width: 1280px; position: relative; z-index: 2; }
+
+  h1 {
+    font-size: clamp(32px, 5vw, 68px);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -2px; margin-bottom: 24px;
+    background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h1 .highlight {
+    background: var(--gradient-1);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: clamp(24px, 3.2vw, 44px);
+    font-weight: 700; line-height: 1.15;
+    letter-spacing: -1px; margin-bottom: 20px; color: #fff;
+  }
+  h3 { font-size: clamp(18px, 1.8vw, 24px); font-weight: 600; margin-bottom: 12px; color: #fff; }
+  p { font-size: clamp(15px, 1.3vw, 18px); line-height: 1.65; color: var(--text-dim); margin-bottom: 16px; max-width: 900px; }
+  .lead { font-size: clamp(18px, 1.8vw, 24px); line-height: 1.5; color: var(--text); font-weight: 400; }
+  .kicker {
+    display: inline-block; font-size: 12px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 20px;
+    padding: 6px 14px; border: 1px solid rgba(34, 211, 238, 0.35);
+    border-radius: 20px; background: rgba(34, 211, 238, 0.08);
+    backdrop-filter: blur(10px);
+  }
+  .text-accent { color: var(--accent); }
+  .text-gold-c { color: var(--gold); }
+  .text-green { color: var(--green); }
+  .text-red { color: var(--red); }
+  .text-pink { color: var(--pink); }
+
+  .glass {
+    background: var(--bg-panel); backdrop-filter: blur(20px);
+    border: 1px solid var(--border); border-radius: 20px;
+    padding: 28px; position: relative; overflow: hidden;
+  }
+  .progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: var(--gradient-1); z-index: 100;
+    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .slide-counter {
+    position: fixed; bottom: 24px; left: 32px;
+    font-family: monospace; font-size: 13px; color: var(--text-dim); z-index: 100;
+  }
+  .slide-counter .current { color: var(--accent); font-weight: 700; }
+  .nav-hint {
+    position: fixed; bottom: 24px; right: 32px;
+    font-size: 12px; color: var(--text-dim); z-index: 100; font-family: monospace;
+  }
+  .nav-hint kbd {
+    display: inline-block; padding: 2px 8px;
+    background: rgba(148, 163, 184, 0.15); border: 1px solid var(--border); border-radius: 4px;
+    color: var(--text);
+  }
+  .east-cross {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 800px; margin: 24px auto 0;
+  }
+  .east-quadrant {
+    padding: 20px; border-radius: 16px; background: var(--bg-panel); border: 2px solid;
+  }
+  .east-quadrant.easy { border-color: rgba(52,211,153,0.4); }
+  .east-quadrant.attractive { border-color: rgba(251,191,36,0.4); }
+  .east-quadrant.social { border-color: rgba(34,211,238,0.4); }
+  .east-quadrant.timely { border-color: rgba(244,114,182,0.4); }
+  .east-q-letter { font-size: 40px; font-weight: 900; line-height: 1; margin-bottom: 6px; }
+  .east-quadrant.easy .east-q-letter { color: var(--green); }
+  .east-quadrant.attractive .east-q-letter { color: var(--gold); }
+  .east-quadrant.social .east-q-letter { color: var(--accent); }
+  .east-quadrant.timely .east-q-letter { color: var(--pink); }
+  .east-q-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .east-q-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .mt-24 { margin-top: 24px; }
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar" style="width: 25%"></div>
+<div class="slide-counter"><span class="current" id="currentSlide">01</span> / <span id="totalSlides">06</span></div>
+<div class="nav-hint">Gunakan tombol <kbd>←</kbd> <kbd>→</kbd> atau klik untuk navigasi</div>
+
+<div class="deck">
+  <!-- Slide 1 -->
+  <section class="slide active" data-slide="1">
+    <div class="slide-inner" style="text-align: center;">
+      <span class="kicker">Framework Behavioral Insights</span>
+      <h1>Panduan Lengkap:<br><span class="highlight">EAST, MINDSPACE, COM-B</span></h1>
+      <p style="margin: 0 auto 30px; max-width: 650px;">Definisi konseptual, lima kerangka kerja utama, dan penerapannya untuk bisnis konvensional dan ekonomi syariah.</p>
+      <div style="display:inline-flex; gap:16px; padding:12px 24px; border-radius:12px; background:rgba(34,211,238,0.1); border:1px solid rgba(34,211,238,0.3); font-size:14px; color:var(--accent);">
+        <span>🧠 Behavioral Science</span>
+        <span>•</span>
+        <span>📊 Behavioral Economics</span>
+        <span>•</span>
+        <span>💡 Behavioral Insights</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 2: EAST -->
+  <section class="slide" data-slide="2">
+    <div class="slide-inner">
+      <span class="kicker">Framework 1: EAST</span>
+      <h2>EAST — <span class="text-green">Easy</span>, <span class="text-gold-c">Attractive</span>, <span class="text-accent">Social</span>, <span class="text-pink">Timely</span></h2>
+      <p>Dari Behavioural Insights Team (BIT UK). 4 prinsip praktis untuk merancang intervensi perilaku yang efektif.</p>
+      <div class="east-cross">
+        <div class="east-quadrant easy">
+          <div class="east-q-letter">E</div>
+          <div class="east-q-title">Easy (Mudah)</div>
+          <div class="east-q-desc">Kurangi friksi kognitif & fisik. Buat opsi default yang menguntungkan pengguna.</div>
+        </div>
+        <div class="east-quadrant attractive">
+          <div class="east-q-letter">A</div>
+          <div class="east-q-title">Attractive (Menarik)</div>
+          <div class="east-q-desc">Tarik perhatian dengan visual menonjol, insentif personal, dan reward yang relevan.</div>
+        </div>
+        <div class="east-quadrant social">
+          <div class="east-q-letter">S</div>
+          <div class="east-q-title">Social (Sosial)</div>
+          <div class="east-q-desc">Tunjukkan norma sosial. Manusia sangat dipengaruhi oleh apa yang dilakukan orang lain.</div>
+        </div>
+        <div class="east-quadrant timely">
+          <div class="east-q-letter">T</div>
+          <div class="east-q-title">Timely (Tepat Waktu)</div>
+          <div class="east-q-desc">Intervensi tepat di saat keputusan dibuat (fresh start, gajian, momen transisi).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 3: COM-B -->
+  <section class="slide" data-slide="3">
+    <div class="slide-inner">
+      <span class="kicker">Framework 2: COM-B Model</span>
+      <h2>COM-B — <span class="text-green">Capability</span>, <span class="text-accent">Opportunity</span>, <span class="text-gold-c">Motivation</span></h2>
+      <p>Susan Michie et al. (2011). Perilaku hanya terjadi jika ketiga pilar ini terpenuhi bersamaan.</p>
+      <div class="grid-3 mt-24">
+        <div class="glass" style="border-color: rgba(52,211,153,0.4);">
+          <h3 style="color: var(--green);">🎯 Capability</h3>
+          <p><strong>Kemampuan Fisik & Psikologis:</strong> Pengetahuan, keterampilan teknis, stamina mental untuk melakukan tindakan.</p>
+        </div>
+        <div class="glass" style="border-color: rgba(34,211,238,0.4);">
+          <h3 style="color: var(--accent);">🌐 Opportunity</h3>
+          <p><strong>Faktor Lingkungan Fisik & Sosial:</strong> Kemudahan akses, sarana prasarana, norma sosial yang mendukung.</p>
+        </div>
+        <div class="glass" style="border-color: rgba(251,191,36,0.4);">
+          <h3 style="color: var(--gold);">💡 Motivation</h3>
+          <p><strong>Motivasi Reflektif & Otomatis:</strong> Nilai-nilai keyakinan, emosi, dorongan naluri, dan kebiasaan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  let cur = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const curEl = document.getElementById('currentSlide');
+  const prog = document.getElementById('progressBar');
+  document.getElementById('totalSlides').textContent = '0' + total;
+
+  function show(idx) {
+    if (idx < 0) idx = 0;
+    if (idx >= total) idx = total - 1;
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === idx);
+    });
+    cur = idx;
+    curEl.textContent = '0' + (cur + 1);
+    prog.style.width = ((cur + 1) / total * 100) + '%';
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') show(cur + 1);
+    if (e.key === 'ArrowLeft') show(cur - 1);
+  });
+  window.addEventListener('click', (e) => {
+    if (e.clientX > window.innerWidth / 2) show(cur + 1);
+    else show(cur - 1);
+  });
+</script>
+</body>
+</html>
